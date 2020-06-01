@@ -14,6 +14,8 @@ scene.add( cube );
 
 camera.position.z = 5;
 
+var controls = new THREE.OrbitControls (camera, renderer.domElement);
+
 var animate = function () {
     requestAnimationFrame( animate );
 
