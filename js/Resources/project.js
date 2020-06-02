@@ -18,11 +18,7 @@ createRoom1(40);
 
 /* ------------------------- SECOND ROOM ------------------------- */
 
-// GRID
-var gridHelper2 = new THREE.GridHelper(20, 20);
-gridHelper2.position.z = 20;
-scene.add(gridHelper2);
-
+createRoom2(40);
 
 var animate = function () {
   requestAnimationFrame(animate);
