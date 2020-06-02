@@ -65,7 +65,8 @@ function createRoom1(gridSize) {
     var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, 180, 0), [materialWall, materialWallB], []);
     scene.add(wall2);
 
-    var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, -90, 0), [materialWall, materialWallH], []);
+    var wall3Door = createHole(8.0, 15.0, 7.5, 0.0);
+    var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, -90, 0), [materialWall, materialWallH], [wall3Door]);
     scene.add(wall3);
 
     var wall4Window = createHole(10.0, 7.0, 7.5, 9.0);

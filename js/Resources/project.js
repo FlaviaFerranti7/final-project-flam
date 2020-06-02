@@ -7,8 +7,10 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize(container.offsetWidth, container.offsetHeight);
 container.appendChild(renderer.domElement); //renderer.domElement is the canvas
 
-camera.position.z = 3;
-//camera.position.y = 15;
+camera.position.x = -1;
+camera.position.y = 10;
+camera.position.z = 55; 
+
 
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 
@@ -19,6 +21,10 @@ createRoom1(40);
 /* ------------------------- SECOND ROOM ------------------------- */
 
 createRoom2(40);
+
+/* --------------------------- HALLWAY --------------------------- */
+
+createHallway(80);
 
 var animate = function () {
   requestAnimationFrame(animate);
