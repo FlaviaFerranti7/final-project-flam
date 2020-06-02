@@ -6,36 +6,53 @@ function createRoom1(gridSize) {
     scene.add(gridHelper);
 
     // MATERIALS
-    const loader = new THREE.TextureLoader();
+    const textureFloor = new THREE.TextureLoader().load('../../images/parquet.jpg');
+    textureFloor.wrapS = THREE.RepeatWrapping;
+    textureFloor.wrapT = THREE.RepeatWrapping;
+    textureFloor.repeat.set( 4, 4 );
+
+    const textureWall = new THREE.TextureLoader().load('../../images/flowers.png');
+    textureWall.wrapS = THREE.RepeatWrapping;
+    textureWall.wrapT = THREE.RepeatWrapping;
+    textureWall.repeat.set( 1.5, 1.5 );
+
+    const textureWall2 = new THREE.TextureLoader().load('../../images/wall.jpg');
+    textureWall2.wrapS = THREE.RepeatWrapping;
+    textureWall2.wrapT = THREE.RepeatWrapping;
+    textureWall2.repeat.set( 1, 1 );
+
     const materialFloor = new THREE.MeshBasicMaterial({
-    map: loader.load('../../images/parquet.jpg'),
+    map: textureFloor,
+    side: THREE.DoubleSide,
     });
-    const materialWall1 = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide });
-    const materialWall2 = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.DoubleSide });
-    const materialWall3 = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
-    const materialWall4 = new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide });
-    const materialRoof = new THREE.MeshBasicMaterial({ color: 0xff00ff, side: THREE.DoubleSide });
+
+    const materialWall = new THREE.MeshBasicMaterial({
+    map: textureWall, textureWall2,
+    side: THREE.DoubleSide,
+    });
+
+    const materialRoof = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
 
     // parquet
     var floor = createPlane(size, size, undefined, new THREE.Vector3(-90, 0, 0), materialFloor);
     scene.add(floor);
 
     // yellow
-    var door = createHole(5.0, 10.0, 7.5, 0.0);
-    var wall1 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0), undefined, materialWall1, [door]);
+    var door = createHole(8.0, 15.0, 7.5, 0.0);
+    var wall1 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0), undefined, materialWall, [door]);
     scene.add(wall1);
 
     // blue
-    var wall2 = createPlane(size, size / 2, new THREE.Vector3(0.0, size / 4.0, -size / 2.0), undefined, materialWall2);
+    var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, -size / 2.0), undefined, materialWall, []);
     scene.add(wall2);
 
     // red
-    var wall3 = createPlane(size, size / 2, new THREE.Vector3(-size / 2.0, size / 4.0, 0.0),new THREE.Vector3(0, 90, 0), materialWall3);
+    var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0),new THREE.Vector3(0, 90, 0), materialWall, []);
     scene.add(wall3);
 
     // cyan
-    var wall4Window = createHole(5.0, 5.0, 7.5, 7.5);
-    var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, size / 2.0), new THREE.Vector3(0, 90, 0), materialWall4, [wall4Window]);
+    var wall4Window = createHole(10.0, 7.0, 7.5, 9.0);
+    var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, size / 2.0), new THREE.Vector3(0, 90, 0), materialWall, [wall4Window]);
     scene.add(wall4);
 
     // purple

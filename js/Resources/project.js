@@ -7,7 +7,8 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize(container.offsetWidth, container.offsetHeight);
 container.appendChild(renderer.domElement); //renderer.domElement is the canvas
 
-camera.position.z = 5;
+camera.position.z = 3;
+camera.position.y = 15;
 
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 
