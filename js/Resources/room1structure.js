@@ -32,30 +32,33 @@ function createRoom1(gridSize) {
     });
 
     const materialRoof = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+    const materialWall1 = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.FrontSide });
+    const materialWall2 = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.BackSide });
 
     // parquet
-    var floor = createPlane(size, size, undefined, new THREE.Vector3(-90, 0, 0), materialFloor);
+
+    var floor = createPlane(size, size, undefined, new THREE.Vector3(-90, 0, 0), [materialFloor]);
     scene.add(floor);
 
     // yellow
     var door = createHole(8.0, 15.0, 7.5, 0.0);
-    var wall1 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0), undefined, materialWall, [door]);
+    var wall1 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0), undefined, [materialWall], [door]);
     scene.add(wall1);
 
     // blue
-    var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, -size / 2.0), undefined, materialWall, []);
+    var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, -size / 2.0), undefined, [materialWall], []);
     scene.add(wall2);
 
     // red
-    var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0),new THREE.Vector3(0, 90, 0), materialWall, []);
+    var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0),new THREE.Vector3(0, 90, 0), [materialWall], []);
     scene.add(wall3);
 
     // cyan
     var wall4Window = createHole(10.0, 7.0, 7.5, 9.0);
-    var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, size / 2.0), new THREE.Vector3(0, 90, 0), materialWall, [wall4Window]);
+    var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, size / 2.0), new THREE.Vector3(0, 90, 0), [materialWall], [wall4Window]);
     scene.add(wall4);
 
     // purple
-    var roof = createPlane(size, size, new THREE.Vector3(0.0, size / 2, 0.0), new THREE.Vector3(90, 0, 0), materialRoof);
+    var roof = createPlane(size, size, new THREE.Vector3(0.0, size / 2, 0.0), new THREE.Vector3(90, 0, 0), [materialRoof]);
     scene.add(roof);
 }

@@ -5,9 +5,18 @@ function degToRad(angle_degrees) {
 function createPlane(width, height, 
     pos = new THREE.Vector3(0.0, 0.0, 0.0), 
     rot = new THREE.Vector3(0.0, 0.0, 0.0), 
-    material) {
+    materials) {
     var planeGeometry = new THREE.PlaneGeometry(width, height);
-    var plane = new THREE.Mesh(planeGeometry, material);
+    
+
+    var plane = null;
+
+    if(materials.length > 1) {
+        plane = THREE.SceneUtils.createMultiMaterialObject(planeGeometry, materials);
+    } else {
+        plane = new THREE.Mesh(planeGeometry, materials[0]);
+    }
+
     plane.position.x = pos.x;
     plane.position.y = pos.y;
     plane.position.z = pos.z;
@@ -21,7 +30,7 @@ function createPlane(width, height,
 function createShape(initialPoint, heightY, heightX,
     pos = new THREE.Vector3(0.0, 0.0, 0.0), 
     rot = new THREE.Vector3(0.0, 0.0, 0.0), 
-    material,
+    materials,
     holes) {
 
     var shape = new THREE.Shape();
@@ -34,8 +43,13 @@ function createShape(initialPoint, heightY, heightX,
         shape.holes.push(holes[i]);
     }
 
-    var shapeGeometry = new THREE.ShapeGeometry(shape)
-    var plane = new THREE.Mesh(shapeGeometry, material);
+    var shapeGeometry = new THREE.ShapeGeometry(shape);
+    var plane = null;
+    if(materials.length > 1) {
+        plane = THREE.SceneUtils.createMultiMaterialObject(shapeGeometry, materials);
+    } else {
+        plane = new THREE.Mesh(shapeGeometry, materials[0]);
+    }
     plane.position.x = pos.x;
     plane.position.y = pos.y;
     plane.position.z = pos.z;
