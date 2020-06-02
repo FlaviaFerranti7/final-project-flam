@@ -22,23 +22,23 @@ function createRoom1(gridSize) {
 
     // yellow
     var door = createHole(5.0, 10.0, 7.5, 0.0);
-    var wall1 = createShape(0.0, 20.0, new THREE.Vector3(-10.0, 0.0, 10.0), undefined, materialWall1, [door]);
+    var wall1 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0), undefined, materialWall1, [door]);
     scene.add(wall1);
 
     // blue
-    var wall2 = createPlane(size, size, new THREE.Vector3(0.0, 10.0, -10.0), undefined, materialWall2);
+    var wall2 = createPlane(size, size / 2, new THREE.Vector3(0.0, size / 4.0, -size / 2.0), undefined, materialWall2);
     scene.add(wall2);
 
     // red
-    var wall3 = createPlane(size, size, new THREE.Vector3(-10.0, 10.0, 0.0),new THREE.Vector3(0, 90, 0), materialWall3);
+    var wall3 = createPlane(size, size / 2, new THREE.Vector3(-size / 2.0, size / 4.0, 0.0),new THREE.Vector3(0, 90, 0), materialWall3);
     scene.add(wall3);
 
     // cyan
     var wall4Window = createHole(5.0, 5.0, 7.5, 7.5);
-    var wall4 = createShape(0.0, size, new THREE.Vector3(10.0, 0.0, 10.0), new THREE.Vector3(0, 90, 0), materialWall4, [wall4Window]);
+    var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, size / 2.0), new THREE.Vector3(0, 90, 0), materialWall4, [wall4Window]);
     scene.add(wall4);
 
     // purple
-    var roof = createPlane(size, size, new THREE.Vector3(0.0, 20.0, 0.0), new THREE.Vector3(90, 0, 0), materialRoof);
+    var roof = createPlane(size, size, new THREE.Vector3(0.0, size / 2, 0.0), new THREE.Vector3(90, 0, 0), materialRoof);
     scene.add(roof);
 }

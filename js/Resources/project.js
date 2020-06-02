@@ -13,7 +13,7 @@ var controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 /* ------------------------- FIRST ROOM ------------------------- */
 
-createRoom1(20);
+createRoom1(40);
 
 /* ------------------------- SECOND ROOM ------------------------- */
 

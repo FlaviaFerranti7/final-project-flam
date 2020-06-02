@@ -18,7 +18,7 @@ function createPlane(width, height,
     return plane;
 }
 
-function createShape(initialPoint, finalPoint,
+function createShape(initialPoint, heightY, heightX,
     pos = new THREE.Vector3(0.0, 0.0, 0.0), 
     rot = new THREE.Vector3(0.0, 0.0, 0.0), 
     material,
@@ -26,9 +26,9 @@ function createShape(initialPoint, finalPoint,
 
     var shape = new THREE.Shape();
     shape.moveTo(initialPoint, initialPoint);
-    shape.lineTo(finalPoint, initialPoint);
-    shape.lineTo(finalPoint, finalPoint);
-    shape.lineTo(initialPoint, finalPoint);
+    shape.lineTo(heightX, initialPoint);
+    shape.lineTo(heightX, heightY);
+    shape.lineTo(initialPoint, heightY);
 
     for( var i = 0; i < holes.length; i ++) {
         shape.holes.push(holes[i]);
