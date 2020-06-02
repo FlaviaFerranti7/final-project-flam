@@ -11,88 +11,55 @@ camera.position.z = 5;
 
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-//first room
+/* ------------------------- FIRST ROOM ------------------------- */
 
+// GRID
 var size = 20;
 var divisions = 20;
 var gridHelper = new THREE.GridHelper(size, divisions);
 scene.add(gridHelper);
 
+// MATERIALS
 const loader = new THREE.TextureLoader();
-const materialPlane = new THREE.MeshBasicMaterial({
+const materialFloor = new THREE.MeshBasicMaterial({
   map: loader.load('../../images/parquet.jpg'),
 });
+const materialWall1 = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide });
+const materialWall2 = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.DoubleSide });
+const materialWall3 = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
+const materialWall4 = new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide });
+const materialRoof = new THREE.MeshBasicMaterial({ color: 0xff00ff, side: THREE.DoubleSide });
 
-var planeGeometry = new THREE.PlaneGeometry(20, 20);
-var plane = new THREE.Mesh(planeGeometry, materialPlane);
-plane.rotateX(-1.57);
-scene.add(plane);
-
-var wallGeometry = new THREE.PlaneGeometry(20, 20);
+// parquet
+var floor = createPlane(size, size, undefined, new THREE.Vector3(-90, 0, 0), materialFloor);
+scene.add(floor);
 
 // yellow
-var materialWall1 = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide });
-var wall1 = new THREE.Shape();
-wall1.moveTo(0, 0);
-wall1.lineTo(20, 0);
-wall1.lineTo(20, 20);
-wall1.lineTo(0, 20);
-
-var door = new THREE.Path();
-door.moveTo(7.5, 0);
-door.lineTo(12.5, 0);
-door.lineTo(12.5, 10);
-door.lineTo(7.5, 10);
-
-wall1.holes.push(door);
-var meshWall1Door = new THREE.Mesh(new THREE.ShapeGeometry(wall1), materialWall1);
-meshWall1Door.position.x = -10;
-meshWall1Door.position.z = 10;
-scene.add(meshWall1Door);
+var door = createHole(5.0, 10.0, 7.5, 0.0);
+var wall1 = createShape(0.0, 20.0, new THREE.Vector3(-10.0, 0.0, 10.0), undefined, materialWall1, [door]);
+scene.add(wall1);
 
 // blue
-var materialWall2 = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.DoubleSide });
-var wall2 = new THREE.Mesh(wallGeometry, materialWall2);
-wall2.position.z = -10;
-wall2.position.y = 10;
+var wall2 = createPlane(size, size, new THREE.Vector3(0.0, 10.0, -10.0), undefined, materialWall2);
 scene.add(wall2);
 
 // red
-var materialWall3 = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
-var wall3 = new THREE.Mesh(wallGeometry, materialWall3);
-wall3.rotateY(1.57);
-wall3.position.x = -10;
-wall3.position.y = 10;
+var wall3 = createPlane(size, size, new THREE.Vector3(-10.0, 10.0, 0.0),new THREE.Vector3(0, 90, 0), materialWall3);
 scene.add(wall3);
 
-// turquoise
-var materialWall4 = new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide });
-var wall4 = new THREE.Shape();
-wall4.moveTo(0, 0);
-wall4.lineTo(20, 0);
-wall4.lineTo(20, 20);
-wall4.lineTo(0, 20);
+// cyan
+var wall4Window = createHole(5.0, 5.0, 7.5, 7.5);
+var wall4 = createShape(0.0, size, new THREE.Vector3(10.0, 0.0, 10.0), new THREE.Vector3(0, 90, 0), materialWall4, [wall4Window]);
+scene.add(wall4);
 
-var windowpane = new THREE.Path();
-windowpane.moveTo(7.5, 7.5);
-windowpane.lineTo(12.5, 7.5);
-windowpane.lineTo(12.5, 12.5);
-windowpane.lineTo(7.5, 12.5);
-
-wall4.holes.push(windowpane);
-var meshWall4Window = new THREE.Mesh(new THREE.ShapeGeometry(wall4), materialWall4);
-meshWall4Window.rotateY(1.57);
-meshWall4Window.position.x = 10;
-meshWall4Window.position.z = 10;
-scene.add(meshWall4Window);
-
-var materialRoof = new THREE.MeshBasicMaterial({ color: 0xff00ff, side: THREE.DoubleSide });
-var roof = new THREE.Mesh(planeGeometry, materialRoof);
-roof.rotateX(1.57);
-roof.position.y = 20;
+// purple
+var roof = createPlane(size, size, new THREE.Vector3(0.0, 20.0, 0.0), new THREE.Vector3(90, 0, 0), materialRoof);
 scene.add(roof);
 
-//second room
+
+/* ------------------------- SECOND ROOM ------------------------- */
+
+// GRID
 var gridHelper2 = new THREE.GridHelper(size, divisions);
 gridHelper2.position.z = 20;
 scene.add(gridHelper2);
