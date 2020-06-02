@@ -32,10 +32,23 @@ var wallGeometry = new THREE.PlaneGeometry(20, 20);
 
 // yellow
 var materialWall1 = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide });
-var wall1 = new THREE.Mesh(wallGeometry, materialWall1);
-wall1.position.z = 10;
-wall1.position.y = 10;
-scene.add(wall1);
+var wall1 = new THREE.Shape();
+wall1.moveTo(0, 0);
+wall1.lineTo(20, 0);
+wall1.lineTo(20, 20);
+wall1.lineTo(0, 20);
+
+var door = new THREE.Path();
+door.moveTo(7.5, 0);
+door.lineTo(12.5, 0);
+door.lineTo(12.5, 10);
+door.lineTo(7.5, 10);
+
+wall1.holes.push(door);
+var meshWall1Door = new THREE.Mesh(new THREE.ShapeGeometry(wall1), materialWall1);
+meshWall1Door.position.x = -10;
+meshWall1Door.position.z = 10;
+scene.add(meshWall1Door);
 
 // blue
 var materialWall2 = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.DoubleSide });
@@ -53,13 +66,13 @@ wall3.position.y = 10;
 scene.add(wall3);
 
 // turquoise
+var materialWall4 = new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide });
 var wall4 = new THREE.Shape();
 wall4.moveTo(0, 0);
 wall4.lineTo(20, 0);
 wall4.lineTo(20, 20);
 wall4.lineTo(0, 20);
 
-var materialWindow = new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide });
 var windowpane = new THREE.Path();
 windowpane.moveTo(7.5, 7.5);
 windowpane.lineTo(12.5, 7.5);
@@ -67,11 +80,11 @@ windowpane.lineTo(12.5, 12.5);
 windowpane.lineTo(7.5, 12.5);
 
 wall4.holes.push(windowpane);
-var mesh = new THREE.Mesh(new THREE.ShapeGeometry(wall4), materialWindow);
-mesh.rotateY(1.57);
-mesh.position.x = 10;
-mesh.position.z = 10;
-scene.add(mesh);
+var meshWall4Window = new THREE.Mesh(new THREE.ShapeGeometry(wall4), materialWall4);
+meshWall4Window.rotateY(1.57);
+meshWall4Window.position.x = 10;
+meshWall4Window.position.z = 10;
+scene.add(meshWall4Window);
 
 var materialRoof = new THREE.MeshBasicMaterial({ color: 0xff00ff, side: THREE.DoubleSide });
 var roof = new THREE.Mesh(planeGeometry, materialRoof);
