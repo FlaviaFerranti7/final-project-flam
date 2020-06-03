@@ -13,7 +13,7 @@ function createRoom2(gridSize) {
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
 
-    const materialFloor = new THREE.MeshBasicMaterial({
+    const materialFloor = new THREE.MeshLambertMaterial({
         map: textureFloor,
         side: THREE.DoubleSide,
     });
@@ -23,7 +23,7 @@ function createRoom2(gridSize) {
     textureWall.wrapT = THREE.RepeatWrapping;
     textureWall.repeat.set(4, 4);
 
-    const materialWall = new THREE.MeshBasicMaterial({
+    const materialWall = new THREE.MeshLambertMaterial({
         map: textureWall,
         side: THREE.BackSide,
     });
@@ -33,7 +33,7 @@ function createRoom2(gridSize) {
     textureWallB.wrapT = THREE.RepeatWrapping;
     textureWallB.repeat.set(0.3, 0.3);
 
-    const materialWallB = new THREE.MeshBasicMaterial({
+    const materialWallB = new THREE.MeshLambertMaterial({
         map: textureWallB,
     });
 
@@ -42,12 +42,12 @@ function createRoom2(gridSize) {
     textureWallH.wrapT = THREE.RepeatWrapping;
     textureWallH.repeat.set(4, 4);
 
-    const materialWallH = new THREE.MeshBasicMaterial({
+    const materialWallH = new THREE.MeshLambertMaterial({
         map: textureWallH,
     });
 
 
-    const materialRoof = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.BackSide });
+    const materialRoof = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var floor = createPlane(size, size, new THREE.Vector3(0.0, 0.0, size), new THREE.Vector3(-90, 0, 0), [materialFloor]);
     scene.add(floor);
@@ -55,7 +55,7 @@ function createRoom2(gridSize) {
     var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, 1.5 * size), undefined, [materialWall, materialWallB], []);
     scene.add(wall2);
 
-    var wall3Door = createHole(8.0, 15.0, 25.0 , 0.0);
+    var wall3Door = createHole(8.0, 15.0, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, 0.5 * size), new THREE.Vector3(0, -90, 0), [materialWall, materialWallH], [wall3Door]);
     scene.add(wall3);
 

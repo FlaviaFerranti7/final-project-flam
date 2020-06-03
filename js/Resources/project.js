@@ -7,12 +7,21 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize(container.offsetWidth, container.offsetHeight);
 container.appendChild(renderer.domElement); //renderer.domElement is the canvas
 
-camera.position.x = -1;
-camera.position.y = 10;
-camera.position.z = 55; 
+camera.position.set(1, 10, 55);
 
 
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 5, 0);
+controls.update();
+
+/* --------------------------- LIGHTS --------------------------- */
+const color = 0x404040;
+const intensity = 1;
+const light = new THREE.AmbientLight(color, intensity);
+
+/*const gui = new dat.GUI();
+gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
+gui.add(light, 'intensity', 0, 2, 0.01);*/
 
 /* ------------------------- FIRST ROOM ------------------------- */
 
@@ -25,6 +34,9 @@ createRoom2(40);
 /* --------------------------- HALLWAY --------------------------- */
 
 createHallway(80);
+
+scene.add(light);
+
 
 var animate = function () {
   requestAnimationFrame(animate);
