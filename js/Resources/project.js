@@ -28,8 +28,10 @@ gui.add(light, 'intensity', 0, 2, 0.01);*/
 const colorDirectional = 0xFFFFFF;
 const intensityDirectional = 0.3;
 const lightDirectional = new THREE.DirectionalLight(colorDirectional, intensityDirectional);
+const helperDirectional = new THREE.DirectionalLightHelper(lightDirectional);
 lightDirectional.position.set(90, 60, 50);
 lightDirectional.target.position.set(-5, 0, 0);
+
 
 /*const gui = new GUI();
 gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
@@ -38,7 +40,16 @@ gui.add(light.target.position, 'x', -10, 10);
 gui.add(light.target.position, 'z', -10, 10);
 gui.add(light.target.position, 'y', 0, 10);*/
 
-const helper = new THREE.DirectionalLightHelper(lightDirectional);
+
+/* ------------------------- SPOTLIGHT -------------------------- */
+
+const colorSpotlight = 0xFFFFFF;
+const intensitySpotlight = 1;
+const spotlight = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
+const helperSpotlight = new THREE.SpotLightHelper(spotlight);
+spotlight.position.set(0, 20, 40);
+spotlight.target.position.set(0, 0, 0);
+
 
 /* ------------------------- FIRST ROOM ------------------------- */
 
@@ -55,7 +66,10 @@ createHallway(80);
 scene.add(lightAmbient);
 scene.add(lightDirectional);
 scene.add(lightDirectional.target);
-scene.add(helper);
+scene.add(helperDirectional);
+scene.add(spotlight);
+scene.add(spotlight.target);
+scene.add(helperSpotlight);
 
 
 var animate = function () {
