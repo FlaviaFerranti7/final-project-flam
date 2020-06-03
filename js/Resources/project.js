@@ -14,14 +14,31 @@ var controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 5, 0);
 controls.update();
 
-/* --------------------------- LIGHTS --------------------------- */
-const color = 0x404040;
-const intensity = 1;
-const light = new THREE.AmbientLight(color, intensity);
+/* ----------------------- AMBIENT LIGHTS ----------------------- */
+const colorAmbient = 0x404040;
+const intensityAmbient = 1;
+const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 /*const gui = new dat.GUI();
 gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
 gui.add(light, 'intensity', 0, 2, 0.01);*/
+
+/* --------------------- DIRECTIONAL LIGHTS --------------------- */
+
+const colorDirectional = 0xFFFFFF;
+const intensityDirectional = 0.3;
+const lightDirectional = new THREE.DirectionalLight(colorDirectional, intensityDirectional);
+lightDirectional.position.set(90, 60, 50);
+lightDirectional.target.position.set(-5, 0, 0);
+
+/*const gui = new GUI();
+gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
+gui.add(light, 'intensity', 0, 2, 0.01);
+gui.add(light.target.position, 'x', -10, 10);
+gui.add(light.target.position, 'z', -10, 10);
+gui.add(light.target.position, 'y', 0, 10);*/
+
+const helper = new THREE.DirectionalLightHelper(lightDirectional);
 
 /* ------------------------- FIRST ROOM ------------------------- */
 
@@ -35,7 +52,10 @@ createRoom2(40);
 
 createHallway(80);
 
-scene.add(light);
+scene.add(lightAmbient);
+scene.add(lightDirectional);
+scene.add(lightDirectional.target);
+scene.add(helper);
 
 
 var animate = function () {
