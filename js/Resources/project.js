@@ -67,9 +67,11 @@ scene.add(lightAmbient);
 scene.add(lightDirectional);
 scene.add(lightDirectional.target);
 scene.add(helperDirectional);
+/*
 scene.add(spotlight);
 scene.add(spotlight.target);
 scene.add(helperSpotlight);
+*/
 
 
 var animate = function () {

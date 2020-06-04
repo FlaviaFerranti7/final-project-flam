@@ -76,22 +76,24 @@ function createRoom1(gridSize) {
     var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, size / 2), new THREE.Vector3(270, 0, 0), [materialRoof, materialWallB], []);
     scene.add(roof);
 
-    // OBJECT
-    var m = null;
-    const mtlLoader = new THREE.MTLLoader();
-    mtlLoader.setPath( '../../model3D/Door/' );
-    mtlLoader.load( 'Door.mtl', function (materials) {
+    var mtlLoader = new THREE.MTLLoader();
+    mtlLoader.setPath( "../../model3D/Door2/" );
+    mtlLoader.load( '10057_wooden_door_v3_iterations-2.mtl', function( materials ) {
+
         materials.preload();
-        const objLoader = new THREE.OBJLoader();
+
+        var objLoader = new THREE.OBJLoader();
         objLoader.setMaterials( materials );
-        objLoader.setPath( '../../model3D/Door/' );
-        objLoader.load('Door.obj', function(object) {
-            m = object;
-            m.position.y = 5;
-            //m.scale.set(0,1,1);
-            scene.add(m);
-        });
-    });
+        objLoader.setPath( "../../model3D/Door2/" );
+        objLoader.load( '10057_wooden_door_v3_iterations-2.obj', function ( object ) {
+            object.position.y = 0.0;
+            object.position.x = -20;
+            object.position.z = -8.5;
+            object.scale.set(0.09, 0.1, 0.075);
+            object.rotateX(degToRad(-90));
+            object.rotateZ(degToRad(90));
+            scene.add( object );
 
-
+        } );
+    } );
 }
