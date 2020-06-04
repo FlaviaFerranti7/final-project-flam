@@ -75,4 +75,23 @@ function createRoom1(gridSize) {
 
     var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, size / 2), new THREE.Vector3(270, 0, 0), [materialRoof, materialWallB], []);
     scene.add(roof);
+
+    // OBJECT
+    var m = null;
+    const mtlLoader = new THREE.MTLLoader();
+    mtlLoader.setPath( '../../model3D/Door/' );
+    mtlLoader.load( 'Door.mtl', function (materials) {
+        materials.preload();
+        const objLoader = new THREE.OBJLoader();
+        objLoader.setMaterials( materials );
+        objLoader.setPath( '../../model3D/Door/' );
+        objLoader.load('Door.obj', function(object) {
+            m = object;
+            m.position.y = 5;
+            //m.scale.set(0,1,1);
+            scene.add(m);
+        });
+    });
+
+
 }
