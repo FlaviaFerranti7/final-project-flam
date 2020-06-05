@@ -24,6 +24,9 @@ function createPlane(width, height,
     plane.rotateX(degToRad(rot.x));
     plane.rotateY(degToRad(rot.y));
     plane.rotateZ(degToRad(rot.z));
+    
+    plane.receiveShadow = true;
+
     return plane;
 }
 
@@ -56,7 +59,7 @@ function createShape(initialPoint, heightY, heightX,
 
     plane.rotateX(degToRad(rot.x));
     plane.rotateY(degToRad(rot.y));
-    plane.rotateZ(degToRad(rot.z));    
+    plane.rotateZ(degToRad(rot.z));  
 
     return plane;
 }

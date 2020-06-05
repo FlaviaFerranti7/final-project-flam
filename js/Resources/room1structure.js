@@ -53,16 +53,24 @@ function createRoom1(gridSize) {
         map: textureWallH,
     });
 
+    var planeMaterial = new THREE.ShadowMaterial();
+    planeMaterial.opacity = 0.2;
+
     const materialRoof = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var floor = createPlane(size, size, undefined, new THREE.Vector3(-90, 0, 0), [materialFloor]);
     scene.add(floor);
+
+    var plane = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, -90, 0), [materialFloor], []);
+    plane.castShadow = true;
+    scene.add(plane);
 
     var door = createHole(8.0, 15.0, 7.5, 0.0);
     var wall1 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0), undefined, [materialWall, materialWallP], [door]);
     scene.add(wall1);
 
     var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, 180, 0), [materialWall, materialWallB], []);
+    
     scene.add(wall2);
 
     var wall3Door = createHole(8.0, 15.0, 7.5, 0.0);
@@ -71,6 +79,7 @@ function createRoom1(gridSize) {
 
     var wall4Window = createHole(10.0, 7.0, 7.5, 9.0);
     var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, size / 2.0), new THREE.Vector3(0, 90, 0), [materialWall, materialWallB], [wall4Window]);
+    wall4.castShadow = true;
     scene.add(wall4);
 
     var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, size / 2), new THREE.Vector3(270, 0, 0), [materialRoof, materialWallB], []);
