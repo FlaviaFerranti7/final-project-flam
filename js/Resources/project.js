@@ -20,7 +20,7 @@ controls.target.set(0, 5, 0);
 controls.update();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
-const colorAmbient = 0x404040;
+const colorAmbient = 0x303030;
 const intensityAmbient = 1;
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 

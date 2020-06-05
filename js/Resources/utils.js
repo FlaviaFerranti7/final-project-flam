@@ -12,9 +12,20 @@ function createPlane(width, height,
     var plane = null;
 
     if(materials.length > 1) {
-        plane = THREE.SceneUtils.createMultiMaterialObject(planeGeometry, materials);
+        var group = new THREE.Group();
+
+		for ( var i = 0; i < materials.length; i ++ ) {
+            var elem = new THREE.Mesh( shapeGeometry, materials[i]);
+            elem.castShadow = true;
+            elem.receiveShadow = true;
+			group.add( elem );
+		}
+
+        plane = group;
     } else {
         plane = new THREE.Mesh(planeGeometry, materials[0]);
+        plane.castShadow = true;
+        plane.receiveShadow = true;
     }
 
     plane.position.x = pos.x;
@@ -24,8 +35,6 @@ function createPlane(width, height,
     plane.rotateX(degToRad(rot.x));
     plane.rotateY(degToRad(rot.y));
     plane.rotateZ(degToRad(rot.z));
-    
-    plane.receiveShadow = true;
 
     return plane;
 }
@@ -49,9 +58,20 @@ function createShape(initialPoint, heightY, heightX,
     var shapeGeometry = new THREE.ShapeGeometry(shape);
     var plane = null;
     if(materials.length > 1) {
-        plane = THREE.SceneUtils.createMultiMaterialObject(shapeGeometry, materials);
+        var group = new THREE.Group();
+
+		for ( var i = 0; i < materials.length; i ++ ) {
+            var elem = new THREE.Mesh( shapeGeometry, materials[i]);
+            elem.castShadow = true;
+            elem.receiveShadow = true;
+			group.add( elem );
+		}
+
+        plane = group;
     } else {
         plane = new THREE.Mesh(shapeGeometry, materials[0]);
+        plane.castShadow = true;
+        plane.receiveShadow = true;
     }
     plane.position.x = pos.x;
     plane.position.y = pos.y;
@@ -60,6 +80,9 @@ function createShape(initialPoint, heightY, heightX,
     plane.rotateX(degToRad(rot.x));
     plane.rotateY(degToRad(rot.y));
     plane.rotateZ(degToRad(rot.z));  
+
+    plane.castShadow = true;
+    plane.receiveShadow = true;
 
     return plane;
 }
