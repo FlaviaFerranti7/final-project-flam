@@ -15,7 +15,7 @@ function createHallway(gridSize) {
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
 
-    const materialFloor = new THREE.MeshLambertMaterial({
+    const materialFloor = new THREE.MeshPhongMaterial({
         map: textureFloor,
         side: THREE.DoubleSide,
     });
@@ -25,7 +25,7 @@ function createHallway(gridSize) {
     textureWallB.wrapT = THREE.RepeatWrapping;
     textureWallB.repeat.set(0.3, 0.3);
 
-    const materialWallB = new THREE.MeshLambertMaterial({
+    const materialWallB = new THREE.MeshPhongMaterial({
         map: textureWallB,
     });
 
@@ -34,13 +34,13 @@ function createHallway(gridSize) {
     textureWallH.wrapT = THREE.RepeatWrapping;
     textureWallH.repeat.set(4, 4);
 
-    const materialWallH = new THREE.MeshLambertMaterial({
+    const materialWallH = new THREE.MeshPhongMaterial({
         map: textureWallH,
         side: THREE.BackSide,
     });
 
 
-    const materialRoof = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.BackSide });
+    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var floor = createPlane(size / 4, size, new THREE.Vector3(-size / 2.67, 0.0, size / 4), new THREE.Vector3(-90, 0, 0), [materialFloor]);
     scene.add(floor);
@@ -59,4 +59,22 @@ function createHallway(gridSize) {
     var roof = createShape(0.0, size, size / 4, new THREE.Vector3(-size / 2, size / 4, 0.75 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallB], []);
     scene.add(roof);
 
+    var mtlLoaderLamp = new THREE.MTLLoader();
+    mtlLoaderLamp.setPath("../../model3D/Lamp/");
+    mtlLoaderLamp.load('Pinch_125_wishnya.mtl', function (materialsLamp) {
+
+        materialsLamp.preload();
+
+        var objLoaderLamp = new THREE.OBJLoader();
+        objLoaderLamp.setMaterials(materialsLamp);
+        objLoaderLamp.setPath("../../model3D/Lamp/");
+        objLoaderLamp.load('Pinch_125_wishnya.obj', function (objectLamp) {
+            objectLamp.position.x = -30;
+            objectLamp.position.y = 17.25;
+            objectLamp.position.z = 40;
+            objectLamp.scale.set(0.01, 0.01, 0.01);
+            scene.add(objectLamp);
+
+        });
+    });
 }

@@ -53,6 +53,9 @@ function createRoom1(gridSize) {
         map: textureWallH,
     });
 
+    var planeMaterial = new THREE.ShadowMaterial();
+    planeMaterial.opacity = 0.2;
+
     const materialRoof = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var floor = createPlane(size, size, undefined, new THREE.Vector3(-90, 0, 0), [materialFloor]);
@@ -63,7 +66,7 @@ function createRoom1(gridSize) {
     scene.add(wall1);
 
     var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, 180, 0), [materialWall, materialWallB], []);
-    
+
     scene.add(wall2);
 
     var wall3Door = createHole(8.0, 15.0, 7.5, 0.0);
@@ -72,29 +75,31 @@ function createRoom1(gridSize) {
 
     var wall4Window = createHole(10.0, 7.0, 7.5, 9.0);
     var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, size / 2.0), new THREE.Vector3(0, 90, 0), [materialWall, materialWallB], [wall4Window]);
+    wall4.castShadow = true;
     scene.add(wall4);
 
     var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, size / 2), new THREE.Vector3(270, 0, 0), [materialRoof, materialWallB], []);
     scene.add(roof);
 
     var mtlLoader = new THREE.MTLLoader();
-    mtlLoader.setPath( "../../model3D/Door2/" );
-    mtlLoader.load( '10057_wooden_door_v3_iterations-2.mtl', function( materials ) {
+    mtlLoader.setPath("../../model3D/Door2/");
+    mtlLoader.load('10057_wooden_door_v3_iterations-2.mtl', function (materials) {
 
         materials.preload();
 
         var objLoader = new THREE.OBJLoader();
-        objLoader.setMaterials( materials );
-        objLoader.setPath( "../../model3D/Door2/" );
-        objLoader.load( '10057_wooden_door_v3_iterations-2.obj', function ( object ) {
+        objLoader.setMaterials(materials);
+        objLoader.setPath("../../model3D/Door2/");
+        objLoader.load('10057_wooden_door_v3_iterations-2.obj', function (object) {
             object.position.y = 0.0;
             object.position.x = -20;
             object.position.z = -8.5;
             object.scale.set(0.09, 0.1, 0.075);
             object.rotateX(degToRad(-90));
             object.rotateZ(degToRad(90));
-            scene.add( object );
+            scene.add(object);
 
-        } );
-    } );
+        });
+    });
+
 }
