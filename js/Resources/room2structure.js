@@ -69,4 +69,25 @@ function createRoom2(gridSize) {
     room2.add(roof);
 
     scene.add(room2);
+
+    /* MODEL 3D */
+    var mtlLoaderLamp = new THREE.MTLLoader();
+    mtlLoaderLamp.setPath( "../../model3D/Room1/Lamp/" );
+    mtlLoaderLamp.load( 'lightbulbfinal.mtl', function( materialsLamp ) {
+
+        materialsLamp.preload();
+
+        var objLoaderLamp = new THREE.OBJLoader();
+        objLoaderLamp.setMaterials( materialsLamp );
+        objLoaderLamp.setPath( "../../model3D/Room1/Lamp/" );
+        objLoaderLamp.load( 'lightbulbfinal.obj', function ( objectLamp ) {
+            objectLamp.position.x = 0.0;
+            objectLamp.position.y = 16.5;
+            objectLamp.position.z = 40.0;
+            objectLamp.scale.set(0.09, 0.02, 0.075);
+            objectLamp.rotateY(degToRad(90));
+            scene.add( objectLamp );
+
+        } );
+    } );
 }
