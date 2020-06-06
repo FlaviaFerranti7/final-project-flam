@@ -60,14 +60,14 @@ function createHallway(gridSize) {
     scene.add(roof);
 
     var mtlLoaderLamp = new THREE.MTLLoader();
-    mtlLoaderLamp.setPath("../../model3D/Lamp/");
+    mtlLoaderLamp.setPath("../../model3D/Hallway/Lamp/");
     mtlLoaderLamp.load('Pinch_125_wishnya.mtl', function (materialsLamp) {
 
         materialsLamp.preload();
 
         var objLoaderLamp = new THREE.OBJLoader();
         objLoaderLamp.setMaterials(materialsLamp);
-        objLoaderLamp.setPath("../../model3D/Lamp/");
+        objLoaderLamp.setPath("../../model3D/Hallway/Lamp/");
         objLoaderLamp.load('Pinch_125_wishnya.obj', function (objectLamp) {
             objectLamp.position.x = -30;
             objectLamp.position.y = 17.25;

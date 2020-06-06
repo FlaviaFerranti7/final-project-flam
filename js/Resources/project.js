@@ -105,7 +105,6 @@ spotlightL3.castShadow = true;
 
 // scene.add(helper);
 
-
 scene.add(spotlightL1);
 scene.add(spotlightL1.target);
 //scene.add(helperSpotlightL1);
@@ -118,7 +117,23 @@ scene.add(spotlightL3);
 scene.add(spotlightL3.target);
 // scene.add(helperSpotlightL3);
 
+//room1
+const spotlightR1 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
+const helperSpotlightR1= new THREE.SpotLightHelper(spotlightR1);
+var targetSpotlightR1 = new THREE.Object3D();
+var helper = new THREE.CameraHelper(spotlightR1.shadow.camera);
+spotlightR1.position.set(0.0, 17.0, 0.0);
+spotlightR1.target = targetSpotlightR1;
+spotlightR1.target.position.set(0, -4000, 0);
+spotlightR1.angle = Math.PI / 2;
+spotlightR1.distance = 300;
+spotlightR1.penumbra = 0.6;
+spotlightR1.castShadow = true;
 
+scene.add(helper);
+scene.add(spotlightR1);
+scene.add(spotlightR1.target);
+scene.add(helperSpotlightR1);
 
 var animate = function () {
   requestAnimationFrame(animate);

@@ -78,14 +78,14 @@ function createRoom1(gridSize) {
     scene.add(roof);
 
     var mtlLoaderDoor = new THREE.MTLLoader();
-    mtlLoaderDoor.setPath( "../../model3D/Door2/" );
+    mtlLoaderDoor.setPath( "../../model3D/Room1/Door/" );
     mtlLoaderDoor.load( '10057_wooden_door_v3_iterations-2.mtl', function( materialsDoor ) {
 
         materialsDoor.preload();
 
         var objLoaderDoor = new THREE.OBJLoader();
         objLoaderDoor.setMaterials( materialsDoor );
-        objLoaderDoor.setPath( "../../model3D/Door2/" );
+        objLoaderDoor.setPath( "../../model3D/Room1/Door/" );
         objLoaderDoor.load( '10057_wooden_door_v3_iterations-2.obj', function ( objectDoor ) {
             objectDoor.position.x = -20;
             objectDoor.position.y = 0.0;
@@ -98,24 +98,65 @@ function createRoom1(gridSize) {
         } );
     } );
     
-   
+
+    var mtlLoaderBed = new THREE.MTLLoader();
+    mtlLoaderBed.setPath( "../../model3D/Room1/Bed/" );
+    mtlLoaderBed.load( 'krovat-2.mtl', function( materialsBed ) {
+
+        materialsBed.preload();
+
+        var objLoaderBed = new THREE.OBJLoader();
+        objLoaderBed.setMaterials( materialsBed );
+        objLoaderBed.setPath( "../../model3D/Room1/Bed/" );
+        objLoaderBed.load( 'krovat-2.obj', function ( objectBed ) {
+            objectBed.position.x = 16.0;
+            objectBed.position.y = 0.0;
+            objectBed.position.z = -10.0;
+            objectBed.scale.set(9, 9, 9);
+            objectBed.rotateY(degToRad(180));
+            scene.add( objectBed );
+
+        } );
+    } );
+
+
    var mtlLoaderWardrobe = new THREE.MTLLoader();
-   mtlLoaderWardrobe.setPath( "../../model3D/Wardrobe/" );
+   mtlLoaderWardrobe.setPath( "../../model3D/Room1/Wardrobe/" );
    mtlLoaderWardrobe.load( 'Traditional_Armoire_Honey_V1.mtl', function( materialsWardrobe ) {
 
        materialsWardrobe.preload();
 
        var objLoaderWardrobe = new THREE.OBJLoader();
        objLoaderWardrobe.setMaterials( materialsWardrobe );
-       objLoaderWardrobe.setPath( "../../model3D/Wardrobe/" );
+       objLoaderWardrobe.setPath( "../../model3D/Room1/Wardrobe/" );
        objLoaderWardrobe.load( 'Traditional_Armoire_Honey_V1.obj', function ( objectWardrobe ) {
            objectWardrobe.position.x = -9.0;
-           objectWardrobe.position.y = 7.2;
+           objectWardrobe.position.y = 7.4;
            objectWardrobe.position.z = 17.0;
            objectWardrobe.scale.set(0.15, 0.1, 0.13);
            objectWardrobe.rotateX(degToRad(-90));
            objectWardrobe.rotateZ(degToRad(180));
            scene.add( objectWardrobe );
+
+       } );
+   } );
+
+   var mtlLoaderLamp = new THREE.MTLLoader();
+   mtlLoaderLamp.setPath( "../../model3D/Room1/Lamp/" );
+   mtlLoaderLamp.load( 'lightbulbfinal.mtl', function( materialsLamp ) {
+
+       materialsLamp.preload();
+
+       var objLoaderLamp = new THREE.OBJLoader();
+       objLoaderLamp.setMaterials( materialsLamp );
+       objLoaderLamp.setPath( "../../model3D/Room1/Lamp/" );
+       objLoaderLamp.load( 'lightbulbfinal.obj', function ( objectLamp ) {
+           objectLamp.position.x = 0.0;
+           objectLamp.position.y = 16.5;
+           objectLamp.position.z = 0.0;
+           objectLamp.scale.set(0.09, 0.02, 0.075);
+           objectLamp.rotateY(degToRad(90));
+           scene.add( objectLamp );
 
        } );
    } );
