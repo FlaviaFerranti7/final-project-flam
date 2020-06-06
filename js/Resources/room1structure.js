@@ -11,7 +11,7 @@ function createRoom1(gridSize) {
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
 
-    const materialFloor = new THREE.MeshLambertMaterial({
+    const materialFloor = new THREE.MeshPhongMaterial({
         map: textureFloor,
         side: THREE.DoubleSide,
     });
@@ -21,7 +21,7 @@ function createRoom1(gridSize) {
     textureWall.wrapT = THREE.RepeatWrapping;
     textureWall.repeat.set(0.5, 0.5);
 
-    const materialWall = new THREE.MeshLambertMaterial({
+    const materialWall = new THREE.MeshPhongMaterial({
         map: textureWall,
         side: THREE.BackSide,
     });
@@ -31,7 +31,7 @@ function createRoom1(gridSize) {
     textureWallP.wrapT = THREE.RepeatWrapping;
     textureWallP.repeat.set(4, 4);
 
-    const materialWallP = new THREE.MeshLambertMaterial({
+    const materialWallP = new THREE.MeshPhongMaterial({
         map: textureWallP,
     });
 
@@ -40,7 +40,7 @@ function createRoom1(gridSize) {
     textureWallB.wrapT = THREE.RepeatWrapping;
     textureWallB.repeat.set(0.3, 0.3);
 
-    const materialWallB = new THREE.MeshLambertMaterial({
+    const materialWallB = new THREE.MeshPhongMaterial({
         map: textureWallB,
     });
 
@@ -49,14 +49,11 @@ function createRoom1(gridSize) {
     textureWallH.wrapT = THREE.RepeatWrapping;
     textureWallH.repeat.set(4, 4);
 
-    const materialWallH = new THREE.MeshLambertMaterial({
+    const materialWallH = new THREE.MeshPhongMaterial({
         map: textureWallH,
     });
 
-    var planeMaterial = new THREE.ShadowMaterial();
-    planeMaterial.opacity = 0.2;
-
-    const materialRoof = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.BackSide });
+    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var floor = createPlane(size, size, undefined, new THREE.Vector3(-90, 0, 0), [materialFloor]);
     scene.add(floor);
@@ -66,7 +63,6 @@ function createRoom1(gridSize) {
     scene.add(wall1);
 
     var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, 180, 0), [materialWall, materialWallB], []);
-
     scene.add(wall2);
 
     var wall3Door = createHole(8.0, 15.0, 7.5, 0.0);
@@ -81,25 +77,48 @@ function createRoom1(gridSize) {
     var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, size / 2), new THREE.Vector3(270, 0, 0), [materialRoof, materialWallB], []);
     scene.add(roof);
 
-    var mtlLoader = new THREE.MTLLoader();
-    mtlLoader.setPath("../../model3D/Door2/");
-    mtlLoader.load('10057_wooden_door_v3_iterations-2.mtl', function (materials) {
+    var mtlLoaderDoor = new THREE.MTLLoader();
+    mtlLoaderDoor.setPath( "../../model3D/Door2/" );
+    mtlLoaderDoor.load( '10057_wooden_door_v3_iterations-2.mtl', function( materialsDoor ) {
 
-        materials.preload();
+        materialsDoor.preload();
 
-        var objLoader = new THREE.OBJLoader();
-        objLoader.setMaterials(materials);
-        objLoader.setPath("../../model3D/Door2/");
-        objLoader.load('10057_wooden_door_v3_iterations-2.obj', function (object) {
-            object.position.y = 0.0;
-            object.position.x = -20;
-            object.position.z = -8.5;
-            object.scale.set(0.09, 0.1, 0.075);
-            object.rotateX(degToRad(-90));
-            object.rotateZ(degToRad(90));
-            scene.add(object);
+        var objLoaderDoor = new THREE.OBJLoader();
+        objLoaderDoor.setMaterials( materialsDoor );
+        objLoaderDoor.setPath( "../../model3D/Door2/" );
+        objLoaderDoor.load( '10057_wooden_door_v3_iterations-2.obj', function ( objectDoor ) {
+            objectDoor.position.x = -20;
+            objectDoor.position.y = 0.0;
+            objectDoor.position.z = -8.5;
+            objectDoor.scale.set(0.09, 0.1, 0.075);
+            objectDoor.rotateX(degToRad(-90));
+            objectDoor.rotateZ(degToRad(90));
+            scene.add( objectDoor );
 
-        });
-    });
+        } );
+    } );
+    
+   
+   var mtlLoaderWardrobe = new THREE.MTLLoader();
+   mtlLoaderWardrobe.setPath( "../../model3D/Wardrobe/" );
+   mtlLoaderWardrobe.load( 'Traditional_Armoire_Honey_V1.mtl', function( materialsWardrobe ) {
 
+       materialsWardrobe.preload();
+
+       var objLoaderWardrobe = new THREE.OBJLoader();
+       objLoaderWardrobe.setMaterials( materialsWardrobe );
+       objLoaderWardrobe.setPath( "../../model3D/Wardrobe/" );
+       objLoaderWardrobe.load( 'Traditional_Armoire_Honey_V1.obj', function ( objectWardrobe ) {
+           objectWardrobe.position.x = -9.0;
+           objectWardrobe.position.y = 7.2;
+           objectWardrobe.position.z = 17.0;
+           objectWardrobe.scale.set(0.15, 0.1, 0.13);
+           objectWardrobe.rotateX(degToRad(-90));
+           objectWardrobe.rotateZ(degToRad(180));
+           scene.add( objectWardrobe );
+
+       } );
+   } );
+
+    
 }

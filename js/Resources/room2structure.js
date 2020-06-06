@@ -13,7 +13,7 @@ function createRoom2(gridSize) {
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
 
-    const materialFloor = new THREE.MeshLambertMaterial({
+    const materialFloor = new THREE.MeshPhongMaterial({
         map: textureFloor,
         side: THREE.DoubleSide,
     });
@@ -23,7 +23,7 @@ function createRoom2(gridSize) {
     textureWall.wrapT = THREE.RepeatWrapping;
     textureWall.repeat.set(4, 4);
 
-    const materialWall = new THREE.MeshLambertMaterial({
+    const materialWall = new THREE.MeshPhongMaterial({
         map: textureWall,
         side: THREE.BackSide,
     });
@@ -33,7 +33,7 @@ function createRoom2(gridSize) {
     textureWallB.wrapT = THREE.RepeatWrapping;
     textureWallB.repeat.set(0.3, 0.3);
 
-    const materialWallB = new THREE.MeshLambertMaterial({
+    const materialWallB = new THREE.MeshPhongMaterial({
         map: textureWallB,
     });
 
@@ -42,12 +42,12 @@ function createRoom2(gridSize) {
     textureWallH.wrapT = THREE.RepeatWrapping;
     textureWallH.repeat.set(4, 4);
 
-    const materialWallH = new THREE.MeshLambertMaterial({
+    const materialWallH = new THREE.MeshPhongMaterial({
         map: textureWallH,
     });
 
 
-    const materialRoof = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.BackSide });
+    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var floor = createPlane(size, size, new THREE.Vector3(0.0, 0.0, size), new THREE.Vector3(-90, 0, 0), [materialFloor]);
     scene.add(floor);

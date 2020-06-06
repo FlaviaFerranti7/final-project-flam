@@ -118,40 +118,6 @@ scene.add(spotlightL3);
 scene.add(spotlightL3.target);
 // scene.add(helperSpotlightL3);
 
-// GUI
-/*function makeXYZGUI(gui, vector3, name, onChangeFn) {
-  const folder = gui.addFolder(name);
-  folder.add(vector3, 'x', -10, 10).onChange(onChangeFn);
-  folder.add(vector3, 'y', 0, 10).onChange(onChangeFn);
-  folder.add(vector3, 'z', -10, 10).onChange(onChangeFn);
-  folder.open();
-}
-
-function updateLight() {
-  spotlightL1.target.updateMatrixWorld();
-  helperSpotlightL1.update();
-}
-
-class DegRadHelper {
-  constructor(obj, prop) {
-    this.obj = obj;
-    this.prop = prop;
-  }
-  get value() {
-    return THREE.MathUtils.radToDeg(this.obj[this.prop]);
-  }
-  set value(v) {
-    this.obj[this.prop] = THREE.MathUtils.degToRad(v);
-  }
-}
-
-const guiSpotL1 = new dat.GUI();
-guiSpotL1.addColor(new ColorGUIHelper(spotlightL1, 'color'), 'value').name('color');
-guiSpotL1.add(spotlightL1, 'intensity', 0, 2, 0.01);
-guiSpotL1.add(spotlightL1, 'distance', 0, 40).onChange(updateLight);
-guiSpotL1.add(new DegRadHelper(spotlightL1, 'angle'), 'value', 0, 90).name('angle').onChange(updateLight);
-
-makeXYZGUI(guiSpotL1, spotlightL1.position, 'position', updateLight);*/
 
 
 var animate = function () {
