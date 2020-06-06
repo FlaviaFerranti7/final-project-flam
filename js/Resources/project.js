@@ -26,6 +26,7 @@ const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 /* --------------------- DIRECTIONAL LIGHTS --------------------- */
 
+/*
 const colorDirectional = 0xFFFFFF;
 const intensityDirectional = 0.3;
 const lightDirectional = new THREE.DirectionalLight(colorDirectional, intensityDirectional);
@@ -35,7 +36,7 @@ lightDirectional.position.set(90, 90, 180);
 lightDirectional.target.position.set(-50, -70, 50);
 lightDirectional.castShadow = true;
 
-scene.add(lightAmbient);
+
 // scene.add(lightDirectional);
 // scene.add(lightDirectional.target);
 // scene.add(helperDirectional);
@@ -45,7 +46,9 @@ lightDirectional.shadow.mapSize.height = 1024; // default
 lightDirectional.shadow.camera.near = 0.5;    // default
 lightDirectional.shadow.camera.far = 1000;     // default
 lightDirectional.shadow.camera.top = 100;
-lightDirectional.shadow.camera.right = 100;
+lightDirectional.shadow.camera.right = 100; */
+
+scene.add(lightAmbient);
 
 /* ------------------------- FIRST ROOM ------------------------- */
 
@@ -125,8 +128,9 @@ var helper = new THREE.CameraHelper(spotlightR1.shadow.camera);
 spotlightR1.position.set(0.0, 17.0, 0.0);
 spotlightR1.target = targetSpotlightR1;
 spotlightR1.target.position.set(0, -4000, 0);
-spotlightR1.angle = Math.PI / 2;
-spotlightR1.distance = 300;
+
+spotlightR1.angle = Math.PI / 2.5;
+spotlightR1.distance = 200;
 spotlightR1.penumbra = 0.6;
 spotlightR1.castShadow = true;
 

@@ -42,22 +42,28 @@ function createHallway(gridSize) {
 
     const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
+    var hallway = new THREE.Group();
+
     var floor = createPlane(size / 4, size, new THREE.Vector3(-size / 2.67, 0.0, size / 4), new THREE.Vector3(-90, 0, 0), [materialFloor]);
-    scene.add(floor);
+    hallway.add(floor);
 
     var wall2Window = createHole(10.0, 7.0, 5.0, 9.0);
     var wall2 = createShape(0.0, size / 4, size / 4, new THREE.Vector3(-size / 2.0, 0.0, 0.75 * size), undefined, [materialWallH, materialWallB], [wall2Window]);
-    scene.add(wall2);
+    hallway.add(wall2);
 
     var wall3Door = createHole(8.0, 15.0, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 4, size, new THREE.Vector3(-size / 2.0, 0.0, -0.25 * size), new THREE.Vector3(0, -90, 0), [materialWallH, materialWallB], [wall3Door]);
-    scene.add(wall3);
+    hallway.add(wall3);
 
     var wall4 = createShape(0.0, size / 4, size / 4, new THREE.Vector3(-size / 4.0, 0.0, -0.25 * size), new THREE.Vector3(0, 180, 0), [materialWallH, materialWallB], []);
-    scene.add(wall4);
+    hallway.add(wall4);
 
     var roof = createShape(0.0, size, size / 4, new THREE.Vector3(-size / 2, size / 4, 0.75 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallB], []);
-    scene.add(roof);
+    hallway.add(roof);
+
+    scene.add(hallway);
+
+    /* MODEL 3D */
 
     var mtlLoaderLamp = new THREE.MTLLoader();
     mtlLoaderLamp.setPath("../../model3D/Hallway/Lamp/");

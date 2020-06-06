@@ -49,20 +49,24 @@ function createRoom2(gridSize) {
 
     const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
+    var room2 = new THREE.Group();
+
     var floor = createPlane(size, size, new THREE.Vector3(0.0, 0.0, size), new THREE.Vector3(-90, 0, 0), [materialFloor]);
-    scene.add(floor);
+    room2.add(floor);
 
     var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, 1.5 * size), undefined, [materialWall, materialWallB], []);
-    scene.add(wall2);
+    room2.add(wall2);
 
     var wall3Door = createHole(8.0, 15.0, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, 0.5 * size), new THREE.Vector3(0, -90, 0), [materialWall, materialWallH], [wall3Door]);
-    scene.add(wall3);
+    room2.add(wall3);
 
     var wall4Window = createHole(10.0, 7.0, 7.5, 9.0);
     var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, 1.5 * size), new THREE.Vector3(0, 90, 0), [materialWall, materialWallB], [wall4Window]);
-    scene.add(wall4);
+    room2.add(wall4);
 
     var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, 1.5 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallB], []);
-    scene.add(roof);
+    room2.add(roof);
+
+    scene.add(room2);
 }

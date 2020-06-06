@@ -24,7 +24,7 @@ function createPlane(width, height,
         plane = group;
     } else {
         plane = new THREE.Mesh(planeGeometry, materials[0]);
-        plane.castShadow = true;
+        //plane.castShadow = true;
         plane.receiveShadow = true;
     }
 
