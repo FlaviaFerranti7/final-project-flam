@@ -98,6 +98,7 @@ function createRoom1(gridSize) {
             objectDoor.scale.set(0.09, 0.1, 0.075);
             objectDoor.rotateX(degToRad(-90));
             objectDoor.rotateZ(degToRad(90));
+            objectDoor.traverse((child) => child.castShadow = true);
             scene.add( objectDoor );
 
         } );
@@ -119,7 +120,7 @@ function createRoom1(gridSize) {
             objectBed.position.z = -10.0;
             objectBed.scale.set(9, 9, 9);
             objectBed.rotateY(degToRad(180));
-            objectBed.castShadow = true;
+            objectBed.traverse((child) => child.castShadow = true);
             scene.add( objectBed );
 
         } );
@@ -142,6 +143,7 @@ function createRoom1(gridSize) {
            objectWardrobe.scale.set(0.15, 0.1, 0.13);
            objectWardrobe.rotateX(degToRad(-90));
            objectWardrobe.rotateZ(degToRad(180));
+           objectWardrobe.traverse((child) => child.castShadow = true);
            scene.add( objectWardrobe );
 
        } );
