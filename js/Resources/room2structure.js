@@ -82,7 +82,7 @@ function createRoom2(gridSize) {
         objLoaderLamp.setPath( "../../model3D/Room1/Lamp/" );
         objLoaderLamp.load( 'lightbulbfinal.obj', function ( objectLamp ) {
             objectLamp.position.x = 0.0;
-            objectLamp.position.y = 16.5;
+            objectLamp.position.y = 16.8;
             objectLamp.position.z = 40.0;
             objectLamp.scale.set(0.09, 0.02, 0.075);
             objectLamp.rotateY(degToRad(90));

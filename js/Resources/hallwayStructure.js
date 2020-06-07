@@ -82,5 +82,25 @@ function createHallway(gridSize) {
             scene.add(objectLamp);
 
         });
+
+    });
+
+    var mtlLoaderLamp2 = new THREE.MTLLoader();
+    mtlLoaderLamp2.setPath("../../model3D/Hallway/Lamp/");
+    mtlLoaderLamp2.load('Pinch_125_wishnya.mtl', function (materialsLamp2) {
+
+        materialsLamp2.preload();
+        var objLoaderLamp2 = new THREE.OBJLoader();
+        objLoaderLamp2.setMaterials(materialsLamp2);
+        objLoaderLamp2.setPath("../../model3D/Hallway/Lamp/");
+        objLoaderLamp2.load('Pinch_125_wishnya.obj', function (objectLamp2) {
+            objectLamp2.position.x = -30;
+            objectLamp2.position.y = 17.25;
+            objectLamp2.position.z = 0;
+            objectLamp2.scale.set(0.01, 0.01, 0.01);
+            scene.add(objectLamp2);
+
+        });
+
     });
 }
