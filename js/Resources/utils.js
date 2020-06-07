@@ -96,3 +96,148 @@ function createHole(width, height, initialPointX, initialPointY) {
 
     return hole;
 }
+
+function onWindowResize() {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function listenForPlayerMovement() {
+    
+    // A key has been pressed
+    var onKeyDown = function(event) {
+
+    switch (event.keyCode) {
+
+      case 38: // up
+        moveForward = true;
+        break;
+        
+      case 40: // down
+        moveBackward = true;
+        break;
+        
+      case 37: // left
+        moveLeft = true;
+        break;
+        
+      case 39: // right
+        moveRight = true;
+        break;
+
+
+      case 87: // w
+        rotateUp = true;
+        break;
+
+      case 65: // a
+        rotateLeft = true;
+        break;
+
+      case 83: // s
+        rotateDown = true;
+        break;
+
+      case 68: // d
+        rotateRight = true;
+        break;
+    }
+  };
+
+  // A key has been released
+    var onKeyUp = function(event) {
+
+    switch (event.keyCode) {
+
+        case 38: // up
+        moveForward = false;
+        break;
+        
+      case 40: // down
+        moveBackward = false;
+        break;
+        
+      case 37: // left
+        moveLeft = false;
+        break;
+        
+      case 39: // right
+        moveRight = false;
+        break;
+
+
+      case 87: // w
+        rotateUp = false;
+        break;
+
+      case 65: // a
+        rotateLeft = false;
+        break;
+
+      case 83: // s
+        rotateDown = false;
+        break;
+
+      case 68: // d
+        rotateRight = false;
+        break;
+    }
+  };
+
+  // Add event listeners for when movement keys are pressed and released
+  document.addEventListener('keydown', onKeyDown, false);
+  document.addEventListener('keyup', onKeyUp, false);
+}
+
+function animatePlayerUDLR(delta) {
+    // Gradual slowdown
+    playerVelocity.x -= playerVelocity.x * 10.0 * delta;
+    playerVelocity.z -= playerVelocity.z * 10.0 * delta;
+  
+    if (moveForward) {
+      playerVelocity.z -= PLAYERSPEED * delta;
+    } 
+    if (moveBackward) {
+      playerVelocity.z += PLAYERSPEED * delta;
+    } 
+    if (moveLeft) {
+      playerVelocity.x -= PLAYERSPEED * delta;
+    } 
+    if (moveRight) {
+      playerVelocity.x += PLAYERSPEED * delta;
+    }
+    if( !( moveForward || moveBackward || moveLeft || moveRight)) {
+      // No movement key being pressed. Stop movememnt
+      playerVelocity.x = 0;
+      playerVelocity.z = 0;
+    }
+    controls.getObject().translateX(playerVelocity.x * delta);
+    controls.getObject().translateZ(playerVelocity.z * delta);
+}
+
+function animatePlayerRotate() {
+    /*if (rotateUp) {
+        playerVelocity.x += 0.1;
+      } 
+    if (rotateDown) {
+        playerVelocity.x -= 0.1;
+      }*/
+
+    if (rotateLeft) {
+      playerVelocity.z += 0.1;
+    } 
+    if (rotateRight) {
+      playerVelocity.z -= 0.1;
+    }
+
+    if( !(rotateLeft || rotateRight /*|| rotateUp || rotateDown*/ )) {
+      // No movement key being pressed. Stop movememnt
+      //playerVelocity.x = 0;
+      playerVelocity.z = 0;
+    }
+    controls.getObject().rotateY(playerVelocity.z);
+    //controls.getObject().rotateX(playerVelocity.x);
+}

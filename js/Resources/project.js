@@ -14,10 +14,34 @@ container.appendChild(renderer.domElement); //renderer.domElement is the canvas
 
 camera.position.set(1, 10, 55);
 
+// var controls = new THREE.OrbitControls(camera, renderer.domElement);
+// controls.target.set(0, 5, 0);
+// controls.update();
 
-var controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.target.set(0, 5, 0);
-controls.update();
+var controls = new THREE.PointerLockControls(camera);
+var controlsEnabled = false;
+
+scene.add(controls.getObject());
+
+/* ----------------------- PLAYER MOVEMENT ----------------------- */
+// Flags to determine which direction the player is moving
+var moveForward = false;
+var moveBackward = false;
+var moveLeft = false;
+var moveRight = false;
+
+var rotateUp = false;
+var rotateDown = false;
+var rotateLeft = false;
+var rotateRight = false;
+
+// Velocity vector for the player
+var playerVelocity = new THREE.Vector3();
+
+// How fast the player will move
+var PLAYERSPEED = 400.0;
+
+var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x202020;
@@ -151,9 +175,7 @@ scene.add(sourceSpotlightL3.target);
 
 const spotlightL4 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 const sourceSpotlightL4 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-const helperSpotlightL4 = new THREE.SpotLightHelper(spotlightL4);
 var targetSpotlightL4 = new THREE.Object3D();
-var helper = new THREE.CameraHelper(spotlightL4.shadow.camera);
 spotlightL4.position.set(-30, 16.3, -5);
 spotlightL4.target = targetSpotlightL4;
 spotlightL4.target.position.set(0, -4000, 0);
@@ -172,9 +194,7 @@ sourceSpotlightL4.castShadow = true;
 
 const spotlightL5 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 const sourceSpotlightL5 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-const helperSpotlightL5 = new THREE.SpotLightHelper(spotlightL5);
 var targetSpotlightL5 = new THREE.Object3D();
-var helper = new THREE.CameraHelper(spotlightL5.shadow.camera);
 spotlightL5.position.set(-30, 16.3, 0);
 spotlightL5.target = targetSpotlightL5;
 spotlightL5.target.position.set(0, -4000, 0);
@@ -212,13 +232,11 @@ sourceSpotlightL6.castShadow = true;
 
 scene.add(spotlightL4);
 scene.add(spotlightL4.target);
-//scene.add(helperSpotlightL4);
 scene.add(sourceSpotlightL4);
 scene.add(sourceSpotlightL4.target);
 
 scene.add(spotlightL5);
 scene.add(spotlightL5.target);
-// scene.add(helperSpotlightL5);
 scene.add(sourceSpotlightL5);
 scene.add(sourceSpotlightL5.target);
 
@@ -226,7 +244,6 @@ scene.add(sourceSpotlightL5.target);
 //scene.add(spotlightL6.target);
 //scene.add(sourceSpotlightL6);
 //scene.add(sourceSpotlightL6.target);
-
 
 //room1
 const spotlightR1 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
@@ -282,12 +299,18 @@ scene.add(spotlightR2.target);
 scene.add(sourceSpotlightR2);
 scene.add(sourceSpotlightR2.target);
 
+/* ------------------------- LISTENER -------------------------- */
+listenForPlayerMovement();
+window.addEventListener('resize', onWindowResize, false);
 
 var animate = function () {
   requestAnimationFrame(animate);
 
-
   renderer.render(scene, camera);
+
+  var delta = clock.getDelta();
+  animatePlayerUDLR(delta);
+  animatePlayerRotate()
 };
 
 animate();
