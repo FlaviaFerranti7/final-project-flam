@@ -18,7 +18,11 @@ camera.position.set(1, 10, 55);
 // controls.target.set(0, 5, 0);
 // controls.update();
 
-var controls = new THREE.PointerLockControls(camera);
+var controls;
+var controlsEnabled = false;
+var blocker = document.getElementById('blocker');
+getPointerLock();
+controls = new THREE.PointerLockControls(camera, container);
 scene.add(controls.getObject());
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
@@ -27,11 +31,6 @@ var moveForward = false;
 var moveBackward = false;
 var moveLeft = false;
 var moveRight = false;
-
-var rotateUp = false;
-var rotateDown = false;
-var rotateLeft = false;
-var rotateRight = false;
 
 // Velocity vector for the player
 var playerVelocity = new THREE.Vector3();
@@ -217,7 +216,7 @@ scene.add(sourceSpotlightL5.target);
 // scene.add(sourceSpotlightL6.target);
 
 /* ------------------------- LISTENER -------------------------- */
-//getPointerLock();
+
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
 
@@ -225,10 +224,9 @@ var animate = function () {
   requestAnimationFrame(animate);
 
   renderer.render(scene, camera);
-
   var delta = clock.getDelta();
-  animatePlayerUDLR(delta);
-  animatePlayerRotate()
+  animatePlayer(delta);
+
 };
 
 animate();
