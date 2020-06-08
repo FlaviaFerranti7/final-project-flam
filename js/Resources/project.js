@@ -63,7 +63,6 @@ createRoom1(40);
 /* ------------------------- SPOTLIGHT FIRST ROOM ------------------------- */
 
 const spotlightR1 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-const sourceSpotlightR1 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 
 spotlightR1.position.set(0.0, 20.0, 0.0);
 spotlightR1.target = new THREE.Object3D();
@@ -71,16 +70,11 @@ spotlightR1.target.position.set(0, -4000, 0);
 spotlightR1.angle = Math.PI / 2.5;
 spotlightR1.distance = 200;
 spotlightR1.penumbra = penumbra;
-spotlightR1.decay = 5;
 spotlightR1.castShadow = true;
 
-sourceSpotlightR1.position.set(0.0, 15.0, 0.0);
-sourceSpotlightR1.target = new THREE.Object3D();
-sourceSpotlightR1.target.position.set(0, 20.0, 0);
-sourceSpotlightR1.angle = Math.PI / 2.5;
-sourceSpotlightR1.distance = 5;
-sourceSpotlightR1.penumbra = penumbra;
-sourceSpotlightR1.castShadow = true;
+const sourceSpotlightR1 = createReverseSpotLight(spotlightR1, new THREE.Vector3(0.0, 15.0, 0.0));
+
+spotlightR1.decay = 5;
 
 scene.add(spotlightR1);
 scene.add(spotlightR1.target);
@@ -95,7 +89,6 @@ createRoom2(40);
 /* ------------------------- SPOTLIGHT SECOND ROOM ------------------------- */
 
 const spotlightR2 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-const sourceSpotlightR2 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 
 spotlightR2.position.set(0.0, 20.0, 42.0);
 spotlightR2.target = new THREE.Object3D();;
@@ -103,16 +96,11 @@ spotlightR2.target.position.set(0, -4000, 0);
 spotlightR2.angle = Math.PI / 2.5;
 spotlightR2.distance = 200;
 spotlightR2.penumbra = penumbra;
-spotlightR2.decay = 5;
 spotlightR2.castShadow = true;
 
-sourceSpotlightR2.position.set(0.0, 15.0, 42.0);
-sourceSpotlightR2.target = new THREE.Object3D();
-sourceSpotlightR2.target.position.set(0, 20.0, 0);
-sourceSpotlightR2.angle = Math.PI / 2.5;
-sourceSpotlightR2.distance = 5;
-sourceSpotlightR2.penumbra = penumbra;
-sourceSpotlightR2.castShadow = true;
+const sourceSpotlightR2 = createReverseSpotLight(spotlightR2, new THREE.Vector3(0.0, 15.0, 42.0));
+
+spotlightR2.decay = 5;
 
 scene.add(spotlightR2);
 scene.add(spotlightR2.target);
@@ -127,7 +115,6 @@ createHallway(80);
 /* --------------------------- SPOTLIGHT HALLWAY --------------------------- */
 
 const spotlightL1 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-const sourceSpotlightL1 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 
 spotlightL1.position.set(-30, 16.3, 35);
 spotlightL1.target = new THREE.Object3D();
@@ -137,16 +124,9 @@ spotlightL1.distance = 300;
 spotlightL1.penumbra = penumbra;
 spotlightL1.castShadow = true;
 
-sourceSpotlightL1.position.set(-31, 14, 37);
-sourceSpotlightL1.target = new THREE.Object3D();
-sourceSpotlightL1.target.position.set(0, 20.0, 0);
-sourceSpotlightL1.angle = Math.PI / 2.5;
-sourceSpotlightL1.distance = 5;
-sourceSpotlightL1.penumbra = penumbra;
-sourceSpotlightL1.castShadow = true;
+const sourceSpotlightL1 = createReverseSpotLight(spotlightL1, new THREE.Vector3(-31.0, 14.0, 37.0), Math.PI / 2.5);
 
 const spotlightL2 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-const sourceSpotlightL2 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 
 spotlightL2.position.set(-30, 16.3, 40);
 spotlightL2.target = new THREE.Object3D();
@@ -156,16 +136,9 @@ spotlightL2.distance = 300;
 spotlightL2.penumbra = penumbra;
 spotlightL2.castShadow = true;
 
-sourceSpotlightL2.position.set(-31, 14, 42);
-sourceSpotlightL2.target = new THREE.Object3D();
-sourceSpotlightL2.target.position.set(0, 20.0, 0);
-sourceSpotlightL2.angle = Math.PI / 2.5;
-sourceSpotlightL2.distance = 5;
-sourceSpotlightL2.penumbra = penumbra;
-sourceSpotlightL2.castShadow = true;
+const sourceSpotlightL2 = createReverseSpotLight(spotlightL2, new THREE.Vector3(-31.0, 14.0, 42.0), Math.PI / 2.5);
 
 const spotlightL3 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-const sourceSpotlightL3 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 
 spotlightL3.position.set(-30, 16.3, 45);
 spotlightL3.target = new THREE.Object3D();
@@ -175,16 +148,10 @@ spotlightL3.distance = 300;
 spotlightL3.penumbra = penumbra;
 spotlightL3.castShadow = true;
 
-sourceSpotlightL3.position.set(-31, 14, 47);
-sourceSpotlightL3.target = new THREE.Object3D();
-sourceSpotlightL3.target.position.set(0, 20.0, 0);
-sourceSpotlightL3.angle = Math.PI / 2.5;
-sourceSpotlightL3.distance = 5;
-sourceSpotlightL3.penumbra = penumbra;
-sourceSpotlightL3.castShadow = true;
+const sourceSpotlightL3 = createReverseSpotLight(spotlightL3, new THREE.Vector3(-31.0, 14.0, 47.0), Math.PI / 2.5);
+
 
 const spotlightL4 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-const sourceSpotlightL4 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 
 spotlightL4.position.set(-30, 16.3, -5);
 spotlightL4.target = new THREE.Object3D();
@@ -194,16 +161,9 @@ spotlightL4.distance = 300;
 spotlightL4.penumbra = penumbra;
 spotlightL4.castShadow = true;
 
-sourceSpotlightL4.position.set(-31, 14, -4);
-sourceSpotlightL4.target = new THREE.Object3D();
-sourceSpotlightL4.target.position.set(0, 20.0, 0);
-sourceSpotlightL4.angle = Math.PI / 2.5;
-sourceSpotlightL4.distance = 5;
-sourceSpotlightL4.penumbra = penumbra;
-sourceSpotlightL4.castShadow = true;
+const sourceSpotlightL4 = createReverseSpotLight(spotlightL4, new THREE.Vector3(-31, 14, -4), Math.PI / 2.5);
 
 const spotlightL5 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-const sourceSpotlightL5 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 
 spotlightL5.position.set(-30, 16.3, 0);
 spotlightL5.target = new THREE.Object3D();
@@ -213,16 +173,9 @@ spotlightL5.distance = 300;
 spotlightL5.penumbra = penumbra;
 spotlightL5.castShadow = true;
 
-sourceSpotlightL5.position.set(-31, 14, 1);
-sourceSpotlightL5.target = new THREE.Object3D();
-sourceSpotlightL5.target.position.set(0, 20.0, 0);
-sourceSpotlightL5.angle = Math.PI / 2.5;
-sourceSpotlightL5.distance = 5;
-sourceSpotlightL5.penumbra = penumbra;
-sourceSpotlightL5.castShadow = true;
+const sourceSpotlightL5 = createReverseSpotLight(spotlightL5, new THREE.Vector3(-31.0, 14.0, 1.0), Math.PI / 2.5);
 
 const spotlightL6 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-const sourceSpotlightL6 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 
 spotlightL6.position.set(-30, 16.3, 5);
 spotlightL6.target = new THREE.Object3D();
@@ -232,13 +185,8 @@ spotlightL6.distance = 300;
 spotlightL6.penumbra = penumbra;
 spotlightL6.castShadow = true;
 
-sourceSpotlightL6.position.set(-31, 14, 6);
-sourceSpotlightL6.target = new THREE.Object3D();
-sourceSpotlightL6.target.position.set(0, 20.0, 0);
-sourceSpotlightL6.angle = Math.PI / 2.5;
-sourceSpotlightL6.distance = 5;
-sourceSpotlightL6.penumbra = penumbra;
-sourceSpotlightL6.castShadow = true;
+const sourceSpotlightL6 = createReverseSpotLight(spotlightL5, new THREE.Vector3(-31.0, 14.0, 6.0), Math.PI / 2.5);
+
 
 scene.add(spotlightL1);
 scene.add(spotlightL1.target);

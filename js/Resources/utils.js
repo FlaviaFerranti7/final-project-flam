@@ -97,6 +97,17 @@ function createHole(width, height, initialPointX, initialPointY) {
     return hole;
 }
 
+function createReverseSpotLight(referenceSpotlight, position, angle) {
+  const spotlight = new THREE.SpotLight().copy(referenceSpotlight);
+
+  spotlight.position.set(position.x, position.y, position.z);
+  spotlight.target.position.set(0.0, 20.0, 0.0);
+  spotlight.distance = 5;
+  if (angle !== undefined) spotlight.angle = angle;
+
+  return spotlight;
+}
+
 function onWindowResize() {
 
     camera.aspect = window.innerWidth / window.innerHeight;
