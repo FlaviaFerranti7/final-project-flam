@@ -1,9 +1,9 @@
 function createRoom1(gridSize) {
     // GRID
     var size = gridSize;
-    var divisions = 20;
-    var gridHelper = new THREE.GridHelper(size, divisions);
-    scene.add(gridHelper);
+    //var divisions = 20;
+    //var gridHelper = new THREE.GridHelper(size, divisions);
+    //scene.add(gridHelper);
 
     // MATERIALS
     const textureFloor = new THREE.TextureLoader().load('../../images/parquet.jpg');
