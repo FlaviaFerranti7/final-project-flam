@@ -46,22 +46,28 @@ function createHallway(gridSize) {
 
     var floor = createPlane(size / 4, size, new THREE.Vector3(-size / 2.67, 0.0, size / 4), new THREE.Vector3(-90, 0, 0), [materialFloor]);
     hallway.add(floor);
+    collidableObjects.push(floor);
 
     var wall2Window = createHole(10.0, 7.0, 5.0, 9.0);
     var wall2 = createShape(0.0, size / 4, size / 4, new THREE.Vector3(-size / 2.0, 0.0, 0.75 * size), undefined, [materialWallH, materialWallB], [wall2Window]);
     hallway.add(wall2);
+    //collidableObjects.push(wall2);
 
     var wall3Door = createHole(8.0, 15.0, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 4, size, new THREE.Vector3(-size / 2.0, 0.0, -0.25 * size), new THREE.Vector3(0, -90, 0), [materialWallH, materialWallB], [wall3Door]);
     hallway.add(wall3);
+    //collidableObjects.push(wall3);
 
     var wall4 = createShape(0.0, size / 4, size / 4, new THREE.Vector3(-size / 4.0, 0.0, -0.25 * size), new THREE.Vector3(0, 180, 0), [materialWallH, materialWallB], []);
     hallway.add(wall4);
+    //collidableObjects.push(wall4);
 
     var roof = createShape(0.0, size, size / 4, new THREE.Vector3(-size / 2, size / 4, 0.75 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallB], []);
     hallway.add(roof);
+    //collidableObjects.push(roof);
 
     scene.add(hallway);
+   
 
     /* MODEL 3D */
 

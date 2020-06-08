@@ -37,6 +37,8 @@ var playerVelocity = new THREE.Vector3();
 
 // How fast the player will move
 var PLAYERSPEED = 400.0;
+var PLAYERCOLLISIONDISTANCE = 20;
+var collidableObjects = [];
 
 var clock = new THREE.Clock();
 

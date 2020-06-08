@@ -197,24 +197,75 @@ function animatePlayer(delta) {
   // Gradual slowdown
   playerVelocity.x -= playerVelocity.x * 10.0 * delta;
   playerVelocity.z -= playerVelocity.z * 10.0 * delta;
-
-  if (moveForward) {
-    playerVelocity.z -= PLAYERSPEED * delta;
+  
+  if (detectPlayerCollision() == false) {
+    if (moveForward) {
+      playerVelocity.z -= PLAYERSPEED * delta;
+    }
+    if (moveBackward) {
+      playerVelocity.z += PLAYERSPEED * delta;
+    }
+    if (moveLeft) {
+      playerVelocity.x -= PLAYERSPEED * delta;
+    }
+    if (moveRight) {
+      playerVelocity.x += PLAYERSPEED * delta;
+    }
+    controls.getObject().translateX(playerVelocity.x * delta);
+    controls.getObject().translateZ(playerVelocity.z * delta);
   }
-  if (moveBackward) {
-    playerVelocity.z += PLAYERSPEED * delta;
-  }
-  if (moveLeft) {
-    playerVelocity.x -= PLAYERSPEED * delta;
-  }
-  if (moveRight) {
-    playerVelocity.x += PLAYERSPEED * delta;
-  }
-  if (!(moveForward || moveBackward || moveLeft || moveRight)) {
-    // No movement key being pressed. Stop movememnt
+  else{
     playerVelocity.x = 0;
     playerVelocity.z = 0;
   }
-  controls.getObject().translateX(playerVelocity.x * delta);
-  controls.getObject().translateZ(playerVelocity.z * delta);
+}
+
+
+function detectPlayerCollision() {
+  // The rotation matrix to apply to our direction vector
+  // Undefined by default to indicate ray should coming from front
+  var rotationMatrix;
+  // Get direction of camera
+  var cameraDirection = controls.getDirection(new THREE.Vector3(0, 0, 0)).clone();
+
+  // Check which direction we're moving (not looking)
+  // Flip matrix to that direction so that we can reposition the ray
+  if (moveBackward) {
+      rotationMatrix = new THREE.Matrix4();
+      rotationMatrix.makeRotationY(degToRad(180));
+  }
+  else if (moveLeft) {
+      rotationMatrix = new THREE.Matrix4();
+      rotationMatrix.makeRotationY(degToRad(90));
+  }
+  else if (moveRight) {
+      rotationMatrix = new THREE.Matrix4();
+      rotationMatrix.makeRotationY(degToRad(270));
+  }
+
+  // Player is not moving forward, apply rotation matrix needed
+  if (rotationMatrix !== undefined) {
+      cameraDirection.applyMatrix4(rotationMatrix);
+  }
+
+  // Apply ray to player camera
+  var rayCaster = new THREE.Raycaster(controls.getObject().position, cameraDirection);
+
+  // If our ray hit a collidable object, return true
+  if (rayIntersect(rayCaster, PLAYERCOLLISIONDISTANCE)) {
+      return true;
+  } else {
+      return false;
+  }
+}
+
+function rayIntersect(ray, distance) {
+  var intersects = ray.intersectObjects(collidableObjects);
+  for (var i = 0; i < intersects.length; i++) {
+      // Check if there's a collision
+      if (intersects[i].distance < distance) {
+          return true;
+      }
+  }
+  return false;
 }
