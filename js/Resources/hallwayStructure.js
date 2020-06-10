@@ -20,10 +20,10 @@ function createHallway(gridSize) {
         side: THREE.DoubleSide,
     });
 
-    const textureWallB = new THREE.TextureLoader().load('../../images/brick.png');
+    const textureWallB = new THREE.TextureLoader().load('../../images/brick.jpg');
     textureWallB.wrapS = THREE.RepeatWrapping;
     textureWallB.wrapT = THREE.RepeatWrapping;
-    textureWallB.repeat.set(0.3, 0.3);
+    textureWallB.repeat.set(0.1, 0.1);
 
     const materialWallB = new THREE.MeshPhongMaterial({
         map: textureWallB,
@@ -39,6 +39,23 @@ function createHallway(gridSize) {
         side: THREE.BackSide,
     });
 
+    const textureWallL = new THREE.TextureLoader().load('../../images/livingRoom.jpg');
+    textureWallL.wrapS = THREE.RepeatWrapping;
+    textureWallL.wrapT = THREE.RepeatWrapping;
+    textureWallL.repeat.set(0.5, 0.5);
+
+    const materialWallL = new THREE.MeshPhongMaterial({
+        map: textureWallL,
+    });
+
+    const textureWallR = new THREE.TextureLoader().load('../../images/roof.jpg');
+    textureWallR.wrapS = THREE.RepeatWrapping;
+    textureWallR.wrapT = THREE.RepeatWrapping;
+    textureWallR.repeat.set(0.1, 0.1);
+
+    const materialWallR = new THREE.MeshPhongMaterial({
+        map: textureWallR,
+    });
 
     const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
@@ -54,7 +71,7 @@ function createHallway(gridSize) {
     //collidableObjects.push(wall2);
 
     var wall3Door = createHole(8.0, 15.0, 25.0, 0.0);
-    var wall3 = createShape(0.0, size / 4, size, new THREE.Vector3(-size / 2.0, 0.0, -0.25 * size), new THREE.Vector3(0, -90, 0), [materialWallH, materialWallB], [wall3Door]);
+    var wall3 = createShape(0.0, size / 4, size, new THREE.Vector3(-size / 2.0, 0.0, -0.25 * size), new THREE.Vector3(0, -90, 0), [materialWallH, materialWallL], [wall3Door]);
     hallway.add(wall3);
     //collidableObjects.push(wall3);
 
@@ -62,53 +79,53 @@ function createHallway(gridSize) {
     hallway.add(wall4);
     //collidableObjects.push(wall4);
 
-    var roof = createShape(0.0, size, size / 4, new THREE.Vector3(-size / 2, size / 4, 0.75 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallB], []);
+    var roof = createShape(0.0, size, size / 4, new THREE.Vector3(-size / 2, size / 4, 0.75 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallR], []);
     hallway.add(roof);
     //collidableObjects.push(roof);
 
     scene.add(hallway);
-   
+
 
     /* MODEL 3D */
 
     var mtlLoaderLampL1 = new THREE.MTLLoader();
-    mtlLoaderLampL1.setPath( "../../model3D/Room1/Lamp/" );
-    mtlLoaderLampL1.load( 'lightbulbfinal.mtl', function( materialsLampL1 ) {
- 
+    mtlLoaderLampL1.setPath("../../model3D/Room1/Lamp/");
+    mtlLoaderLampL1.load('lightbulbfinal.mtl', function (materialsLampL1) {
+
         materialsLampL1.preload();
- 
+
         var objLoaderLampL1 = new THREE.OBJLoader();
-        objLoaderLampL1.setMaterials( materialsLampL1 );
-        objLoaderLampL1.setPath( "../../model3D/Room1/Lamp/" );
-        objLoaderLampL1.load( 'lightbulbfinal.obj', function ( objectLampL1 ) {
+        objLoaderLampL1.setMaterials(materialsLampL1);
+        objLoaderLampL1.setPath("../../model3D/Room1/Lamp/");
+        objLoaderLampL1.load('lightbulbfinal.obj', function (objectLampL1) {
             objectLampL1.position.x = -30.0;
             objectLampL1.position.y = 16.8;
             objectLampL1.position.z = 0.0;
             objectLampL1.scale.set(0.09, 0.02, 0.075);
             objectLampL1.rotateY(degToRad(90));
-            scene.add( objectLampL1 );
- 
-        } );
-    } );
- 
-     
+            scene.add(objectLampL1);
+
+        });
+    });
+
+
     var mtlLoaderLampL2 = new THREE.MTLLoader();
-    mtlLoaderLampL2.setPath( "../../model3D/Room1/Lamp/" );
-    mtlLoaderLampL2.load( 'lightbulbfinal.mtl', function( materialsLampL2 ) {
+    mtlLoaderLampL2.setPath("../../model3D/Room1/Lamp/");
+    mtlLoaderLampL2.load('lightbulbfinal.mtl', function (materialsLampL2) {
 
         materialsLampL2.preload();
 
         var objLoaderLampL2 = new THREE.OBJLoader();
-        objLoaderLampL2.setMaterials( materialsLampL2 );
-        objLoaderLampL2.setPath( "../../model3D/Room1/Lamp/" );
-        objLoaderLampL2.load( 'lightbulbfinal.obj', function ( objectLampL2 ) {
+        objLoaderLampL2.setMaterials(materialsLampL2);
+        objLoaderLampL2.setPath("../../model3D/Room1/Lamp/");
+        objLoaderLampL2.load('lightbulbfinal.obj', function (objectLampL2) {
             objectLampL2.position.x = -30.0;
             objectLampL2.position.y = 16.8;
             objectLampL2.position.z = 40.0;
             objectLampL2.scale.set(0.09, 0.02, 0.075);
             objectLampL2.rotateY(degToRad(90));
-            scene.add( objectLampL2 );
+            scene.add(objectLampL2);
 
-        } );
-    } );
+        });
+    });
 }

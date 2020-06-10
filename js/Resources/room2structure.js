@@ -28,10 +28,10 @@ function createRoom2(gridSize) {
         side: THREE.BackSide,
     });
 
-    const textureWallB = new THREE.TextureLoader().load('../../images/brick.png');
+    const textureWallB = new THREE.TextureLoader().load('../../images/brick.jpg');
     textureWallB.wrapS = THREE.RepeatWrapping;
     textureWallB.wrapT = THREE.RepeatWrapping;
-    textureWallB.repeat.set(0.3, 0.3);
+    textureWallB.repeat.set(0.1, 0.1);
 
     const materialWallB = new THREE.MeshPhongMaterial({
         map: textureWallB,
@@ -46,6 +46,14 @@ function createRoom2(gridSize) {
         map: textureWallH,
     });
 
+    const textureWallR = new THREE.TextureLoader().load('../../images/roof.jpg');
+    textureWallR.wrapS = THREE.RepeatWrapping;
+    textureWallR.wrapT = THREE.RepeatWrapping;
+    textureWallR.repeat.set(0.1, 0.1);
+
+    const materialWallR = new THREE.MeshPhongMaterial({
+        map: textureWallR,
+    });
 
     const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
@@ -65,29 +73,29 @@ function createRoom2(gridSize) {
     var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, 1.5 * size), new THREE.Vector3(0, 90, 0), [materialWall, materialWallB], [wall4Window]);
     room2.add(wall4);
 
-    var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, 1.5 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallB], []);
+    var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, 1.5 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallR], []);
     room2.add(roof);
 
     scene.add(room2);
 
     /* MODEL 3D */
     var mtlLoaderLamp = new THREE.MTLLoader();
-    mtlLoaderLamp.setPath( "../../model3D/Room1/Lamp/" );
-    mtlLoaderLamp.load( 'lightbulbfinal.mtl', function( materialsLamp ) {
+    mtlLoaderLamp.setPath("../../model3D/Room1/Lamp/");
+    mtlLoaderLamp.load('lightbulbfinal.mtl', function (materialsLamp) {
 
         materialsLamp.preload();
 
         var objLoaderLamp = new THREE.OBJLoader();
-        objLoaderLamp.setMaterials( materialsLamp );
-        objLoaderLamp.setPath( "../../model3D/Room1/Lamp/" );
-        objLoaderLamp.load( 'lightbulbfinal.obj', function ( objectLamp ) {
+        objLoaderLamp.setMaterials(materialsLamp);
+        objLoaderLamp.setPath("../../model3D/Room1/Lamp/");
+        objLoaderLamp.load('lightbulbfinal.obj', function (objectLamp) {
             objectLamp.position.x = 0.0;
             objectLamp.position.y = 16.8;
             objectLamp.position.z = 40.0;
             objectLamp.scale.set(0.09, 0.02, 0.075);
             objectLamp.rotateY(degToRad(90));
-            scene.add( objectLamp );
+            scene.add(objectLamp);
 
-        } );
-    } );
+        });
+    });
 }
