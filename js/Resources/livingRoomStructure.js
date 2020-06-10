@@ -63,23 +63,25 @@ function createLivingRoom(gridSize) {
 
     scene.add(livingRoom);
 
-    var mtlLoaderLampL = new THREE.MTLLoader();
-    mtlLoaderLampL.setPath("../../model3D/LivingRoom/Lamp/");
-    mtlLoaderLampL.load('ZAHA LIGHT white chandelier.mtl', function (materialsLampL) {
+    var mtlLoaderLamp = new THREE.MTLLoader();
+    mtlLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
+    mtlLoaderLamp.load('ZAHA LIGHT white chandelier.mtl', function (materialsLamp) {
 
-        materialsLampL.preload();
+        materialsLamp.preload();
 
-        var objLoaderLampL = new THREE.OBJLoader();
-        objLoaderLampL.setMaterials(materialsLampL);
-        objLoaderLampL.setPath("../../model3D/LivingRoom/Lamp/");
-        objLoaderLampL.load('ZAHA LIGHT white chandelier.obj', function (objectLampL) {
-            objectLampL.position.x = -80.0;
-            objectLampL.position.y = 1.9;
-            objectLampL.position.z = 20.0;
-            objectLampL.scale.set(0.006, 0.006, 0.006);
-            objectLampL.rotateY(degToRad(90));
-            scene.add(objectLampL);
+        var objLoaderLamp = new THREE.OBJLoader();
+        objLoaderLamp.setMaterials(materialsLamp);
+        objLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
+        objLoaderLamp.load('ZAHA LIGHT white chandelier.obj', function (objectLamp) {
+            objectLamp.position.x = -80.0;
+            objectLamp.position.y = 1.9;
+            objectLamp.position.z = 20.0;
+            objectLamp.scale.set(0.006, 0.006, 0.006);
+            objectLamp.rotateY(degToRad(90));
+            scene.add(objectLamp);
 
         });
     });
+
+    
 }
