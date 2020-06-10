@@ -135,7 +135,6 @@ function createRoom1(gridSize) {
         });
     });
 
-
     var mtlLoaderWardrobe = new THREE.MTLLoader();
     mtlLoaderWardrobe.setPath("../../model3D/Room1/Wardrobe/");
     mtlLoaderWardrobe.load('Traditional_Armoire_Honey_V1.mtl', function (materialsWardrobe) {
@@ -177,6 +176,5 @@ function createRoom1(gridSize) {
 
         });
     });
-
 
 }

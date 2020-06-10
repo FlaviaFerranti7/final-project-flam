@@ -128,4 +128,26 @@ function createHallway(gridSize) {
 
         });
     });
+
+
+    var mtlLoaderConsole = new THREE.MTLLoader();
+    mtlLoaderConsole.setPath("../../model3D/Hallway/Console/");
+    mtlLoaderConsole.load('14311_Straight_Leg_Console_Table-Ebony_v1_l1.mtl', function (materialsConsole) {
+
+        materialsConsole.preload();
+
+        var objLoaderConsole = new THREE.OBJLoader();
+        objLoaderConsole.setMaterials(materialsConsole);
+        objLoaderConsole.setPath("../../model3D/Hallway/Console/");
+        objLoaderConsole.load('14311_Straight_Leg_Console_Table-Ebony_v1_l1.obj', function (objectConsole) {
+            objectConsole.position.x = -22.0;
+            objectConsole.position.y = 0.5;
+            objectConsole.position.z = 30.0;
+            objectConsole.scale.set(0.07, 0.07, 0.09);
+            objectConsole.rotateX(degToRad(270));
+            objectConsole.rotateZ(degToRad(90));
+            scene.add(objectConsole);
+
+        });
+    });
 }
