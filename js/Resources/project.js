@@ -12,18 +12,20 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setSize(container.offsetWidth, container.offsetHeight);
 container.appendChild(renderer.domElement); //renderer.domElement is the canvas
 
-camera.position.set(1, 10, 55);
+//camera.position.set(10.5, 8, 0);   //(1, 10, 55);
 
-var controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.target.set(0, 5, 0);
-controls.update();
+// var controls = new THREE.OrbitControls(camera, renderer.domElement);
+// controls.target.set(0, 5, 0);
+// controls.update();
 
-// var controls;
-// var controlsEnabled = false;
-// var blocker = document.getElementById('blocker');
-// getPointerLock();
-// controls = new THREE.PointerLockControls(camera, container);
-// scene.add(controls.getObject());
+var controls;
+var controlsEnabled = false;
+var blocker = document.getElementById('blocker');
+getPointerLock();
+controls = new THREE.PointerLockControls(camera, container);
+controls.getObject().position.set(10.5, 8, 0);
+controls.getObject().rotation.set(0, 7.85, 0);
+scene.add(controls.getObject());
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
@@ -44,7 +46,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 10;  //1
+const intensityAmbient = 4;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -164,14 +166,14 @@ const spotlightL = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 spotlightL.position.set(-70, 20.0, 20.0);
 spotlightL.target = new THREE.Object3D();
 spotlightL.target.position.set(0, -4000, 0);
-spotlightL.angle = Math.PI / 1.8;
+spotlightL.angle = Math.PI / 2.5;
 spotlightL.distance = 200;
 spotlightL.penumbra = penumbra;
 spotlightL.castShadow = true;
 
-const sourceSpotlightL = createReverseSpotLight(spotlightL, new THREE.Vector3(-70.0, 15.0, 20.0));
+const sourceSpotlightL = createReverseSpotLight(spotlightL, new THREE.Vector3(-75.0, 15.0, 16.5));
 
-spotlightL.decay = 5;
+spotlightL.decay = 2;
 
 scene.add(spotlightL);
 scene.add(spotlightL.target);

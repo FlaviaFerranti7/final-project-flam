@@ -198,7 +198,7 @@ function animatePlayer(delta) {
   playerVelocity.x -= playerVelocity.x * 10.0 * delta;
   playerVelocity.z -= playerVelocity.z * 10.0 * delta;
   
-  //if (detectPlayerCollision() == false) {
+  if (detectPlayerCollision() == false) {
     if (moveForward) {
       playerVelocity.z -= PLAYERSPEED * delta;
     }
@@ -211,13 +211,13 @@ function animatePlayer(delta) {
     if (moveRight) {
       playerVelocity.x += PLAYERSPEED * delta;
     }
-    // controls.getObject().translateX(playerVelocity.x * delta);
-    // controls.getObject().translateZ(playerVelocity.z * delta);
-  //}
-  // else{
-  //   playerVelocity.x = 0;
-  //   playerVelocity.z = 0;
-  // }
+    controls.getObject().translateX(playerVelocity.x * delta);
+    controls.getObject().translateZ(playerVelocity.z * delta);
+  }
+  else{
+    playerVelocity.x = 0;
+    playerVelocity.z = 0;
+  }
 }
 
 
