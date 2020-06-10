@@ -71,42 +71,44 @@ function createHallway(gridSize) {
 
     /* MODEL 3D */
 
-    var mtlLoaderLamp = new THREE.MTLLoader();
-    mtlLoaderLamp.setPath("../../model3D/Hallway/Lamp/");
-    mtlLoaderLamp.load('Pinch_125_wishnya.mtl', function (materialsLamp) {
+    var mtlLoaderLampL1 = new THREE.MTLLoader();
+    mtlLoaderLampL1.setPath( "../../model3D/Room1/Lamp/" );
+    mtlLoaderLampL1.load( 'lightbulbfinal.mtl', function( materialsLampL1 ) {
+ 
+        materialsLampL1.preload();
+ 
+        var objLoaderLampL1 = new THREE.OBJLoader();
+        objLoaderLampL1.setMaterials( materialsLampL1 );
+        objLoaderLampL1.setPath( "../../model3D/Room1/Lamp/" );
+        objLoaderLampL1.load( 'lightbulbfinal.obj', function ( objectLampL1 ) {
+            objectLampL1.position.x = -30.0;
+            objectLampL1.position.y = 16.8;
+            objectLampL1.position.z = 0.0;
+            objectLampL1.scale.set(0.09, 0.02, 0.075);
+            objectLampL1.rotateY(degToRad(90));
+            scene.add( objectLampL1 );
+ 
+        } );
+    } );
+ 
+     
+    var mtlLoaderLampL2 = new THREE.MTLLoader();
+    mtlLoaderLampL2.setPath( "../../model3D/Room1/Lamp/" );
+    mtlLoaderLampL2.load( 'lightbulbfinal.mtl', function( materialsLampL2 ) {
 
-        materialsLamp.preload();
+        materialsLampL2.preload();
 
-        var objLoaderLamp = new THREE.OBJLoader();
-        objLoaderLamp.setMaterials(materialsLamp);
-        objLoaderLamp.setPath("../../model3D/Hallway/Lamp/");
-        objLoaderLamp.load('Pinch_125_wishnya.obj', function (objectLamp) {
-            objectLamp.position.x = -30;
-            objectLamp.position.y = 17.25;
-            objectLamp.position.z = 40;
-            objectLamp.scale.set(0.01, 0.01, 0.01);
-            scene.add(objectLamp);
+        var objLoaderLampL2 = new THREE.OBJLoader();
+        objLoaderLampL2.setMaterials( materialsLampL2 );
+        objLoaderLampL2.setPath( "../../model3D/Room1/Lamp/" );
+        objLoaderLampL2.load( 'lightbulbfinal.obj', function ( objectLampL2 ) {
+            objectLampL2.position.x = -30.0;
+            objectLampL2.position.y = 16.8;
+            objectLampL2.position.z = 40.0;
+            objectLampL2.scale.set(0.09, 0.02, 0.075);
+            objectLampL2.rotateY(degToRad(90));
+            scene.add( objectLampL2 );
 
-        });
-
-    });
-
-    var mtlLoaderLamp2 = new THREE.MTLLoader();
-    mtlLoaderLamp2.setPath("../../model3D/Hallway/Lamp/");
-    mtlLoaderLamp2.load('Pinch_125_wishnya.mtl', function (materialsLamp2) {
-
-        materialsLamp2.preload();
-        var objLoaderLamp2 = new THREE.OBJLoader();
-        objLoaderLamp2.setMaterials(materialsLamp2);
-        objLoaderLamp2.setPath("../../model3D/Hallway/Lamp/");
-        objLoaderLamp2.load('Pinch_125_wishnya.obj', function (objectLamp2) {
-            objectLamp2.position.x = -30;
-            objectLamp2.position.y = 17.25;
-            objectLamp2.position.z = 0;
-            objectLamp2.scale.set(0.01, 0.01, 0.01);
-            scene.add(objectLamp2);
-
-        });
-
-    });
+        } );
+    } );
 }
