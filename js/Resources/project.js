@@ -159,6 +159,26 @@ createLivingRoom(80);
 
 /* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
 
+const spotlightL = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
+
+spotlightL.position.set(-70, 20.0, 20.0);
+spotlightL.target = new THREE.Object3D();
+spotlightL.target.position.set(0, -4000, 0);
+spotlightL.angle = Math.PI / 1.8;
+spotlightL.distance = 200;
+spotlightL.penumbra = penumbra;
+spotlightL.castShadow = true;
+
+const sourceSpotlightL = createReverseSpotLight(spotlightL, new THREE.Vector3(-70.0, 15.0, 20.0));
+
+spotlightL.decay = 5;
+
+scene.add(spotlightL);
+scene.add(spotlightL.target);
+
+scene.add(sourceSpotlightL);
+scene.add(sourceSpotlightL.target);
+
 /* ------------------------- LISTENER -------------------------- */
 
 listenForPlayerMovement();

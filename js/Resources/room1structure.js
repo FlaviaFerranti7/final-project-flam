@@ -148,7 +148,7 @@ function createRoom1(gridSize) {
         objLoaderWardrobe.load('Traditional_Armoire_Honey_V1.obj', function (objectWardrobe) {
             objectWardrobe.position.x = -9.0;
             objectWardrobe.position.y = 7.4;
-            objectWardrobe.position.z = 17.0;
+            objectWardrobe.position.z = 17.5;
             objectWardrobe.scale.set(0.15, 0.1, 0.13);
             objectWardrobe.rotateX(degToRad(-90));
             objectWardrobe.rotateZ(degToRad(180));

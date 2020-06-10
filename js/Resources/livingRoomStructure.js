@@ -44,7 +44,7 @@ function createLivingRoom(gridSize) {
 
     var livingRoom = new THREE.Group();
 
-    var floor = createPlane(size * 3 / 4, size, new THREE.Vector3(-size * 0.875, 0.0, size / 4), new THREE.Vector3(-90, 0, 0), [materialFloor]);
+    var floor = createPlane(size * 3 / 4, size, new THREE.Vector3(-size * 0.8745, 0.0, size / 4), new THREE.Vector3(-90, 0, 0), [materialFloor]);
     livingRoom.add(floor);
 
     var wall2Window = createHole(16.0, 15.0, 22.0, 0.0);
@@ -62,4 +62,24 @@ function createLivingRoom(gridSize) {
     livingRoom.add(roof);
 
     scene.add(livingRoom);
+
+    var mtlLoaderLampL = new THREE.MTLLoader();
+    mtlLoaderLampL.setPath("../../model3D/LivingRoom/Lamp/");
+    mtlLoaderLampL.load('ZAHA LIGHT white chandelier.mtl', function (materialsLampL) {
+
+        materialsLampL.preload();
+
+        var objLoaderLampL = new THREE.OBJLoader();
+        objLoaderLampL.setMaterials(materialsLampL);
+        objLoaderLampL.setPath("../../model3D/LivingRoom/Lamp/");
+        objLoaderLampL.load('ZAHA LIGHT white chandelier.obj', function (objectLampL) {
+            objectLampL.position.x = -80.0;
+            objectLampL.position.y = 1.9;
+            objectLampL.position.z = 20.0;
+            objectLampL.scale.set(0.006, 0.006, 0.006);
+            objectLampL.rotateY(degToRad(90));
+            scene.add(objectLampL);
+
+        });
+    });
 }
