@@ -14,16 +14,16 @@ container.appendChild(renderer.domElement); //renderer.domElement is the canvas
 
 camera.position.set(1, 10, 55);
 
-// var controls = new THREE.OrbitControls(camera, renderer.domElement);
-// controls.target.set(0, 5, 0);
-// controls.update();
+var controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 5, 0);
+controls.update();
 
-var controls;
-var controlsEnabled = false;
-var blocker = document.getElementById('blocker');
-getPointerLock();
-controls = new THREE.PointerLockControls(camera, container);
-scene.add(controls.getObject());
+// var controls;
+// var controlsEnabled = false;
+// var blocker = document.getElementById('blocker');
+// getPointerLock();
+// controls = new THREE.PointerLockControls(camera, container);
+// scene.add(controls.getObject());
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
@@ -44,7 +44,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 1;
+const intensityAmbient = 10;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -152,6 +152,12 @@ scene.add(spotlightL2.target);
 
 scene.add(sourceSpotlightL2);
 scene.add(sourceSpotlightL2.target);
+
+/* ------------------------- LIVING-ROOM ------------------------- */
+
+createLivingRoom(80);
+
+/* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
 
 /* ------------------------- LISTENER -------------------------- */
 

@@ -53,9 +53,9 @@ function createRoom1(gridSize) {
         map: textureWallH,
     });
 
-    var room = new THREE.Group();
-
     const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
+    
+    var room = new THREE.Group();
 
     var floor = createPlane(size, size, undefined, new THREE.Vector3(-90, 0, 0), [materialFloor]);
     room.add(floor);
