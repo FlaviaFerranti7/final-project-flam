@@ -197,7 +197,7 @@ function animatePlayer(delta) {
   // Gradual slowdown
   playerVelocity.x -= playerVelocity.x * 10.0 * delta;
   playerVelocity.z -= playerVelocity.z * 10.0 * delta;
-  
+
   if (detectPlayerCollision() == false) {
     if (moveForward) {
       playerVelocity.z -= PLAYERSPEED * delta;
@@ -214,7 +214,7 @@ function animatePlayer(delta) {
     controls.getObject().translateX(playerVelocity.x * delta);
     controls.getObject().translateZ(playerVelocity.z * delta);
   }
-  else{
+  else {
     playerVelocity.x = 0;
     playerVelocity.z = 0;
   }
@@ -231,21 +231,21 @@ function detectPlayerCollision() {
   // Check which direction we're moving (not looking)
   // Flip matrix to that direction so that we can reposition the ray
   if (moveBackward) {
-      rotationMatrix = new THREE.Matrix4();
-      rotationMatrix.makeRotationY(degToRad(180));
+    rotationMatrix = new THREE.Matrix4();
+    rotationMatrix.makeRotationY(degToRad(180));
   }
   else if (moveLeft) {
-      rotationMatrix = new THREE.Matrix4();
-      rotationMatrix.makeRotationY(degToRad(90));
+    rotationMatrix = new THREE.Matrix4();
+    rotationMatrix.makeRotationY(degToRad(90));
   }
   else if (moveRight) {
-      rotationMatrix = new THREE.Matrix4();
-      rotationMatrix.makeRotationY(degToRad(270));
+    rotationMatrix = new THREE.Matrix4();
+    rotationMatrix.makeRotationY(degToRad(270));
   }
 
   // Player is not moving forward, apply rotation matrix needed
   if (rotationMatrix !== undefined) {
-      cameraDirection.applyMatrix4(rotationMatrix);
+    cameraDirection.applyMatrix4(rotationMatrix);
   }
 
   // Apply ray to player camera
@@ -253,19 +253,29 @@ function detectPlayerCollision() {
 
   // If our ray hit a collidable object, return true
   if (rayIntersect(rayCaster, PLAYERCOLLISIONDISTANCE)) {
-      return true;
+    return true;
   } else {
-      return false;
+    return false;
   }
 }
 
 function rayIntersect(ray, distance) {
   var intersects = ray.intersectObjects(collidableObjects);
   for (var i = 0; i < intersects.length; i++) {
-      // Check if there's a collision
-      if (intersects[i].distance < distance) {
-          return true;
-      }
+    // Check if there's a collision
+    if (intersects[i].distance < distance) {
+      return true;
+    }
   }
   return false;
+}
+
+function recursiveChild(group, collidableObjects) {
+  if (group.children == undefined) return;
+  group.traverse((child) => {
+    if (group != child) {
+      recursiveChild(child, collidableObjects);
+      collidableObjects.push(child);
+    }
+  });
 }

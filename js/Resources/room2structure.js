@@ -57,26 +57,27 @@ function createRoom2(gridSize) {
 
     const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
-    var room2 = new THREE.Group();
+    var room = new THREE.Group();
 
     var floor = createPlane(size, size, new THREE.Vector3(0.0, 0.0, size), new THREE.Vector3(-90, 0, 0), [materialFloor]);
-    room2.add(floor);
+    room.add(floor);
 
     var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, 1.5 * size), undefined, [materialWall, materialWallB], []);
-    room2.add(wall2);
+    room.add(wall2);
 
     var wall3Door = createHole(8.0, 15.0, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, 0.5 * size), new THREE.Vector3(0, -90, 0), [materialWall, materialWallH], [wall3Door]);
-    room2.add(wall3);
+    room.add(wall3);
 
     var wall4Window = createHole(10.0, 7.0, 7.5, 9.0);
     var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, 1.5 * size), new THREE.Vector3(0, 90, 0), [materialWall, materialWallB], [wall4Window]);
-    room2.add(wall4);
+    room.add(wall4);
 
     var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, 1.5 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallR], []);
-    room2.add(roof);
+    room.add(roof);
 
-    scene.add(room2);
+    scene.add(room);
+    recursiveChild(room, collidableObjects);
 
     /* MODEL 3D */
     var mtlLoaderLamp = new THREE.MTLLoader();
@@ -100,14 +101,14 @@ function createRoom2(gridSize) {
     });
 
     var mtlLoaderBed = new THREE.MTLLoader();
-    mtlLoaderBed.setPath("../../model3D/Room2/Bed/");
+    mtlLoaderBed.setPath("../../model3D/room/Bed/");
     mtlLoaderBed.load('bed.mtl', function (materialsBed) {
 
         materialsBed.preload();
 
         var objLoaderBed = new THREE.OBJLoader();
         objLoaderBed.setMaterials(materialsBed);
-        objLoaderBed.setPath("../../model3D/Room2/Bed/");
+        objLoaderBed.setPath("../../model3D/room/Bed/");
         objLoaderBed.load('bed.obj', function (objectBed) {
             objectBed.position.x = 0.0;
             objectBed.position.y = 2.5;

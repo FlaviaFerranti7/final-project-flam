@@ -88,6 +88,7 @@ function createRoom1(gridSize) {
     room.add(roof);
 
     scene.add(room);
+    recursiveChild(room, collidableObjects);
 
     /* MODEL 3D */
 

@@ -62,6 +62,7 @@ function createLivingRoom(gridSize) {
     livingRoom.add(roof);
 
     scene.add(livingRoom);
+    recursiveChild(livingRoom, collidableObjects);
 
     var mtlLoaderLamp = new THREE.MTLLoader();
     mtlLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
@@ -83,5 +84,5 @@ function createLivingRoom(gridSize) {
         });
     });
 
-    
+
 }
