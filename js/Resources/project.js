@@ -39,7 +39,7 @@ var playerVelocity = new THREE.Vector3();
 
 // How fast the player will move
 var PLAYERSPEED = 400.0;
-var PLAYERCOLLISIONDISTANCE = 1;
+var PLAYERCOLLISIONDISTANCE = 5;
 var collidableObjects = [];
 
 var clock = new THREE.Clock();
@@ -182,6 +182,9 @@ scene.add(sourceSpotlightL);
 scene.add(sourceSpotlightL.target);
 
 /* ------------------------- LISTENER -------------------------- */
+
+const cameraHelper = new THREE.CameraHelper(camera);
+scene.add(cameraHelper);
 
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
