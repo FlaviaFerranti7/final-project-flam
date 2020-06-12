@@ -183,14 +183,28 @@ scene.add(sourceSpotlightL.target);
 
 /* ------------------------- LISTENER -------------------------- */
 
-const cameraHelper = new THREE.CameraHelper(camera);
-scene.add(cameraHelper);
+var geometry = new THREE.PlaneGeometry( 0.03, 0.2, 32 );
+var material = new THREE.MeshBasicMaterial( {color: 0xeed000, side: THREE.DoubleSide} );
+var verticalCross = new THREE.Mesh( geometry, material );
+var horizontalCross = new THREE.Mesh(geometry, material);
+horizontalCross.rotateZ(degToRad(90));
+
+var marker = new THREE.Group();
+
+marker.add(verticalCross);
+marker.add(horizontalCross);
+
+
+camera.add(marker);
+marker.position.set(0,0,-3);
 
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
 
 var animate = function () {
-  requestAnimationFrame(animate);
+  setTimeout( function() {
+    requestAnimationFrame( animate );
+  }, 1000 / 30 );
 
   renderer.render(scene, camera);
   var delta = clock.getDelta();
