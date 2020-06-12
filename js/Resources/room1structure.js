@@ -159,14 +159,14 @@ function createRoom1(gridSize) {
     });
 
     var mtlLoaderLamp = new THREE.MTLLoader();
-    mtlLoaderLamp.setPath("../../model3D/Room1/Lamp/");
+    mtlLoaderLamp.setPath("../../model3D/Common/Lamp/");
     mtlLoaderLamp.load('lightbulbfinal.mtl', function (materialsLamp) {
 
         materialsLamp.preload();
 
         var objLoaderLamp = new THREE.OBJLoader();
         objLoaderLamp.setMaterials(materialsLamp);
-        objLoaderLamp.setPath("../../model3D/Room1/Lamp/");
+        objLoaderLamp.setPath("../../model3D/Common/Lamp/");
         objLoaderLamp.load('lightbulbfinal.obj', function (objectLamp) {
             objectLamp.position.x = 0.0;
             objectLamp.position.y = 16.8;

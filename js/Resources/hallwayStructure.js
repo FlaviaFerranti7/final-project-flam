@@ -85,14 +85,14 @@ function createHallway(gridSize) {
     /* MODEL 3D */
 
     var mtlLoaderLampL1 = new THREE.MTLLoader();
-    mtlLoaderLampL1.setPath("../../model3D/Room1/Lamp/");
+    mtlLoaderLampL1.setPath("../../model3D/Common/Lamp/");
     mtlLoaderLampL1.load('lightbulbfinal.mtl', function (materialsLampL1) {
 
         materialsLampL1.preload();
 
         var objLoaderLampL1 = new THREE.OBJLoader();
         objLoaderLampL1.setMaterials(materialsLampL1);
-        objLoaderLampL1.setPath("../../model3D/Room1/Lamp/");
+        objLoaderLampL1.setPath("../../model3D/Common/Lamp/");
         objLoaderLampL1.load('lightbulbfinal.obj', function (objectLampL1) {
             objectLampL1.position.x = -30.0;
             objectLampL1.position.y = 16.8;
@@ -106,14 +106,14 @@ function createHallway(gridSize) {
 
 
     var mtlLoaderLampL2 = new THREE.MTLLoader();
-    mtlLoaderLampL2.setPath("../../model3D/Room1/Lamp/");
+    mtlLoaderLampL2.setPath("../../model3D/Common/Lamp/");
     mtlLoaderLampL2.load('lightbulbfinal.mtl', function (materialsLampL2) {
 
         materialsLampL2.preload();
 
         var objLoaderLampL2 = new THREE.OBJLoader();
         objLoaderLampL2.setMaterials(materialsLampL2);
-        objLoaderLampL2.setPath("../../model3D/Room1/Lamp/");
+        objLoaderLampL2.setPath("../../model3D/Common/Lamp/");
         objLoaderLampL2.load('lightbulbfinal.obj', function (objectLampL2) {
             objectLampL2.position.x = -30.0;
             objectLampL2.position.y = 16.8;
@@ -145,5 +145,20 @@ function createHallway(gridSize) {
             scene.add(objectConsole);
 
         });
+    });
+
+    const gltfLoaderDoor = new THREE.GLTFLoader();
+    gltfLoaderDoor.load("../../model3D/Common/Door/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        console.log(dumpObject(root).join('\n'));
+        door = root.getObjectByName('Door_HighPoly_fbx');
+        door.scale.set(0.02, 0.0165, 0.02);
+        door.position.x = -40.0;
+        door.position.y = 9.25;
+        door.position.z = 9.0;
+        door.rotateX(degToRad(90));
+        door.rotateY(degToRad(90));
+        door.traverse((child) => child.castShadow = true);
+        scene.add(door);
     });
 }

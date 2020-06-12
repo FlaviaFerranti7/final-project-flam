@@ -84,5 +84,4 @@ function createLivingRoom(gridSize) {
         });
     });
 
-
 }
