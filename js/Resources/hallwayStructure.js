@@ -150,15 +150,17 @@ function createHallway(gridSize) {
     const gltfLoaderDoor = new THREE.GLTFLoader();
     gltfLoaderDoor.load("../../model3D/Common/Door/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        console.log(dumpObject(root).join('\n'));
         door = root.getObjectByName('Door_HighPoly_fbx');
-        door.scale.set(0.02, 0.0165, 0.02);
+        door.scale.set(0.02, 0.0165, 0.01);
         door.position.x = -40.0;
         door.position.y = 9.25;
         door.position.z = 9.0;
         door.rotateX(degToRad(90));
         door.rotateY(degToRad(90));
         door.traverse((child) => child.castShadow = true);
+        mixer= new THREE.AnimationMixer(root);
+        gltf.animations.forEach((clip) => {mixer.clipAction(clip).play(); });
         scene.add(door);
+        //console.log(dumpObject(root).join('\n'));
     });
 }

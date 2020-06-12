@@ -100,25 +100,15 @@ function createRoom2(gridSize) {
         });
     });
 
-    var mtlLoaderBed = new THREE.MTLLoader();
-    mtlLoaderBed.setPath("../../model3D/room/Bed/");
-    mtlLoaderBed.load('bed.mtl', function (materialsBed) {
-
-        materialsBed.preload();
-
-        var objLoaderBed = new THREE.OBJLoader();
-        objLoaderBed.setMaterials(materialsBed);
-        objLoaderBed.setPath("../../model3D/room/Bed/");
-        objLoaderBed.load('bed.obj', function (objectBed) {
-            objectBed.position.x = 0.0;
-            objectBed.position.y = 2.5;
-            objectBed.position.z = 52.0;
-            objectBed.scale.set(0.6, 0.6, 0.6);
-            objectBed.rotateY(degToRad(90));
-            scene.add(objectBed);
-
-        });
+    const gltfLoaderDoor = new THREE.GLTFLoader();
+    gltfLoaderDoor.load("../../model3D/Room2/Bed/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        console.log(dumpObject(root).join('\n'));
+        root.position.x = 0.0;
+        root.position.y = 0.0;
+        root.position.z = 52.0;
+        root.scale.set(0.009, 0.009, 0.008);
+        root.rotateY(degToRad(180));
+        scene.add(root);
     });
-
-
 }

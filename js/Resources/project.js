@@ -157,7 +157,7 @@ scene.add(sourceSpotlightL2.target);
 
 /* ------------------------- LIVING-ROOM ------------------------- */
 
-createLivingRoom(80);
+//createLivingRoom(80);
 
 /* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
 
@@ -200,16 +200,19 @@ marker.position.set(0,0,-3);
 
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
+var mixer;
 
 var animate = function () {
   setTimeout( function() {
     requestAnimationFrame( animate );
   }, 1000 / 30 );
 
-  renderer.render(scene, camera);
   var delta = clock.getDelta();
   animatePlayer(delta);
-
+  
+  mixer.update( delta );
+  
+  renderer.render(scene, camera);
 };
 
 animate();

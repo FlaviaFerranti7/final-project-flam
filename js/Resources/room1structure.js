@@ -109,29 +109,11 @@ function createRoom1(gridSize) {
             objectDoor.rotateX(degToRad(-90));
             objectDoor.rotateZ(degToRad(90));
             objectDoor.traverse((child) => child.castShadow = true);
+            objectDoor.children[0].rotateZ(0.5);
+            objectDoor.children[0].position.y = 15;
+            objectDoor.children[0].position.x = -6;
+            objectDoor.children[0].position.z = 1;
             scene.add(objectDoor);
-
-        });
-    });
-
-
-    var mtlLoaderBed = new THREE.MTLLoader();
-    mtlLoaderBed.setPath("../../model3D/Room1/Bed/");
-    mtlLoaderBed.load('krovat-2.mtl', function (materialsBed) {
-
-        materialsBed.preload();
-
-        var objLoaderBed = new THREE.OBJLoader();
-        objLoaderBed.setMaterials(materialsBed);
-        objLoaderBed.setPath("../../model3D/Room1/Bed/");
-        objLoaderBed.load('krovat-2.obj', function (objectBed) {
-            objectBed.position.x = 16.0;
-            objectBed.position.y = 0.0;
-            objectBed.position.z = -10.0;
-            objectBed.scale.set(9, 9, 9);
-            objectBed.rotateY(degToRad(180));
-            objectBed.traverse((child) => child.castShadow = true);
-            scene.add(objectBed);
 
         });
     });
@@ -176,6 +158,20 @@ function createRoom1(gridSize) {
             scene.add(objectLamp);
 
         });
+    });
+
+    const gltfLoaderDoor = new THREE.GLTFLoader();
+    gltfLoaderDoor.load("../../model3D/Room1/Bed/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 18;
+        root.position.y = 0;
+        root.position.z = -14;
+        root.scale.set(0.1, 0.09, 0.08);
+        root.rotateY(degToRad(-90));
+        // bed = root.getObjectByName('Collada_visual_scene_group');
+        // blanket = root.getObjectByName('Blanket');
+        scene.add(root);
+        //console.log(dumpObject(root).join('\n'));
     });
 
 }
