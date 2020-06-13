@@ -217,6 +217,10 @@ function movePillow() {
   }
 }
 
+var raycaster = new THREE.Raycaster();
+var INTERSECTED;
+var enableSpace = false;
+
 var animate = function () {
   setTimeout( function() {
     requestAnimationFrame( animate );
@@ -232,6 +236,24 @@ var animate = function () {
   //mixer.update( delta );
   movePillow();
 
+  raycaster.setFromCamera( camera.quaternion, camera );
+
+  var intersects = raycaster.intersectObject( objectsAnimated[0].root, true);
+    
+  if ( intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11 ) {
+    if ( INTERSECTED != intersects[ 0 ].object ) {
+
+      if ( INTERSECTED ) enableSpace = false;
+      enableSpace = true;
+    }
+
+  } else {
+
+    if ( INTERSECTED ) enableSpace = false;
+
+    INTERSECTED = null;
+  }
+  
   renderer.render(scene, camera);
 };
 

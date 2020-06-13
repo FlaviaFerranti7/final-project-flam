@@ -141,7 +141,6 @@ function listenForPlayerMovement() {
 
   // A key has been pressed
   var onKeyDown = function (event) {
-    var enableSpace = checkPosition(objectsAnimated[0]);
     switch (event.keyCode) {
 
       case 87: // w

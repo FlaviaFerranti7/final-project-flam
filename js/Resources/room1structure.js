@@ -182,6 +182,6 @@ function createRoom1(gridSize) {
         // blanket = polySurface3390_M_pillow_blanket_0
         //pillow = polySurface3595_M_pillow_blanket_0
         scene.add(root);
-        //console.log(dumpObject(root).join('\n'));
+        console.log(dumpObject(root).join('\n'));
     });
 }
