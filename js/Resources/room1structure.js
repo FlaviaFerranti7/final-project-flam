@@ -160,6 +160,7 @@ function createRoom1(gridSize) {
         });
     });
 
+
     const gltfLoaderDoor = new THREE.GLTFLoader();
     gltfLoaderDoor.load("../../model3D/Room1/Bed/scene.gltf", (gltf) => {
         const root = gltf.scene;
@@ -168,7 +169,16 @@ function createRoom1(gridSize) {
         root.position.z = -14;
         root.scale.set(0.05, 0.04, 0.06);
         root.rotateY(degToRad(180));
-        pillow = root.getObjectByName('polySurface3595_M_pillow_blanket_0');
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        //pillow = root.getObjectByName('polySurface3595_M_pillow_blanket_0');
+        var box = new THREE.Box3().setFromObject( root );
+        //console.log(box);
+        
+        var obj = {root : root, box : box};
+        console.log(obj);
+        objectsAnimated.push(obj);
+
         // blanket = polySurface3390_M_pillow_blanket_0
         //pillow = polySurface3595_M_pillow_blanket_0
         scene.add(root);

@@ -27,6 +27,8 @@ controls.getObject().position.set(10.5, 8, 0);
 controls.getObject().rotation.set(0, 7.85, 0);
 scene.add(controls.getObject());
 
+var objectsAnimated = [];
+
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
 var moveForward = false;
@@ -202,7 +204,10 @@ listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
 
 var mixer;
-var pillow;
+var ctrl = false;
+var pillow; 
+
+
 var t = 0;
 var move = false;
 function movePillow() {
@@ -220,9 +225,13 @@ var animate = function () {
   var delta = clock.getDelta();
   animatePlayer(delta);
   
+  if(!ctrl && objectsAnimated[0]!= undefined){
+    pillow = objectsAnimated[0].root.getObjectByName('polySurface3595_M_pillow_blanket_0');
+    ctrl = true;
+  }
   //mixer.update( delta );
   movePillow();
-    
+
   renderer.render(scene, camera);
 };
 

@@ -141,7 +141,7 @@ function listenForPlayerMovement() {
 
   // A key has been pressed
   var onKeyDown = function (event) {
-
+    var enableSpace = checkPosition(objectsAnimated[0]);
     switch (event.keyCode) {
 
       case 87: // w
@@ -161,7 +161,7 @@ function listenForPlayerMovement() {
         break;
 
       case 32: // space
-        move = true;
+      if(enableSpace) move = true;
         break;
     }
   };
@@ -305,4 +305,25 @@ function interpolation(pos0,pos1,t0,t1,t) {
     return pos1;
   }
   return  pos0+((t-t0)/(t1-t0))*(pos1-pos0);
+}
+
+function checkPosition(obj){
+  /*
+  if(camera.quaternion.x >= obj.box.min.x && camera.quaternion.x <= obj.box.max.x){
+    console.log(obj.box.max.z);
+    console.log(camera.position.z);
+    if(camera.position.z >= obj.box.max.z && camera.position.z <= obj.box.max.z - 2 ){
+      return true;
+    }
+  }
+  return false;
+  */
+  var camPos = new THREE.Vector3(camera.quaternion.x, camera.quaternion.y, camera.quaternion.z);
+  var objPos = new THREE.Vector3(obj.root.position.x, obj.root.position.y, obj.root.position.z);
+  //console.log(cam);
+  var distance = camPos.distanceTo( objPos );
+  if(distance < 2){
+    return true;
+  }
+  return false;
 }
