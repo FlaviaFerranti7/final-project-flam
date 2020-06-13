@@ -159,6 +159,10 @@ function listenForPlayerMovement() {
       case 68: // d
         moveRight = true;
         break;
+
+      case 32: // space
+        move = true;
+        break;
     }
   };
 
@@ -294,5 +298,11 @@ function dumpObject(obj, lines = [], isLast = true, prefix = '') {
 }
 
 function interpolation(pos0,pos1,t0,t1,t) {
+  if(t<t0){
+    return pos0;
+  }
+  if(t>=t1){
+    return pos1;
+  }
   return  pos0+((t-t0)/(t1-t0))*(pos1-pos0);
 }

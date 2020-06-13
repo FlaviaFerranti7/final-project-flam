@@ -200,7 +200,17 @@ marker.position.set(0,0,-3);
 
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
+
 var mixer;
+var pillow;
+var t = 0;
+var move = false;
+function movePillow() {
+  if(move){
+    pillow.position.z = interpolation(0, 50, 0, 5, t);
+    t += 0.1;
+  }
+}
 
 var animate = function () {
   setTimeout( function() {
@@ -210,8 +220,9 @@ var animate = function () {
   var delta = clock.getDelta();
   animatePlayer(delta);
   
-  mixer.update( delta );
-  
+  //mixer.update( delta );
+  movePillow();
+    
   renderer.render(scene, camera);
 };
 
