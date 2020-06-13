@@ -118,26 +118,17 @@ function createRoom1(gridSize) {
         });
     });
 
-    var mtlLoaderWardrobe = new THREE.MTLLoader();
-    mtlLoaderWardrobe.setPath("../../model3D/Room1/Wardrobe/");
-    mtlLoaderWardrobe.load('Traditional_Armoire_Honey_V1.mtl', function (materialsWardrobe) {
-
-        materialsWardrobe.preload();
-
-        var objLoaderWardrobe = new THREE.OBJLoader();
-        objLoaderWardrobe.setMaterials(materialsWardrobe);
-        objLoaderWardrobe.setPath("../../model3D/Room1/Wardrobe/");
-        objLoaderWardrobe.load('Traditional_Armoire_Honey_V1.obj', function (objectWardrobe) {
-            objectWardrobe.position.x = -9.0;
-            objectWardrobe.position.y = 7.4;
-            objectWardrobe.position.z = 17.5;
-            objectWardrobe.scale.set(0.15, 0.1, 0.13);
-            objectWardrobe.rotateX(degToRad(-90));
-            objectWardrobe.rotateZ(degToRad(180));
-            objectWardrobe.traverse((child) => child.castShadow = true);
-            scene.add(objectWardrobe);
-
-        });
+    const gltfLoaderWardrobe = new THREE.GLTFLoader();
+    gltfLoaderWardrobe.load("../../model3D/Room1/Wardrobe/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -9.0;
+        root.position.y = 0.0;
+        root.position.z = 17.5;
+        root.scale.set(7, 8, 5);
+        root.rotateY(degToRad(180));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
     });
 
     var mtlLoaderLamp = new THREE.MTLLoader();
@@ -171,17 +162,14 @@ function createRoom1(gridSize) {
         root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        //pillow = root.getObjectByName('polySurface3595_M_pillow_blanket_0');
         var box = new THREE.Box3().setFromObject( root );
-        //console.log(box);
-        
+
         var obj = {root : root, box : box};
-        console.log(obj);
         objectsAnimated.push(obj);
 
         // blanket = polySurface3390_M_pillow_blanket_0
         //pillow = polySurface3595_M_pillow_blanket_0
         scene.add(root);
-        console.log(dumpObject(root).join('\n'));
+        //console.log(dumpObject(root).join('\n'));
     });
 }

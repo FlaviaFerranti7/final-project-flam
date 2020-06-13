@@ -185,7 +185,7 @@ scene.add(sourceSpotlightL.target);
 
 /* ------------------------- LISTENER -------------------------- */
 
-var geometry = new THREE.PlaneGeometry( 0.03, 0.2, 32 );
+var geometry = new THREE.PlaneGeometry( 0.005, 0.03, 32 );
 var material = new THREE.MeshBasicMaterial( {color: 0xeed000, side: THREE.DoubleSide} );
 var verticalCross = new THREE.Mesh( geometry, material );
 var horizontalCross = new THREE.Mesh(geometry, material);
@@ -198,7 +198,7 @@ marker.add(horizontalCross);
 
 
 camera.add(marker);
-marker.position.set(0,0,-3);
+marker.position.set(0,0,-0.5);
 
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
