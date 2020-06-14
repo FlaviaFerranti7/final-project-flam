@@ -160,7 +160,7 @@ scene.add(sourceSpotlightL2.target);
 
 /* ------------------------- LIVING-ROOM ------------------------- */
 
-//createLivingRoom(80);
+// createLivingRoom(80);
 
 /* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
 
@@ -193,10 +193,8 @@ var horizontalCross = new THREE.Mesh(geometry, material);
 horizontalCross.rotateZ(degToRad(90));
 
 var marker = new THREE.Group();
-
 marker.add(verticalCross);
 marker.add(horizontalCross);
-
 
 camera.add(marker);
 marker.position.set(0, 0, -0.5);

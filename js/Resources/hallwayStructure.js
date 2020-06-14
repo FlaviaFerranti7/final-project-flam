@@ -104,7 +104,6 @@ function createHallway(gridSize) {
         });
     });
 
-
     var mtlLoaderLampL2 = new THREE.MTLLoader();
     mtlLoaderLampL2.setPath("../../model3D/Common/Lamp/");
     mtlLoaderLampL2.load('lightbulbfinal.mtl', function (materialsLampL2) {
@@ -125,42 +124,18 @@ function createHallway(gridSize) {
         });
     });
 
-
-    var mtlLoaderConsole = new THREE.MTLLoader();
-    mtlLoaderConsole.setPath("../../model3D/Hallway/Console/");
-    mtlLoaderConsole.load('14311_Straight_Leg_Console_Table-Ebony_v1_l1.mtl', function (materialsConsole) {
-
-        materialsConsole.preload();
-
-        var objLoaderConsole = new THREE.OBJLoader();
-        objLoaderConsole.setMaterials(materialsConsole);
-        objLoaderConsole.setPath("../../model3D/Hallway/Console/");
-        objLoaderConsole.load('14311_Straight_Leg_Console_Table-Ebony_v1_l1.obj', function (objectConsole) {
-            objectConsole.position.x = -22.0;
-            objectConsole.position.y = 0.5;
-            objectConsole.position.z = 30.0;
-            objectConsole.scale.set(0.07, 0.07, 0.09);
-            objectConsole.rotateX(degToRad(270));
-            objectConsole.rotateZ(degToRad(90));
-            scene.add(objectConsole);
-
-        });
-    });
-
-    const gltfLoaderDoor = new THREE.GLTFLoader();
-    gltfLoaderDoor.load("../../model3D/Common/Door/scene.gltf", (gltf) => {
+    const gltfLoaderConsole = new THREE.GLTFLoader();
+    gltfLoaderConsole.load("../../model3D/Hallway/Console/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        door = root.getObjectByName('Door_HighPoly_fbx');
-        door.scale.set(0.02, 0.0165, 0.01);
-        door.position.x = -40.0;
-        door.position.y = 9.25;
-        door.position.z = 9.0;
-        door.rotateX(degToRad(90));
-        door.rotateY(degToRad(90));
-        door.traverse((child) => child.castShadow = true);
-        mixer= new THREE.AnimationMixer(root);
-        gltf.animations.forEach((clip) => {mixer.clipAction(clip).play(); });
-        scene.add(door);
-        //console.log(dumpObject(root).join('\n'));
+        root.position.x = -22;
+        root.position.y = -0.1;
+        root.position.z = 30.0;
+        root.scale.set(0.1, 0.1, 0.05);
+        root.rotateY(degToRad(-90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+        // console.log(dumpObject(root).join('\n'));
     });
+
 }
