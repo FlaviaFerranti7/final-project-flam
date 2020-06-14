@@ -28,6 +28,7 @@ controls.getObject().rotation.set(0, 7.85, 0);
 scene.add(controls.getObject());
 
 var objectsAnimated = [];
+var currentObject = null;
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
@@ -185,9 +186,9 @@ scene.add(sourceSpotlightL.target);
 
 /* ------------------------- LISTENER -------------------------- */
 
-var geometry = new THREE.PlaneGeometry( 0.005, 0.03, 32 );
-var material = new THREE.MeshBasicMaterial( {color: 0xeed000, side: THREE.DoubleSide} );
-var verticalCross = new THREE.Mesh( geometry, material );
+var geometry = new THREE.PlaneGeometry(0.005, 0.03, 32);
+var material = new THREE.MeshBasicMaterial({ color: 0xeed000, side: THREE.DoubleSide });
+var verticalCross = new THREE.Mesh(geometry, material);
 var horizontalCross = new THREE.Mesh(geometry, material);
 horizontalCross.rotateZ(degToRad(90));
 
@@ -198,62 +199,66 @@ marker.add(horizontalCross);
 
 
 camera.add(marker);
-marker.position.set(0,0,-0.5);
+marker.position.set(0, 0, -0.5);
 
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
 
-var mixer;
-var ctrl = false;
-var pillow; 
-
-
 var t = 0;
 var move = false;
-function movePillow() {
-  if(move){
-    pillow.position.z = interpolation(0, 50, 0, 5, t);
-    t += 0.1;
-  }
-}
 
 var raycaster = new THREE.Raycaster();
 var INTERSECTED;
 var enableSpace = false;
 
 var animate = function () {
-  setTimeout( function() {
-    requestAnimationFrame( animate );
-  }, 1000 / 30 );
+  setTimeout(function () {
+    requestAnimationFrame(animate);
+  }, 1000 / 30);
 
   var delta = clock.getDelta();
   animatePlayer(delta);
-  
-  if(!ctrl && objectsAnimated[0]!= undefined){
-    pillow = objectsAnimated[0].root.getObjectByName('polySurface3595_M_pillow_blanket_0');
-    ctrl = true;
-  }
-  //mixer.update( delta );
-  movePillow();
 
-  raycaster.setFromCamera( camera.quaternion, camera );
+  raycaster.setFromCamera(camera.quaternion, camera);
 
-  var intersects = raycaster.intersectObject( objectsAnimated[0].root, true);
-    
-  if ( intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11 ) {
-    if ( INTERSECTED != intersects[ 0 ].object ) {
+  var intersects = raycaster.intersectObject(objectsAnimated[0].root, true);
 
-      if ( INTERSECTED ) enableSpace = false;
+  if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
+    if (INTERSECTED != intersects[0].object) {
+
+      if (INTERSECTED) {
+        currentObject = null;
+        enableSpace = false;
+        move = false;
+        t = 0;
+      }
+
+      INTERSECTED = intersects[0].object;
       enableSpace = true;
+      currentObject = objectsAnimated[0];
     }
 
   } else {
 
-    if ( INTERSECTED ) enableSpace = false;
+    if (INTERSECTED) {
+      currentObject = null;
+      enableSpace = false;
+      move = false;
+      t = 0;
+    }
 
     INTERSECTED = null;
+    currentObject = null;
+    move = false;
+    t = 0;
   }
-  
+  console.log(currentObject);
+  if (currentObject != null) {
+    console.log("ciao");
+    currentObject.animation(t, move);
+    t++;
+  }
+
   renderer.render(scene, camera);
 };
 

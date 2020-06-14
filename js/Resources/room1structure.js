@@ -151,9 +151,8 @@ function createRoom1(gridSize) {
         });
     });
 
-
-    const gltfLoaderDoor = new THREE.GLTFLoader();
-    gltfLoaderDoor.load("../../model3D/Room1/Bed/scene.gltf", (gltf) => {
+    const gltfLoaderBed = new THREE.GLTFLoader();
+    gltfLoaderBed.load("../../model3D/Room1/Bed/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 11;
         root.position.y = 0;
@@ -162,14 +161,50 @@ function createRoom1(gridSize) {
         root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var box = new THREE.Box3().setFromObject( root );
+        var animation = (t, move) => {
+            if (move) {
+                root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z = interpolation(0, 50, 0, 5, t);
+                t += 0.1;
+            }
 
-        var obj = {root : root, box : box};
+        };
+        var obj = {
+            root: root,
+            animation: animation
+        };
         objectsAnimated.push(obj);
 
         // blanket = polySurface3390_M_pillow_blanket_0
-        //pillow = polySurface3595_M_pillow_blanket_0
+        // pillow = polySurface3595_M_pillow_blanket_0
         scene.add(root);
-        //console.log(dumpObject(root).join('\n'));
+        // console.log(dumpObject(root).join('\n'));
+    });
+
+    const gltfLoaderKey = new THREE.GLTFLoader();
+    gltfLoaderKey.load("../../model3D/Room1/Key/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 16;
+        root.position.y = 3.9;
+        root.position.z = -13;
+        root.scale.set(0.006, 0.006, 0.006);
+        root.rotateX(degToRad(90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+        // console.log(dumpObject(root).join('\n'));
+    });
+
+    const gltfLoaderTorch = new THREE.GLTFLoader();
+    gltfLoaderTorch.load("../../model3D/Room1/Torch/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 16;
+        root.position.y = 1.0;
+        root.position.z = -8;
+        root.scale.set(0.006, 0.006, 0.006);
+        root.rotateX(degToRad(90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+        // console.log(dumpObject(root).join('\n'));
     });
 }

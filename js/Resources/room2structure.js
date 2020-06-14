@@ -111,4 +111,18 @@ function createRoom2(gridSize) {
         root.rotateY(degToRad(180));
         scene.add(root);
     });
+
+    const gltfLoaderBattery = new THREE.GLTFLoader();
+    gltfLoaderBattery.load("../../model3D/Room2/Battery/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 12.0;
+        root.position.y = 4.3;
+        root.position.z = 57.0;
+        root.scale.set(0.005, 0.006, 0.005);
+        root.rotateX(degToRad(90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+        // console.log(dumpObject(root).join('\n'));
+    });
 }
