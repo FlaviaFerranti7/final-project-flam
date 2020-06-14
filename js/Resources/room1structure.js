@@ -128,6 +128,16 @@ function createRoom1(gridSize) {
         root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var animation = (t, move) => {
+            if (move) {
+                root.position.x = interpolation(-9, 39, 0, 15, t);
+            }
+        };
+        var obj = {
+            root: root,
+            animation: animation
+        };
+        objectsAnimated.push(obj);
         scene.add(root);
     });
 
@@ -164,16 +174,13 @@ function createRoom1(gridSize) {
         var animation = (t, move) => {
             if (move) {
                 root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z = interpolation(0, 50, 0, 5, t);
-                t += 0.1;
             }
-
         };
         var obj = {
             root: root,
             animation: animation
         };
         objectsAnimated.push(obj);
-
         // blanket = polySurface3390_M_pillow_blanket_0
         // pillow = polySurface3595_M_pillow_blanket_0
         scene.add(root);

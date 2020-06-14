@@ -220,8 +220,8 @@ var animate = function () {
   animatePlayer(delta);
 
   raycaster.setFromCamera(camera.quaternion, camera);
-
-  var intersects = raycaster.intersectObject(objectsAnimated[0].root, true);
+  var intersects = raycaster.intersectObjects(scene.children, true);
+  console.log(intersects);
 
   if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
@@ -235,7 +235,17 @@ var animate = function () {
 
       INTERSECTED = intersects[0].object;
       enableSpace = true;
-      currentObject = objectsAnimated[0];
+
+      for (var i = 0; i < objectsAnimated.length; i++) {
+        objectsAnimated[i].root.traverse((child) => {
+          console.log(child);
+          console.log(intersects[0].object);
+          if (intersects[0].object == child) {
+            currentObject = objectsAnimated[i];
+          }
+        });
+        if (currentObject != null) break;
+      }
     }
 
   } else {
@@ -256,7 +266,7 @@ var animate = function () {
   if (currentObject != null) {
     console.log("ciao");
     currentObject.animation(t, move);
-    t++;
+    t += 0.1;
   }
 
   renderer.render(scene, camera);
