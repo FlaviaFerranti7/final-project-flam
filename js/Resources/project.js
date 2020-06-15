@@ -62,7 +62,7 @@ const penumbra = 0.6;
 
 /* ------------------------- FIRST ROOM ------------------------- */
 
-createRoom1(40);
+// createRoom1(40);
 
 /* ------------------------- SPOTLIGHT FIRST ROOM ------------------------- */
 
@@ -88,7 +88,7 @@ scene.add(sourceSpotlightR1.target);
 
 /* ------------------------- SECOND ROOM ------------------------- */
 
-createRoom2(40);
+// createRoom2(40);
 
 /* ------------------------- SPOTLIGHT SECOND ROOM ------------------------- */
 
@@ -114,7 +114,7 @@ scene.add(sourceSpotlightR2.target);
 
 /* --------------------------- HALLWAY --------------------------- */
 
-createHallway(80);
+// createHallway(80);
 
 /* --------------------------- SPOTLIGHT HALLWAY --------------------------- */
 
@@ -160,7 +160,7 @@ scene.add(sourceSpotlightL2.target);
 
 /* ------------------------- LIVING-ROOM ------------------------- */
 
-// createLivingRoom(80);
+createLivingRoom(80);
 
 /* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
 
@@ -219,7 +219,7 @@ var animate = function () {
 
   raycaster.setFromCamera(camera.quaternion, camera);
   var intersects = raycaster.intersectObjects(scene.children, true);
-  console.log(intersects);
+  // console.log(intersects);
 
   if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
@@ -236,8 +236,8 @@ var animate = function () {
 
       for (var i = 0; i < objectsAnimated.length; i++) {
         objectsAnimated[i].root.traverse((child) => {
-          console.log(child);
-          console.log(intersects[0].object);
+          // console.log(child);
+          // console.log(intersects[0].object);
           if (intersects[0].object == child) {
             currentObject = objectsAnimated[i];
           }
@@ -260,9 +260,9 @@ var animate = function () {
     move = false;
     t = 0;
   }
-  console.log(currentObject);
+  // console.log(currentObject);
   if (currentObject != null) {
-    console.log("ciao");
+    // console.log("ciao");
     currentObject.animation(t, move);
     t += 0.1;
   }
