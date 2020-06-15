@@ -63,7 +63,7 @@ const penumbra = 0.6;
 
 /* ------------------------- FIRST ROOM ------------------------- */
 
-createRoom1(40);
+// createRoom1(40);
 
 /* ------------------------- SPOTLIGHT FIRST ROOM ------------------------- */
 
@@ -87,8 +87,9 @@ scene.add(spotlightR1.target);
 scene.add(sourceSpotlightR1);
 scene.add(sourceSpotlightR1.target);
 
-var room2Loader = function() {
+var room2Loader = function () {
   /* ------------------------- SECOND ROOM ------------------------- */
+
   createRoom2(40);
 
   /* ------------------------- SPOTLIGHT SECOND ROOM ------------------------- */
@@ -116,7 +117,7 @@ var room2Loader = function() {
 
 /* --------------------------- HALLWAY --------------------------- */
 
-createHallway(80);
+// createHallway(80);
 
 /* --------------------------- SPOTLIGHT HALLWAY --------------------------- */
 
@@ -162,7 +163,7 @@ scene.add(sourceSpotlightL2.target);
 
 /* ------------------------- LIVING-ROOM ------------------------- */
 
-// createLivingRoom(80);
+createLivingRoom(80);
 
 /* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
 
@@ -254,7 +255,7 @@ var animate = function () {
       t = 0;
     }
 
-    if(!functionIsRunning) {
+    if (!functionIsRunning) {
       INTERSECTED = null;
       currentObject = null;
       move = false;
@@ -264,18 +265,18 @@ var animate = function () {
   }
 
   if (currentObject != null) {
-    if(!move) actionPanel.style.display = "block";
+    if (!move) actionPanel.style.display = "block";
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
     functionIsRunning = currentObject.animation(t, move);
-    if(move) t += 0.1;
-    if(move && !functionIsRunning && currentObject.reverseAnimation == null) {
+    if (move) t += 0.1;
+    if (move && !functionIsRunning && currentObject.reverseAnimation == null) {
       objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
       currentObject = null;
     }
   }
 
-  if(move && functionIsRunning && steps.indexOf(currentObject) == 0) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 0) {
     document.getElementById("steps").style.display = "block";
     document.getElementById("steps").childNodes[1].innerHTML = "Step 1 passed";
     room2Loader();
