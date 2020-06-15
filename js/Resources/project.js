@@ -206,6 +206,8 @@ var raycaster = new THREE.Raycaster();
 var INTERSECTED;
 var enableSpace = false;
 
+var functionIsRunning = false;
+
 var animate = function () {
   setTimeout(function () {
     requestAnimationFrame(animate);
@@ -220,7 +222,7 @@ var animate = function () {
   if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
 
-      if (INTERSECTED) {
+      if (INTERSECTED && !functionIsRunning) {
         currentObject = null;
         enableSpace = false;
         move = false;
@@ -242,25 +244,29 @@ var animate = function () {
 
   } else {
 
-    if (INTERSECTED) {
+    if (INTERSECTED && !functionIsRunning) {
       currentObject = null;
       enableSpace = false;
       move = false;
       t = 0;
     }
 
-    INTERSECTED = null;
-    currentObject = null;
-    move = false;
-    t = 0;
-    actionPanel.style.display = "none";
+    if(!functionIsRunning) {
+      INTERSECTED = null;
+      currentObject = null;
+      move = false;
+      t = 0;
+      actionPanel.style.display = "none";
+    }
   }
 
   if (currentObject != null) {
-    actionPanel.style.display = "block";
+    if(!move) actionPanel.style.display = "block";
+    else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
-    currentObject.animation(t, move);
-    t += 0.1;
+    functionIsRunning = currentObject.animation(t, move);
+    if(move) t += 0.1;
+    console.log(functionIsRunning);
   }
 
   renderer.render(scene, camera);

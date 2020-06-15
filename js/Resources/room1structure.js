@@ -128,10 +128,14 @@ function createRoom1(gridSize) {
         root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var finalPosition = 6;
         var animation = (t, move) => {
+            if(root.position.x == finalPosition) return false;
             if (move) {
-                root.position.x = interpolation(-9, 39, 0, 15, t);
+                root.position.x = interpolation(-9, finalPosition, 0, 15, t);
+                return true;
             }
+            return false;
         };
         var obj = {
             root: root,
@@ -172,10 +176,15 @@ function createRoom1(gridSize) {
         root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var finalPosition = 50;
         var animation = (t, move) => {
+            if(root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z == finalPosition) return false;
             if (move) {
-                root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z = interpolation(0, 50, 0, 5, t);
+                root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z = interpolation(0, finalPosition, 0, 5, t);
+                return true;
             }
+            return false;
+            
         };
         var obj = {
             root: root,
