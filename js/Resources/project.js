@@ -160,7 +160,7 @@ scene.add(sourceSpotlightL2.target);
 
 /* ------------------------- LIVING-ROOM ------------------------- */
 
-// createLivingRoom(80);
+createLivingRoom(80);
 
 /* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
 
@@ -183,6 +183,14 @@ scene.add(spotlightL.target);
 
 scene.add(sourceSpotlightL);
 scene.add(sourceSpotlightL.target);
+
+
+/* ------------------------- GARDEN ------------------------- */
+
+createGarden(380);
+
+/* ------------------------- SPOTLIGHT GARDEN------------------------- */
+
 
 /* ------------------------- LISTENER -------------------------- */
 
