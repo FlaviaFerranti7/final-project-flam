@@ -127,10 +127,27 @@ function createHallway(gridSize) {
     gltfLoaderConsole.load("../../model3D/Hallway/Console/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -22;
-        root.position.y = -0.1;
+        root.position.y = 0.0;
         root.position.z = 30.0;
         root.scale.set(0.1, 0.1, 0.05);
         root.rotateY(degToRad(-90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        root.getObjectByName('Plane001').visible = false;
+        scene.add(root);
+        // console.log(dumpObject(root).join('\n'));
+    });
+
+    const gltfLoaderGun = new THREE.GLTFLoader();
+    gltfLoaderGun.load("../../model3D/Hallway/Gun/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -23.1;
+        root.position.y = 2.6;
+        root.position.z = 26.9;
+        root.scale.set(0.4, 0.4, 0.4);
+        root.rotateX(degToRad(90));
+        root.rotateY(degToRad(180));
+        root.rotateZ(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);

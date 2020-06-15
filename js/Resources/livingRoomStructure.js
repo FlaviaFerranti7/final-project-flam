@@ -106,7 +106,6 @@ function createLivingRoom(gridSize) {
         root.position.y = 0.0;
         root.position.z = 59.65;
         root.scale.set(2.05, 1.24, 1.5);
-        // root.rotateY(degToRad(-90));
         root.traverse((child) => child.castShadow = true);
         // recursiveChild(root, collidableObjects);
         scene.add(root);
@@ -123,7 +122,6 @@ function createLivingRoom(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);
-        // console.log(dumpObject(root).join('\n'));
     });
 
     const gltfLoaderTable = new THREE.GLTFLoader();
@@ -136,7 +134,6 @@ function createLivingRoom(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);
-        // console.log(dumpObject(root).join('\n'));
     });
 
     const gltfLoaderBookcase = new THREE.GLTFLoader();
@@ -156,9 +153,9 @@ function createLivingRoom(gridSize) {
     gltfLoaderFurniture.load("../../model3D/LivingRoom/Furniture/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -50.0;
-        root.position.y = 0.0;
+        root.position.y = 1.5;
         root.position.z = 35.0;
-        root.scale.set(8.0, 10.0, 8.0);
+        root.scale.set(7.0, 7.0, 7.0);
         root.rotateY(degToRad(-90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
@@ -177,4 +174,45 @@ function createLivingRoom(gridSize) {
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });
+
+    const gltfLoaderViolin = new THREE.GLTFLoader();
+    gltfLoaderViolin.load("../../model3D/LivingRoom/Violin/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -90.0;
+        root.position.y = 3.1;
+        root.position.z = 58.0;
+        root.scale.set(0.6, 0.6, 0.6);
+        root.rotateY(degToRad(-90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
+
+    const gltfLoaderHourglass = new THREE.GLTFLoader();
+    gltfLoaderHourglass.load("../../model3D/LivingRoom/Hourglass/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -56.0;
+        root.position.y = 3.9;
+        root.position.z = -1.0;
+        root.scale.set(0.25, 0.2, 0.25);
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        root.getObjectByName('table_4').visible = false;
+        scene.add(root);
+    });
+
+    const gltfLoaderGateRemoteControl = new THREE.GLTFLoader();
+    gltfLoaderGateRemoteControl.load("../../model3D/LivingRoom/GateRemoteControl/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -70.0;
+        root.position.y = 3.65;
+        root.position.z = -7.0;
+        root.scale.set(0.007, 0.005, 0.007);
+        root.rotateX(degToRad(-90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
+
+
 }
