@@ -80,7 +80,6 @@ function createHallway(gridSize) {
 
     scene.add(hallway);
     recursiveChild(hallway, collidableObjects);
-    console.log(collidableObjects);
 
     /* MODEL 3D */
 

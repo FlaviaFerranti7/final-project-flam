@@ -103,7 +103,6 @@ function createRoom2(gridSize) {
     const gltfLoaderBed = new THREE.GLTFLoader();
     gltfLoaderBed.load("../../model3D/Room2/Bed/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        console.log(dumpObject(root).join('\n'));
         root.position.x = 0.0;
         root.position.y = 0.0;
         root.position.z = 51.0;

@@ -131,6 +131,7 @@ function createRoom1(gridSize) {
         var finalPosition = 6;
         var animation = (t, move) => {
             if(root.position.x == finalPosition) return false;
+
             if (move) {
                 root.position.x = interpolation(-9, finalPosition, 0, 15, t);
                 return true;
@@ -140,6 +141,8 @@ function createRoom1(gridSize) {
         var obj = {
             root: root,
             animation: animation,
+            actionEnded: false,
+            reverseAnimation: null,
             actionButton: "space",
         };
         objectsAnimated.push(obj);
@@ -179,6 +182,7 @@ function createRoom1(gridSize) {
         var finalPosition = 50;
         var animation = (t, move) => {
             if(root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z == finalPosition) return false;
+            
             if (move) {
                 root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z = interpolation(0, finalPosition, 0, 5, t);
                 return true;
@@ -189,13 +193,12 @@ function createRoom1(gridSize) {
         var obj = {
             root: root,
             animation: animation,
+            actionEnded: false,
+            reverseAnimation: null,
             actionButton: "space",
         };
         objectsAnimated.push(obj);
-        // blanket = polySurface3390_M_pillow_blanket_0
-        // pillow = polySurface3595_M_pillow_blanket_0
         scene.add(root);
-        // console.log(dumpObject(root).join('\n'));
     });
 
     const gltfLoaderKey = new THREE.GLTFLoader();

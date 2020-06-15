@@ -266,7 +266,11 @@ var animate = function () {
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
     functionIsRunning = currentObject.animation(t, move);
     if(move) t += 0.1;
-    console.log(functionIsRunning);
+    if(move && !functionIsRunning && currentObject.reverseAnimation == null) {
+      objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
+      currentObject = null;
+    } 
+    console.log(objectsAnimated);
   }
 
   renderer.render(scene, camera);
