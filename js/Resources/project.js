@@ -24,8 +24,11 @@ controls.getObject().rotation.set(0, 7.85, 0);
 scene.add(controls.getObject());
 
 var objectsAnimated = [];
+var steps = [];
 var currentObject = null;
 var actionPanel = document.getElementById("action");
+
+var functionIsRunning = false;
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
@@ -41,6 +44,7 @@ var playerVelocity = new THREE.Vector3();
 var PLAYERSPEED = 400.0;
 var PLAYERCOLLISIONDISTANCE = 5;
 var collidableObjects = [];
+
 
 var clock = new THREE.Clock();
 
@@ -83,31 +87,32 @@ scene.add(spotlightR1.target);
 scene.add(sourceSpotlightR1);
 scene.add(sourceSpotlightR1.target);
 
-/* ------------------------- SECOND ROOM ------------------------- */
+var room2Loader = function() {
+  /* ------------------------- SECOND ROOM ------------------------- */
+  createRoom2(40);
 
-createRoom2(40);
+  /* ------------------------- SPOTLIGHT SECOND ROOM ------------------------- */
 
-/* ------------------------- SPOTLIGHT SECOND ROOM ------------------------- */
+  const spotlightR2 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
 
-const spotlightR2 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
+  spotlightR2.position.set(0.0, 20.0, 42.0);
+  spotlightR2.target = new THREE.Object3D();;
+  spotlightR2.target.position.set(0, -4000, 0);
+  spotlightR2.angle = Math.PI / 2.5;
+  spotlightR2.distance = 200;
+  spotlightR2.penumbra = penumbra;
+  spotlightR2.castShadow = true;
 
-spotlightR2.position.set(0.0, 20.0, 42.0);
-spotlightR2.target = new THREE.Object3D();;
-spotlightR2.target.position.set(0, -4000, 0);
-spotlightR2.angle = Math.PI / 2.5;
-spotlightR2.distance = 200;
-spotlightR2.penumbra = penumbra;
-spotlightR2.castShadow = true;
+  const sourceSpotlightR2 = createReverseSpotLight(spotlightR2, new THREE.Vector3(0.0, 15.0, 42.0));
 
-const sourceSpotlightR2 = createReverseSpotLight(spotlightR2, new THREE.Vector3(0.0, 15.0, 42.0));
+  spotlightR2.decay = 5;
 
-spotlightR2.decay = 5;
+  scene.add(spotlightR2);
+  scene.add(spotlightR2.target);
 
-scene.add(spotlightR2);
-scene.add(spotlightR2.target);
-
-scene.add(sourceSpotlightR2);
-scene.add(sourceSpotlightR2.target);
+  scene.add(sourceSpotlightR2);
+  scene.add(sourceSpotlightR2.target);
+}
 
 /* --------------------------- HALLWAY --------------------------- */
 
@@ -206,8 +211,6 @@ var raycaster = new THREE.Raycaster();
 var INTERSECTED;
 var enableSpace = false;
 
-var functionIsRunning = false;
-
 var animate = function () {
   setTimeout(function () {
     requestAnimationFrame(animate);
@@ -269,8 +272,17 @@ var animate = function () {
     if(move && !functionIsRunning && currentObject.reverseAnimation == null) {
       objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
       currentObject = null;
-    } 
-    console.log(objectsAnimated);
+    }
+  }
+
+  if(move && functionIsRunning && steps.indexOf(currentObject) == 0) {
+    document.getElementById("steps").style.display = "block";
+    document.getElementById("steps").childNodes[1].innerHTML = "Step 1 passed";
+    room2Loader();
+    steps.splice(0, 1);
+    setTimeout(() => {
+      document.getElementById("steps").style.display = "none"
+    }, 6000);
   }
 
   renderer.render(scene, camera);

@@ -109,10 +109,11 @@ function createRoom1(gridSize) {
             objectDoor.rotateX(degToRad(-90));
             objectDoor.rotateZ(degToRad(90));
             objectDoor.traverse((child) => child.castShadow = true);
-            objectDoor.children[0].rotateZ(0.5);
-            objectDoor.children[0].position.y = 15;
-            objectDoor.children[0].position.x = -6;
-            objectDoor.children[0].position.z = 1;
+            recursiveChild(objectDoor, collidableObjects);
+            //objectDoor.children[0].rotateZ(0.5);
+            //objectDoor.children[0].position.y = 15;
+            //objectDoor.children[0].position.x = -6;
+            //objectDoor.children[0].position.z = 1;
             scene.add(objectDoor);
 
         });
@@ -145,6 +146,7 @@ function createRoom1(gridSize) {
             reverseAnimation: null,
             actionButton: "space",
         };
+        steps.push(obj);
         objectsAnimated.push(obj);
         scene.add(root);
     });

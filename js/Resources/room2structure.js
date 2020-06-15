@@ -122,6 +122,5 @@ function createRoom2(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);
-        // console.log(dumpObject(root).join('\n'));
     });
 }

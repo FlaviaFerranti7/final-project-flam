@@ -73,3 +73,19 @@ body {
     font-size: 20px;
     color: black;
 }
+
+#steps {
+    position: absolute;
+    height: 150px;
+    width: 100%;
+    top: calc(50% - 75px);
+    left: 0;
+    z-index: 99;
+    background-color: #ffffff50;
+    display: none;
+    font-size: 25px;
+    line-height: 150px;
+    color: black;
+    text-align: center;
+
+}
