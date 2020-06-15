@@ -103,12 +103,12 @@ function createRoom2(gridSize) {
     const gltfLoaderBed = new THREE.GLTFLoader();
     gltfLoaderBed.load("../../model3D/Room2/Bed/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        console.log(dumpObject(root).join('\n'));
         root.position.x = 0.0;
         root.position.y = 0.0;
         root.position.z = 51.0;
         root.scale.set(0.009, 0.009, 0.008);
         root.rotateY(degToRad(180));
+        //console.log(dumpObject(root).join('\n'));
         scene.add(root);
     });
 
@@ -124,5 +124,33 @@ function createRoom2(gridSize) {
         recursiveChild(root, collidableObjects);
         scene.add(root);
         // console.log(dumpObject(root).join('\n'));
+    });
+
+    const gltfLoaderWardrobe = new THREE.GLTFLoader();
+    gltfLoaderWardrobe.load("../../model3D/Room2/Wardrobe/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 11;
+        root.position.y = 0;
+        root.position.z = 20.5;
+        root.scale.set(3, 4, 5);
+        root.rotateY(degToRad(-90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        var animation = (t, move) => {
+            if (move) {
+                root.getObjectByName('Cube009').position.x = interpolation(1.8, 5, 0, 5, t);
+                root.getObjectByName('Cube012').position.x = interpolation(2, 5.2, 0, 5, t);
+                root.getObjectByName('Cylinder').position.x = interpolation(1.9, 5.1, 0, 5, t);
+                root.getObjectByName('Cylinder001').position.x = interpolation(1.9, 5.1, 0, 5, t);
+            }
+        };
+        var obj = {
+            root: root,
+            animation: animation
+        };
+        objectsAnimated.push(obj);
+        
+        scene.add(root);
+        console.log(dumpObject(root).join('\n'));
     });
 }
