@@ -135,7 +135,8 @@ function createRoom1(gridSize) {
         };
         var obj = {
             root: root,
-            animation: animation
+            animation: animation,
+            actionButton: "space",
         };
         objectsAnimated.push(obj);
         scene.add(root);
@@ -178,7 +179,8 @@ function createRoom1(gridSize) {
         };
         var obj = {
             root: root,
-            animation: animation
+            animation: animation,
+            actionButton: "space",
         };
         objectsAnimated.push(obj);
         // blanket = polySurface3390_M_pillow_blanket_0

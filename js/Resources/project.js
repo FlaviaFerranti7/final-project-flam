@@ -14,10 +14,6 @@ container.appendChild(renderer.domElement); //renderer.domElement is the canvas
 
 //camera.position.set(10.5, 8, 0);   //(1, 10, 55);
 
-// var controls = new THREE.OrbitControls(camera, renderer.domElement);
-// controls.target.set(0, 5, 0);
-// controls.update();
-
 var controls;
 var controlsEnabled = false;
 var blocker = document.getElementById('blocker');
@@ -29,6 +25,7 @@ scene.add(controls.getObject());
 
 var objectsAnimated = [];
 var currentObject = null;
+var actionPanel = document.getElementById("action");
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
@@ -219,7 +216,6 @@ var animate = function () {
 
   raycaster.setFromCamera(camera.quaternion, camera);
   var intersects = raycaster.intersectObjects(scene.children, true);
-  console.log(intersects);
 
   if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
@@ -236,8 +232,6 @@ var animate = function () {
 
       for (var i = 0; i < objectsAnimated.length; i++) {
         objectsAnimated[i].root.traverse((child) => {
-          console.log(child);
-          console.log(intersects[0].object);
           if (intersects[0].object == child) {
             currentObject = objectsAnimated[i];
           }
@@ -259,10 +253,12 @@ var animate = function () {
     currentObject = null;
     move = false;
     t = 0;
+    actionPanel.style.display = "none";
   }
-  console.log(currentObject);
+
   if (currentObject != null) {
-    console.log("ciao");
+    actionPanel.style.display = "block";
+    actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
     currentObject.animation(t, move);
     t += 0.1;
   }
