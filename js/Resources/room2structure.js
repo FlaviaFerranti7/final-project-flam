@@ -130,22 +130,24 @@ function createRoom2(gridSize) {
         const root = gltf.scene;
         root.position.x = 11;
         root.position.y = 0;
-        root.position.z = 20.5;
-        root.scale.set(3, 4, 5);
-        root.rotateY(degToRad(-90));
+        root.position.z = 22.5;
+        root.scale.set(0.025, 0.016, 0.02);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        root.getObjectByName('Cube003').position.z = 0;
+        root.getObjectByName('Cube001').rotation.z = 0;        
         var animation = (t, move) => {
+            if(root.getObjectByName('Cube001').rotation.z == -degToRad(90)) return false;
             if (move) {
-                root.getObjectByName('Cube009').position.x = interpolation(1.8, 5, 0, 5, t);
-                root.getObjectByName('Cube012').position.x = interpolation(2, 5.2, 0, 5, t);
-                root.getObjectByName('Cylinder').position.x = interpolation(1.9, 5.1, 0, 5, t);
-                root.getObjectByName('Cylinder001').position.x = interpolation(1.9, 5.1, 0, 5, t);
+                root.getObjectByName('Cube001').rotation.z = interpolation(0,degToRad(90),0,5,t);
+                return true;
             }
+            return false;
         };
         var obj = {
             root: root,
-            animation: animation
+            animation: animation,            
+            actionButton: "space",
         };
         objectsAnimated.push(obj);
         
