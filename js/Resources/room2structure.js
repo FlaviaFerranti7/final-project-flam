@@ -80,6 +80,7 @@ function createRoom2(gridSize) {
     recursiveChild(room, collidableObjects);
 
     /* MODEL 3D */
+<<<<<<< HEAD
     var mtlLoaderLamp = new THREE.MTLLoader();
     mtlLoaderLamp.setPath("../../model3D/Common/Lamp/");
     mtlLoaderLamp.load('lightbulbfinal.mtl', function (materialsLamp) {
@@ -123,4 +124,51 @@ function createRoom2(gridSize) {
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });
+=======
+    // var mtlLoaderLamp = new THREE.MTLLoader();
+    // mtlLoaderLamp.setPath("../../model3D/Common/Lamp/");
+    // mtlLoaderLamp.load('lightbulbfinal.mtl', function (materialsLamp) {
+
+    //     materialsLamp.preload();
+
+    //     var objLoaderLamp = new THREE.OBJLoader();
+    //     objLoaderLamp.setMaterials(materialsLamp);
+    //     objLoaderLamp.setPath("../../model3D/Common/Lamp/");
+    //     objLoaderLamp.load('lightbulbfinal.obj', function (objectLamp) {
+    //         objectLamp.position.x = 0.0;
+    //         objectLamp.position.y = 16.8;
+    //         objectLamp.position.z = 40.0;
+    //         objectLamp.scale.set(0.09, 0.02, 0.075);
+    //         objectLamp.rotateY(degToRad(90));
+    //         scene.add(objectLamp);
+
+    //     });
+    // });
+
+    // const gltfLoaderBed = new THREE.GLTFLoader();
+    // gltfLoaderBed.load("../../model3D/Room2/Bed/scene.gltf", (gltf) => {
+    //     const root = gltf.scene;
+    //     console.log(dumpObject(root).join('\n'));
+    //     root.position.x = 0.0;
+    //     root.position.y = 0.0;
+    //     root.position.z = 51.0;
+    //     root.scale.set(0.009, 0.009, 0.008);
+    //     root.rotateY(degToRad(180));
+    //     scene.add(root);
+    // });
+
+    // const gltfLoaderBattery = new THREE.GLTFLoader();
+    // gltfLoaderBattery.load("../../model3D/Room2/Battery/scene.gltf", (gltf) => {
+    //     const root = gltf.scene;
+    //     root.position.x = 12.0;
+    //     root.position.y = 4.3;
+    //     root.position.z = 57.0;
+    //     root.scale.set(0.005, 0.006, 0.005);
+    //     root.rotateX(degToRad(90));
+    //     root.traverse((child) => child.castShadow = true);
+    //     recursiveChild(root, collidableObjects);
+    //     scene.add(root);
+    //     // console.log(dumpObject(root).join('\n'));
+    // });
+>>>>>>> 1d68826df6c6c2be8c28cfab95855588eecff7ec
 }
