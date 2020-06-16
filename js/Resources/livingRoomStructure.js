@@ -93,10 +93,50 @@ function createLivingRoom(gridSize) {
         root.scale.set(7.1, 7.6, 10);
         root.rotateY(degToRad(90));
         root.traverse((child) => child.castShadow = true);
-        // recursiveChild(root, collidableObjects);
+        recursiveChild(root, collidableObjects);
+        root.getObjectByName('Door_lock').position.x = -0.37;
+        root.getObjectByName('top_door_handle_plate').position.x = -0.37;
         root.getObjectByName('Ground_Plane').visible = false;
+        root.getObjectByName('Shelf').visible = false;
+        root.getObjectByName('shelf_support000').visible = false;
+        root.getObjectByName('shelf_support001').visible = false;
+        root.getObjectByName('shelf_support002').visible = false;
+        root.getObjectByName('shelf_support003').visible = false;
+
+        var animation = (t, move) => {
+            if (root.getObjectByName('Door_slab').rotation.z == degToRad(90) && root.getObjectByName('Door_slab').position.y == -0.75) return false;
+
+            if (move) {
+
+                root.getObjectByName('Door_slab').rotation.z = interpolation(0.0, degToRad(90), 0, 15, t);
+                root.getObjectByName('Door_slab').position.x = interpolation(0.16, 0.25, 0, 15, t);
+                root.getObjectByName('Door_slab').position.y = interpolation(-0.55, -0.75, 0, 15, t);
+
+                root.getObjectByName('Window_Frame').rotation.z = interpolation(0.0, degToRad(90), 0, 15, t);
+                root.getObjectByName('Window_Frame').position.x = interpolation(0.19, 0.3, 0, 15, t);
+                root.getObjectByName('Window_Frame').position.y = interpolation(-0.6, -0.72, 0, 15, t);
+
+                root.getObjectByName('Door_lock').rotation.z = interpolation(0.0, degToRad(90), 0, 15, t);
+                root.getObjectByName('Door_lock').position.x = interpolation(-0.37, 0.29, 0, 15, t);
+                root.getObjectByName('Door_lock').position.y = interpolation(-0.6, -1.3, 0, 15, t);
+
+                root.getObjectByName('top_door_handle_plate').rotation.z = interpolation(0.0, degToRad(90), 0, 15, t);
+                root.getObjectByName('top_door_handle_plate').position.x = interpolation(-0.37, 0.29, 0, 15, t);
+                root.getObjectByName('top_door_handle_plate').position.y = interpolation(-0.6, -1.3, 0, 15, t);
+
+                return true;
+            }
+            return false;
+        };
+        var obj = {
+            root: root,
+            animation: animation,
+            actionEnded: false,
+            reverseAnimation: null,
+            actionButton: "space",
+        };
+        objectsAnimated.push(obj);
         scene.add(root);
-        // console.log(dumpObject(root).join('\n'));
     });
 
     const gltfLoaderWindowDoors = new THREE.GLTFLoader();
@@ -109,17 +149,17 @@ function createLivingRoom(gridSize) {
         root.getObjectByName('Strips001_3').rotateY(degToRad(-9.5));
         root.scale.set(2.015, 1.24, 1.5);
         root.traverse((child) => child.castShadow = true);
-        // recursiveChild(root, collidableObjects);
+        recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
             if (root.getObjectByName('Strips_1').rotation.y == degToRad(-145)) return false;
 
             if (move) {
                 // right door
-                root.getObjectByName('Frame_0').rotation.y = interpolation(0, degToRad(-145), 0, 5, t);
-                root.getObjectByName('Strips_1').rotation.y = interpolation(0, degToRad(-145), 0, 5, t);
+                root.getObjectByName('Frame_0').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
+                root.getObjectByName('Strips_1').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
                 // left door
-                root.getObjectByName('Frame001_2').rotation.y = interpolation(0.0, degToRad(145), 0, 5, t);
-                root.getObjectByName('Strips001_3').rotation.y = interpolation(0.0, degToRad(145), 0, 5, t);
+                root.getObjectByName('Frame001_2').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
+                root.getObjectByName('Strips001_3').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
                 return true;
             }
             return false;

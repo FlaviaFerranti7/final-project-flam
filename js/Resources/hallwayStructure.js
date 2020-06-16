@@ -100,7 +100,49 @@ function createHallway(gridSize) {
             objectDoor.rotateX(degToRad(-90));
             objectDoor.rotateZ(degToRad(90));
             objectDoor.traverse((child) => child.castShadow = true);
-            // recursiveChild(objectDoor, collidableObjects);
+            recursiveChild(objectDoor, collidableObjects);
+            var t1 = 0;
+            var t2 = 0;
+            var t3 = 0;
+            var animation = (t, move) => {
+                if (objectDoor.children[0].rotation.z == degToRad(-90)) return false;
+                if (move) {
+                    objectDoor.children[0].rotation.z = interpolation(0, degToRad(-90), 0, 25, t);
+                    objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
+                    objectDoor.children[0].position.y = interpolation(0, -25, 0, 10, t);
+                    if (t == 5) {
+                        objectDoor.children[0].position.x = -5;
+                    }
+                    else if (t > 5) {
+                        objectDoor.children[0].position.x = interpolation(-5, -18, 0, 10, t2);
+                        t2 += 0.1;
+                    }
+                    if (t2 == 10) {
+                        objectDoor.children[0].position.x = -18;
+                    }
+                    else if (t2 > 10) {
+                        objectDoor.children[0].position.x = interpolation(-18, -40, 0, 10, t3);
+                        t3 += 0.1;
+                    }
+                    if (t == 10) {
+                        objectDoor.children[0].position.y = -25;
+                    }
+                    else if (t > 10) {
+                        objectDoor.children[0].position.y = interpolation(-25, -40, 0, 15, t1);
+                        t1 += 0.1;
+                    }
+                    return true;
+                }
+                return false;
+            };
+            var obj = {
+                root: objectDoor,
+                animation: animation,
+                actionEnded: false,
+                reverseAnimation: null,
+                actionButton: "space",
+            };
+            objectsAnimated.push(obj);
             scene.add(objectDoor);
         });
     });
