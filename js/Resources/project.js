@@ -49,7 +49,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 4;  //1
+const intensityAmbient = 10;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -244,8 +244,8 @@ var animate = function () {
 
       for (var i = 0; i < objectsAnimated.length; i++) {
         objectsAnimated[i].root.traverse((child) => {
-          console.log(child);
-          console.log(intersects[0].object);
+          // console.log(child);
+          // console.log(intersects[0].object);
           if (intersects[0].object == child) {
             currentObject = objectsAnimated[i];
           }
@@ -270,7 +270,7 @@ var animate = function () {
   }
   console.log(currentObject);
   if (currentObject != null) {
-    console.log("ciao");
+    // console.log("ciao");
     currentObject.animation(t, move);
     t += 0.1;
   }
