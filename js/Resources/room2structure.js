@@ -65,7 +65,7 @@ function createRoom2(gridSize) {
     var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, 1.5 * size), undefined, [materialWall, materialWallB], []);
     room.add(wall2);
 
-    var wall3Door = createHole(8.0, 15.0, 25.0, 0.0);
+    var wall3Door = createHole(8.0, 15.5, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, 0.5 * size), new THREE.Vector3(0, -90, 0), [materialWall, materialWallH], [wall3Door]);
     room.add(wall3);
 
@@ -156,7 +156,7 @@ function createRoom2(gridSize) {
         objectsAnimated.push(obj);
         
         scene.add(root);
-        console.log(dumpObject(root).join('\n'));
+        //console.log(dumpObject(root).join('\n'));
     });
 
     var mtlLoaderDoor = new THREE.MTLLoader();
@@ -181,30 +181,30 @@ function createRoom2(gridSize) {
             var t2 = 0;
             var t3 = 0;
             var animation = (t, move) => {
-                if(objectDoor.children[0].rotation.z == degToRad(90)) return false;
+                if(objectDoor.children[0].rotation.z == -degToRad(90)) return false;
                 if (move) {
-                    objectDoor.children[0].rotation.z = interpolation(0,degToRad(90),0,25,t);
-                    objectDoor.children[0].position.y = interpolation(0, 25, 0, 10, t);
+                    objectDoor.children[0].rotation.z = interpolation(0,-degToRad(90),0, 25,t);
+                    objectDoor.children[0].position.y = interpolation(0, -25, 0, 10, t);
                     objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
                     if(t == 5){
-                        objectDoor.children[0].position.x = -8;
+                        objectDoor.children[0].position.x = -5;
                     }
                     else if(t> 5){
                         objectDoor.children[0].position.x = interpolation(-5, -18, 0, 10, t2);
                         t2+= 0.1;
                     }
                     if(t2 == 10){
-                        objectDoor.children[0].position.x = -20;
+                        objectDoor.children[0].position.x = -18;
                     }
                     else if(t2 > 10){
                         objectDoor.children[0].position.x = interpolation(-18, -40, 0, 10, t3);
                         t3 += 0.1;
                     }
                     if(t==10){
-                        objectDoor.children[0].position.y ==25;
+                        objectDoor.children[0].position.y = -25;
                     }
                     else if(t>10){
-                        objectDoor.children[0].position.y = interpolation(25, 40, 0, 15, t1);
+                        objectDoor.children[0].position.y = interpolation(-25, -40, 0, 15, t1);
                         t1 += 0.1;
                     }
                     return true;
@@ -222,6 +222,49 @@ function createRoom2(gridSize) {
             scene.add(objectDoor);
 
         });
+    });
+
+    const gltfLoaderWindow = new THREE.GLTFLoader();
+    gltfLoaderWindow.load("../../model3D/Room2/Window/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 20.0;
+        root.position.y = 9;
+        root.position.z = 47.5;
+        root.scale.set(0.087, 0.035, 0.05);
+        root.rotateY(degToRad(270));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
+
+    const gltfLoaderSafe = new THREE.GLTFLoader();
+    gltfLoaderSafe.load("../../model3D/Room2/Safe/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 14;
+        root.position.y = 3.5;
+        root.position.z = 22.6;
+        root.scale.set(0.087, 0.087, 0.07);
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        console.log(dumpObject(root).join('\n'));
+        root.getObjectByName('Safe1_Door').rotation.z = -degToRad(90);
+        var animation = (t, move) => {
+            if(root.getObjectByName('Safe1_Door').rotation.z == 0) return false;
+            if (move) {
+                root.getObjectByName('Safe1_Door').rotation.z = interpolation(-degToRad(90), 0, 0, 5, t);
+                return true;
+            }
+            return false;
+        };
+        var obj = {
+            root: root,
+            animation: animation,
+            actionEnded: false,
+            reverseAnimation: null,
+            actionButton: "space",
+        };
+        objectsAnimated.push(obj);
+        scene.add(root);
     });
 
 }
