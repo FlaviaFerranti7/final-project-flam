@@ -305,29 +305,3 @@ function interpolation(pos0, pos1, t0, t1, t) {
   }
   return pos0 + ((t - t0) / (t1 - t0)) * (pos1 - pos0);
 }
-// function slerp(max, min, angle0, angle1, axes, t) {
-//   r = max-min;
-//   if(axes == 1){
-//     pos0 = r* Math.cos(angle0);
-//     pos1 = r* Math.cos(angle1);
-//   }
-//   else{
-//     pos0 = r*Math.sin(angle0);
-//     pos1 = r* Math.cos(angle1);
-//   }
-//   theta = angle1-angle0;
-//   rot =  pos0*(Math.sin((1-t)*theta)/Math.sin(theta)) +pos1*(Math.sin(t*theta)/Math.sin(theta));
-//   if(rot == pos1){
-//     return pos1;
-//   }
-//   return rot;
-// }
-
-function rotation(obj, angle0, angle1, t1){
-  movement = angle1 - angle0;
-  value = movement/t1;
-  obj.rotateZ(value);
-  if(obj.rotation.z == angle1){
-    obj.rotateZ(0);
-  }
-}
