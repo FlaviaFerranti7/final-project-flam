@@ -50,7 +50,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 10;  //1   4
+const intensityAmbient = 30;  //1   4
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -90,11 +90,7 @@ scene.add(sourceSpotlightR1.target);
 var room2Loader = function () {
   /* ------------------------- SECOND ROOM ------------------------- */
 
-<<<<<<< HEAD
   createRoom2(40);
-=======
-// createRoom2(40);
->>>>>>> f342a8c5efd075bbe4be8fbcd9fccd07bd4ef11b
 
   /* ------------------------- SPOTLIGHT SECOND ROOM ------------------------- */
 
@@ -121,7 +117,7 @@ var room2Loader = function () {
 
 /* --------------------------- HALLWAY --------------------------- */
 
-// createHallway(80);
+createHallway(80);
 
 /* --------------------------- SPOTLIGHT HALLWAY --------------------------- */
 
@@ -226,10 +222,6 @@ var animate = function () {
 
   raycaster.setFromCamera(camera.quaternion, camera);
   var intersects = raycaster.intersectObjects(scene.children, true);
-<<<<<<< HEAD
-=======
-  // console.log(intersects);
->>>>>>> f342a8c5efd075bbe4be8fbcd9fccd07bd4ef11b
 
   if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
@@ -246,11 +238,6 @@ var animate = function () {
 
       for (var i = 0; i < objectsAnimated.length; i++) {
         objectsAnimated[i].root.traverse((child) => {
-<<<<<<< HEAD
-=======
-          // console.log(child);
-          // console.log(intersects[0].object);
->>>>>>> f342a8c5efd075bbe4be8fbcd9fccd07bd4ef11b
           if (intersects[0].object == child) {
             currentObject = objectsAnimated[i];
           }
@@ -276,7 +263,6 @@ var animate = function () {
       actionPanel.style.display = "none";
     }
   }
-<<<<<<< HEAD
 
   if (currentObject != null) {
     if (!move) actionPanel.style.display = "block";
@@ -293,18 +279,11 @@ var animate = function () {
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0) {
     document.getElementById("steps").style.display = "block";
     document.getElementById("steps").childNodes[1].innerHTML = "Step 1 passed";
-    room2Loader();
+    // room2Loader();
     steps.splice(0, 1);
     setTimeout(() => {
       document.getElementById("steps").style.display = "none"
     }, 6000);
-=======
-  // console.log(currentObject);
-  if (currentObject != null) {
-    // console.log("ciao");
-    currentObject.animation(t, move);
-    t += 0.1;
->>>>>>> f342a8c5efd075bbe4be8fbcd9fccd07bd4ef11b
   }
 
   renderer.render(scene, camera);

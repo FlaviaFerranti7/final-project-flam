@@ -83,6 +83,28 @@ function createHallway(gridSize) {
 
     /* MODEL 3D */
 
+    var mtlLoaderDoor = new THREE.MTLLoader();
+    mtlLoaderDoor.setPath("../../model3D/Room1/Door/");
+    mtlLoaderDoor.load('10057_wooden_door_v3_iterations-2.mtl', function (materialsDoor) {
+
+        materialsDoor.preload();
+
+        var objLoaderDoor = new THREE.OBJLoader();
+        objLoaderDoor.setMaterials(materialsDoor);
+        objLoaderDoor.setPath("../../model3D/Room1/Door/");
+        objLoaderDoor.load('10057_wooden_door_v3_iterations-2.obj', function (objectDoor) {
+            objectDoor.position.x = -40;
+            objectDoor.position.y = 0.0;
+            objectDoor.position.z = 9;
+            objectDoor.scale.set(0.09, 0.1, 0.075);
+            objectDoor.rotateX(degToRad(-90));
+            objectDoor.rotateZ(degToRad(90));
+            objectDoor.traverse((child) => child.castShadow = true);
+            // recursiveChild(objectDoor, collidableObjects);
+            scene.add(objectDoor);
+        });
+    });
+
     var mtlLoaderLampL1 = new THREE.MTLLoader();
     mtlLoaderLampL1.setPath("../../model3D/Common/Lamp/");
     mtlLoaderLampL1.load('lightbulbfinal.mtl', function (materialsLampL1) {
@@ -151,7 +173,6 @@ function createHallway(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);
-        // console.log(dumpObject(root).join('\n'));
     });
 
 }
