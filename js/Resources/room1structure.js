@@ -128,7 +128,10 @@ function createRoom1(gridSize) {
         root.scale.set(7, 8, 5);
         root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
+        console.log("armadio");
+        console.log(collidableObjects);
         recursiveChild(root, collidableObjects);
+        console.log(collidableObjects);
         var finalPosition = 6;
         var animation = (t, move) => {
             if(root.position.x == finalPosition) return false;
@@ -148,6 +151,7 @@ function createRoom1(gridSize) {
         };
         steps.push(obj);
         objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });
 
@@ -181,11 +185,27 @@ function createRoom1(gridSize) {
         loader.setMaterials(materialBackpack);
         loader.setPath("../../model3D/Room1/Backpack/");
         loader.load('12305_backpack_v2_l3.obj', function (object) {
-            object.position.x = -1.0;
+            object.position.x = -5.0;
             object.position.y = 0.0;
             object.position.z = -17.0;
             object.scale.set(0.2, 0.2, 0.2);
             object.rotateX(degToRad(-90));
+            object.name = "OSG_Scene";
+
+            object.traverse((child) => child.castShadow = true);
+            console.log("zaino");
+            recursiveChild(object, collidableObjects);
+
+            var obj = {
+                root: object,
+                animation: null,
+                actionEnded: false,
+                reverseAnimation: null,
+                actionButton: "Q",
+            };
+
+            objectsAnimated.push(obj);
+            objectsRaycaster.push(obj.root);
             scene.add(object);
         });
     });
@@ -219,6 +239,7 @@ function createRoom1(gridSize) {
             actionButton: "space",
         };
         objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });
 
@@ -232,6 +253,16 @@ function createRoom1(gridSize) {
         root.rotateX(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            actionButton: "Q",
+        };
+
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
         // console.log(dumpObject(root).join('\n'));
     });
@@ -246,6 +277,16 @@ function createRoom1(gridSize) {
         root.rotateX(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            actionButton: "Q",
+        };
+
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
         // console.log(dumpObject(root).join('\n'));
     });

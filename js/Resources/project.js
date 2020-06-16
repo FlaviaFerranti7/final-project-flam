@@ -24,6 +24,7 @@ controls.getObject().rotation.set(0, 7.85, 0);
 scene.add(controls.getObject());
 
 var objectsAnimated = [];
+var objectsRaycaster = [];
 var steps = [];
 var currentObject = null;
 var actionPanel = document.getElementById("action");
@@ -216,11 +217,16 @@ var animate = function () {
     requestAnimationFrame(animate);
   }, 1000 / 30);
 
+  //console.log(objectsAnimated);
+
   var delta = clock.getDelta();
   animatePlayer(delta);
 
-  raycaster.setFromCamera(camera.quaternion, camera);
-  var intersects = raycaster.intersectObjects(scene.children, true);
+  raycaster.setFromCamera(marker.position, camera);
+
+  var intersects = raycaster.intersectObjects(objectsRaycaster, true);
+  
+  console.log(intersects);
 
   if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
@@ -241,6 +247,7 @@ var animate = function () {
             currentObject = objectsAnimated[i];
           }
         });
+        if(objectsAnimated[i].root == intersects[0].object) currentObject = objectsAnimated[i];   
         if (currentObject != null) break;
       }
     }
@@ -263,15 +270,21 @@ var animate = function () {
     }
   }
 
-  if (currentObject != null) {
+  if (currentObject != null) {+
+    console.log("entro?");
     if(!move) actionPanel.style.display = "block";
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
-    functionIsRunning = currentObject.animation(t, move);
+    if(currentObject.animation !== null) functionIsRunning = currentObject.animation(t, move);
+    else {
+      if(move) scene.remove(currentObject.root);
+    }
     if(move) t += 0.1;
     if(move && !functionIsRunning && currentObject.reverseAnimation == null) {
       objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
+      objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.root), 1);
       currentObject = null;
+
     }
   }
 
