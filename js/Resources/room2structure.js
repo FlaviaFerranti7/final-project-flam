@@ -100,17 +100,19 @@ function createRoom2(gridSize) {
         });
     });
 
-    const gltfLoaderBed = new THREE.GLTFLoader();
-    gltfLoaderBed.load("../../model3D/Room2/Bed/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = 0.0;
-        root.position.y = 0.0;
-        root.position.z = 51.0;
-        root.scale.set(0.009, 0.009, 0.008);
-        root.rotateY(degToRad(180));
-        //console.log(dumpObject(root).join('\n'));
-        scene.add(root);
-    });
+    // const gltfLoaderBed = new THREE.GLTFLoader();
+    // gltfLoaderBed.load("../../model3D/Room2/Bed/scene.gltf", (gltf) => {
+    //     const root = gltf.scene;
+    //     root.position.x = 0.0;
+    //     root.position.y = 0.0;
+    //     root.position.z = 51.0;
+    //     root.scale.set(0.009, 0.009, 0.008);
+    //     root.rotateY(degToRad(180));
+    //     root.traverse((child) => child.castShadow = true);
+    //     recursiveChild(root, collidableObjects);
+    //     console.log(dumpObject(root).join('\n'));
+    //     scene.add(root);
+    // });
 
     const gltfLoaderBattery = new THREE.GLTFLoader();
     gltfLoaderBattery.load("../../model3D/Room2/Battery/scene.gltf", (gltf) => {
@@ -137,7 +139,7 @@ function createRoom2(gridSize) {
         root.getObjectByName('Cube003').position.z = 0;
         root.getObjectByName('Cube001').rotation.z = 0;        
         var animation = (t, move) => {
-            if(root.getObjectByName('Cube001').rotation.z == -degToRad(90)) return false;
+            if(root.getObjectByName('Cube001').rotation.z == degToRad(90)) return false;
             if (move) {
                 root.getObjectByName('Cube001').rotation.z = interpolation(0,degToRad(90),0,5,t);
                 return true;
@@ -146,13 +148,80 @@ function createRoom2(gridSize) {
         };
         var obj = {
             root: root,
-            animation: animation,            
+            animation: animation,
+            actionEnded: false,
+            reverseAnimation: null,
             actionButton: "space",
         };
         objectsAnimated.push(obj);
         
         scene.add(root);
         console.log(dumpObject(root).join('\n'));
+    });
+
+    var mtlLoaderDoor = new THREE.MTLLoader();
+    mtlLoaderDoor.setPath("../../model3D/Room1/Door/");
+    mtlLoaderDoor.load('10057_wooden_door_v3_iterations-2.mtl', function (materialsDoor) {
+
+        materialsDoor.preload();
+
+        var objLoaderDoor = new THREE.OBJLoader();
+        objLoaderDoor.setMaterials(materialsDoor);
+        objLoaderDoor.setPath("../../model3D/Room1/Door/");
+        objLoaderDoor.load('10057_wooden_door_v3_iterations-2.obj', function (objectDoor) {
+            objectDoor.position.x = -20;
+            objectDoor.position.y = 0.0;
+            objectDoor.position.z = 49;
+            objectDoor.scale.set(0.09, 0.1, 0.075);
+            objectDoor.rotateX(degToRad(-90));
+            objectDoor.rotateZ(degToRad(90));
+            objectDoor.traverse((child) => child.castShadow = true);
+            recursiveChild(objectDoor, collidableObjects);
+            var t1 = 0;
+            var t2 = 0;
+            var t3 = 0;
+            var animation = (t, move) => {
+                if(objectDoor.children[0].rotation.z == degToRad(90)) return false;
+                if (move) {
+                    objectDoor.children[0].rotation.z = interpolation(0,degToRad(90),0,25,t);
+                    objectDoor.children[0].position.y = interpolation(0, 25, 0, 10, t);
+                    objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
+                    if(t == 5){
+                        objectDoor.children[0].position.x = -8;
+                    }
+                    else if(t> 5){
+                        objectDoor.children[0].position.x = interpolation(-5, -18, 0, 10, t2);
+                        t2+= 0.1;
+                    }
+                    if(t2 == 10){
+                        objectDoor.children[0].position.x = -20;
+                    }
+                    else if(t2 > 10){
+                        objectDoor.children[0].position.x = interpolation(-18, -40, 0, 10, t3);
+                        t3 += 0.1;
+                    }
+                    if(t==10){
+                        objectDoor.children[0].position.y ==25;
+                    }
+                    else if(t>10){
+                        objectDoor.children[0].position.y = interpolation(25, 40, 0, 15, t1);
+                        t1 += 0.1;
+                    }
+                    return true;
+                }
+                return false;
+            };
+            var obj = {
+                root: objectDoor,
+                animation: animation,
+                actionEnded: false,
+                reverseAnimation: null,
+                actionButton: "space",
+            };
+            objectsAnimated.push(obj);
+            scene.add(objectDoor);
+
+        });
     });
 
 }
