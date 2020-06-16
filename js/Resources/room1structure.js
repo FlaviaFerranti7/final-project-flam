@@ -171,6 +171,25 @@ function createRoom1(gridSize) {
         });
     });
 
+    var mtlLoaderBackpack = new THREE.MTLLoader();
+    mtlLoaderBackpack.setPath("../../model3D/Room1/Backpack/");
+    mtlLoaderBackpack.load('12305_backpack_v2_l3.mtl', function (materialBackpack) {
+
+        materialBackpack.preload();
+
+        var loader = new THREE.OBJLoader();
+        loader.setMaterials(materialBackpack);
+        loader.setPath("../../model3D/Room1/Backpack/");
+        loader.load('12305_backpack_v2_l3.obj', function (object) {
+            object.position.x = -1.0;
+            object.position.y = 0.0;
+            object.position.z = -17.0;
+            object.scale.set(0.2, 0.2, 0.2);
+            object.rotateX(degToRad(-90));
+            scene.add(object);
+        });
+    });
+
     const gltfLoaderBed = new THREE.GLTFLoader();
     gltfLoaderBed.load("../../model3D/Room1/Bed/scene.gltf", (gltf) => {
         const root = gltf.scene;
