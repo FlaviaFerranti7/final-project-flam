@@ -321,3 +321,12 @@ function interpolation(pos0, pos1, t0, t1, t) {
   }
   return pos0 + ((t - t0) / (t1 - t0)) * (pos1 - pos0);
 }
+
+function alert(msg, time = 3000) {
+  var elem = document.getElementById("alert");
+  elem.style.display = "block";
+  elem.childNodes[1].innerHTML = msg;
+  setTimeout(() => {
+    elem.style.display = "none"
+  }, time);
+}

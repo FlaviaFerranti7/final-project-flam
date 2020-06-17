@@ -5,6 +5,8 @@ class Backpack {
         this.objects = new Array(numElem);
         this.numElem = 0;
         this.open = false;
+
+        document.getElementById("backpack").style.display = "block";
     }
 
     getNumElem() {

@@ -225,17 +225,15 @@ var INTERSECTED;
 var enableSpace = false;
 
 var animate = function () {
+
   setTimeout(function () {
     requestAnimationFrame(animate);
   }, 1000 / 30);
-
-  //console.log(objectsAnimated);
 
   var delta = clock.getDelta();
   animatePlayer(delta);
 
   raycaster.setFromCamera(marker.position, camera);
-
   var intersects = raycaster.intersectObjects(objectsRaycaster, true);
 
   if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
@@ -302,24 +300,15 @@ var animate = function () {
         else if(currentObject.root.name == "BACKPACK") {
           scene.remove(currentObject.root);
           backpack = new Backpack(numElementOfBackpack);
-          document.getElementById("steps").style.display = "block";
-          document.getElementById("steps").childNodes[1].innerHTML = "Now you can collect the objects!! </ br> Press E to open backpack";
-          setTimeout(() => {
-            document.getElementById("steps").style.display = "none"
-          }, 3000);
-
-          document.getElementById("backpack").style.display = "block";
+          alert("Now you can collect the objects!! </ br> Press E to open backpack");
           insertElem = true;
         }
         else {
-          document.getElementById("steps").style.display = "block";
-          document.getElementById("steps").childNodes[1].innerHTML = "It isn't possible to collect " + currentObject.root.name;
-          setTimeout(() => {
-            document.getElementById("steps").style.display = "none"
-          }, 3000);
+          alert("It isn't possible to collect " + currentObject.root.name);
         }
       }
     }
+    
     if(move) t += 0.1;
     if((move || (collect && insertElem)) && !functionIsRunning && currentObject.reverseAnimation == null) {
       objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
@@ -331,13 +320,9 @@ var animate = function () {
   }
 
   if(move && functionIsRunning && steps.indexOf(currentObject) == 0) {
-    document.getElementById("steps").style.display = "block";
-    document.getElementById("steps").childNodes[1].innerHTML = "Step 1 passed";
+    alert("Step 1 passed", 7000);
     room2Loader();
     steps.splice(0, 1);
-    setTimeout(() => {
-      document.getElementById("steps").style.display = "none"
-    }, 6000);
   }
 
   renderer.render(scene, camera);
