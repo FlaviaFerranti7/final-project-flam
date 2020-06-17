@@ -225,7 +225,7 @@ function createRoom2(gridSize) {
     });
 
     const gltfLoaderWindow = new THREE.GLTFLoader();
-    gltfLoaderWindow.load("../../model3D/Room2/Window/scene.gltf", (gltf) => {
+    gltfLoaderWindow.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 20.0;
         root.position.y = 9;
@@ -246,7 +246,6 @@ function createRoom2(gridSize) {
         root.scale.set(0.087, 0.087, 0.07);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        console.log(dumpObject(root).join('\n'));
         root.getObjectByName('Safe1_Door').rotation.z = -degToRad(90);
         var animation = (t, move) => {
             if(root.getObjectByName('Safe1_Door').rotation.z == 0) return false;
@@ -264,6 +263,31 @@ function createRoom2(gridSize) {
             actionButton: "space",
         };
         objectsAnimated.push(obj);
+        scene.add(root);
+    });
+
+    const gltfLoaderDiamond = new THREE.GLTFLoader();
+    gltfLoaderDiamond.load("../../model3D/Room2/Diamond/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 13.5;
+        root.position.y = 7;
+        root.position.z = 23;
+        root.scale.set(0.008, 0.008, 0.008);
+        root.rotateZ(degToRad(45));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
+
+    const gltfLoaderBullet = new THREE.GLTFLoader();
+    gltfLoaderBullet.load("../../model3D/Room2/Bullet/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 0;
+        root.position.y = 1;
+        root.position.z = 30;
+        root.scale.set(0.2, 0.2, 0.2);
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
         scene.add(root);
     });
 

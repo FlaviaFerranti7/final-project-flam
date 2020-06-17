@@ -171,6 +171,19 @@ function createRoom1(gridSize) {
         });
     });
 
+    const gltfLoaderWindow = new THREE.GLTFLoader();
+    gltfLoaderWindow.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 20.0;
+        root.position.y = 9;
+        root.position.z = 7.5;
+        root.scale.set(0.087, 0.035, 0.05);
+        root.rotateY(degToRad(270));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
+
     const gltfLoaderBed = new THREE.GLTFLoader();
     gltfLoaderBed.load("../../model3D/Room1/Bed/scene.gltf", (gltf) => {
         const root = gltf.scene;
