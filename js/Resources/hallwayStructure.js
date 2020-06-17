@@ -83,6 +83,70 @@ function createHallway(gridSize) {
 
     /* MODEL 3D */
 
+    var mtlLoaderDoor = new THREE.MTLLoader();
+    mtlLoaderDoor.setPath("../../model3D/Room1/Door/");
+    mtlLoaderDoor.load('10057_wooden_door_v3_iterations-2.mtl', function (materialsDoor) {
+
+        materialsDoor.preload();
+
+        var objLoaderDoor = new THREE.OBJLoader();
+        objLoaderDoor.setMaterials(materialsDoor);
+        objLoaderDoor.setPath("../../model3D/Room1/Door/");
+        objLoaderDoor.load('10057_wooden_door_v3_iterations-2.obj', function (objectDoor) {
+            objectDoor.position.x = -40;
+            objectDoor.position.y = 0.0;
+            objectDoor.position.z = 9;
+            objectDoor.scale.set(0.09, 0.1, 0.075);
+            objectDoor.rotateX(degToRad(-90));
+            objectDoor.rotateZ(degToRad(90));
+            objectDoor.traverse((child) => child.castShadow = true);
+            recursiveChild(objectDoor, collidableObjects);
+            var t1 = 0;
+            var t2 = 0;
+            var t3 = 0;
+            var animation = (t, move) => {
+                if (objectDoor.children[0].rotation.z == degToRad(-90)) return false;
+                if (move) {
+                    objectDoor.children[0].rotation.z = interpolation(0, degToRad(-90), 0, 25, t);
+                    objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
+                    objectDoor.children[0].position.y = interpolation(0, -25, 0, 10, t);
+                    if (t == 5) {
+                        objectDoor.children[0].position.x = -5;
+                    }
+                    else if (t > 5) {
+                        objectDoor.children[0].position.x = interpolation(-5, -18, 0, 10, t2);
+                        t2 += 0.1;
+                    }
+                    if (t2 == 10) {
+                        objectDoor.children[0].position.x = -18;
+                    }
+                    else if (t2 > 10) {
+                        objectDoor.children[0].position.x = interpolation(-18, -40, 0, 10, t3);
+                        t3 += 0.1;
+                    }
+                    if (t == 10) {
+                        objectDoor.children[0].position.y = -25;
+                    }
+                    else if (t > 10) {
+                        objectDoor.children[0].position.y = interpolation(-25, -40, 0, 15, t1);
+                        t1 += 0.1;
+                    }
+                    return true;
+                }
+                return false;
+            };
+            var obj = {
+                root: objectDoor,
+                animation: animation,
+                actionEnded: false,
+                reverseAnimation: null,
+                actionButton: "space",
+            };
+            objectsAnimated.push(obj);
+            scene.add(objectDoor);
+        });
+    });
+
     var mtlLoaderLampL1 = new THREE.MTLLoader();
     mtlLoaderLampL1.setPath("../../model3D/Common/Lamp/");
     mtlLoaderLampL1.load('lightbulbfinal.mtl', function (materialsLampL1) {
@@ -123,18 +187,47 @@ function createHallway(gridSize) {
         });
     });
 
+    const gltfLoaderWindow = new THREE.GLTFLoader();
+    gltfLoaderWindow.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -30.0;
+        root.position.y = 9;
+        root.position.z = 60;
+        root.scale.set(0.087, 0.035, 0.05);
+        root.rotateY(degToRad(180));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
+
     const gltfLoaderConsole = new THREE.GLTFLoader();
     gltfLoaderConsole.load("../../model3D/Hallway/Console/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -22;
-        root.position.y = -0.1;
+        root.position.y = 0.0;
         root.position.z = 30.0;
         root.scale.set(0.1, 0.1, 0.05);
         root.rotateY(degToRad(-90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        root.getObjectByName('Plane001').visible = false;
         scene.add(root);
         // console.log(dumpObject(root).join('\n'));
+    });
+
+    const gltfLoaderGun = new THREE.GLTFLoader();
+    gltfLoaderGun.load("../../model3D/Hallway/Gun/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -23.1;
+        root.position.y = 2.6;
+        root.position.z = 26.9;
+        root.scale.set(0.4, 0.4, 0.4);
+        root.rotateX(degToRad(90));
+        root.rotateY(degToRad(180));
+        root.rotateZ(degToRad(90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
     });
 
 }

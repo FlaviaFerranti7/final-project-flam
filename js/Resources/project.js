@@ -23,6 +23,7 @@ var blocker = document.getElementById('blocker');
 getPointerLock();
 controls = new THREE.PointerLockControls(camera, container);
 controls.getObject().position.set(10.5, 8, 0);
+// controls.getObject().position.set(10.5, 8, 50);
 controls.getObject().rotation.set(0, 7.85, 0);
 scene.add(controls.getObject());
 
@@ -63,7 +64,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 4;  //1
+const intensityAmbient = 10;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -100,8 +101,9 @@ scene.add(spotlightR1.target);
 scene.add(sourceSpotlightR1);
 scene.add(sourceSpotlightR1.target);
 
-var room2Loader = function() {
+var room2Loader = function () {
   /* ------------------------- SECOND ROOM ------------------------- */
+
   createRoom2(40);
 
   /* ------------------------- SPOTLIGHT SECOND ROOM ------------------------- */
@@ -175,7 +177,7 @@ scene.add(sourceSpotlightL2.target);
 
 /* ------------------------- LIVING-ROOM ------------------------- */
 
-// createLivingRoom(80);
+createLivingRoom(80);
 
 /* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
 
@@ -198,6 +200,14 @@ scene.add(spotlightL.target);
 
 scene.add(sourceSpotlightL);
 scene.add(sourceSpotlightL.target);
+
+
+/* ------------------------- GARDEN ------------------------- */
+
+createGarden(380);
+
+/* ------------------------- SPOTLIGHT GARDEN------------------------- */
+
 
 /* ------------------------- LISTENER -------------------------- */
 
@@ -273,7 +283,7 @@ var animate = function () {
       t = 0;
     }
 
-    if(!functionIsRunning) {
+    if (!functionIsRunning) {
       INTERSECTED = null;
       currentObject = null;
       enableSpace = false;
