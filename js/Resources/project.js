@@ -1,3 +1,6 @@
+//import { Backpack } from "./Classes/Backpack.js";
+//import { THREE } from "../Common/three.js";
+
 var scene = new THREE.Scene();
 var container = document.getElementById('container');
 
@@ -24,10 +27,20 @@ controls.getObject().position.set(10.5, 8, 0);
 controls.getObject().rotation.set(0, 7.85, 0);
 scene.add(controls.getObject());
 
+/* ----------------------- GLOBAL VARIABLES ----------------------- */
+
 var objectsAnimated = [];
+var objectsRaycaster = [];
 var steps = [];
 var currentObject = null;
 var actionPanel = document.getElementById("action");
+
+var backpack = null;
+const numElementOfBackpack = 5;
+var insertElem = false;
+
+var enableCollect = false;
+var collect = false;
 
 var functionIsRunning = false;
 
@@ -164,7 +177,7 @@ scene.add(sourceSpotlightL2.target);
 
 /* ------------------------- LIVING-ROOM ------------------------- */
 
-createLivingRoom(80);
+//createLivingRoom(80);
 
 /* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
 
@@ -191,7 +204,7 @@ scene.add(sourceSpotlightL.target);
 
 /* ------------------------- GARDEN ------------------------- */
 
-createGarden(380);
+//createGarden(380);
 
 /* ------------------------- SPOTLIGHT GARDEN------------------------- */
 
@@ -222,6 +235,7 @@ var INTERSECTED;
 var enableSpace = false;
 
 var animate = function () {
+
   setTimeout(function () {
     requestAnimationFrame(animate);
   }, 1000 / 30);
@@ -229,8 +243,8 @@ var animate = function () {
   var delta = clock.getDelta();
   animatePlayer(delta);
 
-  raycaster.setFromCamera(camera.quaternion, camera);
-  var intersects = raycaster.intersectObjects(scene.children, true);
+  raycaster.setFromCamera(marker.position, camera);
+  var intersects = raycaster.intersectObjects(objectsRaycaster, true);
 
   if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
@@ -238,6 +252,8 @@ var animate = function () {
       if (INTERSECTED && !functionIsRunning) {
         currentObject = null;
         enableSpace = false;
+        enableSpace = false;
+        enableCollect = false;
         move = false;
         t = 0;
       }
@@ -251,6 +267,7 @@ var animate = function () {
             currentObject = objectsAnimated[i];
           }
         });
+        if(objectsAnimated[i].root == intersects[0].object) currentObject = objectsAnimated[i];   
         if (currentObject != null) break;
       }
     }
@@ -260,39 +277,62 @@ var animate = function () {
     if (INTERSECTED && !functionIsRunning) {
       currentObject = null;
       enableSpace = false;
+      enableCollect = false;
       move = false;
+      collect = false;
       t = 0;
     }
 
     if (!functionIsRunning) {
       INTERSECTED = null;
       currentObject = null;
+      enableSpace = false;
+      enableCollect = false;
       move = false;
+      collect = false;
       t = 0;
       actionPanel.style.display = "none";
     }
   }
 
   if (currentObject != null) {
-    if (!move) actionPanel.style.display = "block";
+    if((!move && currentObject.actionButton == "space") || (!collect && currentObject.actionButton == "Q")) actionPanel.style.display = "block";
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
-    functionIsRunning = currentObject.animation(t, move);
-    if (move) t += 0.1;
-    if (move && !functionIsRunning && currentObject.reverseAnimation == null) {
+    if(currentObject.animation !== null) functionIsRunning = currentObject.animation(t, move);
+    else {
+      if(collect) {
+        if(backpack != null && backpack.getNumElem() <= numElementOfBackpack){
+          scene.remove(currentObject.root);
+          backpack.insert(currentObject);
+          insertElem = true;
+        }
+        else if(currentObject.root.name == "BACKPACK") {
+          scene.remove(currentObject.root);
+          backpack = new Backpack(numElementOfBackpack);
+          alert("Now you can collect the objects!! </ br> Press E to open backpack");
+          insertElem = true;
+        }
+        else {
+          alert("It isn't possible to collect " + currentObject.root.name);
+        }
+      }
+    }
+    
+    if(move) t += 0.1;
+    if((move || (collect && insertElem)) && !functionIsRunning && currentObject.reverseAnimation == null) {
       objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
+      objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.root), 1);
       currentObject = null;
+      collect = false;
+      insertElem = false;
     }
   }
 
-  if (move && functionIsRunning && steps.indexOf(currentObject) == 0) {
-    document.getElementById("steps").style.display = "block";
-    document.getElementById("steps").childNodes[1].innerHTML = "Step 1 passed";
+  if(move && functionIsRunning && steps.indexOf(currentObject) == 0) {
+    alert("Step 1 passed", 7000);
     room2Loader();
     steps.splice(0, 1);
-    setTimeout(() => {
-      document.getElementById("steps").style.display = "none"
-    }, 6000);
   }
 
   renderer.render(scene, camera);

@@ -74,7 +74,7 @@ body {
     color: black;
 }
 
-#steps {
+#alert {
     position: absolute;
     height: 150px;
     width: 100%;
@@ -88,4 +88,51 @@ body {
     color: black;
     text-align: center;
 
+}
+
+#backpack {
+    display: none;
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    top: 70%;
+    right: 50px;
+}
+
+#backpack img {
+    height: 100px;
+    width: 100px;
+}
+
+#backpack-objects {
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 290px;
+    height: 94px;
+    position: absolute;
+    top: 70%;
+    right: 50px;
+    background-color: #ffffff50;
+}
+
+.backpack-item {
+    height: 50px;
+    width: 50px;
+    margin: 0px 2px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+}
+
+.backpack-item img {
+    height: 50px;
+    width: 50px;
+}
+
+.border {
+    border: 2px solid black;
 }

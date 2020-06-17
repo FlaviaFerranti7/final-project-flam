@@ -129,6 +129,7 @@ function createRoom1(gridSize) {
         root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+
         var finalPosition = 6;
         var animation = (t, move) => {
             if(root.position.x == finalPosition) return false;
@@ -148,6 +149,7 @@ function createRoom1(gridSize) {
         };
         steps.push(obj);
         objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });
 
@@ -168,6 +170,40 @@ function createRoom1(gridSize) {
             objectLamp.rotateY(degToRad(90));
             scene.add(objectLamp);
 
+        });
+    });
+
+    var mtlLoaderBackpack = new THREE.MTLLoader();
+    mtlLoaderBackpack.setPath("../../model3D/Room1/Backpack/");
+    mtlLoaderBackpack.load('12305_backpack_v2_l3.mtl', function (materialBackpack) {
+
+        materialBackpack.preload();
+
+        var loader = new THREE.OBJLoader();
+        loader.setMaterials(materialBackpack);
+        loader.setPath("../../model3D/Room1/Backpack/");
+        loader.load('12305_backpack_v2_l3.obj', function (object) {
+            object.position.x = -5.0;
+            object.position.y = 0.0;
+            object.position.z = -17.0;
+            object.scale.set(0.2, 0.2, 0.2);
+            object.rotateX(degToRad(-90));
+            object.name = "BACKPACK";
+
+            object.traverse((child) => child.castShadow = true);
+            recursiveChild(object, collidableObjects);
+
+            var obj = {
+                root: object,
+                animation: null,
+                actionEnded: false,
+                reverseAnimation: null,
+                actionButton: "Q",
+            };
+
+            objectsAnimated.push(obj);
+            objectsRaycaster.push(obj.root);
+            scene.add(object);
         });
     });
 
@@ -213,6 +249,7 @@ function createRoom1(gridSize) {
             actionButton: "space",
         };
         objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });
 
@@ -222,10 +259,21 @@ function createRoom1(gridSize) {
         root.position.x = 16;
         root.position.y = 3.9;
         root.position.z = -13;
+        root.name = "KEY";
         root.scale.set(0.006, 0.006, 0.006);
         root.rotateX(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            actionButton: "Q",
+        };
+
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
         // console.log(dumpObject(root).join('\n'));
     });
@@ -251,9 +299,21 @@ function createRoom1(gridSize) {
         root.position.y = 1.0;
         root.position.z = -8;
         root.scale.set(0.006, 0.006, 0.006);
+        root.name = "TORCH";
         root.rotateX(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            actionButton: "Q",
+        };
+
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
         // console.log(dumpObject(root).join('\n'));
     });

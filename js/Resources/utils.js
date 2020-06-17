@@ -162,6 +162,22 @@ function listenForPlayerMovement() {
       case 32: // space
         if (enableSpace) move = true;
         break;
+      
+      // Q
+      case 81:
+        if(enableSpace) collect = true;
+        break;
+      
+      case 69:
+        if(backpack !== null && !backpack.getOpen()) {
+          backpack.setOpen(true);
+          document.getElementById("backpack").style.display = "none";
+          document.getElementById("backpack-objects").style.display = "flex";
+        } else if(backpack !== null && backpack.getOpen()) {
+          document.getElementById("backpack").style.display = "block";
+          document.getElementById("backpack-objects").style.display = "none";
+          backpack.setOpen(false);
+        }
     }
   };
 
@@ -304,4 +320,13 @@ function interpolation(pos0, pos1, t0, t1, t) {
     return pos1;
   }
   return pos0 + ((t - t0) / (t1 - t0)) * (pos1 - pos0);
+}
+
+function alert(msg, time = 3000) {
+  var elem = document.getElementById("alert");
+  elem.style.display = "block";
+  elem.childNodes[1].innerHTML = msg;
+  setTimeout(() => {
+    elem.style.display = "none"
+  }, time);
 }
