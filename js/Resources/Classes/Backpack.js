@@ -2,21 +2,21 @@
 
 class Backpack {
     constructor(numElem) {
-        this.numElem = numElem;
-        this.object = new Array(numElem);
+        this.objects = new Array(numElem);
+        this.numElem = 0;
         this.open = false;
     }
 
     getNumElem() {
-        return this.object.length;
+        return this.numElem;
     }
 
     getObject() {
-        return this.object;
+        return this.objects;
     }
 
     getSingleObject(index) {
-        return this.object[index];
+        return this.objects[index];
     }
 
     getOpen() {
@@ -25,5 +25,12 @@ class Backpack {
 
     setOpen(bool) {
         this.open = bool;
+    }
+
+    insert(object) {
+        this.objects.push(object);
+        this.numElem += 1;
+        document.getElementById("item" + this.numElem).innerHTML = 
+            "<img src='images/" + object.root.name.toLowerCase() + ".png' />";
     }
 }

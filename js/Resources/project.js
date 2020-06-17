@@ -36,6 +36,7 @@ var actionPanel = document.getElementById("action");
 
 var backpack = null;
 const numElementOfBackpack = 5;
+var insertElem = false;
 
 var enableCollect = false;
 var collect = false;
@@ -286,15 +287,18 @@ var animate = function () {
     }
   }
 
-  if (currentObject != null) {+
-    console.log("entro?");
+  if (currentObject != null) {
     if((!move && currentObject.actionButton == "space") || (!collect && currentObject.actionButton == "Q")) actionPanel.style.display = "block";
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
     if(currentObject.animation !== null) functionIsRunning = currentObject.animation(t, move);
     else {
       if(collect) {
-        if(backpack != null && backpack.getNumElem() <= numElementOfBackpack) scene.remove(currentObject.root);
+        if(backpack != null && backpack.getNumElem() <= numElementOfBackpack){
+          scene.remove(currentObject.root);
+          backpack.insert(currentObject);
+          insertElem = true;
+        }
         else if(currentObject.root.name == "BACKPACK") {
           scene.remove(currentObject.root);
           backpack = new Backpack(numElementOfBackpack);
@@ -305,6 +309,7 @@ var animate = function () {
           }, 3000);
 
           document.getElementById("backpack").style.display = "block";
+          insertElem = true;
         }
         else {
           document.getElementById("steps").style.display = "block";
@@ -316,10 +321,12 @@ var animate = function () {
       }
     }
     if(move) t += 0.1;
-    if(move && !functionIsRunning && currentObject.reverseAnimation == null && currentObject.animation !== null) {
+    if((move || (collect && insertElem)) && !functionIsRunning && currentObject.reverseAnimation == null) {
       objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
       objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.root), 1);
       currentObject = null;
+      collect = false;
+      insertElem = false;
     }
   }
 
