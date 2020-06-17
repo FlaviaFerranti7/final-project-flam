@@ -121,7 +121,7 @@ function createRoom2(gridSize) {
         root.position.y = 4.3;
         root.position.z = 57.0;
         root.scale.set(0.005, 0.006, 0.005);
-        root.rotateX(degToRad(90));
+        root.rotateX(degToRad(270));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);
@@ -282,9 +282,9 @@ function createRoom2(gridSize) {
     const gltfLoaderBullet = new THREE.GLTFLoader();
     gltfLoaderBullet.load("../../model3D/Room2/Bullet/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = 0;
-        root.position.y = 1;
-        root.position.z = 30;
+        root.position.x = -11;
+        root.position.y = 4.3;
+        root.position.z = 57.0;
         root.scale.set(0.2, 0.2, 0.2);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);

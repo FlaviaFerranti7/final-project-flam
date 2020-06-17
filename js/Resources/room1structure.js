@@ -230,6 +230,20 @@ function createRoom1(gridSize) {
         // console.log(dumpObject(root).join('\n'));
     });
 
+    const gltfLoaderDesk = new THREE.GLTFLoader();
+    gltfLoaderDesk.load("../../model3D/Room1/Desk/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 10;
+        root.position.y = 2.0;
+        root.position.z = 15;
+        root.scale.set(3, 3, 3);
+        root.rotateY(degToRad(180));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+        // console.log(dumpObject(root).join('\n'));
+    });
+
     const gltfLoaderTorch = new THREE.GLTFLoader();
     gltfLoaderTorch.load("../../model3D/Room1/Torch/scene.gltf", (gltf) => {
         const root = gltf.scene;
