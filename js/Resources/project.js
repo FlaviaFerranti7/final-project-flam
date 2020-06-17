@@ -1,3 +1,8 @@
+//import { Backpack } from "./Classes/Backpack.js";
+//import { THREE } from "../Common/three.js";
+
+var backpack = new Backpack(5);
+
 var scene = new THREE.Scene();
 var container = document.getElementById('container');
 
@@ -23,13 +28,20 @@ controls.getObject().position.set(10.5, 8, 0);
 controls.getObject().rotation.set(0, 7.85, 0);
 scene.add(controls.getObject());
 
+/* ----------------------- GLOBAL VARIABLES ----------------------- */
+
 var objectsAnimated = [];
 var objectsRaycaster = [];
 var steps = [];
 var currentObject = null;
 var actionPanel = document.getElementById("action");
 
+var enableCollect = false;
+var collect = false;
+
 var functionIsRunning = false;
+
+const numElementOfBackpack = 5;
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
@@ -225,8 +237,6 @@ var animate = function () {
   raycaster.setFromCamera(marker.position, camera);
 
   var intersects = raycaster.intersectObjects(objectsRaycaster, true);
-  
-  console.log(intersects);
 
   if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
@@ -234,6 +244,8 @@ var animate = function () {
       if (INTERSECTED && !functionIsRunning) {
         currentObject = null;
         enableSpace = false;
+        enableSpace = false;
+        enableCollect = false;
         move = false;
         t = 0;
       }
@@ -257,14 +269,19 @@ var animate = function () {
     if (INTERSECTED && !functionIsRunning) {
       currentObject = null;
       enableSpace = false;
+      enableCollect = false;
       move = false;
+      collect = false;
       t = 0;
     }
 
     if(!functionIsRunning) {
       INTERSECTED = null;
       currentObject = null;
+      enableSpace = false;
+      enableCollect = false;
       move = false;
+      collect = false;
       t = 0;
       actionPanel.style.display = "none";
     }
@@ -272,19 +289,18 @@ var animate = function () {
 
   if (currentObject != null) {+
     console.log("entro?");
-    if(!move) actionPanel.style.display = "block";
+    if((!move && currentObject.actionButton == "space") || (!collect && currentObject.actionButton == "Q")) actionPanel.style.display = "block";
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
     if(currentObject.animation !== null) functionIsRunning = currentObject.animation(t, move);
     else {
-      if(move) scene.remove(currentObject.root);
+      if(collect) scene.remove(currentObject.root);
     }
     if(move) t += 0.1;
-    if(move && !functionIsRunning && currentObject.reverseAnimation == null) {
+    if(move && !functionIsRunning && currentObject.reverseAnimation == null && currentObject.animation !== null) {
       objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
       objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.root), 1);
       currentObject = null;
-
     }
   }
 

@@ -128,10 +128,8 @@ function createRoom1(gridSize) {
         root.scale.set(7, 8, 5);
         root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
-        console.log("armadio");
-        console.log(collidableObjects);
         recursiveChild(root, collidableObjects);
-        console.log(collidableObjects);
+
         var finalPosition = 6;
         var animation = (t, move) => {
             if(root.position.x == finalPosition) return false;
@@ -190,10 +188,9 @@ function createRoom1(gridSize) {
             object.position.z = -17.0;
             object.scale.set(0.2, 0.2, 0.2);
             object.rotateX(degToRad(-90));
-            object.name = "OSG_Scene";
+            object.name = "BACKPACK";
 
             object.traverse((child) => child.castShadow = true);
-            console.log("zaino");
             recursiveChild(object, collidableObjects);
 
             var obj = {

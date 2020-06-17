@@ -162,6 +162,11 @@ function listenForPlayerMovement() {
       case 32: // space
         if (enableSpace) move = true;
         break;
+      
+      // Q
+      case 81:
+        if(enableSpace) collect = true;
+        break;
     }
   };
 
