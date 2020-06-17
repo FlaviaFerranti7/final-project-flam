@@ -1,8 +1,6 @@
 //import { Backpack } from "./Classes/Backpack.js";
 //import { THREE } from "../Common/three.js";
 
-var backpack = new Backpack(5);
-
 var scene = new THREE.Scene();
 var container = document.getElementById('container');
 
@@ -36,12 +34,13 @@ var steps = [];
 var currentObject = null;
 var actionPanel = document.getElementById("action");
 
+var backpack = null;
+const numElementOfBackpack = 5;
+
 var enableCollect = false;
 var collect = false;
 
 var functionIsRunning = false;
-
-const numElementOfBackpack = 5;
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
@@ -294,7 +293,25 @@ var animate = function () {
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
     if(currentObject.animation !== null) functionIsRunning = currentObject.animation(t, move);
     else {
-      if(collect) scene.remove(currentObject.root);
+      if(collect) {
+        if(backpack != null && backpack.getNumElem() <= numElementOfBackpack) scene.remove(currentObject.root);
+        else if(currentObject.root.name == "BACKPACK") {
+          scene.remove(currentObject.root);
+          backpack = new Backpack(numElementOfBackpack);
+          document.getElementById("steps").style.display = "block";
+          document.getElementById("steps").childNodes[1].innerHTML = "Now you can collect the objects!!";
+          setTimeout(() => {
+            document.getElementById("steps").style.display = "none"
+          }, 3000);
+        }
+        else {
+          document.getElementById("steps").style.display = "block";
+          document.getElementById("steps").childNodes[1].innerHTML = "It isn't possible to collect " + currentObject.root.name;
+          setTimeout(() => {
+            document.getElementById("steps").style.display = "none"
+          }, 3000);
+        }
+      }
     }
     if(move) t += 0.1;
     if(move && !functionIsRunning && currentObject.reverseAnimation == null && currentObject.animation !== null) {

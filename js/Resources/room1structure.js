@@ -246,6 +246,7 @@ function createRoom1(gridSize) {
         root.position.x = 16;
         root.position.y = 3.9;
         root.position.z = -13;
+        root.name = "KEY";
         root.scale.set(0.006, 0.006, 0.006);
         root.rotateX(degToRad(90));
         root.traverse((child) => child.castShadow = true);
@@ -271,9 +272,11 @@ function createRoom1(gridSize) {
         root.position.y = 1.0;
         root.position.z = -8;
         root.scale.set(0.006, 0.006, 0.006);
+        root.name = "TORCH";
         root.rotateX(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        
         var obj = {
             root: root,
             animation: null,

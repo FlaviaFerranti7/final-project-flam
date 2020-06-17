@@ -8,7 +8,7 @@ class Backpack {
     }
 
     getNumElem() {
-        return this.numElem;
+        return this.object.length;
     }
 
     getObject() {
