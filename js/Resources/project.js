@@ -50,7 +50,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 30;  //1   4
+const intensityAmbient = 10;  //1   4
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
