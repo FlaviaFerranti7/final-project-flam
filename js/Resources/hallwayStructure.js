@@ -123,6 +123,19 @@ function createHallway(gridSize) {
         });
     });
 
+    const gltfLoaderWindow = new THREE.GLTFLoader();
+    gltfLoaderWindow.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -30.0;
+        root.position.y = 9;
+        root.position.z = 60;
+        root.scale.set(0.087, 0.035, 0.05);
+        root.rotateY(degToRad(180));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
+
     const gltfLoaderConsole = new THREE.GLTFLoader();
     gltfLoaderConsole.load("../../model3D/Hallway/Console/scene.gltf", (gltf) => {
         const root = gltf.scene;
