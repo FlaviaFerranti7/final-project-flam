@@ -299,10 +299,12 @@ var animate = function () {
           scene.remove(currentObject.root);
           backpack = new Backpack(numElementOfBackpack);
           document.getElementById("steps").style.display = "block";
-          document.getElementById("steps").childNodes[1].innerHTML = "Now you can collect the objects!!";
+          document.getElementById("steps").childNodes[1].innerHTML = "Now you can collect the objects!! </ br> Press E to open backpack";
           setTimeout(() => {
             document.getElementById("steps").style.display = "none"
           }, 3000);
+
+          document.getElementById("backpack").style.display = "block";
         }
         else {
           document.getElementById("steps").style.display = "block";
