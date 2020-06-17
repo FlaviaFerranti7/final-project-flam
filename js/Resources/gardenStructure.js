@@ -54,6 +54,7 @@ function createGarden(gridSize) {
         root.position.y = 0.0;
         root.position.z = 20.0;
         root.scale.set(8.0, 8.0, 8.0);
+        root.name = "GATEWAY";
         root.rotateY(degToRad(90));
         root.getObjectByName('Left_1').position.x = 2;
         root.getObjectByName('Right_0').position.x = 2;
@@ -76,8 +77,8 @@ function createGarden(gridSize) {
             reverseAnimation: null,
             actionButton: "space",
         };
-        // steps.push(obj);
         objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
         console.log(dumpObject(root).join('\n'));
     });;

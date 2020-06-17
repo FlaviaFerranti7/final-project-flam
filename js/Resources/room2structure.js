@@ -134,6 +134,7 @@ function createRoom2(gridSize) {
         root.position.y = 0;
         root.position.z = 22.5;
         root.scale.set(0.025, 0.016, 0.02);
+        root.name = "WARDROBE";
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         root.getObjectByName('Cube003').position.z = 0;
@@ -154,7 +155,7 @@ function createRoom2(gridSize) {
             actionButton: "space",
         };
         objectsAnimated.push(obj);
-        
+        objectsRaycaster.push(obj.root);        
         scene.add(root);
         //console.log(dumpObject(root).join('\n'));
     });
@@ -175,6 +176,7 @@ function createRoom2(gridSize) {
             objectDoor.scale.set(0.09, 0.1, 0.075);
             objectDoor.rotateX(degToRad(-90));
             objectDoor.rotateZ(degToRad(90));
+            objectDoor.name = "DOOR_ROOM2";
             objectDoor.traverse((child) => child.castShadow = true);
             recursiveChild(objectDoor, collidableObjects);
             var t1 = 0;
@@ -207,6 +209,11 @@ function createRoom2(gridSize) {
                         objectDoor.children[0].position.y = interpolation(-25, -40, 0, 15, t1);
                         t1 += 0.1;
                     }
+                    if(t>=25){
+                        t1 = 0;
+                        t2 = 0;
+                        t3 = 0;
+                    }
                     return true;
                 }
                 return false;
@@ -219,6 +226,7 @@ function createRoom2(gridSize) {
                 actionButton: "space",
             };
             objectsAnimated.push(obj);
+            objectsRaycaster.push(obj.root);
             scene.add(objectDoor);
 
         });
@@ -244,6 +252,7 @@ function createRoom2(gridSize) {
         root.position.y = 3.5;
         root.position.z = 22.6;
         root.scale.set(0.087, 0.087, 0.07);
+        root.name = "SAFE";
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         root.getObjectByName('Safe1_Door').rotation.z = -degToRad(90);
@@ -263,6 +272,7 @@ function createRoom2(gridSize) {
             actionButton: "space",
         };
         objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });
 

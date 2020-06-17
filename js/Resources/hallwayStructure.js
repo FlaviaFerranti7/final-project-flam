@@ -68,7 +68,7 @@ function createHallway(gridSize) {
     var wall2 = createShape(0.0, size / 4, size / 4, new THREE.Vector3(-size / 2.0, 0.0, 0.75 * size), undefined, [materialWallH, materialWallB], [wall2Window]);
     hallway.add(wall2);
 
-    var wall3Door = createHole(8.0, 15.0, 25.0, 0.0);
+    var wall3Door = createHole(8.0, 15.5, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 4, size, new THREE.Vector3(-size / 2.0, 0.0, -0.25 * size), new THREE.Vector3(0, -90, 0), [materialWallH, materialWallL], [wall3Door]);
     hallway.add(wall3);
 
@@ -99,15 +99,16 @@ function createHallway(gridSize) {
             objectDoor.scale.set(0.09, 0.1, 0.075);
             objectDoor.rotateX(degToRad(-90));
             objectDoor.rotateZ(degToRad(90));
+            objectDoor.name = "DOOR_HALLWAY";
             objectDoor.traverse((child) => child.castShadow = true);
             recursiveChild(objectDoor, collidableObjects);
             var t1 = 0;
             var t2 = 0;
             var t3 = 0;
             var animation = (t, move) => {
-                if (objectDoor.children[0].rotation.z == degToRad(-90)) return false;
+                if (objectDoor.children[0].rotation.z == -degToRad(90)) return false;
                 if (move) {
-                    objectDoor.children[0].rotation.z = interpolation(0, degToRad(-90), 0, 25, t);
+                    objectDoor.children[0].rotation.z = interpolation(0, -degToRad(90), 0, 25, t);
                     objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
                     objectDoor.children[0].position.y = interpolation(0, -25, 0, 10, t);
                     if (t == 5) {
@@ -131,6 +132,11 @@ function createHallway(gridSize) {
                         objectDoor.children[0].position.y = interpolation(-25, -40, 0, 15, t1);
                         t1 += 0.1;
                     }
+                    if(t>=25){
+                        t1 = 0;
+                        t2 = 0;
+                        t3 = 0;
+                    }
                     return true;
                 }
                 return false;
@@ -143,6 +149,7 @@ function createHallway(gridSize) {
                 actionButton: "space",
             };
             objectsAnimated.push(obj);
+            objectsRaycaster.push(obj.root);
             scene.add(objectDoor);
         });
     });
