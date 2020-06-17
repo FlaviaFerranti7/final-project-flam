@@ -64,88 +64,88 @@ function createLivingRoom(gridSize) {
     scene.add(livingRoom);
     recursiveChild(livingRoom, collidableObjects);
 
-    // var mtlLoaderLamp = new THREE.MTLLoader();
-    // mtlLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
-    // mtlLoaderLamp.load('ZAHA LIGHT white chandelier.mtl', function (materialsLamp) {
+    var mtlLoaderLamp = new THREE.MTLLoader();
+    mtlLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
+    mtlLoaderLamp.load('ZAHA LIGHT white chandelier.mtl', function (materialsLamp) {
 
-    //     materialsLamp.preload();
+        materialsLamp.preload();
 
-    //     var objLoaderLamp = new THREE.OBJLoader();
-    //     objLoaderLamp.setMaterials(materialsLamp);
-    //     objLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
-    //     objLoaderLamp.load('ZAHA LIGHT white chandelier.obj', function (objectLamp) {
-    //         objectLamp.position.x = -80.0;
-    //         objectLamp.position.y = 1.9;
-    //         objectLamp.position.z = 20.0;
-    //         objectLamp.scale.set(0.006, 0.006, 0.006);
-    //         objectLamp.rotateY(degToRad(90));
-    //         scene.add(objectLamp);
+        var objLoaderLamp = new THREE.OBJLoader();
+        objLoaderLamp.setMaterials(materialsLamp);
+        objLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
+        objLoaderLamp.load('ZAHA LIGHT white chandelier.obj', function (objectLamp) {
+            objectLamp.position.x = -80.0;
+            objectLamp.position.y = 1.9;
+            objectLamp.position.z = 20.0;
+            objectLamp.scale.set(0.006, 0.006, 0.006);
+            objectLamp.rotateY(degToRad(90));
+            scene.add(objectLamp);
 
-    //     });
-    // });
+        });
+    });
 
-    // const gltfLoaderSofa = new THREE.GLTFLoader();
-    // gltfLoaderSofa.load("../../model3D/LivingRoom/Sofa/scene.gltf", (gltf) => {
-    //     const root = gltf.scene;
-    //     root.position.x = -62.0;
-    //     root.position.y = -0.5;
-    //     root.position.z = 0.0;
-    //     root.scale.set(0.09, 0.09, 0.09);
-    //     root.traverse((child) => child.castShadow = true);
-    //     recursiveChild(root, collidableObjects);
-    //     scene.add(root);
-    //     // console.log(dumpObject(root).join('\n'));
-    // });
+    const gltfLoaderSofa = new THREE.GLTFLoader();
+    gltfLoaderSofa.load("../../model3D/LivingRoom/Sofa/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -62.0;
+        root.position.y = -0.5;
+        root.position.z = 0.0;
+        root.scale.set(0.09, 0.09, 0.09);
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+        // console.log(dumpObject(root).join('\n'));
+    });
 
-    // const gltfLoaderTable = new THREE.GLTFLoader();
-    // gltfLoaderTable.load("../../model3D/LivingRoom/Table/source/19_12_172.gltf", (gltf) => {
-    //     const root = gltf.scene;
-    //     root.position.x = -60.0;
-    //     root.position.y = 0.0;
-    //     root.position.z = 0.0;
-    //     root.scale.set(4.0, 4.0, 4.0);
-    //     root.traverse((child) => child.castShadow = true);
-    //     recursiveChild(root, collidableObjects);
-    //     scene.add(root);
-    //     // console.log(dumpObject(root).join('\n'));
-    // });
+    const gltfLoaderTable = new THREE.GLTFLoader();
+    gltfLoaderTable.load("../../model3D/LivingRoom/Table/source/19_12_172.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -60.0;
+        root.position.y = 0.0;
+        root.position.z = 0.0;
+        root.scale.set(4.0, 4.0, 4.0);
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+        // console.log(dumpObject(root).join('\n'));
+    });
 
-    // const gltfLoaderBookcase = new THREE.GLTFLoader();
-    // gltfLoaderBookcase.load("../../model3D/LivingRoom/Bookcase/scene.gltf", (gltf) => {
-    //     const root = gltf.scene;
-    //     root.position.x = -99.0;
-    //     root.position.y = 0.0;
-    //     root.position.z = -5.0;
-    //     root.scale.set(0.4, 0.45, 0.2);
-    //     root.rotateY(degToRad(90));
-    //     root.traverse((child) => child.castShadow = true);
-    //     recursiveChild(root, collidableObjects);
-    //     scene.add(root);
-    // });
+    const gltfLoaderBookcase = new THREE.GLTFLoader();
+    gltfLoaderBookcase.load("../../model3D/LivingRoom/Bookcase/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -99.0;
+        root.position.y = 0.0;
+        root.position.z = -5.0;
+        root.scale.set(0.4, 0.45, 0.2);
+        root.rotateY(degToRad(90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
 
-    // const gltfLoaderFurniture = new THREE.GLTFLoader();
-    // gltfLoaderFurniture.load("../../model3D/LivingRoom/Furniture/scene.gltf", (gltf) => {
-    //     const root = gltf.scene;
-    //     root.position.x = -50.0;
-    //     root.position.y = 0.0;
-    //     root.position.z = 35.0;
-    //     root.scale.set(8.0, 10.0, 8.0);
-    //     root.rotateY(degToRad(-90));
-    //     root.traverse((child) => child.castShadow = true);
-    //     recursiveChild(root, collidableObjects);
-    //     scene.add(root);
-    // });
+    const gltfLoaderFurniture = new THREE.GLTFLoader();
+    gltfLoaderFurniture.load("../../model3D/LivingRoom/Furniture/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -50.0;
+        root.position.y = 0.0;
+        root.position.z = 35.0;
+        root.scale.set(8.0, 10.0, 8.0);
+        root.rotateY(degToRad(-90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
 
-    // const gltfLoaderMirror = new THREE.GLTFLoader();
-    // gltfLoaderMirror.load("../../model3D/LivingRoom/Mirror/scene.gltf", (gltf) => {
-    //     const root = gltf.scene;
-    //     root.position.x = -99.0;
-    //     root.position.y = 7.0;
-    //     root.position.z = 40.0;
-    //     root.scale.set(8.0, 4.0, 1.0);
-    //     root.rotateY(degToRad(90));
-    //     root.traverse((child) => child.castShadow = true);
-    //     recursiveChild(root, collidableObjects);
-    //     scene.add(root);
-    // });
+    const gltfLoaderMirror = new THREE.GLTFLoader();
+    gltfLoaderMirror.load("../../model3D/LivingRoom/Mirror/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -99.0;
+        root.position.y = 7.0;
+        root.position.z = 40.0;
+        root.scale.set(8.0, 4.0, 1.0);
+        root.rotateY(degToRad(90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
 }

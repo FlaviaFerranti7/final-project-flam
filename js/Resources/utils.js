@@ -216,7 +216,7 @@ function animatePlayer(delta) {
     }
     controls.getObject().translateX(playerVelocity.x * delta);
     controls.getObject().translateZ(playerVelocity.z * delta);
-    // controls.getObject().position.y = 10;
+    controls.getObject().position.y = 10;
   }
   else {
     playerVelocity.x = 0;
