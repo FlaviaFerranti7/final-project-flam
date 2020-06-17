@@ -51,7 +51,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 10;  //1   4
+const intensityAmbient = 10;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -64,7 +64,7 @@ const penumbra = 0.6;
 
 /* ------------------------- FIRST ROOM ------------------------- */
 
-// createRoom1(40);
+createRoom1(40);
 
 /* ------------------------- SPOTLIGHT FIRST ROOM ------------------------- */
 
@@ -188,6 +188,14 @@ scene.add(spotlightL.target);
 scene.add(sourceSpotlightL);
 scene.add(sourceSpotlightL.target);
 
+
+/* ------------------------- GARDEN ------------------------- */
+
+createGarden(380);
+
+/* ------------------------- SPOTLIGHT GARDEN------------------------- */
+
+
 /* ------------------------- LISTENER -------------------------- */
 
 var geometry = new THREE.PlaneGeometry(0.005, 0.03, 32);
@@ -280,7 +288,7 @@ var animate = function () {
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0) {
     document.getElementById("steps").style.display = "block";
     document.getElementById("steps").childNodes[1].innerHTML = "Step 1 passed";
-    // room2Loader();
+    room2Loader();
     steps.splice(0, 1);
     setTimeout(() => {
       document.getElementById("steps").style.display = "none"
