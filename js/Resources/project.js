@@ -215,6 +215,7 @@ var livingRoomLoader = function () {
   return true;
 }
 
+
 /* ------------------------- GARDEN ------------------------- */
 var gardenLoader = function () {
   createGarden(380);
@@ -309,14 +310,6 @@ var animate = function () {
     if((!move && currentObject.actionButton == "space") || (!collect && currentObject.actionButton == "Q")) actionPanel.style.display = "block";
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
-    if(currentObject.associatedAnimation != null){
-      for(var i = 0; i < objectsAnimated.length; i++){
-        if(objectsAnimated[i].root.name == currentObject.associatedAnimation){
-          associatedObject = objectsAnimated[i];
-        }
-      }
-      functionIsRunning = associatedObject.animation(t, move);
-    }
     if(currentObject.animation !== null) functionIsRunning = currentObject.animation(t, move);
     else {
       if(collect) {

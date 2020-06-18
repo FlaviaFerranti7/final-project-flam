@@ -146,7 +146,6 @@ function createHallway(gridSize) {
                 animation: animation,
                 actionEnded: false,
                 reverseAnimation: null,
-                associatedAnimation: null,
                 actionButton: "space",
             };
             objectsAnimated.push(obj);
@@ -241,7 +240,6 @@ function createHallway(gridSize) {
             animation: null,
             actionEnded: false,
             reverseAnimation: null,
-            associatedAnimation: null,
             actionButton: "Q",
         };
         objectsAnimated.push(obj);

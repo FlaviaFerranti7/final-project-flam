@@ -130,7 +130,6 @@ function createRoom2(gridSize) {
             animation: null,
             actionEnded: false,
             reverseAnimation: null,
-            associatedAnimation: null,
             actionButton: "Q",
         };
 
@@ -163,7 +162,6 @@ function createRoom2(gridSize) {
             animation: animation,
             actionEnded: false,
             reverseAnimation: null,
-            associatedAnimation: null,
             actionButton: "space",
         };
         objectsAnimated.push(obj);
@@ -233,7 +231,6 @@ function createRoom2(gridSize) {
                 animation: animation,
                 actionEnded: false,
                 reverseAnimation: null,
-                associatedAnimation: null,
                 actionButton: "space",
             };
             steps.push(obj);
@@ -280,7 +277,6 @@ function createRoom2(gridSize) {
             animation: animation,
             actionEnded: false,
             reverseAnimation: null,
-            associatedAnimation: null,
             actionButton: "space",
         };
         objectsAnimated.push(obj);
@@ -304,7 +300,6 @@ function createRoom2(gridSize) {
             animation: null,
             actionEnded: false,
             reverseAnimation: null,
-            associatedAnimation: null,
             actionButton: "Q",
         };
         objectsAnimated.push(obj);
@@ -326,7 +321,6 @@ function createRoom2(gridSize) {
             animation: null,
             actionEnded: false,
             reverseAnimation: null,
-            associatedAnimation: null,
             actionButton: "Q",
         };
         objectsAnimated.push(obj);
