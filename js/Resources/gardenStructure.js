@@ -54,7 +54,6 @@ function createGarden(gridSize) {
         root.position.y = 0.0;
         root.position.z = 20.0;
         root.scale.set(8.0, 8.0, 8.0);
-        root.name = "GATEWAY";
         root.rotateY(degToRad(90));
         root.getObjectByName('Left_1').position.x = 2;
         root.getObjectByName('Right_0').position.x = 2;
@@ -75,6 +74,7 @@ function createGarden(gridSize) {
             animation: animation,
             actionEnded: false,
             reverseAnimation: null,
+            associatedAnimation: null,
             actionButton: "space",
         };
         objectsAnimated.push(obj);
@@ -92,8 +92,19 @@ function createGarden(gridSize) {
         root.scale.set(0.09, 0.15, 0.09);
         root.rotateX(degToRad(30));
         root.rotateY(degToRad(180));
+        root.name = 'SHOVEL';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            associatedAnimation: null,
+            actionButton: "Q",
+        };
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });;
 
@@ -106,8 +117,19 @@ function createGarden(gridSize) {
         root.scale.set(8, 8, 8);
         root.rotateY(degToRad(90));
         root.rotateZ(degToRad(120));
+        root.name = 'RAKE';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            associatedAnimation: null,
+            actionButton: "Q",
+        };
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });;
 
@@ -143,8 +165,19 @@ function createGarden(gridSize) {
         root.position.z = 69.0;
         root.scale.set(0.05, 0.05, 0.05);
         root.rotateX(degToRad(90));
+        root.name = 'SCISSORS';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            associatedAnimation: null,
+            actionButton: "Q",
+        };
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });;
 

@@ -160,12 +160,12 @@ function listenForPlayerMovement() {
         break;
 
       case 32: // space
-        if (enableSpace) move = true;
+        if (enableAction) move = true;
         break;
       
       // Q
       case 81:
-        if(enableSpace) collect = true;
+        if(enableAction) collect = true;
         break;
       
       case 69:

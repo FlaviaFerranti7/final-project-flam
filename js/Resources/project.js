@@ -131,7 +131,7 @@ var room2Loader = function () {
 
 /* --------------------------- HALLWAY --------------------------- */
 
-createHallway(80);
+// createHallway(80);
 
 /* --------------------------- SPOTLIGHT HALLWAY --------------------------- */
 
@@ -177,7 +177,7 @@ scene.add(sourceSpotlightL2.target);
 
 /* ------------------------- LIVING-ROOM ------------------------- */
 
-//createLivingRoom(80);
+// createLivingRoom(80);
 
 /* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
 
@@ -232,7 +232,8 @@ var move = false;
 
 var raycaster = new THREE.Raycaster();
 var INTERSECTED;
-var enableSpace = false;
+var enableAction = false;
+var associatedObject;
 
 var animate = function () {
 
@@ -251,15 +252,13 @@ var animate = function () {
 
       if (INTERSECTED && !functionIsRunning) {
         currentObject = null;
-        enableSpace = false;
-        enableSpace = false;
-        enableCollect = false;
+        enableAction = false;
         move = false;
         t = 0;
       }
 
       INTERSECTED = intersects[0].object;
-      enableSpace = true;
+      enableAction = true;
 
       for (var i = 0; i < objectsAnimated.length; i++) {
         objectsAnimated[i].root.traverse((child) => {
@@ -269,6 +268,7 @@ var animate = function () {
         });
         if(objectsAnimated[i].root == intersects[0].object) currentObject = objectsAnimated[i];   
         if (currentObject != null) break;
+       
       }
     }
 
@@ -276,8 +276,7 @@ var animate = function () {
 
     if (INTERSECTED && !functionIsRunning) {
       currentObject = null;
-      enableSpace = false;
-      enableCollect = false;
+      enableAction = false;
       move = false;
       collect = false;
       t = 0;
@@ -286,8 +285,7 @@ var animate = function () {
     if (!functionIsRunning) {
       INTERSECTED = null;
       currentObject = null;
-      enableSpace = false;
-      enableCollect = false;
+      enableAction = false;
       move = false;
       collect = false;
       t = 0;
@@ -299,6 +297,14 @@ var animate = function () {
     if((!move && currentObject.actionButton == "space") || (!collect && currentObject.actionButton == "Q")) actionPanel.style.display = "block";
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
+    if(currentObject.associatedAnimation != null){
+      for(var i = 0; i < objectsAnimated.length; i++){
+        if(objectsAnimated[i].root.name == currentObject.associatedAnimation){
+          associatedObject = objectsAnimated[i];
+        }
+      }
+      functionIsRunning = associatedObject.animation(t, move);
+    }
     if(currentObject.animation !== null) functionIsRunning = currentObject.animation(t, move);
     else {
       if(collect) {
@@ -334,6 +340,8 @@ var animate = function () {
     room2Loader();
     steps.splice(0, 1);
   }
+ 
+
 
   renderer.render(scene, camera);
 };

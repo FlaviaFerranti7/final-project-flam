@@ -146,6 +146,7 @@ function createHallway(gridSize) {
                 animation: animation,
                 actionEnded: false,
                 reverseAnimation: null,
+                associatedAnimation: null,
                 actionButton: "space",
             };
             objectsAnimated.push(obj);
@@ -232,8 +233,19 @@ function createHallway(gridSize) {
         root.rotateX(degToRad(90));
         root.rotateY(degToRad(180));
         root.rotateZ(degToRad(90));
+        root.name = 'GUN';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            associatedAnimation: null,
+            actionButton: "Q",
+        };
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });
 

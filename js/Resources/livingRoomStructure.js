@@ -91,7 +91,6 @@ function createLivingRoom(gridSize) {
         root.position.y = 0.0;
         root.position.z = 26;
         root.scale.set(0.17, 0.17, 0.162);
-        root.name = "ENTRY_DOOR";
         root.rotateX(degToRad(-90));
         root.rotateZ(degToRad(90));
         root.traverse((child) => child.castShadow = true);
@@ -113,6 +112,7 @@ function createLivingRoom(gridSize) {
             animation: animation,
             actionEnded: false,
             reverseAnimation: null,
+            associatedAnimation: null,
             actionButton: "space",
         };
         objectsAnimated.push(obj);
@@ -129,7 +129,6 @@ function createLivingRoom(gridSize) {
         root.getObjectByName('Frame001_2').rotateY(degToRad(-9.5));
         root.getObjectByName('Strips001_3').rotateY(degToRad(-9.5));
         root.scale.set(2.015, 1.24, 1.5);
-        root.name = "WINDOW_DOOR";
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
@@ -151,6 +150,7 @@ function createLivingRoom(gridSize) {
             animation: animation,
             actionEnded: false,
             reverseAnimation: null,
+            associatedAnimation: null,
             actionButton: "space",
         };
         objectsAnimated.push(obj);
@@ -229,7 +229,18 @@ function createLivingRoom(gridSize) {
         root.position.z = 58.0;
         root.scale.set(0.6, 0.6, 0.6);
         root.rotateY(degToRad(-90));
+        root.name = 'VIOLIN';
         root.traverse((child) => child.castShadow = true);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            associatedAnimation: null,
+            actionButton: "Q",
+        };
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });
@@ -240,9 +251,20 @@ function createLivingRoom(gridSize) {
         root.position.x = -56.0;
         root.position.y = 3.9;
         root.position.z = -1.0;
+        root.name = 'HOURGLASS';
         root.scale.set(0.25, 0.2, 0.25);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            associatedAnimation: null,
+            actionButton: "Q",
+        };
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         root.getObjectByName('table_4').visible = false;
         scene.add(root);
     });
@@ -254,8 +276,19 @@ function createLivingRoom(gridSize) {
         root.position.y = 3.65;
         root.position.z = -7.0;
         root.scale.set(0.007, 0.005, 0.007);
+        root.name = 'REMOTE';
         root.rotateX(degToRad(-90));
         root.traverse((child) => child.castShadow = true);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            associatedAnimation: null,
+            actionButton: "Q",
+        };
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });

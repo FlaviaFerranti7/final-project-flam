@@ -123,7 +123,19 @@ function createRoom2(gridSize) {
         root.scale.set(0.005, 0.006, 0.005);
         root.rotateX(degToRad(270));
         root.traverse((child) => child.castShadow = true);
+        root.name = "BATTERY";
         recursiveChild(root, collidableObjects);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            associatedAnimation: null,
+            actionButton: "Q",
+        };
+
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });
 
@@ -134,7 +146,6 @@ function createRoom2(gridSize) {
         root.position.y = 0;
         root.position.z = 22.5;
         root.scale.set(0.025, 0.016, 0.02);
-        root.name = "WARDROBE";
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         root.getObjectByName('Cube003').position.z = 0;
@@ -152,12 +163,12 @@ function createRoom2(gridSize) {
             animation: animation,
             actionEnded: false,
             reverseAnimation: null,
+            associatedAnimation: null,
             actionButton: "space",
         };
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.root);        
         scene.add(root);
-        //console.log(dumpObject(root).join('\n'));
     });
 
     var mtlLoaderDoor = new THREE.MTLLoader();
@@ -176,7 +187,6 @@ function createRoom2(gridSize) {
             objectDoor.scale.set(0.09, 0.1, 0.075);
             objectDoor.rotateX(degToRad(-90));
             objectDoor.rotateZ(degToRad(90));
-            objectDoor.name = "DOOR_ROOM2";
             objectDoor.traverse((child) => child.castShadow = true);
             recursiveChild(objectDoor, collidableObjects);
             var t1 = 0;
@@ -223,6 +233,7 @@ function createRoom2(gridSize) {
                 animation: animation,
                 actionEnded: false,
                 reverseAnimation: null,
+                associatedAnimation: null,
                 actionButton: "space",
             };
             objectsAnimated.push(obj);
@@ -252,7 +263,6 @@ function createRoom2(gridSize) {
         root.position.y = 3.5;
         root.position.z = 22.6;
         root.scale.set(0.087, 0.087, 0.07);
-        root.name = "SAFE";
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         root.getObjectByName('Safe1_Door').rotation.z = -degToRad(90);
@@ -269,6 +279,7 @@ function createRoom2(gridSize) {
             animation: animation,
             actionEnded: false,
             reverseAnimation: null,
+            associatedAnimation: null,
             actionButton: "space",
         };
         objectsAnimated.push(obj);
@@ -282,10 +293,21 @@ function createRoom2(gridSize) {
         root.position.x = 13.5;
         root.position.y = 7;
         root.position.z = 23;
+        root.name = 'DIAMOND';
         root.scale.set(0.008, 0.008, 0.008);
         root.rotateZ(degToRad(45));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            associatedAnimation: null,
+            actionButton: "Q",
+        };
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });
 
@@ -295,8 +317,19 @@ function createRoom2(gridSize) {
         root.position.x = -11;
         root.position.y = 4.3;
         root.position.z = 57.0;
+        root.name = 'BULLET';
         root.scale.set(0.2, 0.2, 0.2);
         root.traverse((child) => child.castShadow = true);
+        var obj = {
+            root: root,
+            animation: null,
+            actionEnded: false,
+            reverseAnimation: null,
+            associatedAnimation: null,
+            actionButton: "Q",
+        };
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.root);
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });
