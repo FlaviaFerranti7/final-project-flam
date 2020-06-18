@@ -236,6 +236,7 @@ function createRoom2(gridSize) {
                 associatedAnimation: null,
                 actionButton: "space",
             };
+            steps.push(obj);
             objectsAnimated.push(obj);
             objectsRaycaster.push(obj.root);
             scene.add(objectDoor);
