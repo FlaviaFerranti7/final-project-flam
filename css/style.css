@@ -1,14 +1,14 @@
 * {
     padding: 0px;
     margin: 0px;
+    text-align: center;
+   
 }
-
 
 body {
     box-sizing: border-box;
     background-color: #000;
     color: #888;
-    font-family: Helvetica;
     line-height: 26px;
     margin: 0px;
     overflow: hidden;
@@ -35,8 +35,7 @@ body {
 #instructions {
     width: 100%;
     height: 100%;
-    font-size: 30px;
-    font-family: 'Courier New';
+    font-size: 50px;
     display: -webkit-box;
     display: -moz-box;
     -webkit-box-orient: horizontal;
@@ -48,6 +47,7 @@ body {
     color: #ffffff;
     text-align: center;
     cursor: pointer;
+    font-family: 'Metal Mania';
 }
 
 #action {
@@ -57,7 +57,6 @@ body {
     bottom: 0;
     left: 0;
     z-index: 99;
-
     display: none;
 }
 
@@ -70,7 +69,8 @@ body {
     background-color: #ffffff;
     border: 2px solid black;
     text-align: center;
-    font-size: 20px;
+    font-family: 'Metal Mania';
+    font-size: 25px;
     color: black;
 }
 
@@ -78,12 +78,13 @@ body {
     position: absolute;
     height: 150px;
     width: 100%;
-    top: calc(50% - 75px);
+    top: calc(50% - 1px); /*-1*/
     left: 0;
     z-index: 99;
-    background-color: #ffffff50;
+    background-color: #ffffffd0;
     display: none;
-    font-size: 25px;
+    font-family:'Sahitya';
+    font-size: 40px;
     line-height: 150px;
     color: black;
     text-align: center;

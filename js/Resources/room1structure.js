@@ -120,7 +120,7 @@ function createRoom1(gridSize) {
         const root = gltf.scene;
         root.position.x = -9.0;
         root.position.y = 0.0;
-        root.position.z = 17.5;
+        root.position.z = 18.0;
         root.scale.set(7, 8, 5);
         root.name = 'WARDROBE';
         root.rotateY(degToRad(180));
@@ -295,7 +295,7 @@ function createRoom1(gridSize) {
         const root = gltf.scene;
         root.position.x = 16;
         root.position.y = 1.0;
-        root.position.z = -8;
+        root.position.z = 5.0;
         root.scale.set(0.006, 0.006, 0.006);
         root.name = "TORCH";
         root.rotateX(degToRad(90));

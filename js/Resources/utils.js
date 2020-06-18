@@ -327,6 +327,6 @@ function alert(msg, time = 3000) {
   elem.style.display = "block";
   elem.childNodes[1].innerHTML = msg;
   setTimeout(() => {
-    elem.style.display = "none"
+    elem.style.display = "none";
   }, time);
 }

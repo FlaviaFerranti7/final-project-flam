@@ -112,7 +112,7 @@ function createGarden(gridSize) {
     gltfLoaderRake.load("../../model3D/Garden/Rake/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -100.0;
-        root.position.y = 10.0;
+        root.position.y = 9.0;
         root.position.z = 202.0;
         root.scale.set(8, 8, 8);
         root.rotateY(degToRad(90));

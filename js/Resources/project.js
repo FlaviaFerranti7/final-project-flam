@@ -215,7 +215,6 @@ var livingRoomLoader = function () {
   return true;
 }
 
-
 /* ------------------------- GARDEN ------------------------- */
 var gardenLoader = function () {
   createGarden(380);
