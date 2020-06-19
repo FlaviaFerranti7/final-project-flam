@@ -281,7 +281,7 @@ function createRoom1(gridSize) {
             return true;
         }
 
-        var obj = new Thing(root, animation, reverseAnimation, false, true, null, "BATTERY");
+        var obj = new Thing(root, animation, reverseAnimation, false, true, null, "BATTERY", true);
 
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());

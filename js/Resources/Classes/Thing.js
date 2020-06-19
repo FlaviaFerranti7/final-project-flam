@@ -1,5 +1,5 @@
 class Thing {
-    constructor(object, animation, reverseAnimation, conditionedAnimated, isElemOfBackpack, subjectAction, subjectMerge) {
+    constructor(object, animation, reverseAnimation, conditionedAnimated, isElemOfBackpack, subjectAction, subjectMerge, valueMerge = false) {
         this.object = object;
         this.animation = animation;
         this.reverseAnimation = reverseAnimation;
@@ -10,6 +10,7 @@ class Thing {
         else this.actionButton = "";
         this.subjectAction = subjectAction;
         this.subjectMerge = subjectMerge;
+        this.valueMerge = valueMerge;
     }
 
     getObject() {
@@ -50,6 +51,18 @@ class Thing {
 
     getFlagDoubleAction() {
         return this.flagDoubleAction;
+    }
+
+    getValueMerge() {
+        return this.valueMerge;
+    }
+
+    setSubjectAction(subjectAction) {
+        this.subjectAction = subjectAction;
+    }
+
+    setSubjectMerge(subjectMerge) {
+        this.subjectMerge = subjectMerge;
     }
 
     setFlagDoubleAction(bool) {

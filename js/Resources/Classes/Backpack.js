@@ -30,10 +30,36 @@ class Backpack {
     }
 
     insert(object) {
-        this.objects.splice(this.numElem, 0, object);
-        this.numElem += 1;
-        document.getElementById("item" + this.numElem).innerHTML = 
+        if(object.getSubjectMerge() != null && this.numElem > 0) {
+            var tmp = this.objects.find(elem => {
+                if(elem == undefined) return undefined;
+                return elem.getObjectName() == object.getSubjectMerge()
+            });
+            if(tmp != undefined) {
+                object.setSubjectMerge(null);
+                var index = this.objects.indexOf(tmp);
+                this.objects[index].setSubjectMerge(null);
+                if(object.getValueMerge()) {
+                    this.objects.splice(index, 1, object);
+                    document.getElementById("item" + (index + 1)).innerHTML = 
+                        "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+                }
+            }
+            else {
+                if(object.getValueMerge()) {
+                }
+                this.objects.splice(this.numElem, 0, object);
+                this.numElem += 1;
+                document.getElementById("item" + this.numElem).innerHTML = 
+                "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+            }
+        }
+        else{
+            this.objects.splice(this.numElem, 0, object);
+            this.numElem += 1;
+            document.getElementById("item" + this.numElem).innerHTML = 
             "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+        }
     }
 
     remove(index) {
@@ -60,14 +86,13 @@ class Backpack {
                     this.removeObj(objectOfBackpack);
                 }    
             }
+            else if(objectOfBackpack.getSubjectMerge() != null) {
+                alert(objectOfBackpack.getObjectName() + " needs " + objectOfBackpack.getSubjectMerge());
+            }
             else {
                 objectOfBackpack.setIsElemOfBackpack(false);
                 objectOfBackpack.executeAnimation();
-            }
-            /*
-            else if(objectOfBackpack.getSubjectMerge() != null) {
-                alert(objectOfBackpack.getObjectName() + " needs " + objectOfBackpack.getSubjectMerge());
-            }*/
+            } 
         }
     }
 }

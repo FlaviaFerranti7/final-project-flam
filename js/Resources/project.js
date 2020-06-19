@@ -272,9 +272,13 @@ var associatedObject;
 
 var animate = function () {
 
+  /*
   setTimeout(function () {
     requestAnimationFrame(animate);
   }, 1000 / 30);
+  */
+
+ requestAnimationFrame(animate);
 
   var delta = clock.getDelta();
   animatePlayer(delta);
