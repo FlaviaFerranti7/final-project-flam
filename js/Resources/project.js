@@ -86,144 +86,43 @@ const intensitySpotlight = 0.8;
 const penumbra = 0.6;
 
 /* ------------------------- FIRST ROOM ------------------------- */
-
-createRoom1(40);
-
-/* ------------------------- SPOTLIGHT FIRST ROOM ------------------------- */
-
-const spotlightR1 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-
-spotlightR1.position.set(0.0, 20.0, 0.0);
-spotlightR1.target = new THREE.Object3D();
-spotlightR1.target.position.set(0, -4000, 0);
-spotlightR1.angle = Math.PI / 2.5;
-spotlightR1.distance = 200;
-spotlightR1.penumbra = penumbra;
-spotlightR1.castShadow = true;
-
-const sourceSpotlightR1 = createReverseSpotLight(spotlightR1, new THREE.Vector3(0.0, 15.0, 0.0));
-
-spotlightR1.decay = 5;
-
-scene.add(spotlightR1);
-scene.add(spotlightR1.target);
-
-scene.add(sourceSpotlightR1);
-scene.add(sourceSpotlightR1.target);
+var room1;
+room1 = createRoom1(40);
+scene.add(room1);
 
 /* ------------------------- SECOND ROOM ------------------------- */
+var room2;
 var room2Loader = function () {
-  createRoom2(40);
-
-  /* ------------------------- SPOTLIGHT SECOND ROOM ------------------------- */
-
-  const spotlightR2 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-
-  spotlightR2.position.set(0.0, 20.0, 42.0);
-  spotlightR2.target = new THREE.Object3D();;
-  spotlightR2.target.position.set(0, -4000, 0);
-  spotlightR2.angle = Math.PI / 2.5;
-  spotlightR2.distance = 200;
-  spotlightR2.penumbra = penumbra;
-  spotlightR2.castShadow = true;
-
-  const sourceSpotlightR2 = createReverseSpotLight(spotlightR2, new THREE.Vector3(0.0, 15.0, 42.0));
-
-  spotlightR2.decay = 5;
-
-  scene.add(spotlightR2);
-  scene.add(spotlightR2.target);
-
-  scene.add(sourceSpotlightR2);
-  scene.add(sourceSpotlightR2.target);
+  room2 = createRoom2(40);
+  scene.add(room2);
 
   return true;
 }
 
 /* --------------------------- HALLWAY --------------------------- */
+var hallway;
 var hallwayLoader = function () {
-
-  createHallway(80);
-
-  /* --------------------------- SPOTLIGHT HALLWAY --------------------------- */
-
-  const spotlightL1 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-
-  spotlightL1.position.set(-30, 20.0, 0.0);
-  spotlightL1.target = new THREE.Object3D();
-  spotlightL1.target.position.set(0, -4000, 0);
-  spotlightL1.angle = Math.PI / 2.5;
-  spotlightL1.distance = 200;
-  spotlightL1.penumbra = penumbra;
-  spotlightL1.castShadow = true;
-
-  const sourceSpotlightL1 = createReverseSpotLight(spotlightL1, new THREE.Vector3(-32.0, 15.0, 0.0));
-
-  spotlightL1.decay = 5;
-
-  scene.add(spotlightL1);
-  scene.add(spotlightL1.target);
-
-  scene.add(sourceSpotlightL1);
-  scene.add(sourceSpotlightL1.target);
-
-  const spotlightL2 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-
-  spotlightL2.position.set(-30.0, 20.0, 42.0);
-  spotlightL2.target = new THREE.Object3D();;
-  spotlightL2.target.position.set(0, -4000, 0);
-  spotlightL2.angle = Math.PI / 2.5;
-  spotlightL2.distance = 200;
-  spotlightL2.penumbra = penumbra;
-  spotlightL2.castShadow = true;
-
-  const sourceSpotlightL2 = createReverseSpotLight(spotlightL2, new THREE.Vector3(-32.0, 15.0, 42.0));
-
-  spotlightL2.decay = 5;
-
-  scene.add(spotlightL2);
-  scene.add(spotlightL2.target);
-
-  scene.add(sourceSpotlightL2);
-  scene.add(sourceSpotlightL2.target);
+  hallway = createHallway(80);
+  scene.add(hallway);  
 
   return true;
 }
 
 /* ------------------------- LIVING-ROOM ------------------------- */
+var livingRoom;
 var livingRoomLoader = function () {
-
-  createLivingRoom(80);
-
-  /* ------------------------- SPOTLIGHT LIVING-ROOM ------------------------- */
-
-  const spotlightL = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
-
-  spotlightL.position.set(-70, 20.0, 20.0);
-  spotlightL.target = new THREE.Object3D();
-  spotlightL.target.position.set(0, -4000, 0);
-  spotlightL.angle = Math.PI / 2.5;
-  spotlightL.distance = 200;
-  spotlightL.penumbra = penumbra;
-  spotlightL.castShadow = true;
-
-  const sourceSpotlightL = createReverseSpotLight(spotlightL, new THREE.Vector3(-75.0, 15.0, 16.5));
-
-  spotlightL.decay = 2;
-
-  scene.add(spotlightL);
-  scene.add(spotlightL.target);
-
-  scene.add(sourceSpotlightL);
-  scene.add(sourceSpotlightL.target);
+  livingRoom = createLivingRoom(80);
+  scene.add(livingRoom);
 
   return true;
 }
 
 
 /* ------------------------- GARDEN ------------------------- */
+var garden;
 var gardenLoader = function () {
-  createGarden(380);
+  garden = createGarden(380);
+  scene.add(garden);
   return true;
 }
 
@@ -412,6 +311,17 @@ var animate = function () {
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
     alert("Step 3 passed", 7000);
     loadingLR = livingRoomLoader();
+    // scene.remove(room1);
+    // scene.remove(room2);
+    // scene.remove(hallway);
+    // for(var i = 0; i < objectsAnimated.length; i++){
+    //   scene.remove(objectsAnimated[i]);
+    // }
+    // objectsAnimated = [];
+    // objectsRaycaster = [];
+    // room1 = null;
+    // room2 = null;
+    // hallway = null;
     steps.splice(0, 1);
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingG == false) {

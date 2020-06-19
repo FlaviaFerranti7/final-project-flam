@@ -78,7 +78,48 @@ function createHallway(gridSize) {
     var roof = createShape(0.0, size, size / 4, new THREE.Vector3(-size / 2, size / 4, 0.75 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallR], []);
     hallway.add(roof);
 
-    scene.add(hallway);
+    /* SPOTLIGHT HALLWAY */
+
+    const spotlightL1 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
+
+    spotlightL1.position.set(-30, 20.0, 0.0);
+    spotlightL1.target = new THREE.Object3D();
+    spotlightL1.target.position.set(0, -4000, 0);
+    spotlightL1.angle = Math.PI / 2.5;
+    spotlightL1.distance = 200;
+    spotlightL1.penumbra = penumbra;
+    spotlightL1.castShadow = true;
+
+    const sourceSpotlightL1 = createReverseSpotLight(spotlightL1, new THREE.Vector3(-32.0, 15.0, 0.0));
+
+    spotlightL1.decay = 5;
+
+    hallway.add(spotlightL1);
+    hallway.add(spotlightL1.target);
+
+    hallway.add(sourceSpotlightL1);
+    hallway.add(sourceSpotlightL1.target);
+
+    const spotlightL2 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
+
+    spotlightL2.position.set(-30.0, 20.0, 42.0);
+    spotlightL2.target = new THREE.Object3D();;
+    spotlightL2.target.position.set(0, -4000, 0);
+    spotlightL2.angle = Math.PI / 2.5;
+    spotlightL2.distance = 200;
+    spotlightL2.penumbra = penumbra;
+    spotlightL2.castShadow = true;
+
+    const sourceSpotlightL2 = createReverseSpotLight(spotlightL2, new THREE.Vector3(-32.0, 15.0, 42.0));
+
+    spotlightL2.decay = 5;
+
+    hallway.add(spotlightL2);
+    hallway.add(spotlightL2.target);
+
+    hallway.add(sourceSpotlightL2);
+    hallway.add(sourceSpotlightL2.target);
+
     recursiveChild(hallway, collidableObjects);
 
     /* MODEL 3D */
@@ -142,10 +183,10 @@ function createHallway(gridSize) {
                 return false;
             };
             var obj = new Thing(objectDoor, animation, null, false, false, null, null);
-
+            steps.push(obj);
             objectsAnimated.push(obj);
             objectsRaycaster.push(obj.getObject());
-            scene.add(objectDoor);
+            hallway.add(objectDoor);
         });
     });
 
@@ -164,7 +205,7 @@ function createHallway(gridSize) {
             objectLampL1.position.z = 0.0;
             objectLampL1.scale.set(0.09, 0.02, 0.075);
             objectLampL1.rotateY(degToRad(90));
-            scene.add(objectLampL1);
+            hallway.add(objectLampL1);
 
         });
     });
@@ -184,7 +225,7 @@ function createHallway(gridSize) {
             objectLampL2.position.z = 40.0;
             objectLampL2.scale.set(0.09, 0.02, 0.075);
             objectLampL2.rotateY(degToRad(90));
-            scene.add(objectLampL2);
+            hallway.add(objectLampL2);
 
         });
     });
@@ -199,7 +240,7 @@ function createHallway(gridSize) {
         root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        scene.add(root);
+        hallway.add(root);
     });
 
     const gltfLoaderConsole = new THREE.GLTFLoader();
@@ -213,9 +254,11 @@ function createHallway(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         root.getObjectByName('Plane001').visible = false;
-        scene.add(root);
+        hallway.add(root);
         // console.log(dumpObject(root).join('\n'));
     });
+
+    /* OBJECT 3D */
 
     const gltfLoaderGun = new THREE.GLTFLoader();
     gltfLoaderGun.load("../../model3D/Hallway/Gun/scene.gltf", (gltf) => {
@@ -237,5 +280,7 @@ function createHallway(gridSize) {
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
+
+    return hallway;
 
 }

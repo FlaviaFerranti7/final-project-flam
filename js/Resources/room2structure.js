@@ -76,7 +76,28 @@ function createRoom2(gridSize) {
     var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, 1.5 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallR], []);
     room.add(roof);
 
-    scene.add(room);
+    /* SPOTLIGHT ROOM2 */
+
+    const spotlightR2 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
+
+    spotlightR2.position.set(0.0, 20.0, 42.0);
+    spotlightR2.target = new THREE.Object3D();;
+    spotlightR2.target.position.set(0, -4000, 0);
+    spotlightR2.angle = Math.PI / 2.5;
+    spotlightR2.distance = 200;
+    spotlightR2.penumbra = penumbra;
+    spotlightR2.castShadow = true;
+
+    const sourceSpotlightR2 = createReverseSpotLight(spotlightR2, new THREE.Vector3(0.0, 15.0, 42.0));
+
+    spotlightR2.decay = 5;
+
+    room.add(spotlightR2);
+    room.add(spotlightR2.target);
+
+    room.add(sourceSpotlightR2);
+    room.add(sourceSpotlightR2.target);
+
     recursiveChild(room, collidableObjects);
 
     /* MODEL 3D */
@@ -95,7 +116,7 @@ function createRoom2(gridSize) {
             objectLamp.position.z = 40.0;
             objectLamp.scale.set(0.09, 0.02, 0.075);
             objectLamp.rotateY(degToRad(90));
-            scene.add(objectLamp);
+            room.add(objectLamp);
 
         });
     });
@@ -111,27 +132,8 @@ function createRoom2(gridSize) {
     //     root.traverse((child) => child.castShadow = true);
     //     recursiveChild(root, collidableObjects);
     //     console.log(dumpObject(root).join('\n'));
-    //     scene.add(root);
+    //     room.add(root);
     // });
-
-    const gltfLoaderBattery = new THREE.GLTFLoader();
-    gltfLoaderBattery.load("../../model3D/Room2/Battery/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = 12.0;
-        root.position.y = 4.3;
-        root.position.z = 57.0;
-        root.scale.set(0.005, 0.006, 0.005);
-        root.rotateX(degToRad(270));
-        root.traverse((child) => child.castShadow = true);
-        root.name = "BATTERY";
-        recursiveChild(root, collidableObjects);
-
-        var obj = new Thing(root, null, null, false, true, null, "TORCH");
-
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
-        scene.add(root);
-    });
 
     const gltfLoaderWardrobe = new THREE.GLTFLoader();
     gltfLoaderWardrobe.load("../../model3D/Room2/Wardrobe/scene.gltf", (gltf) => {
@@ -157,7 +159,7 @@ function createRoom2(gridSize) {
 
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());        
-        scene.add(root);
+        room.add(root);
     });
 
     var mtlLoaderDoor = new THREE.MTLLoader();
@@ -226,7 +228,7 @@ function createRoom2(gridSize) {
             steps.push(obj);
             objectsAnimated.push(obj);
             objectsRaycaster.push(obj.getObject());
-            scene.add(objectDoor);
+            room.add(objectDoor);
 
         });
     });
@@ -241,7 +243,7 @@ function createRoom2(gridSize) {
         root.rotateY(degToRad(270));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        scene.add(root);
+        room.add(root);
     });
 
     const gltfLoaderSafe = new THREE.GLTFLoader();
@@ -278,8 +280,10 @@ function createRoom2(gridSize) {
 
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
-        scene.add(root);
+        room.add(root);
     });
+
+    /* OBJECT 3D */
 
     const gltfLoaderDiamond = new THREE.GLTFLoader();
     gltfLoaderDiamond.load("../../model3D/Room2/Diamond/scene.gltf", (gltf) => {
@@ -323,5 +327,26 @@ function createRoom2(gridSize) {
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });
+
+    const gltfLoaderBattery = new THREE.GLTFLoader();
+    gltfLoaderBattery.load("../../model3D/Room2/Battery/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 12.0;
+        root.position.y = 4.3;
+        root.position.z = 57.0;
+        root.scale.set(0.005, 0.006, 0.005);
+        root.rotateX(degToRad(270));
+        root.traverse((child) => child.castShadow = true);
+        root.name = "BATTERY";
+        recursiveChild(root, collidableObjects);
+
+        var obj = new Thing(root, null, null, false, true, null, "TORCH");
+
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        scene.add(root);
+    });
+
+    return room;
 
 }

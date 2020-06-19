@@ -345,6 +345,7 @@ function alert(msg, time = 3000) {
 
 function hideDiv() {
   var elem = document.getElementById("message");
+  var txtInput = document.getElementById("txtInput");
   elem.style.display = "block";
   elem.childNodes[1].innerHTML = "Insert code to open the safe";
 
@@ -353,6 +354,7 @@ function hideDiv() {
       case 46: // canc
       case 13: // enter
         elem.style.display = "none";
+        txtInput.value = "";
         hideDivSafe = true;
         openSafe = false;
         break;
@@ -374,9 +376,6 @@ function insertCode() {
   else {
     if (txtInput.value.length == 4) {
       elem.childNodes[1].innerHTML = "Your combination failed";
-      setTimeout(() => {
-        txtInput.value = "";
-      }, 3000);
     }
   }
 

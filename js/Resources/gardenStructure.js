@@ -43,8 +43,6 @@ function createGarden(gridSize) {
     var wall5 = createShape(0.0, size / 25, size / 2.26, new THREE.Vector3(-size * 0.43, 0.0, 0.1105 * size), new THREE.Vector3(0, -90, 0), [materialFence], []);
     garden.add(wall5);
 
-
-    scene.add(garden);
     recursiveChild(garden, collidableObjects);
     
     const gltfLoaderGateway = new THREE.GLTFLoader();
@@ -214,6 +212,7 @@ function createGarden(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);
-    });;
+    });
 
+    return garden;
 }

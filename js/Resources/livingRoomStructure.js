@@ -61,7 +61,28 @@ function createLivingRoom(gridSize) {
     var roof = createShape(0.0, size, size * 3 / 4, new THREE.Vector3(-size * 1.25, size / 4, 0.75 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallR], []);
     livingRoom.add(roof);
 
-    scene.add(livingRoom);
+    /* SPOTLIGHT LIVING ROOM */
+
+    const spotlightL = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
+
+    spotlightL.position.set(-70, 20.0, 20.0);
+    spotlightL.target = new THREE.Object3D();
+    spotlightL.target.position.set(0, -4000, 0);
+    spotlightL.angle = Math.PI / 2.5;
+    spotlightL.distance = 200;
+    spotlightL.penumbra = penumbra;
+    spotlightL.castShadow = true;
+
+    const sourceSpotlightL = createReverseSpotLight(spotlightL, new THREE.Vector3(-75.0, 15.0, 16.5));
+
+    spotlightL.decay = 2;
+
+    livingRoom.add(spotlightL);
+    livingRoom.add(spotlightL.target);
+
+    livingRoom.add(sourceSpotlightL);
+    livingRoom.add(sourceSpotlightL.target);
+
     recursiveChild(livingRoom, collidableObjects);
 
     var mtlLoaderLamp = new THREE.MTLLoader();
@@ -79,7 +100,7 @@ function createLivingRoom(gridSize) {
             objectLamp.position.z = 20.0;
             objectLamp.scale.set(0.006, 0.006, 0.006);
             objectLamp.rotateY(degToRad(90));
-            scene.add(objectLamp);
+            livingRoom.add(objectLamp);
 
         });
     });
@@ -109,10 +130,10 @@ function createLivingRoom(gridSize) {
         };
 
         var obj = new Thing(root, animation, false, false, false, null, null);
-
+        steps.push(obj);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
-        scene.add(root);
+        livingRoom.add(root);
     });
 
     const gltfLoaderWindowDoors = new THREE.GLTFLoader();
@@ -145,7 +166,7 @@ function createLivingRoom(gridSize) {
 
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
-        scene.add(root);
+        livingRoom.add(root);
     });
 
     const gltfLoaderSofa = new THREE.GLTFLoader();
@@ -157,7 +178,7 @@ function createLivingRoom(gridSize) {
         root.scale.set(0.09, 0.09, 0.09);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        scene.add(root);
+        livingRoom.add(root);
     });
 
     const gltfLoaderTable = new THREE.GLTFLoader();
@@ -169,7 +190,7 @@ function createLivingRoom(gridSize) {
         root.scale.set(4.0, 4.0, 4.0);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        scene.add(root);
+        livingRoom.add(root);
     });
 
     const gltfLoaderBookcase = new THREE.GLTFLoader();
@@ -182,7 +203,7 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        scene.add(root);
+        livingRoom.add(root);
     });
 
     const gltfLoaderFurniture = new THREE.GLTFLoader();
@@ -195,7 +216,7 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(-90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        scene.add(root);
+        livingRoom.add(root);
     });
 
     const gltfLoaderMirror = new THREE.GLTFLoader();
@@ -208,8 +229,10 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        scene.add(root);
+        livingRoom.add(root);
     });
+
+    /* OBJECT 3D */
 
     const gltfLoaderViolin = new THREE.GLTFLoader();
     gltfLoaderViolin.load("../../model3D/LivingRoom/Violin/scene.gltf", (gltf) => {
@@ -267,4 +290,5 @@ function createLivingRoom(gridSize) {
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });
+    return livingRoom;
 }

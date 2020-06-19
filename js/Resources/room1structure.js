@@ -87,7 +87,28 @@ function createRoom1(gridSize) {
     var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, size / 2), new THREE.Vector3(270, 0, 0), [materialRoof, materialWallR], []);
     room.add(roof);
 
-    scene.add(room);
+    /* SPOTLIGHT ROOM 1 */
+
+    const spotlightR1 = new THREE.SpotLight(colorSpotlight, intensitySpotlight);
+
+    spotlightR1.position.set(0.0, 20.0, 0.0);
+    spotlightR1.target = new THREE.Object3D();
+    spotlightR1.target.position.set(0, -4000, 0);
+    spotlightR1.angle = Math.PI / 2.5;
+    spotlightR1.distance = 200;
+    spotlightR1.penumbra = penumbra;
+    spotlightR1.castShadow = true;
+
+    const sourceSpotlightR1 = createReverseSpotLight(spotlightR1, new THREE.Vector3(0.0, 15.0, 0.0));
+
+    spotlightR1.decay = 5;
+
+    room.add(spotlightR1);
+    room.add(spotlightR1.target);
+
+    room.add(sourceSpotlightR1);
+    room.add(sourceSpotlightR1.target);
+
     recursiveChild(room, collidableObjects);
 
     /* MODEL 3D */
@@ -110,7 +131,7 @@ function createRoom1(gridSize) {
             objectDoor.rotateZ(degToRad(90));
             objectDoor.traverse((child) => child.castShadow = true);
             recursiveChild(objectDoor, collidableObjects);
-            scene.add(objectDoor);
+            room.add(objectDoor);
 
         });
     });
@@ -128,7 +149,7 @@ function createRoom1(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
 
-        scene.add(root);
+        room.add(root);
     });
 
     var mtlLoaderLamp = new THREE.MTLLoader();
@@ -146,10 +167,99 @@ function createRoom1(gridSize) {
             objectLamp.position.z = 0.0;
             objectLamp.scale.set(0.09, 0.02, 0.075);
             objectLamp.rotateY(degToRad(90));
-            scene.add(objectLamp);
+            room.add(objectLamp);
 
         });
     });
+    
+    const gltfLoaderWindow = new THREE.GLTFLoader();
+    gltfLoaderWindow.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 20.0;
+        root.position.y = 9;
+        root.position.z = 7.5;
+        root.scale.set(0.087, 0.035, 0.05);
+        root.rotateY(degToRad(270));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        room.add(root);
+    });
+
+    const gltfLoaderBed = new THREE.GLTFLoader();
+    gltfLoaderBed.load("../../model3D/Room1/Bed/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 11;
+        root.position.y = 0;
+        root.position.z = -14;
+        root.scale.set(0.05, 0.04, 0.06);
+        root.rotateY(degToRad(180));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        var finalPosition = 50;
+        var animation = (t, move) => {
+            if(root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z == finalPosition) return false;
+            
+            if (move) {
+                root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z = interpolation(0, finalPosition, 0, 5, t);
+                return true;
+            }
+            return false;
+            
+        };
+        
+        var obj = new Thing(root, animation, null, false, false, null, null);
+        
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        room.add(root);
+    });
+
+    const gltfLoaderDesk = new THREE.GLTFLoader();
+    gltfLoaderDesk.load("../../model3D/Room1/Desk/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 10;
+        root.position.y = 2.0;
+        root.position.z = 15;
+        root.scale.set(3, 3, 3);
+        root.rotateY(degToRad(180));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        room.add(root);
+    });
+
+    const gltfLoaderLightSwitch = new THREE.GLTFLoader();
+    gltfLoaderLightSwitch.load("../../model3D/Room1/LightSwitch/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -20.0; 
+        root.position.y = 7.0;
+        root.position.z = -14.0;
+        root.scale.set(0.002, 0.002, 0.002);
+        root.rotateY(degToRad(90));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        var finalPosition = 4;
+        var animation = (t, move) => {
+            if(wardrobe.position.x == finalPosition){
+                wardrobe = null;
+                return false
+            };
+
+            if (move) {
+                wardrobe.position.x = interpolation(-9, finalPosition, 0, 15, t);
+                return true;
+            }
+            return false;
+        };
+
+        var obj = new Thing(root, animation, null, false, false, null, null);
+        
+        steps.push(obj);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        room.add(root);    
+    });
+
+    /* OBJECT 3D */
 
     var mtlLoaderBackpack = new THREE.MTLLoader();
     mtlLoaderBackpack.setPath("../../model3D/Room1/Backpack/");
@@ -179,48 +289,6 @@ function createRoom1(gridSize) {
         });
     });
 
-    const gltfLoaderWindow = new THREE.GLTFLoader();
-    gltfLoaderWindow.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = 20.0;
-        root.position.y = 9;
-        root.position.z = 7.5;
-        root.scale.set(0.087, 0.035, 0.05);
-        root.rotateY(degToRad(270));
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        scene.add(root);
-    });
-
-    const gltfLoaderBed = new THREE.GLTFLoader();
-    gltfLoaderBed.load("../../model3D/Room1/Bed/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = 11;
-        root.position.y = 0;
-        root.position.z = -14;
-        root.scale.set(0.05, 0.04, 0.06);
-        root.rotateY(degToRad(180));
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        var finalPosition = 50;
-        var animation = (t, move) => {
-            if(root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z == finalPosition) return false;
-            
-            if (move) {
-                root.getObjectByName('polySurface3595_M_pillow_blanket_0').position.z = interpolation(0, finalPosition, 0, 5, t);
-                return true;
-            }
-            return false;
-            
-        };
-
-        var obj = new Thing(root, animation, null, false, false, null, null);
-
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
-        scene.add(root);
-    });
-
     const gltfLoaderKey = new THREE.GLTFLoader();
     gltfLoaderKey.load("../../model3D/Room1/Key/scene.gltf", (gltf) => {
         const root = gltf.scene;
@@ -243,19 +311,6 @@ function createRoom1(gridSize) {
 
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
-        scene.add(root);
-    });
-
-    const gltfLoaderDesk = new THREE.GLTFLoader();
-    gltfLoaderDesk.load("../../model3D/Room1/Desk/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = 10;
-        root.position.y = 2.0;
-        root.position.z = 15;
-        root.scale.set(3, 3, 3);
-        root.rotateY(degToRad(180));
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
         scene.add(root);
     });
 
@@ -288,36 +343,7 @@ function createRoom1(gridSize) {
         scene.add(root);
     });
 
-    const gltfLoaderLightSwitch = new THREE.GLTFLoader();
-    gltfLoaderLightSwitch.load("../../model3D/Room1/LightSwitch/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = -20.0; 
-        root.position.y = 7.0;
-        root.position.z = -14.0;
-        root.scale.set(0.002, 0.002, 0.002);
-        root.rotateY(degToRad(90));
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        var finalPosition = 4;
-        var animation = (t, move) => {
-            if(wardrobe.position.x == finalPosition){
-                wardrobe = null;
-                return false
-            };
-
-            if (move) {
-                wardrobe.position.x = interpolation(-9, finalPosition, 0, 15, t);
-                return true;
-            }
-            return false;
-        };
-
-        var obj = new Thing(root, animation, null, false, false, null, null);
-        
-        steps.push(obj);
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
-        scene.add(root);    
-    });
+    
+    return room;
 
 }
