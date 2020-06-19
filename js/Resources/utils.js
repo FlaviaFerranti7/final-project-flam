@@ -162,18 +162,18 @@ function listenForPlayerMovement() {
       case 32: // space
         if (enableAction) move = true;
         break;
-      
+
       // Q
       case 81:
-        if(enableAction) collect = true;
+        if (enableAction) collect = true;
         break;
-      
+
       case 69:
-        if(backpack !== null && !backpack.getOpen()) {
+        if (backpack !== null && !backpack.getOpen()) {
           backpack.setOpen(true);
           document.getElementById("backpack").style.display = "none";
           document.getElementById("backpack-objects").style.display = "flex";
-        } else if(backpack !== null && backpack.getOpen()) {
+        } else if (backpack !== null && backpack.getOpen()) {
           document.getElementById("backpack").style.display = "block";
           document.getElementById("backpack-objects").style.display = "none";
           backpack.setOpen(false);
@@ -330,3 +330,50 @@ function alert(msg, time = 3000) {
     elem.style.display = "none";
   }, time);
 }
+
+function hideDiv() {
+  var elem = document.getElementById("message");
+  elem.style.display = "block";
+  elem.childNodes[1].innerHTML = "Insert code to open the safe";
+
+  var ev = function (event) {
+    switch (event.keyCode) {
+      case 46: // canc
+      case 13: // enter
+        elem.style.display = "none";
+        hideDivSafe = true;
+        openSafe = false;
+        break;
+    }
+  };
+  document.addEventListener('keydown', ev, false);
+  document.addEventListener('keyup', ev, false);
+}
+
+function insertCode() {
+  var elem = document.getElementById("message");
+  var txtInput = document.getElementById("txtInput");
+  txtInput.focus();
+
+  if (txtInput.value == "1234") {
+    elem.style.display = "none";
+    openSafe = true;
+  }
+  else {
+    if (txtInput.value.length == 4) {
+      elem.childNodes[1].innerHTML = "Your combination failed";
+      setTimeout(() => {
+        txtInput.value = "";
+      }, 3000);
+    }
+  }
+
+  // txtInput.onkeypress = function (e) {
+  //   var charCode = e.which;
+  //   if (charCode < 48 || charCode > 57) e.preventDefault();
+  // }
+
+}
+
+
+

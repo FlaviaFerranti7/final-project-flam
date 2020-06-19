@@ -37,6 +37,9 @@ var loadingH = false;
 var loadingLR = false;
 var loadingG = false;
 
+var openSafe = false;
+var hideDivSafe = false;
+
 var currentObject = null;
 var actionPanel = document.getElementById("action");
 
@@ -137,7 +140,7 @@ var room2Loader = function () {
 
 /* --------------------------- HALLWAY --------------------------- */
 var hallwayLoader = function () {
-    
+
   createHallway(80);
 
   /* --------------------------- SPOTLIGHT HALLWAY --------------------------- */
@@ -279,9 +282,9 @@ var animate = function () {
             currentObject = objectsAnimated[i];
           }
         });
-        if(objectsAnimated[i].root == intersects[0].object) currentObject = objectsAnimated[i];   
+        if (objectsAnimated[i].root == intersects[0].object) currentObject = objectsAnimated[i];
         if (currentObject != null) break;
-       
+
       }
     }
 
@@ -307,18 +310,18 @@ var animate = function () {
   }
 
   if (currentObject != null) {
-    if((!move && currentObject.actionButton == "space") || (!collect && currentObject.actionButton == "Q")) actionPanel.style.display = "block";
+    if ((!move && currentObject.actionButton == "space") || (!collect && currentObject.actionButton == "Q")) actionPanel.style.display = "block";
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
-    if(currentObject.animation !== null) functionIsRunning = currentObject.animation(t, move);
+    if (currentObject.animation !== null) functionIsRunning = currentObject.animation(t, move);
     else {
-      if(collect) {
-        if(backpack != null && backpack.getNumElem() <= numElementOfBackpack){
+      if (collect) {
+        if (backpack != null && backpack.getNumElem() <= numElementOfBackpack) {
           scene.remove(currentObject.root);
           backpack.insert(currentObject);
           insertElem = true;
         }
-        else if(currentObject.root.name == "BACKPACK") {
+        else if (currentObject.root.name == "BACKPACK") {
           scene.remove(currentObject.root);
           backpack = new Backpack(numElementOfBackpack);
           alert("Now you can collect the objects!! </ br> Press E to open backpack");
@@ -329,34 +332,47 @@ var animate = function () {
         }
       }
     }
-    
-    if(move) t += 0.1;
-    if((move || (collect && insertElem)) && !functionIsRunning && currentObject.reverseAnimation == null) {
-      objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
-      objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.root), 1);
-      currentObject = null;
-      collect = false;
-      insertElem = false;
+
+    if (move) t += 0.1;
+    if ((move || (collect && insertElem)) && !functionIsRunning && currentObject.reverseAnimation == null) {
+      if (currentObject.root.name == "SAFE") {
+        collect = false;
+        insertElem = false;
+        if (openSafe == true) {
+          objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
+          objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.root), 1);
+          currentObject = null;
+        }
+      } else {
+        objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
+        objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.root), 1);
+        currentObject = null;
+        collect = false;
+        insertElem = false;
+      }
+    }
+    if (!move) {
+      hideDivSafe = false;
     }
   }
 
   //SEQUENTIAL ROOM LOADING
-  if(move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingR2==false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingR2 == false) {
     alert("Step 1 passed", 7000);
     loadingR2 = room2Loader();
     steps.splice(0, 1);
   }
-  if(move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingH == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingH == false) {
     alert("Step 2 passed", 7000);
     loadingH = hallwayLoader();
     steps.splice(0, 1);
   }
-  if(move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
     alert("Step 3 passed", 7000);
     loadingLR = livingRoomLoader();
     steps.splice(0, 1);
   }
-  if(move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingG == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingG == false) {
     alert("Step 4 passed", 7000);
     loadingG = gardenLoader();
     steps.splice(0, 1);

@@ -148,11 +148,11 @@ function createRoom2(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         root.getObjectByName('Cube003').position.z = 0;
-        root.getObjectByName('Cube001').rotation.z = 0;        
+        root.getObjectByName('Cube001').rotation.z = 0;
         var animation = (t, move) => {
-            if(root.getObjectByName('Cube001').rotation.z == degToRad(90)) return false;
+            if (root.getObjectByName('Cube001').rotation.z == degToRad(90)) return false;
             if (move) {
-                root.getObjectByName('Cube001').rotation.z = interpolation(0,degToRad(90),0,5,t);
+                root.getObjectByName('Cube001').rotation.z = interpolation(0, degToRad(90), 0, 5, t);
                 return true;
             }
             return false;
@@ -165,7 +165,7 @@ function createRoom2(gridSize) {
             actionButton: "space",
         };
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);        
+        objectsRaycaster.push(obj.root);
         scene.add(root);
     });
 
@@ -191,33 +191,33 @@ function createRoom2(gridSize) {
             var t2 = 0;
             var t3 = 0;
             var animation = (t, move) => {
-                if(objectDoor.children[0].rotation.z == -degToRad(90)) return false;
+                if (objectDoor.children[0].rotation.z == -degToRad(90)) return false;
                 if (move) {
-                    objectDoor.children[0].rotation.z = interpolation(0,-degToRad(90),0, 25,t);
+                    objectDoor.children[0].rotation.z = interpolation(0, -degToRad(90), 0, 25, t);
                     objectDoor.children[0].position.y = interpolation(0, -25, 0, 10, t);
                     objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
-                    if(t == 5){
+                    if (t == 5) {
                         objectDoor.children[0].position.x = -5;
                     }
-                    else if(t> 5){
+                    else if (t > 5) {
                         objectDoor.children[0].position.x = interpolation(-5, -18, 0, 10, t2);
-                        t2+= 0.1;
+                        t2 += 0.1;
                     }
-                    if(t2 == 10){
+                    if (t2 == 10) {
                         objectDoor.children[0].position.x = -18;
                     }
-                    else if(t2 > 10){
+                    else if (t2 > 10) {
                         objectDoor.children[0].position.x = interpolation(-18, -40, 0, 10, t3);
                         t3 += 0.1;
                     }
-                    if(t==10){
+                    if (t == 10) {
                         objectDoor.children[0].position.y = -25;
                     }
-                    else if(t>10){
+                    else if (t > 10) {
                         objectDoor.children[0].position.y = interpolation(-25, -40, 0, 15, t1);
                         t1 += 0.1;
                     }
-                    if(t>=25){
+                    if (t >= 25) {
                         t1 = 0;
                         t2 = 0;
                         t3 = 0;
@@ -261,14 +261,25 @@ function createRoom2(gridSize) {
         root.position.y = 3.5;
         root.position.z = 22.6;
         root.scale.set(0.087, 0.087, 0.07);
+        root.name = 'SAFE';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         root.getObjectByName('Safe1_Door').rotation.z = -degToRad(90);
+        var t1 = 0;
         var animation = (t, move) => {
-            if(root.getObjectByName('Safe1_Door').rotation.z == 0) return false;
+            if (root.getObjectByName('Safe1_Door').rotation.z == 0) return false;
             if (move) {
-                root.getObjectByName('Safe1_Door').rotation.z = interpolation(-degToRad(90), 0, 0, 5, t);
-                return true;
+                if (!hideDivSafe) {
+                    hideDiv();
+                    insertCode();
+                }
+                if (openSafe) {
+                    root.getObjectByName('Safe1_Door').rotation.z = interpolation(-degToRad(90), 0, 0, 5, t1);
+                    t1 += 0.1;
+                    return true;
+                } else {
+                    return false;
+                }
             }
             return false;
         };

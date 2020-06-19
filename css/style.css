@@ -88,7 +88,42 @@ body {
     line-height: 150px;
     color: black;
     text-align: center;
+}
 
+#message {
+    position: absolute;
+    height: 150px;
+    width: 100%;
+    top: calc(50% - 1px); /*-1*/
+    left: 0;
+    z-index: 99;
+    background-color: #ffffffd0;
+    display: none;
+    font-family:'Sahitya';
+    font-size: 30px;
+    line-height: 100px;
+    color: black;
+    text-align: center;
+}
+
+#txtInput{
+    position: relative;
+    height: 40px;
+    top: calc(50% - 115px);
+    outline: none;
+    border: none;
+    padding-left: 25px;
+    letter-spacing: 40px;
+    border: 0;
+    background-image: linear-gradient(to left, black 65%, rgba(255, 255, 255, 0) 0%);
+    background-position: bottom;
+    background-size: 60px 1.5px;
+    background-repeat: repeat-x;
+    background-position-x: 45px;
+    background-color:transparent;
+    width: 220px;
+    font-size: 25px;
+    
 }
 
 #backpack {
