@@ -40,26 +40,34 @@ class Backpack {
                 var index = this.objects.indexOf(tmp);
                 this.objects[index].setSubjectMerge(null);
                 if(object.getValueMerge()) {
-                    this.objects.splice(index, 1, object);
-                    document.getElementById("item" + (index + 1)).innerHTML = 
-                        "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+                    this.updateObject(index, object);
+                    alert("You can use " + object.getObjectName());
+                } else {
+                    alert("You can use " + tmp.getObjectName());
                 }
             }
             else {
                 if(object.getValueMerge()) {
                 }
-                this.objects.splice(this.numElem, 0, object);
-                this.numElem += 1;
-                document.getElementById("item" + this.numElem).innerHTML = 
-                "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+                this.insertObject(object);
             }
         }
         else{
-            this.objects.splice(this.numElem, 0, object);
-            this.numElem += 1;
-            document.getElementById("item" + this.numElem).innerHTML = 
-            "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+            this.insertObject(object);
         }
+    }
+
+    insertObject(object) {
+        this.objects.splice(this.numElem, 0, object);
+        this.numElem += 1;
+        document.getElementById("item" + this.numElem).innerHTML = 
+        "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+    }
+
+    updateObject(index, object) {
+        this.objects.splice(index, 1, object);
+        document.getElementById("item" + (index + 1)).innerHTML = 
+            "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
     }
 
     remove(index) {
@@ -76,10 +84,10 @@ class Backpack {
         if(objectOfBackpack == null) {
             alert("no selectable object");
         } else {
-            console.log(objectOfBackpack);
             if(objectOfBackpack.getSubjectAction() != null) {
-                if(currentObject == null || objectOfBackpack.getSubjectAction() != currentObject.getObjectName())
+                if(currentObject == null || objectOfBackpack.getSubjectAction() != currentObject.getObjectName()) {
                     alert("you can't use " + objectOfBackpack.getObjectName());
+                }  
                 else{
                     objectOfBackpack.setIsElemOfBackpack(false);
                     objectOfBackpack.executeAnimation();
