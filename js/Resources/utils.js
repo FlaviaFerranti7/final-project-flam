@@ -119,6 +119,8 @@ function onWindowResize() {
 function getPointerLock() {
   document.onclick = function () {
     container.requestPointerLock();
+    var deadline = new Date(Date.parse(new Date()) + 30 * 60 * 1000);
+    initializeClock('clockdiv', deadline);
   }
   document.addEventListener('pointerlockchange', lockChange, false);
 }
@@ -129,6 +131,7 @@ function lockChange() {
     // Hide blocker and instructions
     blocker.style.display = "none";
     controls.enabled = true;
+    
     // Turn off the controls
   } else {
     // Display the blocker and instruction
@@ -384,5 +387,39 @@ function insertCode() {
 
 }
 
+function getTimeRemaining(endtime) {
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  return {
+    'total': t,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
 
+function initializeClock(id, endtime) {
+  var tend = document.getElementById("clockdiv");
+  var clock = document.getElementById(id);
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
+
+  function updateClock() {
+    var t = getTimeRemaining(endtime);
+    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+    if (t.total <= 0) {
+      tend.style.display = 'none';
+      clearInterval(timeinterval);
+      blocker.style.display = 'block';
+      blocker.childNodes[1].innerHTML = "Game over";
+      controls.enabled = false;
+      document.exitPointerLock();
+    }
+  }
+
+  updateClock();
+  var timeinterval = setInterval(updateClock, 1000);
+}
 
