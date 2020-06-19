@@ -53,14 +53,21 @@ class Backpack {
             console.log(objectOfBackpack);
             if(objectOfBackpack.getSubjectAction() != null) {
                 if(currentObject == null || objectOfBackpack.getSubjectAction() != currentObject.getObjectName())
-                    alert("you don't use " + objectOfBackpack.getObjectName());
+                    alert("you can't use " + objectOfBackpack.getObjectName());
                 else{
                     objectOfBackpack.setIsElemOfBackpack(false);
                     objectOfBackpack.executeAnimation();
                     this.removeObj(objectOfBackpack);
-                }
-                    
+                }    
             }
+            else {
+                objectOfBackpack.setIsElemOfBackpack(false);
+                objectOfBackpack.executeAnimation();
+            }
+            /*
+            else if(objectOfBackpack.getSubjectMerge() != null) {
+                alert(objectOfBackpack.getObjectName() + " needs " + objectOfBackpack.getSubjectMerge());
+            }*/
         }
     }
 }

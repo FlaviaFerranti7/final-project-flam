@@ -44,11 +44,15 @@ class Thing {
         return this.conditionedAnimated;
     }
 
+    getIsElemOfBackpack() {
+        return this.isElemOfBackpack;
+    }
+
     getFlagDoubleAction() {
         return this.flagDoubleAction;
     }
 
-    setFlagDoubleAnimation(bool) {
+    setFlagDoubleAction(bool) {
         this.flagDoubleAction = bool;
     }
 
@@ -58,10 +62,17 @@ class Thing {
 
     executeAnimation(t = null, move = null) {
         if(this.isElemOfBackpack) scene.remove(this.object);
-        else if(this.flagDoubleAction) return this.reverseAnimation(t, move);
+        else if(this.flagDoubleAction) {
+            var ret = this.reverseAnimation(t, move);
+            if(ret) this.flagDoubleAction = false;
+            return ret;
+        }
         else {
-            if(t == null && move == null) return this.animation();
-            return this.animation(t, move);
+            var ret = false;
+            if(t == null && move == null) ret = this.animation();
+            ret = this.animation(t, move);
+            if(ret && this.getReverseAnimation() != null) this.flagDoubleAction = true;
+            return ret;
         }
         return false;
     }

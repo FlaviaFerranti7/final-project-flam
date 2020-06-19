@@ -271,7 +271,17 @@ function createRoom1(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
 
-        var obj = new Thing(root, null, null, false, true, null, "BATTERY");
+        var animation = () => {
+            torch.intensity = 1;
+            return true;
+        }
+
+        var reverseAnimation = () => {
+            torch.intensity = 0;
+            return true;
+        }
+
+        var obj = new Thing(root, animation, reverseAnimation, false, true, null, "BATTERY");
 
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());

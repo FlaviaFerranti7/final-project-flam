@@ -74,7 +74,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 10;  //1
+const intensityAmbient = 1;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -227,6 +227,11 @@ var gardenLoader = function () {
   return true;
 }
 
+/* ------------------------- TORCH SPOTLIGHT ------------------------- */
+
+
+
+
 /* ------------------------- LISTENER -------------------------- */
 
 var geometry = new THREE.PlaneGeometry(0.005, 0.03, 32);
@@ -241,6 +246,18 @@ marker.add(horizontalCross);
 
 camera.add(marker);
 marker.position.set(0, 0, -0.5);
+
+const torch = new THREE.SpotLight( 0xffffff );
+torch.intensity = 0;
+torch.target = new THREE.Object3D();
+torch.angle = Math.PI / 10;
+torch.distance = 100;
+torch.castShadow = true;
+
+camera.add(torch);
+camera.add( torch.target );
+torch.target.position.set(0, 0, -1);
+torch.position.set( camera.position.x - 10.5, camera.position.y - 8,  0);
 
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
@@ -322,7 +339,7 @@ var animate = function () {
     actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
     //console.log(currentObject.getConditionedAnimated());
     //console.log(enableConditionedAnimation);
-    if(currentObject.getAnimation() !== null && currentObject.getSubjectAction() == null && !currentObject.getConditionedAnimated()) {
+    if(currentObject.getAnimation() !== null && !currentObject.getIsElemOfBackpack() && !currentObject.getConditionedAnimated()) {
       functionIsRunning = currentObject.executeAnimation(t, move);
     }
     else if(currentObject.getConditionedAnimated() && enableConditionedAnimation){
@@ -348,6 +365,12 @@ var animate = function () {
       }
     }
     if (move) t += 0.1;
+    if(currentObject.getIsElemOfBackpack() && insertElem) {
+      objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
+      objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.getObject()), 1);
+      collect = false;
+      insertElem = false;
+    }
     if ((move || (collect && insertElem)) && !functionIsRunning && currentObject.getReverseAnimation() == null) {
       if (currentObject.getObjectName() == "SAFE") {
         collect = false;
@@ -367,10 +390,6 @@ var animate = function () {
     }
     if (!move) {
       hideDivSafe = false;
-    }
-    if(currentObject != null && (move || (collect && insertElem)) && !functionIsRunning && currentObject.getReverseAnimation() != null) {
-      if(currentObject.getFlagDoubleAnimation()) currentObject.getFlagDoubleAnimation(false);
-      currentObject.setFlagDoubleAnimation(true);
     }
   }
 
