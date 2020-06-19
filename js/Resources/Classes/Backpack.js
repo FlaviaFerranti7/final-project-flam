@@ -5,6 +5,7 @@ class Backpack {
         this.objects = new Array(numElem);
         this.numElem = 0;
         this.open = false;
+        this.freePosition = this.numElem;
 
         document.getElementById("backpack").style.display = "block";
     }
@@ -58,10 +59,22 @@ class Backpack {
     }
 
     insertObject(object) {
-        this.objects.splice(this.numElem, 0, object);
-        this.numElem += 1;
-        document.getElementById("item" + this.numElem).innerHTML = 
-        "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+        console.log(this.freePosition);
+        console.log(this.numElem);
+        if(this.freePosition == this.numElem) {
+            this.objects.splice(this.numElem, 0, object);
+            this.numElem ++;
+            document.getElementById("item" + this.numElem).innerHTML = 
+                "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+        }
+        else {
+            this.objects.splice(this.freePosition, 1, object);
+            console.log(this.objects);
+            document.getElementById("item" + (this.freePosition + 1)).innerHTML = 
+                "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+            this.numElem ++;
+        }
+        this.freePosition = this.numElem;
     }
 
     updateObject(index, object) {
@@ -89,9 +102,11 @@ class Backpack {
                     alert("you can't use " + objectOfBackpack.getObjectName());
                 }  
                 else{
+                    this.freePosition = this.objects.indexOf(objectOfBackpack);
                     objectOfBackpack.setIsElemOfBackpack(false);
                     objectOfBackpack.executeAnimation();
                     this.removeObj(objectOfBackpack);
+                    this.numElem -= 1;
                 }    
             }
             else if(objectOfBackpack.getSubjectMerge() != null) {

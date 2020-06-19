@@ -144,6 +144,9 @@ marker.add(horizontalCross);
 camera.add(marker);
 marker.position.set(0, 0, -0.5);
 
+listenForPlayerMovement();
+window.addEventListener('resize', onWindowResize, false);
+
 /* ------------------------- TORCH SPOTLIGHT ------------------------- */
 
 const torch = new THREE.SpotLight( 0xffffff );
@@ -158,9 +161,6 @@ camera.add(torch);
 camera.add( torch.target );
 torch.target.position.set(0, 0, -1);
 torch.position.set( 0, 0,  -0.9);
-
-listenForPlayerMovement();
-window.addEventListener('resize', onWindowResize, false);
 
 var t = 0;
 var move = false;
@@ -241,8 +241,6 @@ var animate = function () {
     }
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
-    //console.log(currentObject.getConditionedAnimated());
-    //console.log(enableConditionedAnimation);
     if(currentObject.getAnimation() !== null && !currentObject.getIsElemOfBackpack() && !currentObject.getConditionedAnimated()) {
       functionIsRunning = currentObject.executeAnimation(t, move);
     }
