@@ -227,8 +227,6 @@ var gardenLoader = function () {
   return true;
 }
 
-/* ------------------------- TORCH SPOTLIGHT ------------------------- */
-
 
 
 
@@ -247,17 +245,20 @@ marker.add(horizontalCross);
 camera.add(marker);
 marker.position.set(0, 0, -0.5);
 
+/* ------------------------- TORCH SPOTLIGHT ------------------------- */
+
 const torch = new THREE.SpotLight( 0xffffff );
 torch.intensity = 0;
 torch.target = new THREE.Object3D();
-torch.angle = Math.PI / 10;
-torch.distance = 100;
+torch.angle = Math.PI / 3.5;
+torch.distance = 50;
+torch.penumbra = penumbra;
 torch.castShadow = true;
 
 camera.add(torch);
 camera.add( torch.target );
 torch.target.position.set(0, 0, -1);
-torch.position.set( camera.position.x - 10.5, camera.position.y - 8,  0);
+torch.position.set( 0, 0,  -0.9);
 
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);

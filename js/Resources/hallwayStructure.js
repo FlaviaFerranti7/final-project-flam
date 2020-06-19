@@ -231,7 +231,7 @@ function createHallway(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
 
-        var obj = new Thing(root, null, null, false, true, null, "BULLET");
+        var obj = new Thing(root, null, null, false, true, null, "BULLET", true);
 
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
