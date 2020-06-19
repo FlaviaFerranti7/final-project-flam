@@ -23,9 +23,10 @@ var blocker = document.getElementById('blocker');
 getPointerLock();
 controls = new THREE.PointerLockControls(camera, container);
 controls.getObject().position.set(10.5, 8, 0);
-// controls.getObject().position.set(10.5, 8, 50);
 controls.getObject().rotation.set(0, 7.85, 0);
 scene.add(controls.getObject());
+
+var cameraPos;
 
 /* ----------------------- GLOBAL VARIABLES ----------------------- */
 
@@ -36,6 +37,7 @@ var loadingR2 = false;
 var loadingH = false;
 var loadingLR = false;
 var loadingG = false;
+var garden = false;
 
 var openSafe = false;
 var hideDivSafe = false;
@@ -101,6 +103,7 @@ var room2Loader = function () {
 
 /* --------------------------- HALLWAY --------------------------- */
 var hallway;
+var wallHL;
 var hallwayLoader = function () {
   hallway = createHallway(80);
   scene.add(hallway);  
@@ -125,9 +128,6 @@ var gardenLoader = function () {
   scene.add(garden);
   return true;
 }
-
-
-
 
 /* ------------------------- LISTENER -------------------------- */
 
@@ -242,6 +242,9 @@ var animate = function () {
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
     if(currentObject.getAnimation() !== null && !currentObject.getIsElemOfBackpack() && !currentObject.getConditionedAnimated()) {
+      if(currentObject.getObjectName() == "DOOR_HALLWAY"){
+        cameraPos = controls.getObject().position;
+      }
       functionIsRunning = currentObject.executeAnimation(t, move);
     }
     else if(currentObject.getConditionedAnimated() && enableConditionedAnimation){
@@ -308,23 +311,16 @@ var animate = function () {
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
     alert("Step 3 passed", 7000);
+    removeRooms();
     loadingLR = livingRoomLoader();
-    // scene.remove(room1);
-    // scene.remove(room2);
-    // scene.remove(hallway);
-    // for(var i = 0; i < objectsAnimated.length; i++){
-    //   scene.remove(objectsAnimated[i]);
-    // }
-    // objectsAnimated = [];
-    // objectsRaycaster = [];
-    // room1 = null;
-    // room2 = null;
-    // hallway = null;
     steps.splice(0, 1);
+    garden = true;
   }
-  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingG == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && garden && loadingG == false) {
     alert("Step 4 passed", 7000);
     loadingG = gardenLoader();
+    scene.remove(wallHL);
+    wallHL = null;
     steps.splice(0, 1);
   }
 

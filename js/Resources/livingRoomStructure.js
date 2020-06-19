@@ -290,5 +290,6 @@ function createLivingRoom(gridSize) {
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });
+
     return livingRoom;
 }

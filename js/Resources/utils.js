@@ -422,3 +422,19 @@ function initializeClock(id, endtime) {
   var timeinterval = setInterval(updateClock, 1000);
 }
 
+function removeRooms(){
+  scene.remove(room1);
+  scene.remove(room2);
+  scene.remove(hallway);
+  for(var i = 0; i < objectsAnimated.length; i++){
+    if(objectsAnimated[i].getObjectName() != "DOOR_HALLWAY"){
+      scene.remove(objectsAnimated[i]);
+      objectsAnimated.splice(i, 1);
+      objectsRaycaster.splice(i, 1);
+    }
+  }
+  room1 = null;
+  room2 = null;
+  hallway = null;
+}
+

@@ -70,7 +70,9 @@ function createHallway(gridSize) {
 
     var wall3Door = createHole(8.0, 15.5, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 4, size, new THREE.Vector3(-size / 2.0, 0.0, -0.25 * size), new THREE.Vector3(0, -90, 0), [materialWallH, materialWallL], [wall3Door]);
-    hallway.add(wall3);
+    wallHL = wall3;
+    collidableObjects.push(wall3);
+    scene.add(wall3);
 
     var wall4 = createShape(0.0, size / 4, size / 4, new THREE.Vector3(-size / 4.0, 0.0, -0.25 * size), new THREE.Vector3(0, 180, 0), [materialWallH, materialWallB], []);
     hallway.add(wall4);
@@ -147,36 +149,45 @@ function createHallway(gridSize) {
             var t2 = 0;
             var t3 = 0;
             var animation = (t, move) => {
-                if (objectDoor.children[0].rotation.z == -degToRad(90)) return false;
                 if (move) {
-                    objectDoor.children[0].rotation.z = interpolation(0, -degToRad(90), 0, 25, t);
-                    objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
-                    objectDoor.children[0].position.y = interpolation(0, -25, 0, 10, t);
-                    if (t == 5) {
+                    if(t>=0 && t<15){
+                        objectDoor.children[0].rotation.z = interpolation(0, degToRad(90), 0, 15, t);
+                        objectDoor.children[0].position.x = interpolation(0, -5, 0, 3, t);
+                        objectDoor.children[0].position.y = interpolation(0, 25, 0, 6, t);
+                        controls.getObject().position.x = interpolation(cameraPos.x, objectDoor.position.x + 4, 0, 15, t);
+                    }
+                    if (t == 3) {
                         objectDoor.children[0].position.x = -5;
                     }
-                    else if (t > 5) {
-                        objectDoor.children[0].position.x = interpolation(-5, -18, 0, 10, t2);
+                    else if (t > 3) {
+                        objectDoor.children[0].position.x = interpolation(-5, -18, 0, 6, t2);
                         t2 += 0.1;
                     }
-                    if (t2 == 10) {
+                    if (t2 == 6) {
                         objectDoor.children[0].position.x = -18;
                     }
-                    else if (t2 > 10) {
-                        objectDoor.children[0].position.x = interpolation(-18, -40, 0, 10, t3);
+                    else if (t2 > 6) {
+                        objectDoor.children[0].position.x = interpolation(-18, -40, 0, 6, t3);
                         t3 += 0.1;
                     }
-                    if (t == 10) {
-                        objectDoor.children[0].position.y = -25;
+                    if (t == 6) {
+                        objectDoor.children[0].position.y = 25;
                     }
-                    else if (t > 10) {
-                        objectDoor.children[0].position.y = interpolation(-25, -40, 0, 15, t1);
+                    else if (t > 6) {
+                        objectDoor.children[0].position.y = interpolation(25, 40, 0, 9, t1);
                         t1 += 0.1;
                     }
-                    if(t>=25){
+                    if(t>=15){
+                        controls.getObject().position.x = interpolation(objectDoor.position.x + 4, objectDoor.position.x - 10, 15, 22, t);
+                    }
+                    if(t>=22){
+                        objectDoor.children[0].rotation.z = 0;
+                        objectDoor.children[0].position.x = 0;
+                        objectDoor.children[0].position.y = 0;
                         t1 = 0;
                         t2 = 0;
                         t3 = 0;
+                        return false;
                     }
                     return true;
                 }
@@ -186,7 +197,7 @@ function createHallway(gridSize) {
             steps.push(obj);
             objectsAnimated.push(obj);
             objectsRaycaster.push(obj.getObject());
-            hallway.add(objectDoor);
+            scene.add(objectDoor);
         });
     });
 
