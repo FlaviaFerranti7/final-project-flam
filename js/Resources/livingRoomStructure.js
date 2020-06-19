@@ -107,15 +107,11 @@ function createLivingRoom(gridSize) {
             }
             return false;
         };
-        var obj = {
-            root: root,
-            animation: animation,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "space",
-        };
+
+        var obj = new Thing(root, animation, false, false, false, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
 
@@ -144,16 +140,11 @@ function createLivingRoom(gridSize) {
             }
             return false;
         };
-        var obj = {
-            root: root,
-            animation: animation,
-            actionEnded: false,
-            reverseAnimation: null,
-            associatedAnimation: null,
-            actionButton: "space",
-        };
+
+        var obj = new Thing(root, animation, null, false, false, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
 
@@ -230,15 +221,11 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(-90));
         root.name = 'VIOLIN';
         root.traverse((child) => child.castShadow = true);
-        var obj = {
-            root: root,
-            animation: null,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "Q",
-        };
+
+        var obj = new Thing(root, null, null, false, true, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });
@@ -253,15 +240,11 @@ function createLivingRoom(gridSize) {
         root.scale.set(0.25, 0.2, 0.25);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var obj = {
-            root: root,
-            animation: null,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "Q",
-        };
+
+        var obj = new Thing(root, null, null, false, true, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         root.getObjectByName('table_4').visible = false;
         scene.add(root);
     });
@@ -276,15 +259,11 @@ function createLivingRoom(gridSize) {
         root.name = 'REMOTE';
         root.rotateX(degToRad(-90));
         root.traverse((child) => child.castShadow = true);
-        var obj = {
-            root: root,
-            animation: null,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "Q",
-        };
+
+        var obj = new Thing(root, null, null, false, true, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });

@@ -277,12 +277,12 @@ var animate = function () {
       enableAction = true;
 
       for (var i = 0; i < objectsAnimated.length; i++) {
-        objectsAnimated[i].root.traverse((child) => {
+        objectsAnimated[i].getObject().traverse((child) => {
           if (intersects[0].object == child) {
             currentObject = objectsAnimated[i];
           }
         });
-        if (objectsAnimated[i].root == intersects[0].object) currentObject = objectsAnimated[i];
+        if(objectsAnimated[i].getObject() == intersects[0].object) currentObject = objectsAnimated[i];   
         if (currentObject != null) break;
 
       }
@@ -310,42 +310,42 @@ var animate = function () {
   }
 
   if (currentObject != null) {
-    if ((!move && currentObject.actionButton == "space") || (!collect && currentObject.actionButton == "Q")) actionPanel.style.display = "block";
+    if((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")) actionPanel.style.display = "block";
     else actionPanel.style.display = "none";
-    actionPanel.childNodes[1].innerHTML = currentObject.actionButton;
-    if (currentObject.animation !== null) functionIsRunning = currentObject.animation(t, move);
+    actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
+    if(currentObject.getAnimation() !== null) functionIsRunning = currentObject.executeAnimation(t, move);
     else {
-      if (collect) {
-        if (backpack != null && backpack.getNumElem() <= numElementOfBackpack) {
-          scene.remove(currentObject.root);
+      if(collect) {
+        if(backpack != null && backpack.getNumElem() <= numElementOfBackpack){
+          currentObject.executeAnimation();
           backpack.insert(currentObject);
           insertElem = true;
         }
-        else if (currentObject.root.name == "BACKPACK") {
-          scene.remove(currentObject.root);
+        else if(currentObject.getObjectName() == "BACKPACK") {
+          currentObject.executeAnimation();
           backpack = new Backpack(numElementOfBackpack);
           alert("Now you can collect the objects!! </ br> Press E to open backpack");
           insertElem = true;
         }
         else {
-          alert("It isn't possible to collect " + currentObject.root.name);
+          alert("It isn't possible to collect " + currentObject.getObjectName());
         }
       }
     }
 
     if (move) t += 0.1;
-    if ((move || (collect && insertElem)) && !functionIsRunning && currentObject.reverseAnimation == null) {
-      if (currentObject.root.name == "SAFE") {
+    if ((move || (collect && insertElem)) && !functionIsRunning && currentObject.getReverseAnimation() == null) {
+      if (currentObject.getObjectName() == "SAFE") {
         collect = false;
         insertElem = false;
         if (openSafe == true) {
           objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
-          objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.root), 1);
+          objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.getObject()), 1);
           currentObject = null;
         }
       } else {
         objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
-        objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.root), 1);
+        objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.getObject()), 1);
         currentObject = null;
         collect = false;
         insertElem = false;

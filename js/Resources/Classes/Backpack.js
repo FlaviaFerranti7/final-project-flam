@@ -33,6 +33,6 @@ class Backpack {
         this.objects.push(object);
         this.numElem += 1;
         document.getElementById("item" + this.numElem).innerHTML = 
-            "<img src='images/" + object.root.name.toLowerCase() + ".png' />";
+            "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
     }
 }

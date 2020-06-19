@@ -69,15 +69,11 @@ function createGarden(gridSize) {
            
             
         };
-        var obj = {
-            root: root,
-            animation: animation,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "space",
-        };
+
+        var obj = new Thing(root, animation, null, false, false, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
         console.log(dumpObject(root).join('\n'));
     });;
@@ -101,8 +97,11 @@ function createGarden(gridSize) {
             reverseAnimation: null,
             actionButton: "Q",
         };
+
+        var obj = new Thing(root, null, null, false, true, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });;
 
@@ -118,15 +117,11 @@ function createGarden(gridSize) {
         root.name = 'RAKE';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var obj = {
-            root: root,
-            animation: null,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "Q",
-        };
+
+        var obj = new Thing(root, null, null, false, true, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });;
 
@@ -165,15 +160,11 @@ function createGarden(gridSize) {
         root.name = 'SCISSORS';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var obj = {
-            root: root,
-            animation: null,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "Q",
-        };
+
+        var obj = new Thing(root, null, null, false, true, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });;
 

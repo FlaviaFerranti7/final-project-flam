@@ -125,16 +125,11 @@ function createRoom2(gridSize) {
         root.traverse((child) => child.castShadow = true);
         root.name = "BATTERY";
         recursiveChild(root, collidableObjects);
-        var obj = {
-            root: root,
-            animation: null,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "Q",
-        };
+
+        var obj = new Thing(root, null, null, false, true, null, "TORCH");
 
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
 
@@ -157,15 +152,11 @@ function createRoom2(gridSize) {
             }
             return false;
         };
-        var obj = {
-            root: root,
-            animation: animation,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "space",
-        };
+
+        var obj = new Thing(root, animation, null, false, false, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());        
         scene.add(root);
     });
 
@@ -187,6 +178,7 @@ function createRoom2(gridSize) {
             objectDoor.rotateZ(degToRad(90));
             objectDoor.traverse((child) => child.castShadow = true);
             recursiveChild(objectDoor, collidableObjects);
+            objectDoor.name = "DOOR_ROOM2";
             var t1 = 0;
             var t2 = 0;
             var t3 = 0;
@@ -226,16 +218,12 @@ function createRoom2(gridSize) {
                 }
                 return false;
             };
-            var obj = {
-                root: objectDoor,
-                animation: animation,
-                actionEnded: false,
-                reverseAnimation: null,
-                actionButton: "space",
-            };
+
+            var obj = new Thing(objectDoor, animation, null, false, false, null, null);
+
             steps.push(obj);
             objectsAnimated.push(obj);
-            objectsRaycaster.push(obj.root);
+            objectsRaycaster.push(obj.getObject());
             scene.add(objectDoor);
 
         });
@@ -283,15 +271,11 @@ function createRoom2(gridSize) {
             }
             return false;
         };
-        var obj = {
-            root: root,
-            animation: animation,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "space",
-        };
+
+        var obj = new Thing(root, animation, null, false, false, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
 
@@ -313,8 +297,10 @@ function createRoom2(gridSize) {
             reverseAnimation: null,
             actionButton: "Q",
         };
+        var obj = new Thing(root, null, null, false, true, null, null);
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
 
@@ -327,15 +313,11 @@ function createRoom2(gridSize) {
         root.name = 'BULLET';
         root.scale.set(0.2, 0.2, 0.2);
         root.traverse((child) => child.castShadow = true);
-        var obj = {
-            root: root,
-            animation: null,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "Q",
-        };
+
+        var obj = new Thing(root, null, null, false, true, null, "GUN");
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });

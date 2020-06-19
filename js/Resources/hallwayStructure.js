@@ -141,15 +141,10 @@ function createHallway(gridSize) {
                 }
                 return false;
             };
-            var obj = {
-                root: objectDoor,
-                animation: animation,
-                actionEnded: false,
-                reverseAnimation: null,
-                actionButton: "space",
-            };
+            var obj = new Thing(objectDoor, animation, null, false, false, null, null);
+
             objectsAnimated.push(obj);
-            objectsRaycaster.push(obj.root);
+            objectsRaycaster.push(obj.getObject());
             scene.add(objectDoor);
         });
     });
@@ -235,15 +230,11 @@ function createHallway(gridSize) {
         root.name = 'GUN';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var obj = {
-            root: root,
-            animation: null,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "Q",
-        };
+
+        var obj = new Thing(root, null, null, false, true, null, "BULLET");
+
         objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.root);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
 
