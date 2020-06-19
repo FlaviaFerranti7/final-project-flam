@@ -39,8 +39,17 @@ class Thing {
         return this.reverseAnimation;
     }
 
+    getFlagDoubleAction() {
+        return this.flagDoubleAction;
+    }
+
+    setFlagDoubleAnimation(bool) {
+        this.flagDoubleAction = bool;
+    }
+
     executeAnimation(t = null, move = null) {
         if(this.animation == null) scene.remove(this.object);
+        else if(this.flagDoubleAction) return this.reverseAnimation(t, move);
         else return this.animation(t, move);
         return false;
     }

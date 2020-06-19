@@ -354,6 +354,10 @@ var animate = function () {
     if (!move) {
       hideDivSafe = false;
     }
+    if((move || (collect && insertElem)) && !functionIsRunning && currentObject.getReverseAnimation() !== null) {
+      if(currentObject.getFlagDoubleAnimation()) currentObject.getFlagDoubleAnimation(false);
+      currentObject.setFlagDoubleAnimation(true);
+    }
   }
 
   //SEQUENTIAL ROOM LOADING
