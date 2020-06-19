@@ -183,8 +183,10 @@ function createRoom2(gridSize) {
             var t2 = 0;
             var t3 = 0;
             var animation = (t, move) => {
+                console.log("door function");
                 if (objectDoor.children[0].rotation.z == -degToRad(90)) return false;
                 if (move) {
+                    console.log("door function 2");
                     objectDoor.children[0].rotation.z = interpolation(0, -degToRad(90), 0, 25, t);
                     objectDoor.children[0].position.y = interpolation(0, -25, 0, 10, t);
                     objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
@@ -219,7 +221,7 @@ function createRoom2(gridSize) {
                 return false;
             };
 
-            var obj = new Thing(objectDoor, animation, null, false, false, null, null);
+            var obj = new Thing(objectDoor, animation, null, true, false, null, null);
 
             steps.push(obj);
             objectsAnimated.push(obj);

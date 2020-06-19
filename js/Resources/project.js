@@ -52,6 +52,8 @@ var collect = false;
 
 var functionIsRunning = false;
 
+var enableConditionedAnimation = false;
+
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
 var moveForward = false;
@@ -270,11 +272,11 @@ var animate = function () {
         currentObject = null;
         enableAction = false;
         move = false;
+        enableConditionedAnimation = false;
         t = 0;
       }
 
       INTERSECTED = intersects[0].object;
-      enableAction = true;
 
       for (var i = 0; i < objectsAnimated.length; i++) {
         objectsAnimated[i].getObject().traverse((child) => {
@@ -295,6 +297,7 @@ var animate = function () {
       enableAction = false;
       move = false;
       collect = false;
+      enableConditionedAnimation = false;
       t = 0;
     }
 
@@ -304,16 +307,28 @@ var animate = function () {
       enableAction = false;
       move = false;
       collect = false;
+      enableConditionedAnimation = false;
       t = 0;
       actionPanel.style.display = "none";
     }
   }
 
   if (currentObject != null) {
-    if((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")) actionPanel.style.display = "block";
+    if((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")){
+      actionPanel.style.display = "block";
+      enableAction = true;
+    }
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
-    if(currentObject.getAnimation() !== null) functionIsRunning = currentObject.executeAnimation(t, move);
+    //console.log(currentObject.getConditionedAnimated());
+    //console.log(enableConditionedAnimation);
+    if(currentObject.getAnimation() !== null && currentObject.getSubjectAction() == null && !currentObject.getConditionedAnimated()) {
+      functionIsRunning = currentObject.executeAnimation(t, move);
+    }
+    else if(currentObject.getConditionedAnimated() && enableConditionedAnimation){
+      move = true;
+      functionIsRunning = currentObject.executeAnimation(t, move);
+    }
     else {
       if(collect) {
         if(backpack != null && backpack.getNumElem() <= numElementOfBackpack){
@@ -332,7 +347,6 @@ var animate = function () {
         }
       }
     }
-
     if (move) t += 0.1;
     if ((move || (collect && insertElem)) && !functionIsRunning && currentObject.getReverseAnimation() == null) {
       if (currentObject.getObjectName() == "SAFE") {
@@ -354,7 +368,7 @@ var animate = function () {
     if (!move) {
       hideDivSafe = false;
     }
-    if((move || (collect && insertElem)) && !functionIsRunning && currentObject.getReverseAnimation() !== null) {
+    if(currentObject != null && (move || (collect && insertElem)) && !functionIsRunning && currentObject.getReverseAnimation() != null) {
       if(currentObject.getFlagDoubleAnimation()) currentObject.getFlagDoubleAnimation(false);
       currentObject.setFlagDoubleAnimation(true);
     }

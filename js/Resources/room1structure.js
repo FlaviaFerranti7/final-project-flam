@@ -233,7 +233,13 @@ function createRoom1(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
 
-        var obj = new Thing(root, null, null, false, true, "DOOR_ROOM2", null);
+        var animation = () => {
+            console.log(enableConditionedAnimation);
+            enableConditionedAnimation = true;
+            console.log(enableConditionedAnimation);
+        }
+
+        var obj = new Thing(root, animation, null, false, true, "DOOR_ROOM2", null);
 
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());

@@ -5,6 +5,7 @@ class Thing {
         this.reverseAnimation = reverseAnimation;
         this.flagDoubleAction = false;
         this.isElemOfBackpack = isElemOfBackpack;
+        this.conditionedAnimated = conditionedAnimated;
         if(!conditionedAnimated) this.actionButton = (isElemOfBackpack) ? "Q" : "SPACE";
         else this.actionButton = "";
         this.subjectAction = subjectAction;
@@ -39,6 +40,10 @@ class Thing {
         return this.reverseAnimation;
     }
 
+    getConditionedAnimated() {
+        return this.conditionedAnimated;
+    }
+
     getFlagDoubleAction() {
         return this.flagDoubleAction;
     }
@@ -47,10 +52,17 @@ class Thing {
         this.flagDoubleAction = bool;
     }
 
+    setIsElemOfBackpack(isElemOfBackpack) {
+        this.isElemOfBackpack = isElemOfBackpack;
+    }
+
     executeAnimation(t = null, move = null) {
-        if(this.animation == null) scene.remove(this.object);
+        if(this.isElemOfBackpack) scene.remove(this.object);
         else if(this.flagDoubleAction) return this.reverseAnimation(t, move);
-        else return this.animation(t, move);
+        else {
+            if(t == null && move == null) return this.animation();
+            return this.animation(t, move);
+        }
         return false;
     }
 }

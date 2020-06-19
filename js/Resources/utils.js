@@ -178,6 +178,15 @@ function listenForPlayerMovement() {
           document.getElementById("backpack-objects").style.display = "none";
           backpack.setOpen(false);
         }
+        break;
+      
+        case 49:
+        case 50:
+        case 51:
+        case 52:
+        case 53:
+          if(backpack.getOpen()) backpack.useObject(event.keyCode - 49, currentObject);
+          break;
     }
   };
 
