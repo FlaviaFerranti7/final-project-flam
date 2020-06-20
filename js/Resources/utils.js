@@ -433,6 +433,7 @@ function removeRooms(){
       objectsRaycaster.splice(i, 1);
     }
   }
+  collidableObjects = [];
   room1 = null;
   room2 = null;
   hallway = null;

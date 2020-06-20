@@ -300,7 +300,7 @@ var animate = function () {
 
   //SEQUENTIAL ROOM LOADING
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingR2 == false) {
-    alert("Step 1 passed", 7000);
+    alert("Step 1 passed. Look around!", 7000);
     loadingR2 = room2Loader();
     steps.splice(0, 1);
   }
@@ -310,7 +310,7 @@ var animate = function () {
     steps.splice(0, 1);
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
-    alert("Step 3 passed", 7000);
+    //alert("Step 3 passed", 7000);
     removeRooms();
     loadingLR = livingRoomLoader();
     steps.splice(0, 1);

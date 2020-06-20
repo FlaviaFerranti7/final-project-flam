@@ -74,7 +74,7 @@ body {
     color: black;
 }
 
-#alert {
+#alert, #remove {
     position: absolute;
     height: 150px;
     width: 100%;

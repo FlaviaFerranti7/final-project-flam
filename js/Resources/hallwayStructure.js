@@ -71,7 +71,7 @@ function createHallway(gridSize) {
     var wall3Door = createHole(8.0, 15.5, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 4, size, new THREE.Vector3(-size / 2.0, 0.0, -0.25 * size), new THREE.Vector3(0, -90, 0), [materialWallH, materialWallL], [wall3Door]);
     wallHL = wall3;
-    collidableObjects.push(wall3);
+    recursiveChild(wall3, collidableObjects);
     scene.add(wall3);
 
     var wall4 = createShape(0.0, size / 4, size / 4, new THREE.Vector3(-size / 4.0, 0.0, -0.25 * size), new THREE.Vector3(0, 180, 0), [materialWallH, materialWallB], []);
