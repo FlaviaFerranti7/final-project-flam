@@ -252,6 +252,29 @@ function animatePlayer(delta) {
   }
 }
 
+function animateMonster(delta) {
+  // Gradual slowdown
+  monsterVelocity.x -= monsterVelocity.x * 10.0 * delta;
+  monsterVelocity.z -= monsterVelocity.z * 10.0 * delta;
+
+
+  // If no collision, apply movement velocity
+  if (detectMonsterCollision() == false) {
+      monsterVelocity.z += MONSTERSPEED * delta;
+      // Move the dino
+      monster.translateZ(monsterVelocity.z * delta);
+
+  } else {
+      // Collision. Adjust direction
+      var directionMultiples = [-1, 1, 2];
+      var randomIndex = getRandomInt(0, 2);
+      var randomDirection = degToRad(90 * directionMultiples[randomIndex]);
+
+      monsterVelocity.z += MONSTERSPEED * delta;
+      monster.rotation.y += randomDirection;
+  }
+}
+
 
 function detectPlayerCollision() {
   // The rotation matrix to apply to our direction vector
@@ -291,6 +314,33 @@ function detectPlayerCollision() {
   }
 }
 
+function detectMonsterCollision() {
+  // Get the rotation matrix from monster
+  var matrix = new THREE.Matrix4();
+  matrix.extractRotation(monster.matrix);
+
+  // Create direction vector
+  var directionFront = new THREE.Vector3(0, 0, 1);
+
+  // Get the vectors coming from the front of the monster
+  directionFront.applyMatrix4(matrix);
+
+  // Create raycaster
+  var rayCasterF = new THREE.Raycaster(monster.position, directionFront);
+  // If we have a front collision, we have to adjust our direction so return true
+  if (rayIntersect(rayCasterF, MONSTERCOLLISIONDISTANCE))
+      return true;
+  else
+      return false;
+  
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function rayIntersect(ray, distance) {
   var intersects = ray.intersectObjects(collidableObjects);
   for (var i = 0; i < intersects.length; i++) {
@@ -311,6 +361,7 @@ function recursiveChild(group, collidableObjects) {
     }
   });
 }
+
 
 function dumpObject(obj, lines = [], isLast = true, prefix = '') {
   const localPrefix = isLast ? '└─' : '├─';

@@ -64,8 +64,6 @@ function createGarden(gridSize) {
                 return true;
             }
             return false;
-           
-            
         };
 
         var obj = new Thing(root, animation, null, false, false, null, null);
@@ -73,7 +71,7 @@ function createGarden(gridSize) {
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
-        console.log(dumpObject(root).join('\n'));
+        // console.log(dumpObject(root).join('\n'));
     });;
 
     const gltfLoaderShovel = new THREE.GLTFLoader();
@@ -135,17 +133,17 @@ function createGarden(gridSize) {
         scene.add(root);
     });;
 
-    const gltfLoaderPlants = new THREE.GLTFLoader();
-    gltfLoaderPlants.load("../../model3D/Garden/Plants/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = -155.0;
-        root.position.y = 0.0;
-        root.position.z = -155.0;
-        root.scale.set(0.01, 0.01, 0.01);
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        scene.add(root);
-    });;
+    // const gltfLoaderPlants = new THREE.GLTFLoader();
+    // gltfLoaderPlants.load("../../model3D/Garden/Plants/scene.gltf", (gltf) => {
+    //     const root = gltf.scene;
+    //     root.position.x = -155.0;
+    //     root.position.y = 0.0;
+    //     root.position.z = -155.0;
+    //     root.scale.set(0.01, 0.01, 0.01);
+    //     root.traverse((child) => child.castShadow = true);
+    //     recursiveChild(root, collidableObjects);
+    //     scene.add(root);
+    // });;
 
     const gltfLoaderShears = new THREE.GLTFLoader();
     gltfLoaderShears.load("../../model3D/Garden/Shears/scene.gltf", (gltf) => {
@@ -190,28 +188,59 @@ function createGarden(gridSize) {
         scene.add(root);
     });;
 
-    const gltfLoaderFountain = new THREE.GLTFLoader();
-    gltfLoaderFountain.load("../../model3D/Garden/Fountain/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = 60.0;
-        root.position.y = 4.0;
-        root.position.z = 150.0;
-        root.scale.set(2, 2, 2);
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        scene.add(root);
-    });;
+    // const gltfLoaderFountain = new THREE.GLTFLoader();
+    // gltfLoaderFountain.load("../../model3D/Garden/Fountain/scene.gltf", (gltf) => {
+    //     const root = gltf.scene;
+    //     root.position.x = 60.0;
+    //     root.position.y = 4.0;
+    //     root.position.z = 150.0;
+    //     root.scale.set(2, 2, 2);
+    //     root.traverse((child) => child.castShadow = true);
+    //     recursiveChild(root, collidableObjects);
+    //     scene.add(root);
+    // });;
 
-    const gltfLoaderTree = new THREE.GLTFLoader();
-    gltfLoaderTree.load("../../model3D/Garden/Tree/scene.gltf", (gltf) => {
+    // const gltfLoaderTree = new THREE.GLTFLoader();
+    // gltfLoaderTree.load("../../model3D/Garden/Tree/scene.gltf", (gltf) => {
+    //     const root = gltf.scene;
+    //     root.position.x = -90.0;
+    //     root.position.y = 0.0;
+    //     root.position.z = 180.0;
+    //     root.scale.set(0.005, 0.005, 0.005);
+    //     root.traverse((child) => child.castShadow = true);
+    //     recursiveChild(root, collidableObjects);
+    //     scene.add(root);
+    // });
+
+    const gltfLoaderMonster = new THREE.GLTFLoader();
+    gltfLoaderMonster.load("../../model3D/Garden/Monster/Wolf-Blender-2.82a.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = -90.0;
-        root.position.y = 0.0;
-        root.position.z = 180.0;
-        root.scale.set(0.005, 0.005, 0.005);
+        root.position.x = 0.0;
+        root.position.y = 0.0; 
+        root.position.z = 50.0;
+        root.scale.set(10, 10, 10);//40
+        root.name = "MONSTER";
+        root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        // console.log(root.position);
+        // var animation = (t, move) => {
+        //     if (move) {
+        //         root.position.x = interpolation(-95, -50, 0, 10, t);
+        //         return true;
+        //     }
+        //     return false;
+        // }
+        var obj = new Thing(root, null, null, false, false, null, null);
+
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        monster = root;
         scene.add(root);
+        // console.log(dumpObject(root).join('\n'));
+
+        animate();
+        
     });
 
     return garden;

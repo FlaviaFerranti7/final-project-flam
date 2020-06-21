@@ -71,12 +71,18 @@ var PLAYERSPEED = 400.0;
 var PLAYERCOLLISIONDISTANCE = 5;
 var collidableObjects = [];
 
+//for the monster
+var monster;
+var MONSTERSPEED = 100.0; //350
+var monsterVelocity = new THREE.Vector3();
+var MONSTERCOLLISIONDISTANCE = 5;
+
 
 var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 1;  //1
+const intensityAmbient = 10;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -89,45 +95,45 @@ const penumbra = 0.6;
 
 /* ------------------------- FIRST ROOM ------------------------- */
 var room1;
-room1 = createRoom1(40);
-scene.add(room1);
+// room1 = createRoom1(40);
+// scene.add(room1);
 
 /* ------------------------- SECOND ROOM ------------------------- */
 var room2;
-var room2Loader = function () {
-  room2 = createRoom2(40);
-  scene.add(room2);
+// var room2Loader = function () {
+//   room2 = createRoom2(40);
+//   scene.add(room2);
 
-  return true;
-}
+//   return true;
+// }
 
 /* --------------------------- HALLWAY --------------------------- */
 var hallway;
 var wallHL;
-var hallwayLoader = function () {
-  hallway = createHallway(80);
-  scene.add(hallway);  
+// var hallwayLoader = function () {
+//   hallway = createHallway(80);
+//   scene.add(hallway);  
 
-  return true;
-}
+//   return true;
+// }
 
 /* ------------------------- LIVING-ROOM ------------------------- */
 var livingRoom;
-var livingRoomLoader = function () {
-  livingRoom = createLivingRoom(80);
-  scene.add(livingRoom);
+// var livingRoomLoader = function () {
+//   livingRoom = createLivingRoom(80);
+//   scene.add(livingRoom);
 
-  return true;
-}
+//   return true;
+// }
 
 
 /* ------------------------- GARDEN ------------------------- */
 var garden;
-var gardenLoader = function () {
+// var gardenLoader = function () {
   garden = createGarden(380);
   scene.add(garden);
-  return true;
-}
+  // return true;
+// }
 
 /* ------------------------- LISTENER -------------------------- */
 
@@ -172,16 +178,19 @@ var associatedObject;
 
 var animate = function () {
 
-  /*
-  setTimeout(function () {
-    requestAnimationFrame(animate);
-  }, 1000 / 30);
-  */
+  // setTimeout(function () {
+  //   requestAnimationFrame(animate);
+  // }, 1000 / 30);
+  
 
  requestAnimationFrame(animate);
 
   var delta = clock.getDelta();
   animatePlayer(delta);
+  if(monster != undefined){
+    animateMonster(delta);
+  }
+  
 
   raycaster.setFromCamera(marker.position, camera);
   var intersects = raycaster.intersectObjects(objectsRaycaster, true);
@@ -233,8 +242,9 @@ var animate = function () {
       actionPanel.style.display = "none";
     }
   }
-
+  // console.log(intersects);
   if (currentObject != null) {
+    console.log(currentObject);
     if((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")){
       actionPanel.style.display = "block";
       enableAction = true;
