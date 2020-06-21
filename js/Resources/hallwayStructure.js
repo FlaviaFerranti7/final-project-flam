@@ -150,11 +150,18 @@ function createHallway(gridSize) {
             var t3 = 0;
             var animation = (t, move) => {
                 if (move) {
-                    if(t>=0 && t<15){
+                    if (t >= 0 && t < 15) {
                         objectDoor.children[0].rotation.z = interpolation(0, degToRad(90), 0, 15, t);
                         objectDoor.children[0].position.x = interpolation(0, -5, 0, 3, t);
                         objectDoor.children[0].position.y = interpolation(0, 25, 0, 6, t);
-                        controls.getObject().position.x = interpolation(cameraPos.x, objectDoor.position.x + 4, 0, 15, t);
+                        if (!(cameraPos.z <= 13 && cameraPos.z >= 7)) {
+                            controls.getObject().position.z = interpolation(cameraPos.z, 10, 0, 5, t);
+                            controls.getObject().rotation.y = interpolation(cameraRot.y, 7.85, 5, 10, t);
+                            controls.getObject().position.x = interpolation(cameraPos.x, objectDoor.position.x + 4, 10, 15, t);
+                        }
+                        else {
+                            controls.getObject().position.x = interpolation(cameraPos.x, objectDoor.position.x + 4, 0, 15, t);
+                        }
                     }
                     if (t == 3) {
                         objectDoor.children[0].position.x = -5;
@@ -177,10 +184,10 @@ function createHallway(gridSize) {
                         objectDoor.children[0].position.y = interpolation(25, 40, 0, 9, t1);
                         t1 += 0.1;
                     }
-                    if(t>=15){
+                    if (t >= 15) {
                         controls.getObject().position.x = interpolation(objectDoor.position.x + 4, objectDoor.position.x - 10, 15, 22, t);
                     }
-                    if(t>=22){
+                    if (t >= 22) {
                         objectDoor.children[0].rotation.z = 0;
                         objectDoor.children[0].position.x = 0;
                         objectDoor.children[0].position.y = 0;
@@ -197,6 +204,7 @@ function createHallway(gridSize) {
             steps.push(obj);
             objectsAnimated.push(obj);
             objectsRaycaster.push(obj.getObject());
+            doorHL = objectDoor;
             scene.add(objectDoor);
         });
     });
@@ -204,9 +212,7 @@ function createHallway(gridSize) {
     var mtlLoaderLampL1 = new THREE.MTLLoader();
     mtlLoaderLampL1.setPath("../../model3D/Common/Lamp/");
     mtlLoaderLampL1.load('lightbulbfinal.mtl', function (materialsLampL1) {
-
         materialsLampL1.preload();
-
         var objLoaderLampL1 = new THREE.OBJLoader();
         objLoaderLampL1.setMaterials(materialsLampL1);
         objLoaderLampL1.setPath("../../model3D/Common/Lamp/");
@@ -217,16 +223,13 @@ function createHallway(gridSize) {
             objectLampL1.scale.set(0.09, 0.02, 0.075);
             objectLampL1.rotateY(degToRad(90));
             hallway.add(objectLampL1);
-
         });
     });
 
     var mtlLoaderLampL2 = new THREE.MTLLoader();
     mtlLoaderLampL2.setPath("../../model3D/Common/Lamp/");
     mtlLoaderLampL2.load('lightbulbfinal.mtl', function (materialsLampL2) {
-
         materialsLampL2.preload();
-
         var objLoaderLampL2 = new THREE.OBJLoader();
         objLoaderLampL2.setMaterials(materialsLampL2);
         objLoaderLampL2.setPath("../../model3D/Common/Lamp/");
@@ -237,7 +240,6 @@ function createHallway(gridSize) {
             objectLampL2.scale.set(0.09, 0.02, 0.075);
             objectLampL2.rotateY(degToRad(90));
             hallway.add(objectLampL2);
-
         });
     });
 
@@ -257,16 +259,38 @@ function createHallway(gridSize) {
     const gltfLoaderConsole = new THREE.GLTFLoader();
     gltfLoaderConsole.load("../../model3D/Hallway/Console/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = -22;
-        root.position.y = 0.0;
+        root.position.x = -23.25;
+        root.position.y = 3.0;
         root.position.z = 30.0;
-        root.scale.set(0.1, 0.1, 0.05);
+        root.scale.set(5, 5, 5);
         root.rotateY(degToRad(-90));
+        root.name = 'CONSOLE';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        root.getObjectByName('Plane001').visible = false;
+        var animation = (t, move) => {
+            if (gun.position.x == -25.5 && root.getObjectByName('stoli001_szuflada').position.z == 0.5) {
+                gun = null;
+                return false;
+            }
+            if (move) {
+                gun.position.x = interpolation(-23.5, -25.5, 0, 5, t);
+                root.getObjectByName('stoli001_szuflada').position.z = interpolation(0, 0.5, 0, 5, t);
+                return true;
+            }
+            return false;
+        };
+        // var reverseAnimation = (t, move) => {
+        //     if (root.getObjectByName('stoli001_szuflada').position.z == 0.0) return false;
+        //     if (move) {
+        //         root.getObjectByName('stoli001_szuflada').position.z = interpolation(0.5, 0, 0, 5, t);
+        //         return true;
+        //     }
+        //     return false;
+        // };
+        var obj = new Thing(root, animation, null, false, false, null, null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
         hallway.add(root);
-        // console.log(dumpObject(root).join('\n'));
     });
 
     /* OBJECT 3D */
@@ -274,24 +298,21 @@ function createHallway(gridSize) {
     const gltfLoaderGun = new THREE.GLTFLoader();
     gltfLoaderGun.load("../../model3D/Hallway/Gun/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = -23.1;
-        root.position.y = 2.6;
-        root.position.z = 26.9;
-        root.scale.set(0.4, 0.4, 0.4);
-        root.rotateX(degToRad(90));
+        gun = root;
+        root.position.x = -23.5;
+        root.position.y = 5.5;
+        root.position.z = 30;
+        root.scale.set(0.01, 0.01, 0.01);
         root.rotateY(degToRad(180));
         root.rotateZ(degToRad(90));
         root.name = 'GUN';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-
-        var obj = new Thing(root, null, null, false, true, null, "BULLET", true);
-
+        var obj = new Thing(root, null, null, false, true, null, null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
 
     return hallway;
-
 }

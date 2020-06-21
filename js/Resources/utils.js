@@ -7,8 +7,6 @@ function createPlane(width, height,
   rot = new THREE.Vector3(0.0, 0.0, 0.0),
   materials) {
   var planeGeometry = new THREE.PlaneGeometry(width, height);
-
-
   var plane = null;
 
   if (materials.length > 1) {
@@ -20,7 +18,6 @@ function createPlane(width, height,
       elem.receiveShadow = true;
       group.add(elem);
     }
-
     plane = group;
   } else {
     plane = new THREE.Mesh(planeGeometry, materials[0]);
@@ -128,13 +125,9 @@ function getPointerLock() {
 function lockChange() {
   // Turn on controls
   if (document.pointerLockElement === container) {
-    // Hide blocker and instructions
     blocker.style.display = "none";
     controls.enabled = true;
-    
-    // Turn off the controls
   } else {
-    // Display the blocker and instruction
     blocker.style.display = "";
     controls.enabled = false;
   }
@@ -142,7 +135,6 @@ function lockChange() {
 
 function listenForPlayerMovement() {
 
-  // A key has been pressed
   var onKeyDown = function (event) {
     switch (event.keyCode) {
 
@@ -182,20 +174,18 @@ function listenForPlayerMovement() {
           backpack.setOpen(false);
         }
         break;
-      
-        case 49:
-        case 50:
-        case 51:
-        case 52:
-        case 53:
-          if(backpack.getOpen()) backpack.useObject(event.keyCode - 49, currentObject);
-          break;
+
+      case 49:
+      case 50:
+      case 51:
+      case 52:
+      case 53:
+        if (backpack.getOpen()) backpack.useObject(event.keyCode - 49, currentObject);
+        break;
     }
   };
 
-  // A key has been released
   var onKeyUp = function (event) {
-
     switch (event.keyCode) {
 
       case 87: // w
@@ -218,7 +208,6 @@ function listenForPlayerMovement() {
 
   };
 
-  // Add event listeners for when movement keys are pressed and released
   document.addEventListener('keydown', onKeyDown, false);
   document.addEventListener('keyup', onKeyUp, false);
 
@@ -383,7 +372,6 @@ function insertCode() {
   //   var charCode = e.which;
   //   if (charCode < 48 || charCode > 57) e.preventDefault();
   // }
-
 }
 
 function getTimeRemaining(endtime) {
@@ -417,17 +405,16 @@ function initializeClock(id, endtime) {
       document.exitPointerLock();
     }
   }
-
   updateClock();
   var timeinterval = setInterval(updateClock, 1000);
 }
 
-function removeRooms(){
+function removeRooms() {
   scene.remove(room1);
   scene.remove(room2);
   scene.remove(hallway);
-  for(var i = 0; i < objectsAnimated.length; i++){
-    if(objectsAnimated[i].getObjectName() != "DOOR_HALLWAY"){
+  for (var i = 0; i < objectsAnimated.length; i++) {
+    if (objectsAnimated[i].getObjectName() != "DOOR_HALLWAY") {
       scene.remove(objectsAnimated[i]);
       objectsAnimated.splice(i, 1);
       objectsRaycaster.splice(i, 1);

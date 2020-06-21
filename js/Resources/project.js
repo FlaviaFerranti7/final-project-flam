@@ -27,6 +27,7 @@ controls.getObject().rotation.set(0, 7.85, 0);
 scene.add(controls.getObject());
 
 var cameraPos;
+var cameraRot;
 
 /* ----------------------- GLOBAL VARIABLES ----------------------- */
 
@@ -76,7 +77,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 1;  //1
+const intensityAmbient = 5;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -97,17 +98,16 @@ var room2;
 var room2Loader = function () {
   room2 = createRoom2(40);
   scene.add(room2);
-
   return true;
 }
 
 /* --------------------------- HALLWAY --------------------------- */
 var hallway;
 var wallHL;
+var doorHL;
 var hallwayLoader = function () {
   hallway = createHallway(80);
-  scene.add(hallway);  
-
+  scene.add(hallway);
   return true;
 }
 
@@ -116,10 +116,8 @@ var livingRoom;
 var livingRoomLoader = function () {
   livingRoom = createLivingRoom(80);
   scene.add(livingRoom);
-
   return true;
 }
-
 
 /* ------------------------- GARDEN ------------------------- */
 var garden;
@@ -149,7 +147,7 @@ window.addEventListener('resize', onWindowResize, false);
 
 /* ------------------------- TORCH SPOTLIGHT ------------------------- */
 
-const torch = new THREE.SpotLight( 0xffffff );
+const torch = new THREE.SpotLight(0xffffff);
 torch.intensity = 0;
 torch.target = new THREE.Object3D();
 torch.angle = Math.PI / 3.5;
@@ -158,9 +156,9 @@ torch.penumbra = penumbra;
 torch.castShadow = true;
 
 camera.add(torch);
-camera.add( torch.target );
+camera.add(torch.target);
 torch.target.position.set(0, 0, -1);
-torch.position.set( 0, 0,  -0.9);
+torch.position.set(0, 0, -0.9);
 
 var t = 0;
 var move = false;
@@ -178,7 +176,7 @@ var animate = function () {
   }, 1000 / 30);
   */
 
- requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 
   var delta = clock.getDelta();
   animatePlayer(delta);
@@ -205,7 +203,7 @@ var animate = function () {
             currentObject = objectsAnimated[i];
           }
         });
-        if(objectsAnimated[i].getObject() == intersects[0].object) currentObject = objectsAnimated[i];   
+        if (objectsAnimated[i].getObject() == intersects[0].object) currentObject = objectsAnimated[i];
         if (currentObject != null) break;
 
       }
@@ -235,30 +233,31 @@ var animate = function () {
   }
 
   if (currentObject != null) {
-    if((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")){
+    if ((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")) {
       actionPanel.style.display = "block";
       enableAction = true;
     }
     else actionPanel.style.display = "none";
     actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
-    if(currentObject.getAnimation() !== null && !currentObject.getIsElemOfBackpack() && !currentObject.getConditionedAnimated()) {
-      if(currentObject.getObjectName() == "DOOR_HALLWAY"){
+    if (currentObject.getAnimation() !== null && !currentObject.getIsElemOfBackpack() && !currentObject.getConditionedAnimated()) {
+      if (currentObject.getObjectName() == "DOOR_HALLWAY") {
         cameraPos = controls.getObject().position;
+        cameraRot = controls.getObject().rotation;
       }
       functionIsRunning = currentObject.executeAnimation(t, move);
     }
-    else if(currentObject.getConditionedAnimated() && enableConditionedAnimation){
+    else if (currentObject.getConditionedAnimated() && enableConditionedAnimation) {
       move = true;
       functionIsRunning = currentObject.executeAnimation(t, move);
     }
     else {
-      if(collect) {
-        if(backpack != null && backpack.getNumElem() <= numElementOfBackpack){
+      if (collect) {
+        if (backpack != null && backpack.getNumElem() <= numElementOfBackpack) {
           currentObject.executeAnimation();
           backpack.insert(currentObject);
           insertElem = true;
         }
-        else if(currentObject.getObjectName() == "BACKPACK") {
+        else if (currentObject.getObjectName() == "BACKPACK") {
           currentObject.executeAnimation();
           backpack = new Backpack(numElementOfBackpack);
           alert("Now you can collect the objects!! </ br> Press E to open backpack");
@@ -270,7 +269,7 @@ var animate = function () {
       }
     }
     if (move) t += 0.1;
-    if(currentObject.getIsElemOfBackpack() && insertElem) {
+    if (currentObject.getIsElemOfBackpack() && insertElem) {
       objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
       objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.getObject()), 1);
       collect = false;

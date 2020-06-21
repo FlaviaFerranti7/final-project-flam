@@ -22,16 +22,15 @@ function createGarden(gridSize) {
         side: THREE.DoubleSide,
     });
 
+    var garden = new THREE.Group();
 
-    var garden= new THREE.Group();
-
-    var floor = createPlane(size , size, new THREE.Vector3(-50.0, -0.01, 20.0), new THREE.Vector3(-90, 0, 0), [materialFloor]);
+    var floor = createPlane(size, size, new THREE.Vector3(-50.0, -0.01, 20.0), new THREE.Vector3(-90, 0, 0), [materialFloor]);
     garden.add(floor);
 
-    var wall1 = createShape(0.0, size / 25, size * 0.8, new THREE.Vector3(-size * 0.43, 0.0, 0.552* size), undefined, [materialFence],[]);
+    var wall1 = createShape(0.0, size / 25, size * 0.8, new THREE.Vector3(-size * 0.43, 0.0, 0.552 * size), undefined, [materialFence], []);
     garden.add(wall1);
 
-    var wall2 = createShape(0.0, size / 25, size * 0.8, new THREE.Vector3(-size * 0.43, 0.0, -0.447* size), undefined, [materialFence],[]);
+    var wall2 = createShape(0.0, size / 25, size * 0.8, new THREE.Vector3(-size * 0.43, 0.0, -0.447 * size), undefined, [materialFence], []);
     garden.add(wall2);
 
     var wall3 = createShape(0.0, size / 25, size, new THREE.Vector3(size * 0.368, 0.0, -0.447 * size), new THREE.Vector3(0, -90, 0), [materialFence], []);
@@ -44,7 +43,7 @@ function createGarden(gridSize) {
     garden.add(wall5);
 
     recursiveChild(garden, collidableObjects);
-    
+
     const gltfLoaderGateway = new THREE.GLTFLoader();
     gltfLoaderGateway.load("../../model3D/Garden/Gateway/scene.gltf", (gltf) => {
         const root = gltf.scene;
@@ -64,17 +63,13 @@ function createGarden(gridSize) {
                 return true;
             }
             return false;
-           
-            
         };
-
         var obj = new Thing(root, animation, null, false, false, null, null);
-
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
         console.log(dumpObject(root).join('\n'));
-    });;
+    });
 
     const gltfLoaderShovel = new THREE.GLTFLoader();
     gltfLoaderShovel.load("../../model3D/Garden/Showel/scene.gltf", (gltf) => {
@@ -95,13 +90,11 @@ function createGarden(gridSize) {
             reverseAnimation: null,
             actionButton: "Q",
         };
-
         var obj = new Thing(root, null, null, false, true, null, null);
-
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
-    });;
+    });
 
     const gltfLoaderRake = new THREE.GLTFLoader();
     gltfLoaderRake.load("../../model3D/Garden/Rake/scene.gltf", (gltf) => {
@@ -115,13 +108,11 @@ function createGarden(gridSize) {
         root.name = 'RAKE';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-
         var obj = new Thing(root, null, null, false, true, null, null);
-
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
-    });;
+    });
 
     const gltfLoaderSet = new THREE.GLTFLoader();
     gltfLoaderSet.load("../../model3D/Garden/Set/scene.gltf", (gltf) => {
@@ -133,19 +124,7 @@ function createGarden(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);
-    });;
-
-    const gltfLoaderPlants = new THREE.GLTFLoader();
-    gltfLoaderPlants.load("../../model3D/Garden/Plants/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = -155.0;
-        root.position.y = 0.0;
-        root.position.z = -155.0;
-        root.scale.set(0.01, 0.01, 0.01);
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        scene.add(root);
-    });;
+    });
 
     const gltfLoaderShears = new THREE.GLTFLoader();
     gltfLoaderShears.load("../../model3D/Garden/Shears/scene.gltf", (gltf) => {
@@ -158,13 +137,11 @@ function createGarden(gridSize) {
         root.name = 'SCISSORS';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-
         var obj = new Thing(root, null, null, false, true, null, null);
-
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
-    });;
+    });
 
     const gltfLoaderTable = new THREE.GLTFLoader();
     gltfLoaderTable.load("../../model3D/Garden/Table/scene.gltf", (gltf) => {
@@ -176,7 +153,7 @@ function createGarden(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);
-    });;
+    });
 
     const gltfLoaderParkTable = new THREE.GLTFLoader();
     gltfLoaderParkTable.load("../../model3D/Garden/ParkTable/scene.gltf", (gltf) => {
@@ -188,31 +165,31 @@ function createGarden(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);
-    });;
-
-    const gltfLoaderFountain = new THREE.GLTFLoader();
-    gltfLoaderFountain.load("../../model3D/Garden/Fountain/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = 60.0;
-        root.position.y = 4.0;
-        root.position.z = 150.0;
-        root.scale.set(2, 2, 2);
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        scene.add(root);
-    });;
-
-    const gltfLoaderTree = new THREE.GLTFLoader();
-    gltfLoaderTree.load("../../model3D/Garden/Tree/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = -90.0;
-        root.position.y = 0.0;
-        root.position.z = 180.0;
-        root.scale.set(0.005, 0.005, 0.005);
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        scene.add(root);
     });
+
+    // const gltfLoaderFountain = new THREE.GLTFLoader();
+    // gltfLoaderFountain.load("../../model3D/Garden/Fountain/scene.gltf", (gltf) => {
+    //     const root = gltf.scene;
+    //     root.position.x = 60.0;
+    //     root.position.y = 4.0;
+    //     root.position.z = 150.0;
+    //     root.scale.set(2, 2, 2);
+    //     root.traverse((child) => child.castShadow = true);
+    //     recursiveChild(root, collidableObjects);
+    //     scene.add(root);
+    // });
+
+    // const gltfLoaderTree = new THREE.GLTFLoader();
+    // gltfLoaderTree.load("../../model3D/Garden/Tree/scene.gltf", (gltf) => {
+    //     const root = gltf.scene;
+    //     root.position.x = -90.0;
+    //     root.position.y = 0.0;
+    //     root.position.z = 180.0;
+    //     root.scale.set(0.005, 0.005, 0.005);
+    //     root.traverse((child) => child.castShadow = true);
+    //     recursiveChild(root, collidableObjects);
+    //     scene.add(root);
+    // });
 
     return garden;
 }

@@ -6,7 +6,7 @@ class Thing {
         this.flagDoubleAction = false;
         this.isElemOfBackpack = isElemOfBackpack;
         this.conditionedAnimated = conditionedAnimated;
-        if(!conditionedAnimated) this.actionButton = (isElemOfBackpack) ? "Q" : "SPACE";
+        if (!conditionedAnimated) this.actionButton = (isElemOfBackpack) ? "Q" : "SPACE";
         else this.actionButton = "";
         this.subjectAction = subjectAction;
         this.subjectMerge = subjectMerge;
@@ -74,17 +74,17 @@ class Thing {
     }
 
     executeAnimation(t = null, move = null) {
-        if(this.isElemOfBackpack) scene.remove(this.object);
-        else if(this.flagDoubleAction) {
+        if (this.isElemOfBackpack) scene.remove(this.object);
+        else if (this.flagDoubleAction) {
             var ret = this.reverseAnimation(t, move);
-            if(ret) this.flagDoubleAction = false;
+            if (ret) this.flagDoubleAction = false;
             return ret;
         }
         else {
             var ret = false;
-            if(t == null && move == null) ret = this.animation();
+            if (t == null && move == null) ret = this.animation();
             ret = this.animation(t, move);
-            if(ret && this.getReverseAnimation() != null) this.flagDoubleAction = true;
+            if (ret && this.getReverseAnimation() != null) this.flagDoubleAction = true;
             return ret;
         }
         return false;
