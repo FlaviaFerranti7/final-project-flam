@@ -1,0 +1,543 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 1536,
+      "max": [
+        96.33331298828125,
+        1,
+        1.0000015497207642
+      ],
+      "min": [
+        -1,
+        -35.214962005615234,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 18432,
+      "componentType": 5126,
+      "count": 1536,
+      "max": [
+        1,
+        1,
+        0.99518483877182007
+      ],
+      "min": [
+        -1,
+        -1,
+        -0.99518489837646484
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 1536,
+      "max": [
+        1,
+        1
+      ],
+      "min": [
+        0,
+        0.01000000536441803
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 2976,
+      "max": [
+        1535
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 36864,
+      "componentType": 5126,
+      "count": 962,
+      "max": [
+        31.380828857421875,
+        13.874303817749023,
+        7.3738036155700684
+      ],
+      "min": [
+        -11.403265953063965,
+        -13.874296188354492,
+        1.7096962928771973
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 48408,
+      "componentType": 5126,
+      "count": 962,
+      "max": [
+        0.99494814872741699,
+        0.99999964237213135,
+        0.99685174226760864
+      ],
+      "min": [
+        -0.99567693471908569,
+        -0.99999964237213135,
+        -0.9968685507774353
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 12288,
+      "componentType": 5126,
+      "count": 962,
+      "max": [
+        1.2763622999191284,
+        4.2817487716674805
+      ],
+      "min": [
+        -0.72339212894439697,
+        -4.5977382659912109
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 11904,
+      "componentType": 5125,
+      "count": 4752,
+      "max": [
+        961
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 59952,
+      "componentType": 5126,
+      "count": 65532,
+      "max": [
+        4.1222696304321289,
+        0.10700000822544098,
+        2.7049136161804199
+      ],
+      "min": [
+        -1.1990933418273926,
+        -0.10700000822544098,
+        -3.5475614070892334
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 846336,
+      "componentType": 5126,
+      "count": 65532,
+      "max": [
+        0.99999791383743286,
+        1,
+        0.99997282028198242
+      ],
+      "min": [
+        -1,
+        -1,
+        -0.99994605779647827
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 30912,
+      "componentType": 5125,
+      "count": 102546,
+      "max": [
+        65531
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 1632720,
+      "componentType": 5126,
+      "count": 44916,
+      "max": [
+        4.1764960289001465,
+        0.10700000822544098,
+        1.1011601686477661
+      ],
+      "min": [
+        -0.86645084619522095,
+        -0.10700000822544098,
+        -2.9751138687133789
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 2171712,
+      "componentType": 5126,
+      "count": 44916,
+      "max": [
+        0.99999582767486572,
+        0.99619489908218384,
+        0.99990683794021606
+      ],
+      "min": [
+        -0.99999779462814331,
+        -0.99619489908218384,
+        -0.9999539852142334
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 441096,
+      "componentType": 5125,
+      "count": 67374,
+      "max": [
+        44915
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "miccoro.virtual (https://sketchfab.com/miccoro.virtual)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/chiave-violino-spartito-mesh-b986c3e77a8d4e5585864e67f8e0d215",
+      "title": "Chiave_violino_spartito_mesh"
+    },
+    "generator": "Sketchfab-8.25.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 710592,
+      "byteOffset": 0,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 19984,
+      "byteOffset": 710592,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 2710704,
+      "byteOffset": 730576,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 3441280,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/spartito_baseColor.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.38638409712110955,
+          0.37292323236095404,
+          0.0056030827235135985,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.59999999999999998
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "name": "spartito",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "index": 0,
+          "texCoord": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.59999999999999998
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 9,
+            "POSITION": 8
+          },
+          "indices": 10,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 12,
+            "POSITION": 11
+          },
+          "indices": 13,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "RootNode (gltf orientation matrix)",
+      "rotation": [
+        -0.70710678118654746,
+        -0,
+        -0,
+        0.70710678118654757
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        0.10280241072177887,
+        0,
+        0,
+        0,
+        0,
+        0.10280241072177887,
+        0,
+        0,
+        0,
+        0,
+        0.10280241072177887,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "RootNode (model correction matrix)"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "root"
+    },
+    {
+      "children": [
+        4,
+        6,
+        8
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.2204460492503131e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.2204460492503131e-16,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "GLTF_SceneRootNode"
+    },
+    {
+      "children": [
+        5
+      ],
+      "matrix": [
+        0.26552087068557739,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.26552087068557739,
+        0,
+        0,
+        -0.26552087068557739,
+        0,
+        0,
+        -2.5231995582580566,
+        0,
+        -0.54540657997131348,
+        1
+      ],
+      "name": "pentagramma_0"
+    },
+    {
+      "mesh": 0,
+      "name": ""
+    },
+    {
+      "children": [
+        7
+      ],
+      "matrix": [
+        0.97145569324493408,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.97145569324493408,
+        0,
+        0,
+        -0.97145569324493408,
+        0,
+        0,
+        2.9940066337585449,
+        2.9698209762573242,
+        -4.9285464286804199,
+        1
+      ],
+      "name": "spartito_3"
+    },
+    {
+      "mesh": 1,
+      "name": ""
+    },
+    {
+      "children": [
+        9,
+        10
+      ],
+      "matrix": [
+        2.4851408004760742,
+        0,
+        0,
+        0,
+        0,
+        2.4851408004760742,
+        0,
+        0,
+        0,
+        0,
+        2.4851408004760742,
+        0,
+        4.0725994110107422,
+        -5.9557612985372543e-05,
+        -3.6551742553710938,
+        1
+      ],
+      "name": "chiave di violino_4"
+    },
+    {
+      "mesh": 2,
+      "name": ""
+    },
+    {
+      "mesh": 3,
+      "name": ""
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "OSG_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ]
+}
+

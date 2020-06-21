@@ -1,0 +1,176 @@
+{
+  "accessors": [
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 59198,
+      "max": [
+        35.252334594726562,
+        63.980178833007812,
+        155.115478515625
+      ],
+      "min": [
+        -45.770072937011719,
+        -24.763031005859375,
+        -0.14289093017578125
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 710376,
+      "componentType": 5126,
+      "count": 59198,
+      "max": [
+        1,
+        1,
+        0.99971312284469604
+      ],
+      "min": [
+        -1,
+        -0.99980795383453369,
+        -0.99998259544372559
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 355200,
+      "max": [
+        59197
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "3D Scan (https://sketchfab.com/Guilherme.Stella)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/tesoura-scissors-7c483413eab340d9a5a838c89d503451",
+      "title": "TESOURA - SCISSORS"
+    },
+    "generator": "Sketchfab-7.72.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 1420800,
+      "byteOffset": 0,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1420752,
+      "byteOffset": 1420800,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 2841552,
+      "uri": "scene.bin"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "name": "TESOURA_material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.63529400000000003,
+          0.70588200000000001,
+          0.69019600000000003,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0
+          },
+          "indices": 2,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "RootNode (gltf orientation matrix)",
+      "rotation": [
+        -0.70710678118654746,
+        -0,
+        -0,
+        0.70710678118654757
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        0.98156362771987915,
+        0.17631462216377258,
+        0.073796674609184265,
+        0,
+        -0.19007983803749084,
+        0.85992711782455444,
+        0.47370347380638123,
+        0,
+        0.020061086863279343,
+        -0.47899737954139709,
+        0.87758708000183105,
+        0,
+        -2.9101860523223877,
+        38.774734497070312,
+        2.0234572887420654,
+        1
+      ],
+      "name": "RootNode (model correction matrix)"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "TESOURA.obj.cleaner.materialmerger.gles"
+    },
+    {
+      "mesh": 0,
+      "name": ""
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "OSG_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
+

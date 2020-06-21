@@ -321,19 +321,30 @@ function createRoom2(gridSize) {
         root.position.x = 13.5;
         root.position.y = 7;
         root.position.z = 23;
-        root.name = 'DIAMOND';
         root.scale.set(0.008, 0.008, 0.008);
         root.rotateZ(degToRad(45));
+        root.name = 'DIAMOND';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var obj = {
-            root: root,
-            animation: null,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "Q",
-        };
         var obj = new Thing(root, null, null, false, true, null, null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        scene.add(root);
+    });
+
+    const gltfLoaderSheetMusic = new THREE.GLTFLoader();
+    gltfLoaderSheetMusic.load("../../model3D/Room2/SheetMusic/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 12.5;
+        root.position.y = 5;
+        root.position.z = 23;
+        root.scale.set(0.75, 0.75, 0.75);
+        root.name = 'SHEETMUSIC';
+        root.getObjectByName('chiave_di_violino_4').visible = false;
+        root.getObjectByName('pentagramma_0').visible = false;
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        var obj = new Thing(root, null, null, false, true, null, "VIOLIN");
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);

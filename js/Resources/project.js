@@ -46,6 +46,7 @@ var hideDivSafe = false;
 var currentObject = null;
 var actionPanel = document.getElementById("action");
 var remove = document.getElementById("remove");
+var sheetMessage = document.getElementById("sheetmusic-message");
 
 var backpack = null;
 const numElementOfBackpack = 5;
@@ -241,10 +242,15 @@ var animate = function () {
       if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY") {
         remove.style.display = "block";
       }
+      if (currentObject.getObjectName() == "SHEETMUSIC") {
+        sheetMessage.style.display = "block";
+      }
     }
-    else{ 
+    else {
       actionPanel.style.display = "none";
       remove.style.display = "none";
+      sheetMessage.style.display = "none";
+
     }
     actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
     remove.childNodes[1].innerHTML = "Watch out! If you go in you can't come back here";
@@ -308,21 +314,26 @@ var animate = function () {
 
   //SEQUENTIAL ROOM LOADING
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingR2 == false) {
-    alert("Step 1 passed. Look around!", 7000);
+    alert("Level 1 passed. Look around!", 7000);
     loadingR2 = room2Loader();
     steps.splice(0, 1);
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingH == false) {
-    alert("Step 2 passed", 7000);
+    alert("Level 2 passed", 7000);
     loadingH = hallwayLoader();
     steps.splice(0, 1);
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
-    alert("You're in the last room. Good luck!", 7000);
-    if(removeRooms()){
-    loadingLR = livingRoomLoader();
-    steps.splice(0, 1);
-    garden = true;
+    var elem = document.getElementById("LR-message");
+    elem.style.display = "block";
+    elem.childNodes[1].innerHTML = "";
+    setTimeout(() => {
+      elem.style.display = "none";
+    }, 7000);
+    if (removeRooms()) {
+      loadingLR = livingRoomLoader();
+      steps.splice(0, 1);
+      garden = true;
     }
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && garden && loadingG == false) {

@@ -94,7 +94,7 @@ body {
     position: absolute;
     height: 150px;
     width: 100%;
-    top: calc(50% - 1px); /*-1*/
+    top: calc(50% - 1px); 
     left: 0;
     z-index: 99;
     background-color: #ffffffd0;
@@ -102,6 +102,51 @@ body {
     font-family:'Sahitya';
     font-size: 30px;
     line-height: 100px;
+    color: black;
+    text-align: center;
+}
+
+#intro {
+    position: absolute;
+    width: 100%;
+    bottom: 50px;
+    left: 0;
+    z-index: 99;
+    font-family:'Sahitya';
+    font-size: 20px;
+    line-height: 30px;
+    color:white;
+    text-align: center;
+}
+
+#safe-message, #LR-message {
+    position: absolute;
+    height: 250px;
+    width: 100%;
+    top: calc(50% + 20px); 
+    left: 0;
+    z-index: 99;
+    background-color: #ffffffd0;
+    display: none;
+    font-family:'Sahitya';
+    font-size: 25px;
+    line-height: 30px;
+    color: black;
+    text-align: center;
+}
+
+#mirror-message, #book-message, #sheetmusic-message {
+    position: absolute;
+    height: 150px;
+    width: 100%;
+    top: calc(50% + 20px); 
+    left: 0;
+    z-index: 99;
+    background-color: #ffffffd0;
+    display: none;
+    font-family:'Sahitya';
+    font-size: 25px;
+    line-height: 30px;
     color: black;
     text-align: center;
 }

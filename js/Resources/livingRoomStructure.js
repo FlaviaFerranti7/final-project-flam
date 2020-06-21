@@ -220,7 +220,28 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        console.log(root.getObjectByName('Shkaf').position);
+        var animation = (t, move) => {
+            if (root.getObjectByName('Shkaf').position.x == 0.5) {
+                var elem = document.getElementById("book-message");
+                elem.style.display = "block";
+                elem.childNodes[1].innerHTML = "";
+                setTimeout(() => {
+                    elem.style.display = "none";
+                }, 7000);
+                return false;
+            }
+            if (move) {
+                root.getObjectByName('Shkaf').position.x = interpolation(0, 0.5, 0, 5, t);
+                return true;
+            }
+            return false;
+        };
+        var obj = new Thing(root, animation, null, false, false, null, null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
         livingRoom.add(root);
+        // console.log(dumpObject(root).join('\n'));
     });
 
     const gltfLoaderFurniture = new THREE.GLTFLoader();
@@ -246,6 +267,25 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var animation = (t, move) => {
+            if (root.rotation.y == degToRad(-90)) {
+                var elem = document.getElementById("mirror-message");
+                elem.style.display = "block";
+                elem.childNodes[1].innerHTML = "";
+                setTimeout(() => {
+                    elem.style.display = "none";
+                }, 7000);
+                return false;
+            }
+            if (move) {
+                root.rotation.y = interpolation(degToRad(90), degToRad(-90), 0, 5, t);
+                return true;
+            }
+            return false;
+        };
+        var obj = new Thing(root, animation, null, false, false, null, null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
         livingRoom.add(root);
     });
 
@@ -261,7 +301,7 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(-90));
         root.name = 'VIOLIN';
         root.traverse((child) => child.castShadow = true);
-        var obj = new Thing(root, null, null, false, true, null, null);
+        var obj = new Thing(root, null, null, false, true, null, "SHEETMUSIC");
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         recursiveChild(root, collidableObjects);
@@ -299,6 +339,24 @@ function createLivingRoom(gridSize) {
     //     recursiveChild(root, collidableObjects);
     //     scene.add(root);
     // });
+
+    const gltfLoaderScissors = new THREE.GLTFLoader();
+    gltfLoaderScissors.load("../../model3D/LivingRoom/Scissors/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -50.0;
+        root.position.y = 7.5;
+        root.position.z = 35.0;
+        root.scale.set(0.005, 0.005, 0.005);
+        root.rotateZ(degToRad(90));
+        root.rotateY(degToRad(90));
+        root.name = 'SCISSORS';
+        root.traverse((child) => child.castShadow = true);
+        var obj = new Thing(root, null, null, false, true, null, null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
 
     return livingRoom;
 }

@@ -333,10 +333,10 @@ function alert(msg, time = 3000) {
 }
 
 function hideDiv() {
-  var elem = document.getElementById("message");
+  var elem = document.getElementById("safe-message");
   var txtInput = document.getElementById("txtInput");
   elem.style.display = "block";
-  elem.childNodes[1].innerHTML = "Insert code to open the safe";
+  elem.childNodes[1].innerHTML = '';
 
   var ev = function (event) {
     switch (event.keyCode) {
@@ -354,7 +354,7 @@ function hideDiv() {
 }
 
 function insertCode() {
-  var elem = document.getElementById("message");
+  var elem = document.getElementById("safe-message");
   var txtInput = document.getElementById("txtInput");
   txtInput.focus();
 
