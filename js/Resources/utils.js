@@ -413,9 +413,10 @@ function removeRooms() {
   scene.remove(room1);
   scene.remove(room2);
   scene.remove(hallway);
+  console.log(objectsAnimated);
   for (var i = 0; i < objectsAnimated.length; i++) {
     if (objectsAnimated[i].getObjectName() != "DOOR_HALLWAY") {
-      scene.remove(objectsAnimated[i]);
+      scene.remove(objectsAnimated[i].getObject());
       objectsAnimated.splice(i, 1);
       objectsRaycaster.splice(i, 1);
     }
@@ -424,5 +425,6 @@ function removeRooms() {
   room1 = null;
   room2 = null;
   hallway = null;
+  return true;
 }
 

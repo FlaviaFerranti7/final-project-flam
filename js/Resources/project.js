@@ -23,7 +23,7 @@ var blocker = document.getElementById('blocker');
 getPointerLock();
 controls = new THREE.PointerLockControls(camera, container);
 controls.getObject().position.set(10.5, 8, 0);
-controls.getObject().rotation.set(0, 7.85, 0);
+controls.getObject().rotation.set(0, 1.57, 0);
 scene.add(controls.getObject());
 
 var cameraPos;
@@ -45,6 +45,7 @@ var hideDivSafe = false;
 
 var currentObject = null;
 var actionPanel = document.getElementById("action");
+var remove = document.getElementById("remove");
 
 var backpack = null;
 const numElementOfBackpack = 5;
@@ -229,6 +230,7 @@ var animate = function () {
       enableConditionedAnimation = false;
       t = 0;
       actionPanel.style.display = "none";
+      remove.style.display = "none";
     }
   }
 
@@ -236,13 +238,20 @@ var animate = function () {
     if ((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")) {
       actionPanel.style.display = "block";
       enableAction = true;
+      if (currentObject.getObjectName() == "DOOR_HALLWAY") {
+        remove.style.display = "block";
+      }
     }
-    else actionPanel.style.display = "none";
+    else{ 
+      actionPanel.style.display = "none";
+      remove.style.display = "none";
+    }
     actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
+    remove.childNodes[1].innerHTML = "Watch out! If you go in you can't come back here";
     if (currentObject.getAnimation() !== null && !currentObject.getIsElemOfBackpack() && !currentObject.getConditionedAnimated()) {
       if (currentObject.getObjectName() == "DOOR_HALLWAY") {
         cameraPos = controls.getObject().position;
-        cameraRot = controls.getObject().rotation;
+        cameraRot = camera.rotation;
       }
       functionIsRunning = currentObject.executeAnimation(t, move);
     }
@@ -309,11 +318,12 @@ var animate = function () {
     steps.splice(0, 1);
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
-    //alert("Step 3 passed", 7000);
-    removeRooms();
+    alert("You're in the last room. Good luck!", 7000);
+    if(removeRooms()){
     loadingLR = livingRoomLoader();
     steps.splice(0, 1);
     garden = true;
+    }
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && garden && loadingG == false) {
     alert("Step 4 passed", 7000);
