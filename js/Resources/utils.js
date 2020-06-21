@@ -358,7 +358,7 @@ function insertCode() {
   var txtInput = document.getElementById("txtInput");
   txtInput.focus();
 
-  if (txtInput.value == "1234") {
+  if (txtInput.value == "7480") {
     elem.style.display = "none";
     openSafe = true;
   }
@@ -413,7 +413,6 @@ function removeRooms() {
   scene.remove(room1);
   scene.remove(room2);
   scene.remove(hallway);
-  console.log(objectsAnimated);
   for (var i = 0; i < objectsAnimated.length; i++) {
     if (objectsAnimated[i].getObjectName() != "DOOR_HALLWAY") {
       scene.remove(objectsAnimated[i].getObject());
@@ -425,6 +424,22 @@ function removeRooms() {
   room1 = null;
   room2 = null;
   hallway = null;
+  return true;
+}
+
+function removeLeaving() {
+  scene.remove(livingRoom);
+  console.log("ciao");
+  for (var i = 0; i < objectsAnimated.length; i++) {
+    scene.remove(objectsAnimated[i].getObject());
+    objectsAnimated.splice(i, 1);
+    objectsRaycaster.splice(i, 1);
+  }
+  if(gun!=null){
+    gun = null;
+  }
+  collidableObjects = [];
+  livingRoom = null;
   return true;
 }
 

@@ -238,7 +238,7 @@ var animate = function () {
     if ((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")) {
       actionPanel.style.display = "block";
       enableAction = true;
-      if (currentObject.getObjectName() == "DOOR_HALLWAY") {
+      if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY") {
         remove.style.display = "block";
       }
     }
@@ -249,8 +249,8 @@ var animate = function () {
     actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
     remove.childNodes[1].innerHTML = "Watch out! If you go in you can't come back here";
     if (currentObject.getAnimation() !== null && !currentObject.getIsElemOfBackpack() && !currentObject.getConditionedAnimated()) {
-      if (currentObject.getObjectName() == "DOOR_HALLWAY") {
-        cameraPos = controls.getObject().position;
+      if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY") {
+        cameraPos = camera.position;
         cameraRot = camera.rotation;
       }
       functionIsRunning = currentObject.executeAnimation(t, move);
@@ -326,14 +326,18 @@ var animate = function () {
     }
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && garden && loadingG == false) {
-    alert("Step 4 passed", 7000);
-    loadingG = gardenLoader();
-    scene.remove(wallHL);
-    wallHL = null;
-    steps.splice(0, 1);
+    alert("You're almost there! One step left to pass", 7000);
+    if(removeLeaving()){
+      loadingG = gardenLoader();
+      scene.remove(wallHL);
+      wallHL = null;
+      scene.remove(doorHL);
+      doorHL = null;
+      steps.splice(0, 1);
+    }
   }
-
   renderer.render(scene, camera);
+  console.log(rl);
 };
 
 animate();

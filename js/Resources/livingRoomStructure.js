@@ -53,7 +53,7 @@ function createLivingRoom(gridSize) {
 
     var wall3Door = createHole(12.0, 15.0, 34.0, 0.0);
     var wall3 = createShape(0.0, size / 4, size, new THREE.Vector3(-size * 1.25, 0.0, -0.25 * size), new THREE.Vector3(0, -90, 0), [materialWallL, materialWallB], [wall3Door]);
-    livingRoom.add(wall3);
+    scene.add(wall3);
 
     var wall4 = createShape(0.0, size / 4, size * 3 / 4, new THREE.Vector3(-size / 2, 0.0, -0.25 * size), new THREE.Vector3(0, 180, 0), [materialWallL, materialWallB], []);
     livingRoom.add(wall4);
@@ -63,6 +63,7 @@ function createLivingRoom(gridSize) {
 
     recursiveChild(wallHL, collidableObjects);
     recursiveChild(doorHL, collidableObjects);
+    recursiveChild(wall3, collidableObjects);
 
     /* SPOTLIGHT LIVING ROOM */
 
@@ -111,17 +112,33 @@ function createLivingRoom(gridSize) {
         root.position.x = -99.5
         root.position.y = 0.0;
         root.position.z = 26;
+        root.name = "DOOR_ENTRY";
         root.scale.set(0.17, 0.17, 0.162);
         root.rotateX(degToRad(-90));
         root.rotateZ(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
-            if (root.getObjectByName('group_5').rotation.z == degToRad(-90)) return false;
+            if (camera.position.x == root.position.x - 10){
+                scene.remove(wall3);
+                scene.remove(root);
+                return false;
+            }
             if (move) {
-                root.getObjectByName('group_5').rotation.z = interpolation(0.0, degToRad(-90), 0, 15, t);
-                root.getObjectByName('group_5').position.x = interpolation(15.75, 12.5, 0, 15, t);
-                root.getObjectByName('group_5').position.y = interpolation(0.03, 5, 0, 15, t);
+                if (t >= 0 && t < 15) {
+                    camera.position.x = interpolation(cameraPos.x, -90, 0, 5, t);
+                    camera.position.z = interpolation(cameraPos.z, 19.5, 0, 5, t);
+                    camera.rotation.y = interpolation(cameraRot.y, 1.57, 0, 5, t);
+                    camera.rotation.x = 0;
+                    camera.rotation.z = 0;
+                    
+                    root.getObjectByName('group_5').rotation.z = interpolation(0.0, degToRad(-90), 0, 15, t);
+                    root.getObjectByName('group_5').position.x = interpolation(15.75, 12.5, 0, 15, t);
+                    root.getObjectByName('group_5').position.y = interpolation(0.03, 5, 0, 15, t);
+                }
+                if (t >= 15) {
+                    camera.position.x = interpolation(-90, root.position.x - 10, 15, 22, t);
+                }
                 return true;
             }
             return false;
@@ -130,7 +147,7 @@ function createLivingRoom(gridSize) {
         steps.push(obj);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
-        livingRoom.add(root);
+        scene.add(root);
     });
 
     const gltfLoaderWindowDoors = new THREE.GLTFLoader();

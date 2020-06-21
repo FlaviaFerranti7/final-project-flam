@@ -149,24 +149,18 @@ function createHallway(gridSize) {
             var t2 = 0;
             var t3 = 0;
             var animation = (t, move) => {
+                if (camera.position.x == objectDoor.position.x - 10) return false;
                 if (move) {
-                    console.log(camera.rotation);
                     if (t >= 0 && t < 15) {
                         objectDoor.children[0].rotation.z = interpolation(0, degToRad(90), 0, 15, t);
                         objectDoor.children[0].position.x = interpolation(0, -5, 0, 3, t);
                         objectDoor.children[0].position.y = interpolation(0, 25, 0, 6, t);
-                        if (!(cameraPos.z <= 13 && cameraPos.z >= 7)) {
-                            controls.getObject().position.x = interpolation(cameraPos.x, cameraPos.x + 0.15, 0, 14, t);
-                            controls.getObject().position.z = interpolation(cameraPos.z, 10, 0, 10, t);
-                            camera.rotation.y = interpolation(cameraRot.y, 1.57, 0, 10, t);
-                            camera.rotation.x = 0;
-                            camera.rotation.z = 0;
-                            controls.getObject().position.x = interpolation(cameraPos.x + 0.15, objectDoor.position.x + 4, 14, 15, t);
-                        }
-                        else {
-                            controls.getObject().position.z = interpolation(cameraPos.z, 10, 0, 10, t);
-                            controls.getObject().position.x = interpolation(cameraPos.x, objectDoor.position.x + 4, 0, 15, t);
-                        }
+
+                        camera.position.x = interpolation(cameraPos.x, -32, 0, 3, t);
+                        camera.position.z = interpolation(cameraPos.z, 8, 0, 3, t);
+                        camera.rotation.y = interpolation(cameraRot.y, 1.57, 0, 3, t);
+                        camera.rotation.x = 0;
+                        camera.rotation.z = 0;
                     }
                     if (t == 3) {
                         objectDoor.children[0].position.x = -5;
@@ -190,7 +184,7 @@ function createHallway(gridSize) {
                         t1 += 0.1;
                     }
                     if (t >= 15) {
-                        controls.getObject().position.x = interpolation(objectDoor.position.x + 4, objectDoor.position.x - 10, 15, 22, t);
+                        camera.position.x = interpolation(-32, objectDoor.position.x - 10, 15, 22, t);
                     }
                     if (t >= 22) {
                         objectDoor.children[0].rotation.z = 0;
