@@ -435,7 +435,7 @@ function removeLeaving() {
     objectsAnimated.splice(i, 1);
     objectsRaycaster.splice(i, 1);
   }
-  if(gun!=null){
+  if (gun != null) {
     gun = null;
   }
   collidableObjects = [];

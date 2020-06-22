@@ -134,7 +134,7 @@ function createGarden(gridSize) {
         root.position.z = 69.0;
         root.scale.set(0.05, 0.05, 0.05);
         root.rotateX(degToRad(90));
-        root.name = 'SCISSORS';
+        root.name = 'SHEARS';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var obj = new Thing(root, null, null, false, true, null, null);

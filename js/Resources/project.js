@@ -79,7 +79,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 5;  //1
+const intensityAmbient = 1;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -338,7 +338,7 @@ var animate = function () {
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && garden && loadingG == false) {
     alert("You're almost there! One step left to pass", 7000);
-    if(removeLeaving()){
+    if (removeLeaving()) {
       loadingG = gardenLoader();
       scene.remove(wallHL);
       wallHL = null;
@@ -348,7 +348,6 @@ var animate = function () {
     }
   }
   renderer.render(scene, camera);
-  console.log(rl);
 };
 
 animate();

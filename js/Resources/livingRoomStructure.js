@@ -119,7 +119,7 @@ function createLivingRoom(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
-            if (camera.position.x == root.position.x - 10){
+            if (camera.position.x == root.position.x - 10) {
                 scene.remove(wall3);
                 scene.remove(root);
                 return false;
@@ -131,7 +131,7 @@ function createLivingRoom(gridSize) {
                     camera.rotation.y = interpolation(cameraRot.y, 1.57, 0, 5, t);
                     camera.rotation.x = 0;
                     camera.rotation.z = 0;
-                    
+
                     root.getObjectByName('group_5').rotation.z = interpolation(0.0, degToRad(-90), 0, 15, t);
                     root.getObjectByName('group_5').position.x = interpolation(15.75, 12.5, 0, 15, t);
                     root.getObjectByName('group_5').position.y = interpolation(0.03, 5, 0, 15, t);
@@ -232,7 +232,7 @@ function createLivingRoom(gridSize) {
                 return false;
             }
             if (move) {
-                root.getObjectByName('Shkaf').position.x = interpolation(0, 0.5, 0, 5, t);
+                root.getObjectByName('Shkaf').position.x = interpolation(0, 0.5, 0, 2, t);
                 return true;
             }
             return false;
@@ -301,7 +301,7 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(-90));
         root.name = 'VIOLIN';
         root.traverse((child) => child.castShadow = true);
-        var obj = new Thing(root, null, null, false, true, null, "SHEETMUSIC");
+        var obj = new Thing(root, null, null, false, true, null, "SHEETMUSIC", true);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         recursiveChild(root, collidableObjects);
@@ -344,7 +344,7 @@ function createLivingRoom(gridSize) {
     gltfLoaderScissors.load("../../model3D/LivingRoom/Scissors/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -50.0;
-        root.position.y = 7.5;
+        root.position.y = 7.0;
         root.position.z = 35.0;
         root.scale.set(0.005, 0.005, 0.005);
         root.rotateZ(degToRad(90));
