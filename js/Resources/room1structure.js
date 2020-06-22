@@ -284,9 +284,7 @@ function createRoom1(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = () => {
-            console.log(enableConditionedAnimation);
             enableConditionedAnimation = true;
-            console.log(enableConditionedAnimation);
         }
         var obj = new Thing(root, animation, null, false, true, "DOOR_ROOM2", null);
         objectsAnimated.push(obj);
@@ -306,14 +304,11 @@ function createRoom1(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = () => {
-            torch.intensity = 1;
+            if(torch.intensity == 0) torch.intensity = 1;
+            else torch.intensity = 0;
             return true;
         }
-        var reverseAnimation = () => {
-            torch.intensity = 0;
-            return true;
-        }
-        var obj = new Thing(root, animation, reverseAnimation, false, true, null, "BATTERY", true);
+        var obj = new Thing(root, animation, null, false, true, null, "BATTERY", true);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);

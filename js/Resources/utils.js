@@ -449,7 +449,6 @@ function removeRooms() {
 
 function removeLeaving() {
   scene.remove(livingRoom);
-  console.log("ciao");
   for (var i = 0; i < objectsAnimated.length; i++) {
     scene.remove(objectsAnimated[i].getObject());
     objectsAnimated.splice(i, 1);
