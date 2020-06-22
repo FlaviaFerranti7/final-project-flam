@@ -152,6 +152,7 @@ function createHouse() {
         root.position.x = -77.95;
         root.position.y = 0.0;
         root.position.z = 60;
+        root.name = 'WINDOW_DOORS';
         root.getObjectByName('Frame001_2').rotateY(degToRad(-9.5));
         root.getObjectByName('Strips001_3').rotateY(degToRad(-9.5));
         root.scale.set(2.015, 1.24, 1.5);
@@ -170,7 +171,7 @@ function createHouse() {
             }
             return false;
         };
-        var obj = new Thing(root, animation, null, false, false, null, null);
+        var obj = new Thing(root, animation, null, true, false, "SCISSORS", null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         house.add(root);
@@ -212,7 +213,7 @@ function createHouse() {
             }
             return false;
         };
-        var obj = new Thing(root, animation, null, false, false, null, null);
+        var obj = new Thing(root, animation, null, true, false, "HOURGLASS", null);
         steps.push(obj);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());

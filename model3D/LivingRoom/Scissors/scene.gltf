@@ -1,44 +1,76 @@
 {
   "accessors": [
     {
-      "bufferView": 1,
+      "bufferView": 2,
       "componentType": 5126,
-      "count": 59198,
+      "count": 446,
       "max": [
-        35.252334594726562,
-        63.980178833007812,
-        155.115478515625
+        20.889459609985352,
+        2.9999973773956299,
+        123.77955627441406
       ],
       "min": [
-        -45.770072937011719,
-        -24.763031005859375,
-        -0.14289093017578125
+        -20.889461517333984,
+        -3.0000045299530029,
+        -0.051181793212890625
       ],
       "type": "VEC3"
     },
     {
-      "bufferView": 1,
-      "byteOffset": 710376,
+      "bufferView": 2,
+      "byteOffset": 5352,
       "componentType": 5126,
-      "count": 59198,
+      "count": 446,
       "max": [
         1,
         1,
-        0.99971312284469604
+        1
       ],
       "min": [
         -1,
-        -0.99980795383453369,
-        -0.99998259544372559
+        -1,
+        -1
       ],
       "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 446,
+      "max": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        -1,
+        1
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 446,
+      "max": [
+        0.99000000953674316,
+        0.97711676359176636
+      ],
+      "min": [
+        0.0099999997764825821,
+        0.0099999997764825821
+      ],
+      "type": "VEC2"
     },
     {
       "bufferView": 0,
       "componentType": 5125,
-      "count": 355200,
+      "count": 1362,
       "max": [
-        59197
+        445
       ],
       "min": [
         0
@@ -48,67 +80,105 @@
   ],
   "asset": {
     "extras": {
-      "author": "3D Scan (https://sketchfab.com/Guilherme.Stella)",
+      "author": "Skript47 (https://sketchfab.com/Skript47)",
       "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/tesoura-scissors-7c483413eab340d9a5a838c89d503451",
-      "title": "TESOURA - SCISSORS"
+      "source": "https://sketchfab.com/3d-models/scissors-stationery-low-poly-game-ready-c67efef1abeb41969eef84c06311fac6",
+      "title": "Scissors Stationery (Low Poly, Game Ready)"
     },
-    "generator": "Sketchfab-7.72.0",
+    "generator": "Sketchfab-6.16.0",
     "version": "2.0"
   },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 1420800,
+      "byteLength": 5448,
       "byteOffset": 0,
       "name": "floatBufferViews",
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 1420752,
-      "byteOffset": 1420800,
+      "byteLength": 3568,
+      "byteOffset": 5448,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 10704,
+      "byteOffset": 9016,
       "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 7136,
+      "byteOffset": 19720,
+      "byteStride": 16,
       "name": "floatBufferViews",
       "target": 34962
     }
   ],
   "buffers": [
     {
-      "byteLength": 2841552,
+      "byteLength": 26856,
       "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/Scissors1_baseColor.png"
+    },
+    {
+      "uri": "textures/Scissors1_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/Scissors1_normal.png"
     }
   ],
   "materials": [
     {
-      "doubleSided": true,
-      "emissiveFactor": [
-        0,
-        0,
-        0
-      ],
-      "name": "TESOURA_material",
+      "doubleSided": false,
+      "name": "Scissors1",
+      "normalTexture": {
+        "index": 2,
+        "scale": 1,
+        "texCoord": 0
+      },
       "pbrMetallicRoughness": {
         "baseColorFactor": [
-          0.63529400000000003,
-          0.70588200000000001,
-          0.69019600000000003,
+          1,
+          1,
+          1,
           1
         ],
-        "metallicFactor": 0,
+        "baseColorTexture": {
+          "index": 0,
+          "texCoord": 0
+        },
+        "metallicFactor": 1,
+        "metallicRoughnessTexture": {
+          "index": 1,
+          "texCoord": 0
+        },
         "roughnessFactor": 1
       }
     }
   ],
   "meshes": [
     {
+      "name": "Scissors1_Scissors1_0",
       "primitives": [
         {
           "attributes": {
             "NORMAL": 1,
-            "POSITION": 0
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
           },
-          "indices": 2,
+          "indices": 4,
           "material": 0,
           "mode": 4
         }
@@ -132,35 +202,73 @@
       "children": [
         2
       ],
-      "matrix": [
-        0.98156362771987915,
-        0.17631462216377258,
-        0.073796674609184265,
-        0,
-        -0.19007983803749084,
-        0.85992711782455444,
-        0.47370347380638123,
-        0,
-        0.020061086863279343,
-        -0.47899737954139709,
-        0.87758708000183105,
-        0,
-        -2.9101860523223877,
-        38.774734497070312,
-        2.0234572887420654,
-        1
-      ],
       "name": "RootNode (model correction matrix)"
     },
     {
       "children": [
         3
       ],
-      "name": "TESOURA.obj.cleaner.materialmerger.gles"
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "7613c9e351f94b15bd74152e259e3238.fbx"
+    },
+    {
+      "children": [
+        4
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        5
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.2204460492503131e-16,
+        -1,
+        0,
+        0,
+        1,
+        2.2204460492503131e-16,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "Scissors1"
     },
     {
       "mesh": 0,
-      "name": ""
+      "name": "Scissors1_Scissors1_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
     }
   ],
   "scene": 0,
@@ -170,6 +278,20 @@
       "nodes": [
         0
       ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
     }
   ]
 }

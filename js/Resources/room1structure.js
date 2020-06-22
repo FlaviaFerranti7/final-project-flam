@@ -281,7 +281,7 @@ function createRoom1(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = () => {
-            if(torch.intensity == 0) torch.intensity = 1;
+            if(torch.intensity == 0) torch.intensity = 2;
             else torch.intensity = 0;
             return false;
         }

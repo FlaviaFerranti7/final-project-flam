@@ -305,7 +305,7 @@ var animate = function () {
     }
     else if (currentObject.getConditionedAnimated() && !enableConditionedAnimation) {
       actionPanel.style.display = "block";
-      actionPanel.childNodes[1].innerHTML = "To interact with this object you need " + currentObject.getSubjectAction();
+      actionPanel.childNodes[1].innerHTML = "To interact with this object you need something"; //+ currentObject.getSubjectAction();
     }
     else if (currentObject.getConditionedAnimated() && enableConditionedAnimation) {
       move = true;
@@ -400,8 +400,6 @@ var animate = function () {
     }
   }
   renderer.render(scene, camera);
-  console.log(steps);
-  console.log("g",garden);
 };
 
 animate();

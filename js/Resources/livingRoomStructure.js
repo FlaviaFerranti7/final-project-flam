@@ -237,7 +237,10 @@ function createLivingRoom(gridSize) {
         root.scale.set(1.5, 1.5, 1.5);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var obj = new Thing(root, null, null, false, true, null, null);
+        var animation = () => {
+            enableConditionedAnimation = true;
+        };
+        var obj = new Thing(root, animation, null, false, true, "DOOR_ENTRY", null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
@@ -265,15 +268,18 @@ function createLivingRoom(gridSize) {
         root.position.x = -50.0;
         root.position.y = 7.0;
         root.position.z = 35.0;
-        root.scale.set(0.005, 0.005, 0.005);
+        root.scale.set(0.008, 0.008, 0.008);
         root.rotateZ(degToRad(90));
         root.rotateY(degToRad(90));
         root.name = 'SCISSORS';
         root.traverse((child) => child.castShadow = true);
-        var obj = new Thing(root, null, null, false, true, null, null);
+        recursiveChild(root, collidableObjects);
+        var animation = () => {
+            enableConditionedAnimation = true;
+        };
+        var obj = new Thing(root, animation, null, false, true, "WINDOW_DOORS", null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
-        recursiveChild(root, collidableObjects);
         scene.add(root);
     });
 
