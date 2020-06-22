@@ -140,18 +140,22 @@ function listenForPlayerMovement() {
 
       case 87: // w
         moveForward = true;
+        if(!walk.isPlaying) walk.play();
         break;
 
       case 83: // s
         moveBackward = true;
+        if(!walk.isPlaying) walk.play();
         break;
 
       case 65: // a 
         moveLeft = true;
+        if(!walk.isPlaying) walk.play();
         break;
 
       case 68: // d
         moveRight = true;
+        if(!walk.isPlaying) walk.play();
         break;
 
       case 32: // space
@@ -202,18 +206,22 @@ function listenForPlayerMovement() {
 
       case 87: // w
         moveForward = false;
+        walk.stop();
         break;
 
       case 83: // s
         moveBackward = false;
+        walk.stop();
         break;
 
       case 65: // a 
         moveLeft = false;
+        walk.stop();
         break;
 
       case 68: // d
         moveRight = false;
+        walk.stop();
         break;
     }
 

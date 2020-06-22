@@ -70,7 +70,7 @@ var moveRight = false;
 var playerVelocity = new THREE.Vector3();
 
 // How fast the player will move
-var PLAYERSPEED = 400.0;
+var PLAYERSPEED = 200.0;
 var PLAYERCOLLISIONDISTANCE = 5;
 var collidableObjects = [];
 
@@ -146,6 +146,19 @@ marker.position.set(0, 0, -0.5);
 
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
+
+/* ------------------------- AUDIO ------------------------- */
+
+var listener = new THREE.AudioListener();
+
+var walk = new THREE.Audio( listener );
+
+var audioLoader = new THREE.AudioLoader();
+audioLoader.load( '../audio/walkOnTheWood.ogg', function( buffer ) {
+	walk.setBuffer( buffer );
+	walk.setLoop( true );
+	walk.setVolume( 0.5 );
+});
 
 /* ------------------------- TORCH SPOTLIGHT ------------------------- */
 
