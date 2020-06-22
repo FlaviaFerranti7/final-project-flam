@@ -145,7 +145,7 @@ function createRoom2(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
-            if (root.getObjectByName('Cube001').position.y == -1.5) {
+            if (root.getObjectByName('Cube001').position.y == -1.05) {
                 // bullet = null;
                 // battery = null;
                 return false;
