@@ -268,25 +268,27 @@ function createHallway(gridSize) {
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
             if (gun.position.x == -25.5 && root.getObjectByName('stoli001_szuflada').position.z == 0.5) {
-                gun = null;
                 return false;
             }
             if (move) {
                 gun.position.x = interpolation(-23.5, -25.5, 0, 5, t);
-                root.getObjectByName('stoli001_szuflada').position.z = interpolation(0, 0.5, 0, 5, t);
+                root.getObjectByName('stoli001_szuflada').position.z = interpolation(0.0, 0.5, 0, 5, t);
                 return true;
             }
             return false;
         };
-        // var reverseAnimation = (t, move) => {
-        //     if (root.getObjectByName('stoli001_szuflada').position.z == 0.0) return false;
-        //     if (move) {
-        //         root.getObjectByName('stoli001_szuflada').position.z = interpolation(0.5, 0, 0, 5, t);
-        //         return true;
-        //     }
-        //     return false;
-        // };
-        var obj = new Thing(root, animation, null, false, false, null, null);
+        var reverseAnimation = (t, move) => {
+            if (root.getObjectByName('stoli001_szuflada').position.z == 0.0) {
+                return false;
+            }
+            if (move) {
+                gun.position.x = interpolation(-25.5, -23.5, 0, 5, t);
+                root.getObjectByName('stoli001_szuflada').position.z = interpolation(0.5, 0.0, 0, 5, t);
+                return true;
+            }
+            return false;
+        };
+        var obj = new Thing(root, animation, reverseAnimation, false, false, null, null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         hallway.add(root);

@@ -151,13 +151,13 @@ window.addEventListener('resize', onWindowResize, false);
 
 var listener = new THREE.AudioListener();
 
-var walk = new THREE.Audio( listener );
+var walk = new THREE.Audio(listener);
 
 var audioLoader = new THREE.AudioLoader();
-audioLoader.load( '../audio/walkOnTheWood.ogg', function( buffer ) {
-	walk.setBuffer( buffer );
-	walk.setLoop( true );
-	walk.setVolume( 0.5 );
+audioLoader.load('../audio/walkOnTheWood.ogg', function (buffer) {
+  walk.setBuffer(buffer);
+  walk.setLoop(true);
+  walk.setVolume(0.5);
 });
 
 /* ------------------------- TORCH SPOTLIGHT ------------------------- */
@@ -274,7 +274,7 @@ var animate = function () {
       }
       functionIsRunning = currentObject.executeAnimation(t, move);
     }
-    else if(currentObject.getConditionedAnimated() && !enableConditionedAnimation) {
+    else if (currentObject.getConditionedAnimated() && !enableConditionedAnimation) {
       actionPanel.style.display = "block";
       actionPanel.childNodes[1].innerHTML = "To interact with this object you need " + currentObject.getSubjectAction();
     }
@@ -323,6 +323,12 @@ var animate = function () {
         collect = false;
         insertElem = false;
       }
+    }
+    else if ((move || (collect && insertElem)) && !functionIsRunning && currentObject.getReverseAnimation() != null) {
+      if (currentObject.getFlagDoubleAction()) currentObject.setFlagDoubleAction(false);
+      else currentObject.setFlagDoubleAction(true);
+      currentObject = null;
+
     }
     if (!move) {
       hideDivSafe = false;

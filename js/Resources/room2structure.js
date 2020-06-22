@@ -158,7 +158,17 @@ function createRoom2(gridSize) {
             }
             return false;
         };
-        var obj = new Thing(root, animation, null, false, false, null, null);
+        var reverseAnimation = (t, move) => {
+            if (root.getObjectByName('Cube001').position.y == 0) {
+                return false;
+            }
+            if (move) {
+                root.getObjectByName('Cube001').position.y = interpolation(-1.05, 0, 0, 5, t);
+                return true;
+            }
+            return false;
+        };
+        var obj = new Thing(root, animation, reverseAnimation, false, false, null, null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         room.add(root);
