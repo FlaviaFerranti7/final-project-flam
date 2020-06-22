@@ -145,12 +145,14 @@ function createGarden(gridSize) {
     //     scene.add(root);
     // });;
 
+
+
     const gltfLoaderShears = new THREE.GLTFLoader();
     gltfLoaderShears.load("../../model3D/Garden/Shears/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = -50.0;
-        root.position.y = 5.2;
-        root.position.z = 69.0;
+        root.position.x = 60.0;
+        root.position.y = 6.2;
+        root.position.z = 150.0;
         root.scale.set(0.05, 0.05, 0.05);
         root.rotateX(degToRad(90));
         root.name = 'SCISSORS';
@@ -179,38 +181,28 @@ function createGarden(gridSize) {
     const gltfLoaderParkTable = new THREE.GLTFLoader();
     gltfLoaderParkTable.load("../../model3D/Garden/ParkTable/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = -50.0;
-        root.position.y = 2.0;
-        root.position.z = 70.0;
+        root.position.x = 60.0;
+        root.position.y = 3.0;
+        root.position.z = 150.0;
         root.scale.set(5, 8, 5);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         scene.add(root);
     });;
 
-    // const gltfLoaderFountain = new THREE.GLTFLoader();
-    // gltfLoaderFountain.load("../../model3D/Garden/Fountain/scene.gltf", (gltf) => {
-    //     const root = gltf.scene;
-    //     root.position.x = 60.0;
-    //     root.position.y = 4.0;
-    //     root.position.z = 150.0;
-    //     root.scale.set(2, 2, 2);
-    //     root.traverse((child) => child.castShadow = true);
-    //     recursiveChild(root, collidableObjects);
-    //     scene.add(root);
-    // });;
-
-    // const gltfLoaderTree = new THREE.GLTFLoader();
-    // gltfLoaderTree.load("../../model3D/Garden/Tree/scene.gltf", (gltf) => {
-    //     const root = gltf.scene;
-    //     root.position.x = -90.0;
-    //     root.position.y = 0.0;
-    //     root.position.z = 180.0;
-    //     root.scale.set(0.005, 0.005, 0.005);
-    //     root.traverse((child) => child.castShadow = true);
-    //     recursiveChild(root, collidableObjects);
-    //     scene.add(root);
-    // });
+   
+    const gltfLoaderRockingChair = new THREE.GLTFLoader();
+    gltfLoaderRockingChair.load("../../model3D/Garden/RockingChair/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -50.0;
+        root.position.y = 2.0;
+        root.position.z = 70.0;
+        root.scale.set(10, 10, 10);
+        // root.rotateY(degToRad(180));
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
 
     const gltfLoaderMonster = new THREE.GLTFLoader();
     gltfLoaderMonster.load("../../model3D/Garden/Monster/Wolf-Blender-2.82a.gltf", (gltf) => {
