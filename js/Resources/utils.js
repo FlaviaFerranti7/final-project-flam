@@ -175,13 +175,25 @@ function listenForPlayerMovement() {
         }
         break;
 
+      case 48:
       case 49:
       case 50:
       case 51:
       case 52:
-      case 53:
-        if (backpack.getOpen()) backpack.useObject(event.keyCode - 49, currentObject);
+        if (backpack.getOpen()) backpack.useObject(event.keyCode - 48, currentObject);
         break;
+      
+      case 53:
+      case 54:
+      case 55:
+      case 56:
+      case 57:
+        if(backpack.getOpen()) {
+          alert("Discarding this object It will go back to its original place", 1500);
+          backpack.discardObject(event.keyCode - 53, currentObject);
+        }
+        break;
+
     }
   };
 

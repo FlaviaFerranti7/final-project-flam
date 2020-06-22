@@ -192,7 +192,7 @@ body {
     align-items: flex-start;
     flex-wrap: wrap;
     width: 290px;
-    height: 94px;
+    height: 150px;
     position: absolute;
     top: 70%;
     right: 50px;
@@ -247,4 +247,8 @@ body {
 .smalltext{
 	padding-top: 5px;
 	font-size: 16px;
+}
+
+.red-color {
+    color: red;
 }

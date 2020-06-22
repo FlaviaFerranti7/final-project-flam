@@ -2,10 +2,10 @@
 
 class Backpack {
     constructor(numElem) {
-        this.objects = new Array(numElem);
+        this.objects = new Array();
+        for(var i = 0; i < numElem; i ++) this.objects.push(null);
         this.numElem = 0;
         this.open = false;
-        this.freePosition = this.numElem;
 
         document.getElementById("backpack").style.display = "block";
     }
@@ -59,22 +59,11 @@ class Backpack {
     }
 
     insertObject(object) {
-        console.log(this.freePosition);
-        console.log(this.numElem);
-        if(this.freePosition == this.numElem) {
-            this.objects.splice(this.numElem, 0, object);
-            this.numElem ++;
-            document.getElementById("item" + this.numElem).innerHTML = 
-                "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
-        }
-        else {
-            this.objects.splice(this.freePosition, 1, object);
-            console.log(this.objects);
-            document.getElementById("item" + (this.freePosition + 1)).innerHTML = 
-                "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
-            this.numElem ++;
-        }
-        this.freePosition = this.numElem;
+        var index = this.findFreePosition(); 
+        this.objects.splice(index, 1, object);
+        document.getElementById("item" + (index + 1)).innerHTML = 
+            "<img src='images/" + object.getObjectName().toLowerCase() + ".png' />";
+        this.numElem ++;
     }
 
     updateObject(index, object) {
@@ -92,6 +81,10 @@ class Backpack {
         this.remove(this.objects.indexOf(object));
     }
 
+    findFreePosition() {
+        return this.objects.indexOf(this.objects.find(x => x == null));
+    }
+
     useObject(num, currentObject) {
         var objectOfBackpack = this.objects[num];
         if(objectOfBackpack == null) {
@@ -102,7 +95,6 @@ class Backpack {
                     alert("you can't use " + objectOfBackpack.getObjectName());
                 }  
                 else{
-                    this.freePosition = this.objects.indexOf(objectOfBackpack);
                     objectOfBackpack.setIsElemOfBackpack(false);
                     objectOfBackpack.executeAnimation();
                     this.removeObj(objectOfBackpack);
@@ -116,6 +108,19 @@ class Backpack {
                 objectOfBackpack.setIsElemOfBackpack(false);
                 objectOfBackpack.executeAnimation();
             } 
+        }
+    }
+
+    discardObject(num, currentObject) {
+        var objectOfBackpack = this.objects[num];
+        if(objectOfBackpack == null) {
+            alert("no selectable object");
+        } else {
+            this.removeObj(objectOfBackpack);
+            scene.add(objectOfBackpack.getObject());
+            objectsAnimated.push(objectOfBackpack);
+            objectsRaycaster.push(objectOfBackpack.getObject());
+            this.numElem -= 1;
         }
     }
 }
