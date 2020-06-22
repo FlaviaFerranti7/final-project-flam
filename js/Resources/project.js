@@ -261,6 +261,10 @@ var animate = function () {
       }
       functionIsRunning = currentObject.executeAnimation(t, move);
     }
+    else if(currentObject.getConditionedAnimated() && !enableConditionedAnimation) {
+      actionPanel.style.display = "block";
+      actionPanel.childNodes[1].innerHTML = "To interact with this object you need " + currentObject.getSubjectAction();
+    }
     else if (currentObject.getConditionedAnimated() && enableConditionedAnimation) {
       move = true;
       functionIsRunning = currentObject.executeAnimation(t, move);

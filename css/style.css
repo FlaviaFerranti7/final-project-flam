@@ -54,16 +54,16 @@ body {
     position: absolute;
     height: 80px;
     width: 100%;
-    bottom: 0;
+    top: 80%;
     left: 0;
     z-index: 99;
     display: none;
 }
 
 #action span {
-    display: block;
-    width: 10%;
-    padding: 10px;
+    display: inline-block;
+    width: auto;
+    padding: 15px;
     margin: 0px auto;
     margin-top: 20px;
     background-color: #ffffff;
