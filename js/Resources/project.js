@@ -125,7 +125,6 @@ var livingRoom;
 // var livingRoomLoader = function () {
 //   livingRoom = createLivingRoom(80);
 //   scene.add(livingRoom);
-
 //   return true;
 // }
 
@@ -258,8 +257,9 @@ var animate = function () {
       remove.style.display = "none";
     }
   }
-
+  // console.log(intersects);
   if (currentObject != null) {
+    console.log(currentObject);
     if((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")){
       actionPanel.style.display = "block";
       enableAction = true;
