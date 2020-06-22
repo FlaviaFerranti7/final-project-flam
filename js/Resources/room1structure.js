@@ -73,19 +73,9 @@ function createRoom1(gridSize) {
     var wall1 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0), undefined, [materialWall, materialWallP], [door]);
     room.add(wall1);
 
-    var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, 180, 0), [materialWall, materialWallB], []);
-    room.add(wall2);
-
     var wall3Door = createHole(8.0, 15.0, 7.5, 0.0);
     var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, -90, 0), [materialWall, materialWallH], [wall3Door]);
     room.add(wall3);
-
-    var wall4Window = createHole(10.0, 7.0, 7.5, 9.0);
-    var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, size / 2.0), new THREE.Vector3(0, 90, 0), [materialWall, materialWallB], [wall4Window]);
-    room.add(wall4);
-
-    var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, size / 2), new THREE.Vector3(270, 0, 0), [materialRoof, materialWallR], []);
-    room.add(roof);
 
     /* SPOTLIGHT ROOM 1 */
 
@@ -163,19 +153,6 @@ function createRoom1(gridSize) {
             objectLamp.rotateY(degToRad(90));
             room.add(objectLamp);
         });
-    });
-
-    const gltfLoaderWindow = new THREE.GLTFLoader();
-    gltfLoaderWindow.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = 20.0;
-        root.position.y = 9;
-        root.position.z = 7.5;
-        root.scale.set(0.087, 0.035, 0.05);
-        root.rotateY(degToRad(270));
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        room.add(root);
     });
 
     const gltfLoaderBed = new THREE.GLTFLoader();
@@ -296,7 +273,7 @@ function createRoom1(gridSize) {
     gltfLoaderTorch.load("../../model3D/Room1/Torch/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 16;
-        root.position.y = 1.0;
+        root.position.y = 0.35;
         root.position.z = 5.0;
         root.scale.set(0.006, 0.006, 0.006);
         root.name = "TORCH";

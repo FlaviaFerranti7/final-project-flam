@@ -64,21 +64,11 @@ function createHallway(gridSize) {
     var floor = createPlane(size / 4, size, new THREE.Vector3(-size / 2.67, 0.0, size / 4), new THREE.Vector3(-90, 0, 0), [materialFloor]);
     hallway.add(floor);
 
-    var wall2Window = createHole(10.0, 7.0, 5.0, 9.0);
-    var wall2 = createShape(0.0, size / 4, size / 4, new THREE.Vector3(-size / 2.0, 0.0, 0.75 * size), undefined, [materialWallH, materialWallB], [wall2Window]);
-    hallway.add(wall2);
-
     var wall3Door = createHole(8.0, 15.5, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 4, size, new THREE.Vector3(-size / 2.0, 0.0, -0.25 * size), new THREE.Vector3(0, -90, 0), [materialWallH, materialWallL], [wall3Door]);
     wallHL = wall3;
     recursiveChild(wall3, collidableObjects);
     scene.add(wall3);
-
-    var wall4 = createShape(0.0, size / 4, size / 4, new THREE.Vector3(-size / 4.0, 0.0, -0.25 * size), new THREE.Vector3(0, 180, 0), [materialWallH, materialWallB], []);
-    hallway.add(wall4);
-
-    var roof = createShape(0.0, size, size / 4, new THREE.Vector3(-size / 2, size / 4, 0.75 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallR], []);
-    hallway.add(roof);
 
     /* SPOTLIGHT HALLWAY */
 
@@ -242,19 +232,6 @@ function createHallway(gridSize) {
         });
     });
 
-    const gltfLoaderWindow = new THREE.GLTFLoader();
-    gltfLoaderWindow.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = -30.0;
-        root.position.y = 9;
-        root.position.z = 60;
-        root.scale.set(0.087, 0.035, 0.05);
-        root.rotateY(degToRad(180));
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        hallway.add(root);
-    });
-
     const gltfLoaderConsole = new THREE.GLTFLoader();
     gltfLoaderConsole.load("../../model3D/Hallway/Console/scene.gltf", (gltf) => {
         const root = gltf.scene;
@@ -267,9 +244,7 @@ function createHallway(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
-            if (gun.position.x == -25.5 && root.getObjectByName('stoli001_szuflada').position.z == 0.5) {
-                return false;
-            }
+            if (gun.position.x == -25.5 && root.getObjectByName('stoli001_szuflada').position.z == 0.5) return false;
             if (move) {
                 gun.position.x = interpolation(-23.5, -25.5, 0, 5, t);
                 root.getObjectByName('stoli001_szuflada').position.z = interpolation(0.0, 0.5, 0, 5, t);
@@ -278,9 +253,7 @@ function createHallway(gridSize) {
             return false;
         };
         var reverseAnimation = (t, move) => {
-            if (root.getObjectByName('stoli001_szuflada').position.z == 0.0) {
-                return false;
-            }
+            if (root.getObjectByName('stoli001_szuflada').position.z == 0.0) return false;
             if (move) {
                 gun.position.x = interpolation(-25.5, -23.5, 0, 5, t);
                 root.getObjectByName('stoli001_szuflada').position.z = interpolation(0.5, 0.0, 0, 5, t);

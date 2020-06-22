@@ -62,19 +62,9 @@ function createRoom2(gridSize) {
     var floor = createPlane(size, size, new THREE.Vector3(0.0, 0.0, size), new THREE.Vector3(-90, 0, 0), [materialFloor]);
     room.add(floor);
 
-    var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, 1.5 * size), undefined, [materialWall, materialWallB], []);
-    room.add(wall2);
-
     var wall3Door = createHole(8.0, 15.5, 25.0, 0.0);
     var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, 0.5 * size), new THREE.Vector3(0, -90, 0), [materialWall, materialWallH], [wall3Door]);
     room.add(wall3);
-
-    var wall4Window = createHole(10.0, 7.0, 7.5, 9.0);
-    var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, 1.5 * size), new THREE.Vector3(0, 90, 0), [materialWall, materialWallB], [wall4Window]);
-    room.add(wall4);
-
-    var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, 1.5 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallR], []);
-    room.add(roof);
 
     /* SPOTLIGHT ROOM2 */
 
@@ -145,24 +135,18 @@ function createRoom2(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
-            if (root.getObjectByName('Cube001').position.y == -1.05) {
-                // bullet = null;
-                // battery = null;
-                return false;
-            }
+            if (root.getObjectByName('Cube001').position.y == -1.05) return false;
             if (move) {
-                // bullet.position.z = interpolation(54.5, 53, 0, 5, t);
-                // battery.position.z = interpolation(56.5, 53, 0, 5, t);
+                bullet.position.z = interpolation(54.5, 53, 0, 5, t);
                 root.getObjectByName('Cube001').position.y = interpolation(0, -1.05, 0, 5, t);
                 return true;
             }
             return false;
         };
         var reverseAnimation = (t, move) => {
-            if (root.getObjectByName('Cube001').position.y == 0) {
-                return false;
-            }
+            if (root.getObjectByName('Cube001').position.y == 0) return false;
             if (move) {
+                bullet.position.z = interpolation(53, 54.5, 0, 5, t);
                 root.getObjectByName('Cube001').position.y = interpolation(-1.05, 0, 0, 5, t);
                 return true;
             }
@@ -271,19 +255,6 @@ function createRoom2(gridSize) {
         });
     });
 
-    const gltfLoaderWindow = new THREE.GLTFLoader();
-    gltfLoaderWindow.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = 20.0;
-        root.position.y = 9;
-        root.position.z = 47.5;
-        root.scale.set(0.087, 0.035, 0.05);
-        root.rotateY(degToRad(270));
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        room.add(root);
-    });
-
     const gltfLoaderSafe = new THREE.GLTFLoader();
     gltfLoaderSafe.load("../../model3D/Room2/Safe/scene.gltf", (gltf) => {
         const root = gltf.scene;
@@ -363,7 +334,7 @@ function createRoom2(gridSize) {
         const root = gltf.scene;
         bullet = root;
         root.position.x = 12.5;
-        root.position.y = 4.8;
+        root.position.y = 4;
         root.position.z = 54.5;
         root.name = 'BULLET';
         root.scale.set(0.2, 0.2, 0.2);
@@ -380,8 +351,8 @@ function createRoom2(gridSize) {
         const root = gltf.scene;
         battery = root;
         root.position.x = 12.0;
-        root.position.y = 4.3;
-        root.position.z = 56.5;
+        root.position.y = 0.8;
+        root.position.z = 55;
         root.scale.set(0.005, 0.006, 0.005);
         root.rotateX(degToRad(-70));
         root.name = "BATTERY";

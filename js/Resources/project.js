@@ -90,6 +90,11 @@ const colorSpotlight = 0xF5D033;
 const intensitySpotlight = 0.8;
 const penumbra = 0.6;
 
+/* ------------------------- HOUSE ------------------------- */
+var house;
+house = createHouse();
+scene.add(house);
+
 /* ------------------------- FIRST ROOM ------------------------- */
 var room1;
 room1 = createRoom1(40);
@@ -341,12 +346,12 @@ var animate = function () {
     loadingR2 = room2Loader();
     steps.splice(0, 1);
   }
-  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingH == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 1 && loadingH == false) {
     alert("Level 2 passed", 7000);
     loadingH = hallwayLoader();
-    steps.splice(0, 1);
+    steps.splice(1, 1);
   }
-  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 1 && loadingLR == false) {
     var elem = document.getElementById("LR-message");
     elem.style.display = "block";
     elem.childNodes[1].innerHTML = "";
@@ -355,7 +360,7 @@ var animate = function () {
     }, 7000);
     if (removeRooms()) {
       loadingLR = livingRoomLoader();
-      steps.splice(0, 1);
+      steps.splice(1, 1);
       garden = true;
     }
   }
@@ -371,6 +376,8 @@ var animate = function () {
     }
   }
   renderer.render(scene, camera);
+  console.log(steps);
+  console.log("g",garden);
 };
 
 animate();
