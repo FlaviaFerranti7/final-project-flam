@@ -394,10 +394,6 @@ function insertCode() {
     backpack.setOpen(false);
   }
 
-  // txtInput.onkeypress = function (e) {
-  //   var charCode = e.which;
-  //   if (charCode < 48 || charCode > 57) e.preventDefault();
-  // }
 }
 
 function getTimeRemaining(endtime) {

@@ -286,6 +286,10 @@ var animate = function () {
       }
       if (currentObject.getObjectName() == "SHEETMUSIC") {
         sheetMessage.style.display = "block";
+        sheetMessage.childNodes[1].innerHTML = "";
+        setTimeout(() => {
+          sheetMessage.style.display = "none";
+        }, 5000);
       }
     }
     else {
