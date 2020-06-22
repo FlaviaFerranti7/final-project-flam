@@ -212,7 +212,15 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(-90));
         root.name = 'VIOLIN';
         root.traverse((child) => child.castShadow = true);
-        var obj = new Thing(root, null, null, false, true, null, "SHEETMUSIC", true);
+
+        var animation = () => {
+            if(!violin.isPlaying) violin.play();
+            else violin.pause();
+
+            return false;
+        }
+
+        var obj = new Thing(root, animation, null, false, true, null, "SHEETMUSIC", true);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         recursiveChild(root, collidableObjects);

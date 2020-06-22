@@ -283,7 +283,7 @@ function createRoom1(gridSize) {
         var animation = () => {
             if(torch.intensity == 0) torch.intensity = 1;
             else torch.intensity = 0;
-            return true;
+            return false;
         }
         var obj = new Thing(root, animation, null, false, true, null, "BATTERY", true);
         objectsAnimated.push(obj);
