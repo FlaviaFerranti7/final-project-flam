@@ -157,13 +157,29 @@ window.addEventListener('resize', onWindowResize, false);
 var listener = new THREE.AudioListener();
 
 var walk = new THREE.Audio(listener);
+var openDoor = new THREE.Audio(listener);
+var closeDoor = new THREE.Audio(listener);
 
 var audioLoader = new THREE.AudioLoader();
-audioLoader.load('../audio/walkOnTheWood.ogg', function (buffer) {
+audioLoader.load('../audio/walk/walkOnTheWood.ogg', function (buffer) {
   walk.setBuffer(buffer);
   walk.setLoop(true);
   walk.setVolume(0.5);
 });
+
+var openDoorLoader = new THREE.AudioLoader();
+openDoorLoader.load('../audio/door/open.ogg', function (buffer) {
+  openDoor.setBuffer(buffer);
+  openDoor.setVolume(0.8);
+});
+
+var closeDoorLoader = new THREE.AudioLoader();
+closeDoorLoader.load('../audio/door/close.ogg', function (buffer) {
+  closeDoor.setBuffer(buffer);
+  closeDoor.setVolume(1);
+});
+
+
 
 /* ------------------------- TORCH SPOTLIGHT ------------------------- */
 

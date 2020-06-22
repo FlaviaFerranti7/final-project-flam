@@ -211,6 +211,9 @@ function createRoom2(gridSize) {
             var animation = (t, move) => {
                 if (objectDoor.children[0].rotation.z == -degToRad(90)) return false;
                 if (move) {
+                    if(t == 0) {
+                        openDoor.play();
+                    } 
                     objectDoor.children[0].rotation.z = interpolation(0, -degToRad(90), 0, 25, t);
                     objectDoor.children[0].position.y = interpolation(0, -25, 0, 10, t);
                     objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
