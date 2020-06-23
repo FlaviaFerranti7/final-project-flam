@@ -22,7 +22,7 @@ var controlsEnabled = false;
 var blocker = document.getElementById('blocker');
 getPointerLock();
 controls = new THREE.PointerLockControls(camera, container);
-controls.getObject().position.set(10.5, 8, 0);
+controls.getObject().position.set(-140, 8, 0);//10.5, 8, 0
 controls.getObject().rotation.set(0, 1.57, 0);
 scene.add(controls.getObject());
 
@@ -74,12 +74,15 @@ var PLAYERSPEED = 200.0;
 var PLAYERCOLLISIONDISTANCE = 5;
 var collidableObjects = [];
 
+//for the monster
+var monster;
+var t1 = 0;
 
 var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 1;  //1
+const intensityAmbient = 10;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -97,42 +100,43 @@ scene.add(house);
 
 /* ------------------------- FIRST ROOM ------------------------- */
 var room1;
-room1 = createRoom1(40);
-scene.add(room1);
+// room1 = createRoom1(40);
+// scene.add(room1);
 
 /* ------------------------- SECOND ROOM ------------------------- */
 var room2;
-var room2Loader = function () {
-  room2 = createRoom2(40);
-  scene.add(room2);
-  return true;
-}
+// var room2Loader = function () {
+//   room2 = createRoom2(40);
+//   scene.add(room2);
+
+//   return true;
+// }
 
 /* --------------------------- HALLWAY --------------------------- */
 var hallway;
 var wallHL;
-var doorHL;
-var hallwayLoader = function () {
-  hallway = createHallway(80);
-  scene.add(hallway);
-  return true;
-}
+// var hallwayLoader = function () {
+//   hallway = createHallway(80);
+//   scene.add(hallway);  
+
+//   return true;
+// }
 
 /* ------------------------- LIVING-ROOM ------------------------- */
 var livingRoom;
-var livingRoomLoader = function () {
-  livingRoom = createLivingRoom(80);
-  scene.add(livingRoom);
-  return true;
-}
+// var livingRoomLoader = function () {
+//   livingRoom = createLivingRoom(80);
+//   scene.add(livingRoom);
+//   return true;
+// }
 
 /* ------------------------- GARDEN ------------------------- */
 var garden;
-var gardenLoader = function () {
+// var gardenLoader = function () {
   garden = createGarden(380);
   scene.add(garden);
-  return true;
-}
+  // return true;
+// }
 
 /* ------------------------- LISTENER -------------------------- */
 
@@ -214,21 +218,25 @@ var associatedObject;
 
 var animate = function () {
 
-  /*
-  setTimeout(function () {
-    requestAnimationFrame(animate);
-  }, 1000 / 30);
-  */
+  // setTimeout(function () {
+  //   requestAnimationFrame(animate);
+  // }, 1000 / 30);
+  
 
   requestAnimationFrame(animate);
 
   var delta = clock.getDelta();
   animatePlayer(delta);
+  console.log(monster);
+  if(monster != undefined){
+    animateMonster();
+  }
+  
 
   raycaster.setFromCamera(marker.position, camera);
   var intersects = raycaster.intersectObjects(objectsRaycaster, true);
 
-  if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
+  if (intersects.length > 0 && intersects[0].distance >= 4 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
 
       if (INTERSECTED && !functionIsRunning) {
@@ -240,7 +248,6 @@ var animate = function () {
       }
 
       INTERSECTED = intersects[0].object;
-
       for (var i = 0; i < objectsAnimated.length; i++) {
         objectsAnimated[i].getObject().traverse((child) => {
           if (intersects[0].object == child) {
@@ -276,9 +283,10 @@ var animate = function () {
       remove.style.display = "none";
     }
   }
-
+  // console.log(intersects);
   if (currentObject != null) {
-    if ((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")) {
+    console.log(currentObject);
+    if((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")){
       actionPanel.style.display = "block";
       enableAction = true;
       if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY") {

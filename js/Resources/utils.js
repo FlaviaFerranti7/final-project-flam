@@ -261,6 +261,24 @@ function animatePlayer(delta) {
   }
 }
 
+function animateMonster() {
+ 
+  monster.position.z = interpolation(35, 0, 0, 10, t1);
+  if(t1 > 10){
+    monster.rotation.y = interpolation(degToRad(0), degToRad(180), 10, 13, t1);
+  }
+  if(t1 > 13){
+    monster.position.z = interpolation(0, 35, 13, 23, t1);
+  }
+  if(t1 > 23){
+    monster.rotation.y = interpolation(degToRad(180), degToRad(0), 23, 26, t1);
+  }
+  if(t1 > 26){
+    t1 = 0;
+  }
+  t1 += 0.1;
+}
+
 
 function detectPlayerCollision() {
   // The rotation matrix to apply to our direction vector
@@ -300,6 +318,7 @@ function detectPlayerCollision() {
   }
 }
 
+
 function rayIntersect(ray, distance) {
   var intersects = ray.intersectObjects(collidableObjects);
   for (var i = 0; i < intersects.length; i++) {
@@ -320,6 +339,7 @@ function recursiveChild(group, collidableObjects) {
     }
   });
 }
+
 
 function dumpObject(obj, lines = [], isLast = true, prefix = '') {
   const localPrefix = isLast ? '└─' : '├─';
