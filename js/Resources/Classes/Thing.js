@@ -74,21 +74,15 @@ class Thing {
     }
 
     executeAnimation(t = null, move = null) {
-        console.log(this.flagDoubleAction);
         if (this.isElemOfBackpack) scene.remove(this.object);
         else if (this.flagDoubleAction) {
             var ret = this.reverseAnimation(t, move);
-            // if (!ret) {
-            //     console.log("ciao");
-            //     this.flagDoubleAction = false;
-            // }
             return ret;
         }
         else {
             var ret = false;
             if (t == null && move == null) ret = this.animation();
             else ret = this.animation(t, move);
-            // if (!ret && this.getReverseAnimation() != null) this.flagDoubleAction = true;
             return ret;
         }
         return false;

@@ -96,6 +96,11 @@ const colorSpotlight = 0xF5D033;
 const intensitySpotlight = 0.8;
 const penumbra = 0.6;
 
+/* ------------------------- HOUSE ------------------------- */
+var house;
+house = createHouse();
+scene.add(house);
+
 /* ------------------------- FIRST ROOM ------------------------- */
 var room1;
 // room1 = createRoom1(40);
@@ -159,13 +164,37 @@ window.addEventListener('resize', onWindowResize, false);
 var listener = new THREE.AudioListener();
 
 var walk = new THREE.Audio(listener);
+var openDoor = new THREE.Audio(listener);
+var closeDoor = new THREE.Audio(listener);
+
+var violin = new THREE.Audio(listener);
 
 var audioLoader = new THREE.AudioLoader();
-audioLoader.load('../audio/walkOnTheWood.ogg', function (buffer) {
+audioLoader.load('../audio/walk/walkOnTheWood.ogg', function (buffer) {
   walk.setBuffer(buffer);
   walk.setLoop(true);
   walk.setVolume(0.5);
 });
+
+var openDoorLoader = new THREE.AudioLoader();
+openDoorLoader.load('../audio/door/open.ogg', function (buffer) {
+  openDoor.setBuffer(buffer);
+  openDoor.setVolume(0.8);
+});
+
+var closeDoorLoader = new THREE.AudioLoader();
+closeDoorLoader.load('../audio/door/close.ogg', function (buffer) {
+  closeDoor.setBuffer(buffer);
+  closeDoor.setVolume(1);
+});
+
+var violinLoader = new THREE.AudioLoader();
+violinLoader.load('../audio/violin/sound.ogg', function (buffer) {
+  violin.setBuffer(buffer);
+  violin.setVolume(1);
+});
+
+
 
 /* ------------------------- TORCH SPOTLIGHT ------------------------- */
 
@@ -268,6 +297,10 @@ var animate = function () {
       }
       if (currentObject.getObjectName() == "SHEETMUSIC") {
         sheetMessage.style.display = "block";
+        sheetMessage.childNodes[1].innerHTML = "";
+        setTimeout(() => {
+          sheetMessage.style.display = "none";
+        }, 5000);
       }
     }
     else {
@@ -287,7 +320,7 @@ var animate = function () {
     }
     else if (currentObject.getConditionedAnimated() && !enableConditionedAnimation) {
       actionPanel.style.display = "block";
-      actionPanel.childNodes[1].innerHTML = "To interact with this object you need " + currentObject.getSubjectAction();
+      actionPanel.childNodes[1].innerHTML = "To interact with this object you need something"; //+ currentObject.getSubjectAction();
     }
     else if (currentObject.getConditionedAnimated() && enableConditionedAnimation) {
       move = true;
@@ -352,12 +385,12 @@ var animate = function () {
     loadingR2 = room2Loader();
     steps.splice(0, 1);
   }
-  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingH == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 1 && loadingH == false) {
     alert("Level 2 passed", 7000);
     loadingH = hallwayLoader();
-    steps.splice(0, 1);
+    steps.splice(1, 1);
   }
-  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 1 && loadingLR == false) {
     var elem = document.getElementById("LR-message");
     elem.style.display = "block";
     elem.childNodes[1].innerHTML = "";
@@ -366,7 +399,7 @@ var animate = function () {
     }, 7000);
     if (removeRooms()) {
       loadingLR = livingRoomLoader();
-      steps.splice(0, 1);
+      steps.splice(1, 1);
       garden = true;
     }
   }

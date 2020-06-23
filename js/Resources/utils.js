@@ -140,22 +140,22 @@ function listenForPlayerMovement() {
 
       case 87: // w
         moveForward = true;
-        if(!walk.isPlaying) walk.play();
+        if (!walk.isPlaying) walk.play();
         break;
 
       case 83: // s
         moveBackward = true;
-        if(!walk.isPlaying) walk.play();
+        if (!walk.isPlaying) walk.play();
         break;
 
       case 65: // a 
         moveLeft = true;
-        if(!walk.isPlaying) walk.play();
+        if (!walk.isPlaying) walk.play();
         break;
 
       case 68: // d
         moveRight = true;
-        if(!walk.isPlaying) walk.play();
+        if (!walk.isPlaying) walk.play();
         break;
 
       case 32: // space
@@ -186,13 +186,13 @@ function listenForPlayerMovement() {
       case 52:
         if (backpack.getOpen()) backpack.useObject(event.keyCode - 48, currentObject);
         break;
-      
+
       case 53:
       case 54:
       case 55:
       case 56:
       case 57:
-        if(backpack.getOpen()) {
+        if (backpack.getOpen()) {
           alert("Discarding this object It will go back to its original place", 1500);
           backpack.discardObject(event.keyCode - 53, currentObject);
         }
@@ -439,10 +439,12 @@ function insertCode() {
     }
   }
 
-  // txtInput.onkeypress = function (e) {
-  //   var charCode = e.which;
-  //   if (charCode < 48 || charCode > 57) e.preventDefault();
-  // }
+  if (backpack !== null && backpack.getOpen()) {
+    document.getElementById("backpack").style.display = "block";
+    document.getElementById("backpack-objects").style.display = "none";
+    backpack.setOpen(false);
+  }
+
 }
 
 function getTimeRemaining(endtime) {
@@ -500,7 +502,6 @@ function removeRooms() {
 
 function removeLeaving() {
   scene.remove(livingRoom);
-  console.log("ciao");
   for (var i = 0; i < objectsAnimated.length; i++) {
     scene.remove(objectsAnimated[i].getObject());
     objectsAnimated.splice(i, 1);

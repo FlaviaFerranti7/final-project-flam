@@ -1,5 +1,6 @@
-function createLivingRoom(gridSize) {
+function createLivingRoom(gridSize) {    
     var size = gridSize;
+    recursiveChild(house, collidableObjects);
 
     // MATERIALS
     const textureFloor = new THREE.TextureLoader().load('../../images/parquet.jpg');
@@ -12,58 +13,18 @@ function createLivingRoom(gridSize) {
         side: THREE.DoubleSide,
     });
 
-    const textureWallB = new THREE.TextureLoader().load('../../images/brick.jpg');
-    textureWallB.wrapS = THREE.RepeatWrapping;
-    textureWallB.wrapT = THREE.RepeatWrapping;
-    textureWallB.repeat.set(0.1, 0.1);
-
-    const materialWallB = new THREE.MeshPhongMaterial({
-        map: textureWallB,
-    });
-
-    const textureWallL = new THREE.TextureLoader().load('../../images/livingRoom.jpg');
-    textureWallL.wrapS = THREE.RepeatWrapping;
-    textureWallL.wrapT = THREE.RepeatWrapping;
-    textureWallL.repeat.set(0.5, 0.5);
-
-    const materialWallL = new THREE.MeshPhongMaterial({
-        map: textureWallL,
-        side: THREE.BackSide,
-    });
-
     const textureWallR = new THREE.TextureLoader().load('../../images/roof.jpg');
     textureWallR.wrapS = THREE.RepeatWrapping;
     textureWallR.wrapT = THREE.RepeatWrapping;
     textureWallR.repeat.set(0.1, 0.1);
-
-    const materialWallR = new THREE.MeshPhongMaterial({
-        map: textureWallR,
-    });
-
-    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var livingRoom = new THREE.Group();
 
     var floor = createPlane(size * 3 / 4, size, new THREE.Vector3(-size * 0.8745, 0.0, size / 4), new THREE.Vector3(-90, 0, 0), [materialFloor]);
     livingRoom.add(floor);
 
-    var wall2Window = createHole(16.0, 15.0, 22.0, 0.0);
-    var wall2 = createShape(0.0, size / 4, size * 3 / 4, new THREE.Vector3(-size * 1.25, 0.0, 0.75 * size), undefined, [materialWallL, materialWallB], [wall2Window]);
-    livingRoom.add(wall2);
-
-    var wall3Door = createHole(12.0, 15.0, 34.0, 0.0);
-    var wall3 = createShape(0.0, size / 4, size, new THREE.Vector3(-size * 1.25, 0.0, -0.25 * size), new THREE.Vector3(0, -90, 0), [materialWallL, materialWallB], [wall3Door]);
-    scene.add(wall3);
-
-    var wall4 = createShape(0.0, size / 4, size * 3 / 4, new THREE.Vector3(-size / 2, 0.0, -0.25 * size), new THREE.Vector3(0, 180, 0), [materialWallL, materialWallB], []);
-    livingRoom.add(wall4);
-
-    var roof = createShape(0.0, size, size * 3 / 4, new THREE.Vector3(-size * 1.25, size / 4, 0.75 * size), new THREE.Vector3(-90, 0, 0), [materialRoof, materialWallR], []);
-    livingRoom.add(roof);
-
     recursiveChild(wallHL, collidableObjects);
     recursiveChild(doorHL, collidableObjects);
-    recursiveChild(wall3, collidableObjects);
 
     /* SPOTLIGHT LIVING ROOM */
 
@@ -104,80 +65,6 @@ function createLivingRoom(gridSize) {
             objectLamp.rotateY(degToRad(90));
             livingRoom.add(objectLamp);
         });
-    });
-
-    const gltfLoaderEntryDoor = new THREE.GLTFLoader();
-    gltfLoaderEntryDoor.load("../../model3D/LivingRoom/EntryDoor/scene.gltf", (gltf) => {
-        const root = gltf.scene.getObjectByName('group_1');
-        root.position.x = -99.5
-        root.position.y = 0.0;
-        root.position.z = 26;
-        root.name = "DOOR_ENTRY";
-        root.scale.set(0.17, 0.17, 0.162);
-        root.rotateX(degToRad(-90));
-        root.rotateZ(degToRad(90));
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        var animation = (t, move) => {
-            if (camera.position.x == root.position.x - 10) {
-                scene.remove(wall3);
-                scene.remove(root);
-                return false;
-            }
-            if (move) {
-                if (t >= 0 && t < 15) {
-                    camera.position.x = interpolation(cameraPos.x, -90, 0, 5, t);
-                    camera.position.z = interpolation(cameraPos.z, 19.5, 0, 5, t);
-                    camera.rotation.y = interpolation(cameraRot.y, 1.57, 0, 5, t);
-                    camera.rotation.x = 0;
-                    camera.rotation.z = 0;
-
-                    root.getObjectByName('group_5').rotation.z = interpolation(0.0, degToRad(-90), 0, 15, t);
-                    root.getObjectByName('group_5').position.x = interpolation(15.75, 12.5, 0, 15, t);
-                    root.getObjectByName('group_5').position.y = interpolation(0.03, 5, 0, 15, t);
-                }
-                if (t >= 15) {
-                    camera.position.x = interpolation(-90, root.position.x - 10, 15, 22, t);
-                }
-                return true;
-            }
-            return false;
-        };
-        var obj = new Thing(root, animation, null, false, false, null, null);
-        steps.push(obj);
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
-        scene.add(root);
-    });
-
-    const gltfLoaderWindowDoors = new THREE.GLTFLoader();
-    gltfLoaderWindowDoors.load("../../model3D/LivingRoom/WindowDoors/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = -77.95;
-        root.position.y = 0.0;
-        root.position.z = 60;
-        root.getObjectByName('Frame001_2').rotateY(degToRad(-9.5));
-        root.getObjectByName('Strips001_3').rotateY(degToRad(-9.5));
-        root.scale.set(2.015, 1.24, 1.5);
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        var animation = (t, move) => {
-            if (root.getObjectByName('Strips_1').rotation.y == degToRad(-145)) return false;
-            if (move) {
-                // right door
-                root.getObjectByName('Frame_0').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
-                root.getObjectByName('Strips_1').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
-                // left door
-                root.getObjectByName('Frame001_2').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
-                root.getObjectByName('Strips001_3').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
-                return true;
-            }
-            return false;
-        };
-        var obj = new Thing(root, animation, null, false, false, null, null);
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
-        livingRoom.add(root);
     });
 
     var mtlLoaderSofa = new THREE.MTLLoader();
@@ -301,7 +188,15 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(-90));
         root.name = 'VIOLIN';
         root.traverse((child) => child.castShadow = true);
-        var obj = new Thing(root, null, null, false, true, null, "SHEETMUSIC", true);
+
+        var animation = () => {
+            if(!violin.isPlaying) violin.play();
+            else violin.pause();
+
+            return false;
+        }
+
+        var obj = new Thing(root, animation, null, false, true, null, "SHEETMUSIC", true);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         recursiveChild(root, collidableObjects);
@@ -318,7 +213,10 @@ function createLivingRoom(gridSize) {
         root.scale.set(1.5, 1.5, 1.5);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var obj = new Thing(root, null, null, false, true, null, null);
+        var animation = () => {
+            enableConditionedAnimation = true;
+        };
+        var obj = new Thing(root, animation, null, false, true, "DOOR_ENTRY", null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
@@ -346,15 +244,18 @@ function createLivingRoom(gridSize) {
         root.position.x = -50.0;
         root.position.y = 7.0;
         root.position.z = 35.0;
-        root.scale.set(0.005, 0.005, 0.005);
+        root.scale.set(0.008, 0.008, 0.008);
         root.rotateZ(degToRad(90));
         root.rotateY(degToRad(90));
         root.name = 'SCISSORS';
         root.traverse((child) => child.castShadow = true);
-        var obj = new Thing(root, null, null, false, true, null, null);
+        recursiveChild(root, collidableObjects);
+        var animation = () => {
+            enableConditionedAnimation = true;
+        };
+        var obj = new Thing(root, animation, null, false, true, "WINDOW_DOORS", null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
-        recursiveChild(root, collidableObjects);
         scene.add(root);
     });
 

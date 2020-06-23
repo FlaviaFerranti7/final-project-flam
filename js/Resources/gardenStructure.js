@@ -1,5 +1,6 @@
 function createGarden(gridSize) {
     var size = gridSize;
+    recursiveChild(house, collidableObjects);
 
     // MATERIALS
     const textureFloor = new THREE.TextureLoader().load('../../images/garden.jpg');

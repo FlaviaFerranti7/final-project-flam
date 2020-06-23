@@ -35,15 +35,6 @@ function createRoom1(gridSize) {
         map: textureWallP,
     });
 
-    const textureWallB = new THREE.TextureLoader().load('../../images/brick.jpg');
-    textureWallB.wrapS = THREE.RepeatWrapping;
-    textureWallB.wrapT = THREE.RepeatWrapping;
-    textureWallB.repeat.set(0.1, 0.1);
-
-    const materialWallB = new THREE.MeshPhongMaterial({
-        map: textureWallB,
-    });
-
     const textureWallH = new THREE.TextureLoader().load('../../images/hallway.jpg');
     textureWallH.wrapS = THREE.RepeatWrapping;
     textureWallH.wrapT = THREE.RepeatWrapping;
@@ -52,17 +43,6 @@ function createRoom1(gridSize) {
     const materialWallH = new THREE.MeshPhongMaterial({
         map: textureWallH,
     });
-
-    const textureWallR = new THREE.TextureLoader().load('../../images/roof.jpg');
-    textureWallR.wrapS = THREE.RepeatWrapping;
-    textureWallR.wrapT = THREE.RepeatWrapping;
-    textureWallR.repeat.set(0.1, 0.1);
-
-    const materialWallR = new THREE.MeshPhongMaterial({
-        map: textureWallR,
-    });
-
-    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var room = new THREE.Group();
 
@@ -73,19 +53,9 @@ function createRoom1(gridSize) {
     var wall1 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, size / 2.0), undefined, [materialWall, materialWallP], [door]);
     room.add(wall1);
 
-    var wall2 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, 180, 0), [materialWall, materialWallB], []);
-    room.add(wall2);
-
     var wall3Door = createHole(8.0, 15.0, 7.5, 0.0);
     var wall3 = createShape(0.0, size / 2, size, new THREE.Vector3(-size / 2.0, 0.0, -size / 2.0), new THREE.Vector3(0, -90, 0), [materialWall, materialWallH], [wall3Door]);
     room.add(wall3);
-
-    var wall4Window = createHole(10.0, 7.0, 7.5, 9.0);
-    var wall4 = createShape(0.0, size / 2, size, new THREE.Vector3(size / 2.0, 0.0, size / 2.0), new THREE.Vector3(0, 90, 0), [materialWall, materialWallB], [wall4Window]);
-    room.add(wall4);
-
-    var roof = createShape(0.0, size, size, new THREE.Vector3(-size / 2, size / 2, size / 2), new THREE.Vector3(270, 0, 0), [materialRoof, materialWallR], []);
-    room.add(roof);
 
     /* SPOTLIGHT ROOM 1 */
 
@@ -163,19 +133,6 @@ function createRoom1(gridSize) {
             objectLamp.rotateY(degToRad(90));
             room.add(objectLamp);
         });
-    });
-
-    const gltfLoaderWindow = new THREE.GLTFLoader();
-    gltfLoaderWindow.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = 20.0;
-        root.position.y = 9;
-        root.position.z = 7.5;
-        root.scale.set(0.087, 0.035, 0.05);
-        root.rotateY(degToRad(270));
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        room.add(root);
     });
 
     const gltfLoaderBed = new THREE.GLTFLoader();
@@ -284,9 +241,7 @@ function createRoom1(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = () => {
-            console.log(enableConditionedAnimation);
             enableConditionedAnimation = true;
-            console.log(enableConditionedAnimation);
         }
         var obj = new Thing(root, animation, null, false, true, "DOOR_ROOM2", null);
         objectsAnimated.push(obj);
@@ -298,7 +253,7 @@ function createRoom1(gridSize) {
     gltfLoaderTorch.load("../../model3D/Room1/Torch/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 16;
-        root.position.y = 1.0;
+        root.position.y = 0.35;
         root.position.z = 5.0;
         root.scale.set(0.006, 0.006, 0.006);
         root.name = "TORCH";
@@ -306,14 +261,11 @@ function createRoom1(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = () => {
-            torch.intensity = 1;
-            return true;
+            if(torch.intensity == 0) torch.intensity = 2;
+            else torch.intensity = 0;
+            return false;
         }
-        var reverseAnimation = () => {
-            torch.intensity = 0;
-            return true;
-        }
-        var obj = new Thing(root, animation, reverseAnimation, false, true, null, "BATTERY", true);
+        var obj = new Thing(root, animation, null, false, true, null, "BATTERY", true);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
