@@ -13,6 +13,7 @@ var takeObject = new THREE.Audio(listener);
 var gunSound = new THREE.Audio(listener);
 var moveWardrobe = new THREE.Audio(listener);
 var click = new THREE.Audio(listener);
+var walkInTheGarden = new THREE.Audio(listener);
 
 var audioLoader = new THREE.AudioLoader();
 audioLoader.load('../audio/walk/walkOnTheWood.ogg', function (buffer) {
@@ -73,4 +74,10 @@ var clickLoader = new THREE.AudioLoader();
 clickLoader.load('../audio/click/click.ogg', function (buffer) {
     click.setBuffer(buffer);
     click.setVolume(1);
+}); 
+
+var walkInTheGardenLoader = new THREE.AudioLoader();
+walkInTheGardenLoader.load('../audio/walk/walkInTheGarden.ogg', function (buffer) {
+    walkInTheGarden.setBuffer(buffer);
+    walkInTheGarden.setVolume(1);
 }); 

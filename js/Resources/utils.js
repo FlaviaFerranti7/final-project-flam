@@ -140,22 +140,26 @@ function listenForPlayerMovement() {
 
       case 87: // w
         moveForward = true;
-        if (!walk.isPlaying) walk.play();
+        if (!walk.isPlaying && !loadingG) walk.play();
+        else if(loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
         break;
 
       case 83: // s
         moveBackward = true;
-        if (!walk.isPlaying) walk.play();
+        if (!walk.isPlaying && !loadingG) walk.play();
+        else if(loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
         break;
 
       case 65: // a 
         moveLeft = true;
-        if (!walk.isPlaying) walk.play();
+        if (!walk.isPlaying && !loadingG) walk.play();
+        else if(loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
         break;
 
       case 68: // d
         moveRight = true;
-        if (!walk.isPlaying) walk.play();
+        if (!walk.isPlaying && !loadingG) walk.play();
+        else if(loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
         break;
 
       case 32: // space
@@ -206,22 +210,26 @@ function listenForPlayerMovement() {
 
       case 87: // w
         moveForward = false;
-        walk.stop();
+        if(walk.isPlaying) walk.stop();
+        else if(walkInTheGarden.isPlaying) walkInTheGarden.stop();
         break;
 
       case 83: // s
         moveBackward = false;
-        walk.stop();
+        if(walk.isPlaying) walk.stop();
+        else if(walkInTheGarden.isPlaying) walkInTheGarden.stop();
         break;
 
       case 65: // a 
         moveLeft = false;
-        walk.stop();
+        if(walk.isPlaying) walk.stop();
+        else if(walkInTheGarden.isPlaying) walkInTheGarden.stop();
         break;
 
       case 68: // d
         moveRight = false;
-        walk.stop();
+        if(walk.isPlaying) walk.stop();
+        else if(walkInTheGarden.isPlaying) walkInTheGarden.stop();
         break;
     }
 
