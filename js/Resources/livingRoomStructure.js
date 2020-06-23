@@ -1,5 +1,6 @@
-function createLivingRoom(gridSize) {
+function createLivingRoom(gridSize) {    
     var size = gridSize;
+    recursiveChild(house, collidableObjects);
 
     // MATERIALS
     const textureFloor = new THREE.TextureLoader().load('../../images/parquet.jpg');
