@@ -21,8 +21,13 @@ var controls;
 var controlsEnabled = false;
 var blocker = document.getElementById('blocker');
 getPointerLock();
+manageInitialPage();
 controls = new THREE.PointerLockControls(camera, container);
+<<<<<<< Updated upstream
 controls.getObject().position.set(10.5, 8, 0); //-140, 8, 0
+=======
+controls.getObject().position.set(10.5, 8, 0);
+>>>>>>> Stashed changes
 controls.getObject().rotation.set(0, 1.57, 0);
 scene.add(controls.getObject());
 
@@ -82,7 +87,7 @@ var clock = new THREE.Clock();
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 10;  //1
+const intensityAmbient = 1;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -117,7 +122,11 @@ var hallway;
 var wallHL;
 var hallwayLoader = function () {
   hallway = createHallway(80);
+<<<<<<< Updated upstream
   scene.add(hallway);  
+=======
+  scene.add(hallway);
+>>>>>>> Stashed changes
 
   return true;
 }
@@ -222,17 +231,21 @@ var animate = function () {
   // setTimeout(function () {
   //   requestAnimationFrame(animate);
   // }, 1000 / 30);
-  
+
 
   requestAnimationFrame(animate);
 
   var delta = clock.getDelta();
   animatePlayer(delta);
+<<<<<<< Updated upstream
   
   if(monster != undefined){
+=======
+  if (monster != undefined) {
+>>>>>>> Stashed changes
     animateMonster();
   }
-  
+
 
   raycaster.setFromCamera(marker.position, camera);
   var intersects = raycaster.intersectObjects(objectsRaycaster, true);
@@ -286,8 +299,7 @@ var animate = function () {
   }
   // console.log(intersects);
   if (currentObject != null) {
-    console.log(currentObject);
-    if((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")){
+    if ((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")) {
       actionPanel.style.display = "block";
       enableAction = true;
       if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY") {

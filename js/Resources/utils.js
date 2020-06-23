@@ -113,6 +113,14 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+function manageInitialPage() {
+  var elem = document.getElementById('initial-page');
+  elem.style.display = "block";
+  setTimeout(() => {
+    elem.style.display = "none";
+  }, 5000); // TO DO 30sec
+}
+
 function getPointerLock() {
   document.onclick = function () {
     container.requestPointerLock();
@@ -262,18 +270,18 @@ function animatePlayer(delta) {
 }
 
 function animateMonster() {
- 
+
   monster.position.z = interpolation(35, 0, 0, 10, t1);
-  if(t1 > 10){
+  if (t1 > 10) {
     monster.rotation.y = interpolation(degToRad(0), degToRad(180), 10, 13, t1);
   }
-  if(t1 > 13){
+  if (t1 > 13) {
     monster.position.z = interpolation(0, 35, 13, 23, t1);
   }
-  if(t1 > 23){
+  if (t1 > 23) {
     monster.rotation.y = interpolation(degToRad(180), degToRad(0), 23, 26, t1);
   }
-  if(t1 > 26){
+  if (t1 > 26) {
     t1 = 0;
   }
   t1 += 0.1;
@@ -483,4 +491,3 @@ function removeLeaving() {
   livingRoom = null;
   return true;
 }
-
