@@ -23,11 +23,7 @@ var blocker = document.getElementById('blocker');
 getPointerLock();
 manageInitialPage();
 controls = new THREE.PointerLockControls(camera, container);
-<<<<<<< Updated upstream
-controls.getObject().position.set(10.5, 8, 0); //-140, 8, 0
-=======
 controls.getObject().position.set(10.5, 8, 0);
->>>>>>> Stashed changes
 controls.getObject().rotation.set(0, 1.57, 0);
 scene.add(controls.getObject());
 
@@ -122,11 +118,7 @@ var hallway;
 var wallHL;
 var hallwayLoader = function () {
   hallway = createHallway(80);
-<<<<<<< Updated upstream
-  scene.add(hallway);  
-=======
   scene.add(hallway);
->>>>>>> Stashed changes
 
   return true;
 }
@@ -237,12 +229,8 @@ var animate = function () {
 
   var delta = clock.getDelta();
   animatePlayer(delta);
-<<<<<<< Updated upstream
-  
-  if(monster != undefined){
-=======
+
   if (monster != undefined) {
->>>>>>> Stashed changes
     animateMonster();
   }
 

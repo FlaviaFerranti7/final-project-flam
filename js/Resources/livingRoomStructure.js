@@ -1,4 +1,4 @@
-function createLivingRoom(gridSize) {    
+function createLivingRoom(gridSize) {
     var size = gridSize;
     recursiveChild(house, collidableObjects);
 
@@ -190,7 +190,7 @@ function createLivingRoom(gridSize) {
         root.traverse((child) => child.castShadow = true);
 
         var animation = () => {
-            if(!violin.isPlaying) violin.play();
+            if (!violin.isPlaying) violin.play();
             else violin.pause();
 
             return false;
@@ -238,23 +238,39 @@ function createLivingRoom(gridSize) {
     //     scene.add(root);
     // });
 
+    const gltfLoaderBullet = new THREE.GLTFLoader();
+    gltfLoaderBullet.load("../../model3D/LivingRoom/Bullet/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -55.0;
+        root.position.y = 4.7;
+        root.position.z = -12.5;
+        root.name = 'BULLET';
+        root.scale.set(0.2, 0.2, 0.2);
+        root.traverse((child) => child.castShadow = true);
+        var obj = new Thing(root, null, null, false, true, null, "GUN");
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
+
     const gltfLoaderScissors = new THREE.GLTFLoader();
     gltfLoaderScissors.load("../../model3D/LivingRoom/Scissors/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -50.0;
         root.position.y = 7.0;
         root.position.z = 35.0;
-        root.scale.set(0.008, 0.008, 0.008);
+        root.scale.set(0.01, 0.01, 0.01);
         root.rotateZ(degToRad(90));
         root.rotateY(degToRad(90));
         root.name = 'SCISSORS';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
-            if (windowDoor.getObjectByName('Strips_1').rotation.y == degToRad(-145)){
+            if (windowDoor.getObjectByName('Strips_1').rotation.y == degToRad(-145)) {
                 windowDoor = null;
                 return false;
-            } 
+            }
             if (move) {
                 scene.remove(root);
                 // right door

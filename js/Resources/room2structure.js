@@ -123,7 +123,7 @@ function createRoom2(gridSize) {
         var animation = (t, move) => {
             if (root.getObjectByName('Cube001').position.y == -1.05) return false;
             if (move) {
-                bullet.position.z = interpolation(54.5, 53, 0, 5, t);
+                battery.position.z = interpolation(55.5, 53, 0, 5, t);
                 root.getObjectByName('Cube001').position.y = interpolation(0, -1.05, 0, 5, t);
                 return true;
             }
@@ -132,7 +132,7 @@ function createRoom2(gridSize) {
         var reverseAnimation = (t, move) => {
             if (root.getObjectByName('Cube001').position.y == 0) return false;
             if (move) {
-                bullet.position.z = interpolation(53, 54.5, 0, 5, t);
+                battery.position.z = interpolation(53, 55.5, 0, 5, t);
                 root.getObjectByName('Cube001').position.y = interpolation(-1.05, 0, 0, 5, t);
                 return true;
             }
@@ -197,9 +197,9 @@ function createRoom2(gridSize) {
             var animation = (t, move) => {
                 if (objectDoor.children[0].rotation.z == -degToRad(90)) return false;
                 if (move) {
-                    if(t == 0) {
+                    if (t == 0) {
                         openDoor.play();
-                    } 
+                    }
                     objectDoor.children[0].rotation.z = interpolation(0, -degToRad(90), 0, 25, t);
                     objectDoor.children[0].position.y = interpolation(0, -25, 0, 10, t);
                     objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
@@ -318,30 +318,13 @@ function createRoom2(gridSize) {
         scene.add(root);
     });
 
-    const gltfLoaderBullet = new THREE.GLTFLoader();
-    gltfLoaderBullet.load("../../model3D/Room2/Bullet/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        bullet = root;
-        root.position.x = 12.5;
-        root.position.y = 4;
-        root.position.z = 54.5;
-        root.name = 'BULLET';
-        root.scale.set(0.2, 0.2, 0.2);
-        root.traverse((child) => child.castShadow = true);
-        var obj = new Thing(root, null, null, false, true, null, "GUN");
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
-        recursiveChild(root, collidableObjects);
-        scene.add(root);
-    });
-
     const gltfLoaderBattery = new THREE.GLTFLoader();
     gltfLoaderBattery.load("../../model3D/Room2/Battery/scene.gltf", (gltf) => {
         const root = gltf.scene;
         battery = root;
-        root.position.x = 12.0;
-        root.position.y = 0.8;
-        root.position.z = 55;
+        root.position.x = 12.5;
+        root.position.y = 3;
+        root.position.z = 55.5;
         root.scale.set(0.005, 0.006, 0.005);
         root.rotateX(degToRad(-70));
         root.name = "BATTERY";
