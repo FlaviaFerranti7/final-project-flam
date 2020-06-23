@@ -137,6 +137,7 @@ function createRoom2(gridSize) {
         var animation = (t, move) => {
             if (root.getObjectByName('Cube001').position.y == -1.05) return false;
             if (move) {
+                if(t == 0) drawer.play();
                 bullet.position.z = interpolation(54.5, 53, 0, 5, t);
                 root.getObjectByName('Cube001').position.y = interpolation(0, -1.05, 0, 5, t);
                 return true;
@@ -146,6 +147,7 @@ function createRoom2(gridSize) {
         var reverseAnimation = (t, move) => {
             if (root.getObjectByName('Cube001').position.y == 0) return false;
             if (move) {
+                if(t == 0) drawer.play();
                 bullet.position.z = interpolation(53, 54.5, 0, 5, t);
                 root.getObjectByName('Cube001').position.y = interpolation(-1.05, 0, 0, 5, t);
                 return true;

@@ -250,6 +250,7 @@ function createHallway(gridSize) {
         var animation = (t, move) => {
             if (gun.position.x == -25.5 && root.getObjectByName('stoli001_szuflada').position.z == 0.5) return false;
             if (move) {
+                if(t == 0) drawer.play();
                 gun.position.x = interpolation(-23.5, -25.5, 0, 5, t);
                 root.getObjectByName('stoli001_szuflada').position.z = interpolation(0.0, 0.5, 0, 5, t);
                 return true;
@@ -259,6 +260,7 @@ function createHallway(gridSize) {
         var reverseAnimation = (t, move) => {
             if (root.getObjectByName('stoli001_szuflada').position.z == 0.0) return false;
             if (move) {
+                if(t == 0) drawer.play();
                 gun.position.x = interpolation(-25.5, -23.5, 0, 5, t);
                 root.getObjectByName('stoli001_szuflada').position.z = interpolation(0.5, 0.0, 0, 5, t);
                 return true;

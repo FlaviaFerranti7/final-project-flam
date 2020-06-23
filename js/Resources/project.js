@@ -161,6 +161,7 @@ var openDoor = new THREE.Audio(listener);
 var closeDoor = new THREE.Audio(listener);
 
 var violin = new THREE.Audio(listener);
+var drawer = new THREE.Audio(listener);
 
 var audioLoader = new THREE.AudioLoader();
 audioLoader.load('../audio/walk/walkOnTheWood.ogg', function (buffer) {
@@ -185,6 +186,12 @@ var violinLoader = new THREE.AudioLoader();
 violinLoader.load('../audio/violin/sound.ogg', function (buffer) {
   violin.setBuffer(buffer);
   violin.setVolume(1);
+});
+
+var drawerLoader = new THREE.AudioLoader();
+drawerLoader.load('../audio/drawer/drawer.ogg', function (buffer) {
+  drawer.setBuffer(buffer);
+  drawer.setVolume(1);
 });
 
 
