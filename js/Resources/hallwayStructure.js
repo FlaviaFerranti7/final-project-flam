@@ -20,15 +20,6 @@ function createHallway(gridSize) {
         side: THREE.DoubleSide,
     });
 
-    const textureWallB = new THREE.TextureLoader().load('../../images/brick.jpg');
-    textureWallB.wrapS = THREE.RepeatWrapping;
-    textureWallB.wrapT = THREE.RepeatWrapping;
-    textureWallB.repeat.set(0.1, 0.1);
-
-    const materialWallB = new THREE.MeshPhongMaterial({
-        map: textureWallB,
-    });
-
     const textureWallH = new THREE.TextureLoader().load('../../images/hallway.jpg');
     textureWallH.wrapS = THREE.RepeatWrapping;
     textureWallH.wrapT = THREE.RepeatWrapping;
@@ -47,17 +38,6 @@ function createHallway(gridSize) {
     const materialWallL = new THREE.MeshPhongMaterial({
         map: textureWallL,
     });
-
-    const textureWallR = new THREE.TextureLoader().load('../../images/roof.jpg');
-    textureWallR.wrapS = THREE.RepeatWrapping;
-    textureWallR.wrapT = THREE.RepeatWrapping;
-    textureWallR.repeat.set(0.1, 0.1);
-
-    const materialWallR = new THREE.MeshPhongMaterial({
-        map: textureWallR,
-    });
-
-    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var hallway = new THREE.Group();
 

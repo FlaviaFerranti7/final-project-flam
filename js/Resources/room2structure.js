@@ -28,14 +28,6 @@ function createRoom2(gridSize) {
         side: THREE.BackSide,
     });
 
-    const textureWallB = new THREE.TextureLoader().load('../../images/brick.jpg');
-    textureWallB.wrapS = THREE.RepeatWrapping;
-    textureWallB.wrapT = THREE.RepeatWrapping;
-    textureWallB.repeat.set(0.1, 0.1);
-
-    const materialWallB = new THREE.MeshPhongMaterial({
-        map: textureWallB,
-    });
 
     const textureWallH = new THREE.TextureLoader().load('../../images/hallway.jpg');
     textureWallH.wrapS = THREE.RepeatWrapping;
@@ -50,12 +42,6 @@ function createRoom2(gridSize) {
     textureWallR.wrapS = THREE.RepeatWrapping;
     textureWallR.wrapT = THREE.RepeatWrapping;
     textureWallR.repeat.set(0.1, 0.1);
-
-    const materialWallR = new THREE.MeshPhongMaterial({
-        map: textureWallR,
-    });
-
-    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var room = new THREE.Group();
 

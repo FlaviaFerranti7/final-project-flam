@@ -12,35 +12,10 @@ function createLivingRoom(gridSize) {
         side: THREE.DoubleSide,
     });
 
-    const textureWallB = new THREE.TextureLoader().load('../../images/brick.jpg');
-    textureWallB.wrapS = THREE.RepeatWrapping;
-    textureWallB.wrapT = THREE.RepeatWrapping;
-    textureWallB.repeat.set(0.1, 0.1);
-
-    const materialWallB = new THREE.MeshPhongMaterial({
-        map: textureWallB,
-    });
-
-    const textureWallL = new THREE.TextureLoader().load('../../images/livingRoom.jpg');
-    textureWallL.wrapS = THREE.RepeatWrapping;
-    textureWallL.wrapT = THREE.RepeatWrapping;
-    textureWallL.repeat.set(0.5, 0.5);
-
-    const materialWallL = new THREE.MeshPhongMaterial({
-        map: textureWallL,
-        side: THREE.BackSide,
-    });
-
     const textureWallR = new THREE.TextureLoader().load('../../images/roof.jpg');
     textureWallR.wrapS = THREE.RepeatWrapping;
     textureWallR.wrapT = THREE.RepeatWrapping;
     textureWallR.repeat.set(0.1, 0.1);
-
-    const materialWallR = new THREE.MeshPhongMaterial({
-        map: textureWallR,
-    });
-
-    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var livingRoom = new THREE.Group();
 
