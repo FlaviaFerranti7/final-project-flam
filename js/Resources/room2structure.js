@@ -175,6 +175,7 @@ function createRoom2(gridSize) {
         var animation = (t, move) => {
             if (root.getObjectByName('Cube001').rotation.z == degToRad(90)) return false;
             if (move) {
+                if(t == 0) wardrobeDoor.play();
                 root.getObjectByName('Cube001').rotation.z = interpolation(0, degToRad(90), 0, 5, t);
                 return true;
             }
