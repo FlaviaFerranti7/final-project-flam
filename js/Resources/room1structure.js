@@ -211,6 +211,10 @@ function createRoom1(gridSize) {
                 return false
             };
             if (move) {
+                if(t == 0) {
+                    click.play();
+                    moveWardrobe.play();
+                }
                 root.getObjectByName('Switch').rotation.x = interpolation(degToRad(-100), degToRad(-80), 0, 2, t);
                 wardrobe.position.x = interpolation(-9, finalPosition, 0, 15, t);
                 return true;
@@ -281,6 +285,7 @@ function createRoom1(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = () => {
+            click.play();
             if(torch.intensity == 0) torch.intensity = 2;
             else torch.intensity = 0;
             return false;

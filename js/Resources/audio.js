@@ -11,6 +11,8 @@ var drawer = new THREE.Audio(listener);
 var wardrobeDoor = new THREE.Audio(listener);
 var takeObject = new THREE.Audio(listener);
 var gunSound = new THREE.Audio(listener);
+var moveWardrobe = new THREE.Audio(listener);
+var click = new THREE.Audio(listener);
 
 var audioLoader = new THREE.AudioLoader();
 audioLoader.load('../audio/walk/walkOnTheWood.ogg', function (buffer) {
@@ -60,3 +62,15 @@ gunLoader.load('../audio/gun/gun.ogg', function (buffer) {
     gunSound.setBuffer(buffer);
     gunSound.setVolume(1);
 });
+
+var moveWardrobeLoader = new THREE.AudioLoader();
+moveWardrobeLoader.load('../audio/wardrobe/moveWardrobe.ogg', function (buffer) {
+    moveWardrobe.setBuffer(buffer);
+    moveWardrobe.setVolume(1);
+}); 
+
+var clickLoader = new THREE.AudioLoader();
+clickLoader.load('../audio/click/click.ogg', function (buffer) {
+    click.setBuffer(buffer);
+    click.setVolume(1);
+}); 
