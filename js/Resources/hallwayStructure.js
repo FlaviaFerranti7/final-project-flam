@@ -288,7 +288,11 @@ function createHallway(gridSize) {
         root.name = 'GUN';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var obj = new Thing(root, null, null, false, true, null, "BULLET", true);
+        var animation = () => {
+            gunSound.play();
+            return false;
+        }
+        var obj = new Thing(root, animation, null, false, true, null, "BULLET", true);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
