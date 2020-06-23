@@ -29,18 +29,23 @@ function createGarden(gridSize) {
     garden.add(floor);
 
     var wall1 = createShape(0.0, size / 25, size * 0.8, new THREE.Vector3(-size * 0.43, 0.0, 0.552 * size), undefined, [materialFence], []);
+    wall1.name = "w2";
     garden.add(wall1);
 
     var wall2 = createShape(0.0, size / 25, size * 0.8, new THREE.Vector3(-size * 0.43, 0.0, -0.447 * size), undefined, [materialFence], []);
+    wall2.name =" w3";
     garden.add(wall2);
 
     var wall3 = createShape(0.0, size / 25, size, new THREE.Vector3(size * 0.368, 0.0, -0.447 * size), new THREE.Vector3(0, -90, 0), [materialFence], []);
+    wall3.name ="w4";
     garden.add(wall3);
 
     var wall4 = createShape(0.0, size / 25, size / 2.26, new THREE.Vector3(-size * 0.43, 0.0, -0.447 * size), new THREE.Vector3(0, -90, 0), [materialFence], []);
+    wall4.name = "w1";
     garden.add(wall4);
 
     var wall5 = createShape(0.0, size / 25, size / 2.26, new THREE.Vector3(-size * 0.43, 0.0, 0.1105 * size), new THREE.Vector3(0, -90, 0), [materialFence], []);
+    wall5.name = "w1.5";
     garden.add(wall5);
 
     recursiveChild(garden, collidableObjects);
@@ -187,22 +192,14 @@ function createGarden(gridSize) {
     const gltfLoaderMonster = new THREE.GLTFLoader();
     gltfLoaderMonster.load("../../model3D/Garden/Monster/Wolf-Blender-2.82a.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = 0.0;
-        root.position.y = 0.0; 
-        root.position.z = 50.0;
+        root.position.x = -155.0;
+        root.position.y = 0.0;
+        root.position.z = 35.0;
         root.scale.set(10, 10, 10);//40
         root.name = "MONSTER";
         root.rotateY(degToRad(180));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        // console.log(root.position);
-        // var animation = (t, move) => {
-        //     if (move) {
-        //         root.position.x = interpolation(-95, -50, 0, 10, t);
-        //         return true;
-        //     }
-        //     return false;
-        // }
         var obj = new Thing(root, null, null, false, false, null, null);
 
         objectsAnimated.push(obj);

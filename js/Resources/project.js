@@ -22,7 +22,7 @@ var controlsEnabled = false;
 var blocker = document.getElementById('blocker');
 getPointerLock();
 controls = new THREE.PointerLockControls(camera, container);
-controls.getObject().position.set(10.5, 8, 0);
+controls.getObject().position.set(-140, 8, 0);//10.5, 8, 0
 controls.getObject().rotation.set(0, 1.57, 0);
 scene.add(controls.getObject());
 
@@ -76,10 +76,7 @@ var collidableObjects = [];
 
 //for the monster
 var monster;
-var MONSTERSPEED = 100.0; //350
-var monsterVelocity = new THREE.Vector3();
-var MONSTERCOLLISIONDISTANCE = 5;
-
+var t1 = 0;
 
 var clock = new THREE.Clock();
 
@@ -230,15 +227,16 @@ var animate = function () {
 
   var delta = clock.getDelta();
   animatePlayer(delta);
+  console.log(monster);
   if(monster != undefined){
-    animateMonster(delta);
+    animateMonster();
   }
   
 
   raycaster.setFromCamera(marker.position, camera);
   var intersects = raycaster.intersectObjects(objectsRaycaster, true);
 
-  if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
+  if (intersects.length > 0 && intersects[0].distance >= 4 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
 
       if (INTERSECTED && !functionIsRunning) {
@@ -250,7 +248,6 @@ var animate = function () {
       }
 
       INTERSECTED = intersects[0].object;
-
       for (var i = 0; i < objectsAnimated.length; i++) {
         objectsAnimated[i].getObject().traverse((child) => {
           if (intersects[0].object == child) {
