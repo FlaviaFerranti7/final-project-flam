@@ -22,7 +22,7 @@ var controlsEnabled = false;
 var blocker = document.getElementById('blocker');
 getPointerLock();
 controls = new THREE.PointerLockControls(camera, container);
-controls.getObject().position.set(-140, 8, 0);//10.5, 8, 0
+controls.getObject().position.set(10.5, 8, 0); //-140, 8, 0
 controls.getObject().rotation.set(0, 1.57, 0);
 scene.add(controls.getObject());
 
@@ -100,43 +100,44 @@ scene.add(house);
 
 /* ------------------------- FIRST ROOM ------------------------- */
 var room1;
-// room1 = createRoom1(40);
-// scene.add(room1);
+room1 = createRoom1(40);
+scene.add(room1);
 
 /* ------------------------- SECOND ROOM ------------------------- */
 var room2;
-// var room2Loader = function () {
-//   room2 = createRoom2(40);
-//   scene.add(room2);
+var room2Loader = function () {
+  room2 = createRoom2(40);
+  scene.add(room2);
 
-//   return true;
-// }
+  return true;
+}
 
 /* --------------------------- HALLWAY --------------------------- */
 var hallway;
 var wallHL;
-// var hallwayLoader = function () {
-//   hallway = createHallway(80);
-//   scene.add(hallway);  
+var hallwayLoader = function () {
+  hallway = createHallway(80);
+  scene.add(hallway);  
 
-//   return true;
-// }
+  return true;
+}
 
 /* ------------------------- LIVING-ROOM ------------------------- */
+var windowDoor;
 var livingRoom;
-// var livingRoomLoader = function () {
-//   livingRoom = createLivingRoom(80);
-//   scene.add(livingRoom);
-//   return true;
-// }
+var livingRoomLoader = function () {
+  livingRoom = createLivingRoom(80);
+  scene.add(livingRoom);
+  return true;
+}
 
 /* ------------------------- GARDEN ------------------------- */
 var garden;
-// var gardenLoader = function () {
+var gardenLoader = function () {
   garden = createGarden(380);
   scene.add(garden);
-  // return true;
-// }
+  return true;
+}
 
 /* ------------------------- LISTENER -------------------------- */
 
@@ -227,7 +228,7 @@ var animate = function () {
 
   var delta = clock.getDelta();
   animatePlayer(delta);
-  console.log(monster);
+  
   if(monster != undefined){
     animateMonster();
   }
