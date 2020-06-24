@@ -367,6 +367,7 @@ var animate = function () {
       scene.remove(doorHL);
       doorHL = null;
       steps.splice(0, 1);
+      gardenSounds.play();
     }
   }
   renderer.render(scene, camera);
