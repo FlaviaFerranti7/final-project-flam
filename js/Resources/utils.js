@@ -469,7 +469,7 @@ function removeRooms() {
   scene.remove(room2);
   scene.remove(hallway);
   for (var i = 0; i < objectsAnimated.length; i++) {
-    if (objectsAnimated[i].getObjectName() != "DOOR_HALLWAY") {
+    if (objectsAnimated[i].getObjectName() != "DOOR_HALLWAY" && objectsAnimated[i].getObjectName() != "DOOR_ENTRY" && objectsAnimated[i].getObjectName() != "WINDOW_DOORS") {
       scene.remove(objectsAnimated[i].getObject());
       objectsAnimated.splice(i, 1);
       objectsRaycaster.splice(i, 1);

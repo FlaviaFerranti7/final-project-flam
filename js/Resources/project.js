@@ -40,6 +40,7 @@ var loadingH = false;
 var loadingLR = false;
 var loadingG = false;
 var garden = false;
+var choosedoor = 0;
 
 var openSafe = false;
 var hideDivSafe = false;
@@ -85,7 +86,7 @@ var openGate = false;
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 30;  //1
+const intensityAmbient = 2;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -378,6 +379,16 @@ var animate = function () {
       hideDivSafe = false;
     }
   }
+  if(choosedoor == 2){
+    for (var i = 0; i < objectsAnimated.length; i++) {
+      if(objectsAnimated[i].getObjectName() == "WINDOW_DOORS") steps.push(objectsAnimated[i]);
+    }
+  }
+  if(choosedoor == 1){
+    for (var i = 0; i < objectsAnimated.length; i++) {
+      if(objectsAnimated[i].getObjectName() == "DOOR_ENTRY") steps.push(objectsAnimated[i]);
+    }
+  }
 
   //SEQUENTIAL ROOM LOADING
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingR2 == false) {
@@ -385,12 +396,12 @@ var animate = function () {
     loadingR2 = room2Loader();
     steps.splice(0, 1);
   }
-  if (move && functionIsRunning && steps.indexOf(currentObject) == 1 && loadingH == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingH == false) {
     alert("Level 2 passed", 7000);
     loadingH = hallwayLoader();
-    steps.splice(1, 1);
+    steps.splice(0, 1);
   }
-  if (move && functionIsRunning && steps.indexOf(currentObject) == 1 && loadingLR == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
     var elem = document.getElementById("LR-message");
     elem.style.display = "block";
     elem.childNodes[1].innerHTML = "";
@@ -399,7 +410,7 @@ var animate = function () {
     }, 7000);
     if (removeRooms()) {
       loadingLR = livingRoomLoader();
-      steps.splice(1, 1);
+      steps.splice(0, 1);
       garden = true;
     }
   }
@@ -415,6 +426,7 @@ var animate = function () {
     }
   }
   renderer.render(scene, camera);
+  console.log(objectsAnimated);
 };
 
 animate();

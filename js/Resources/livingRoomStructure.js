@@ -260,30 +260,16 @@ function createLivingRoom(gridSize) {
         root.position.x = -50.0;
         root.position.y = 7.0;
         root.position.z = 35.0;
-        root.scale.set(0.01, 0.01, 0.01);
+        root.scale.set(0.008, 0.008, 0.008);
         root.rotateZ(degToRad(90));
         root.rotateY(degToRad(90));
         root.name = 'SCISSORS';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var animation = (t, move) => {
-            if (windowDoor.getObjectByName('Strips_1').rotation.y == degToRad(-145)) {
-                windowDoor = null;
-                return false;
-            }
-            if (move) {
-                scene.remove(root);
-                // right door
-                windowDoor.getObjectByName('Frame_0').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
-                windowDoor.getObjectByName('Strips_1').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
-                // left door
-                windowDoor.getObjectByName('Frame001_2').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
-                windowDoor.getObjectByName('Strips001_3').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
-                return true;
-            }
-            return false;
+        var animation = () => {
+            enableConditionedAnimation = true;
         };
-        var obj = new Thing(root, animation, null, false, false, null, null);
+        var obj = new Thing(root, animation, null, false, true, "WINDOW_DOORS", null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);

@@ -149,7 +149,6 @@ function createHouse() {
     const gltfLoaderWindowDoors = new THREE.GLTFLoader();
     gltfLoaderWindowDoors.load("../../model3D/LivingRoom/WindowDoors/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        windowDoor = root;
         root.position.x = -77.95;
         root.position.y = 0.0;
         root.position.z = 60;
@@ -159,6 +158,23 @@ function createHouse() {
         root.scale.set(2.015, 1.24, 1.5);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var animation = (t, move) => {
+            if (root.getObjectByName('Strips_1').rotation.y == degToRad(-145)) return false;
+            if (move) {
+                choosedoor = 2;
+                // right door
+                root.getObjectByName('Frame_0').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
+                root.getObjectByName('Strips_1').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
+                // left door
+                root.getObjectByName('Frame001_2').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
+                root.getObjectByName('Strips001_3').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
+                return true;
+            }
+            return false;
+        };
+        var obj = new Thing(root, animation, null, true, false, "SCISSORS", null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
         house.add(root);
     });
 
@@ -177,6 +193,7 @@ function createHouse() {
         var animation = (t, move) => {
             if (camera.position.x == root.position.x - 10) return false;
             if (move) {
+                choosedoor = 1;
                 if (t >= 0 && t < 15) {
                     camera.position.x = interpolation(cameraPos.x, -90, 0, 5, t);
                     camera.position.z = interpolation(cameraPos.z, 19.5, 0, 5, t);
@@ -199,7 +216,6 @@ function createHouse() {
             return false;
         };
         var obj = new Thing(root, animation, null, true, false, "HOURGLASS", null);
-        steps.push(obj);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         house.add(root);

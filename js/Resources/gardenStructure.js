@@ -1,6 +1,6 @@
 function createGarden(gridSize) {
     var size = gridSize;
-    // recursiveChild(house, collidableObjects);
+    recursiveChild(house, collidableObjects);
 
     // MATERIALS
     const textureFloor = new THREE.TextureLoader().load('../../images/garden.jpg');
@@ -202,7 +202,7 @@ function createGarden(gridSize) {
         root.scale.set(10, 10, 10);//40
         root.name = "MONSTER";
         root.rotateY(degToRad(180));
-        
+
         legR = root.getObjectByName("Oberschenkel_R_044");  //-0.02
         legR.position.x = 0.15;
         legL = root.getObjectByName("Oberschenkel_L_041"); //-0.03
