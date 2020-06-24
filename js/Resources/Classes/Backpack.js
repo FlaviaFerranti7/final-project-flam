@@ -107,6 +107,7 @@ class Backpack {
             else {
                 objectOfBackpack.setIsElemOfBackpack(false);
                 objectOfBackpack.executeAnimation();
+                if(objectOfBackpack.getObjectName() == "GUN") this.objects[num].setSubjectMerge("BULLET");
             } 
         }
     }
