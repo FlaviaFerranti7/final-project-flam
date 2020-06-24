@@ -51,6 +51,8 @@ function createLivingRoom(gridSize) {
     recursiveChild(livingRoom, collidableObjects);
 
     var animationB;
+    var animationH;
+    var animationS;
 
     var mtlLoaderLamp = new THREE.MTLLoader();
     mtlLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
@@ -118,6 +120,13 @@ function createLivingRoom(gridSize) {
                 setTimeout(() => {
                     elem.style.display = "none";
                 }, 7000);
+
+                var objH = new Thing(hourglass, animationH, null, false, true, "DOOR_ENTRY", null);
+                objectsAnimated.push(objH);
+                objectsRaycaster.push(objH.getObject());
+                var objS = new Thing(scissors, animationS, null, false, true, "WINDOW_DOORS", null);
+                objectsAnimated.push(objS);
+                objectsRaycaster.push(objS.getObject());
                 return false;
             }
             if (move) {
@@ -209,6 +218,7 @@ function createLivingRoom(gridSize) {
     const gltfLoaderHourglass = new THREE.GLTFLoader();
     gltfLoaderHourglass.load("../../model3D/LivingRoom/Hourglass/scene.gltf", (gltf) => {
         const root = gltf.scene;
+        hourglass = root;
         root.position.x = -56.0;
         root.position.y = 3.9;
         root.position.z = -1.0;
@@ -216,12 +226,9 @@ function createLivingRoom(gridSize) {
         root.scale.set(1.5, 1.5, 1.5);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var animation = () => {
+        animationH = () => {
             enableConditionedAnimation = true;
         };
-        var obj = new Thing(root, animation, null, false, true, "DOOR_ENTRY", null);
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
 
@@ -276,6 +283,7 @@ function createLivingRoom(gridSize) {
     const gltfLoaderScissors = new THREE.GLTFLoader();
     gltfLoaderScissors.load("../../model3D/LivingRoom/Scissors/scene.gltf", (gltf) => {
         const root = gltf.scene;
+        scissors = root;
         root.position.x = -50.0;
         root.position.y = 7.0;
         root.position.z = 35.0;
@@ -285,12 +293,9 @@ function createLivingRoom(gridSize) {
         root.name = 'SCISSORS';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var animation = () => {
+        animationS = () => {
             enableConditionedAnimation = true;
         };
-        var obj = new Thing(root, animation, null, false, true, "WINDOW_DOORS", null);
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
 

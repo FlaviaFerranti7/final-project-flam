@@ -185,7 +185,7 @@ function createGarden(gridSize) {
     gltfLoaderRockingChair.load("../../model3D/Garden/RockingChair/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -50.0;
-        root.position.y = 0.0;
+        root.position.y = -0.1;
         root.position.z = 70.0;
         root.scale.set(10, 10, 10);
         root.traverse((child) => child.castShadow = true);
@@ -226,8 +226,8 @@ function createGarden(gridSize) {
 
     });
 
-    const gltfLoaderRockingBench = new THREE.GLTFLoader();
-    gltfLoaderRockingBench.load("../../model3D/Garden/Bench/scene.gltf", (gltf) => {
+    const gltfLoaderBench = new THREE.GLTFLoader();
+    gltfLoaderBench.load("../../model3D/Garden/Bench/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -110.0;
         root.position.y = 0.0;
@@ -239,8 +239,8 @@ function createGarden(gridSize) {
         scene.add(root);
     });
 
-    const gltfLoaderRockingRose = new THREE.GLTFLoader();
-    gltfLoaderRockingRose.load("../../model3D/Garden/Rose/scene.gltf", (gltf) => {
+    const gltfLoaderRose = new THREE.GLTFLoader();
+    gltfLoaderRose.load("../../model3D/Garden/Rose/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -110.0;
         root.position.y = 4.5;
@@ -252,8 +252,8 @@ function createGarden(gridSize) {
         scene.add(root);
     });
 
-    const gltfLoaderRockingGnome = new THREE.GLTFLoader();
-    gltfLoaderRockingGnome.load("../../model3D/Garden/Gnome/scene.gltf", (gltf) => {
+    const gltfLoaderGnome = new THREE.GLTFLoader();
+    gltfLoaderGnome.load("../../model3D/Garden/Gnome/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -70.0;
         root.position.y = 3.0;
@@ -264,8 +264,8 @@ function createGarden(gridSize) {
         scene.add(root);
     });
 
-    const gltfLoaderRockingKey = new THREE.GLTFLoader();
-    gltfLoaderRockingKey.load("../../model3D/Garden/Key/scene.gltf", (gltf) => {
+    const gltfLoaderKey = new THREE.GLTFLoader();
+    gltfLoaderKey.load("../../model3D/Garden/Key/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 0.0;
         root.position.y = 7.5;
