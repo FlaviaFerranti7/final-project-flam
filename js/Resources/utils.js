@@ -124,8 +124,10 @@ function manageInitialPage() {
 function getPointerLock() {
   document.onclick = function () {
     container.requestPointerLock();
-    var deadline = new Date(Date.parse(new Date()) + 30 * 60 * 1000);
-    initializeClock('clockdiv', deadline);
+    if (!clockFlag) {
+      clockFlag = true;
+      initializeClock('clockdiv', deadline);
+    }
   }
   document.addEventListener('pointerlockchange', lockChange, false);
 }
@@ -145,6 +147,9 @@ function lockChange() {
     }
     blocker.style.display = "";
     controls.enabled = false;
+    clockFlag = false;
+    clearInterval(timeinterval);
+
   }
 }
 
@@ -465,9 +470,10 @@ function insertCode() {
 }
 
 function getTimeRemaining(endtime) {
-  var t = Date.parse(endtime) - Date.parse(new Date());
+  var t = endtime - deltasec;
   var seconds = Math.floor((t / 1000) % 60);
   var minutes = Math.floor((t / 1000 / 60) % 60);
+  deltasec += 1000;
   return {
     'total': t,
     'minutes': minutes,
@@ -502,8 +508,10 @@ function initializeClock(id, endtime) {
       controls.enabled = false;
     }
   }
+
   updateClock();
-  var timeinterval = setInterval(updateClock, 1000);
+  timeinterval = setInterval(updateClock, 1000);
+
 }
 
 function removeRooms() {

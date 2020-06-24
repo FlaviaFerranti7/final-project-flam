@@ -81,6 +81,10 @@ var monster;
 var t1 = 0;
 
 var clock = new THREE.Clock();
+var deadline = 30 * 60 * 1000;
+var timeinterval;
+var deltasec = 0;
+var clockFlag = false;
 var gameOver = false;
 var openGate = false;
 
@@ -225,11 +229,6 @@ var associatedObject;
 
 var animate = function () {
 
-  // setTimeout(function () {
-  //   requestAnimationFrame(animate);
-  // }, 1000 / 30);
-
-
   requestAnimationFrame(animate);
 
   var delta = clock.getDelta();
@@ -238,7 +237,6 @@ var animate = function () {
   if (monster != undefined) {
     animateMonster();
   }
-
 
   raycaster.setFromCamera(marker.position, camera);
   var intersects = raycaster.intersectObjects(objectsRaycaster, true);
