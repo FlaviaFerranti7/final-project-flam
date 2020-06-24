@@ -50,6 +50,8 @@ function createLivingRoom(gridSize) {
 
     recursiveChild(livingRoom, collidableObjects);
 
+    var animationB;
+
     var mtlLoaderLamp = new THREE.MTLLoader();
     mtlLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
     mtlLoaderLamp.load('ZAHA LIGHT white chandelier.mtl', function (materialsLamp) {
@@ -100,6 +102,7 @@ function createLivingRoom(gridSize) {
     const gltfLoaderBookcase = new THREE.GLTFLoader();
     gltfLoaderBookcase.load("../../model3D/LivingRoom/Bookcase/scene.gltf", (gltf) => {
         const root = gltf.scene;
+        bookcase = root;
         root.position.x = -99.0;
         root.position.y = 0.0;
         root.position.z = -5.0;
@@ -107,7 +110,7 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var animation = (t, move) => {
+        animationB = (t, move) => {
             if (root.getObjectByName('Shkaf').position.x == 0.5) {
                 var elem = document.getElementById("book-message");
                 elem.style.display = "block";
@@ -123,9 +126,6 @@ function createLivingRoom(gridSize) {
             }
             return false;
         };
-        var obj = new Thing(root, animation, null, false, false, null, null);
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
         livingRoom.add(root);
         // console.log(dumpObject(root).join('\n'));
     });
@@ -161,6 +161,10 @@ function createLivingRoom(gridSize) {
                 setTimeout(() => {
                     elem.style.display = "none";
                 }, 7000);
+            
+                var obj = new Thing(bookcase, animationB, null, false, false, null, null);
+                objectsAnimated.push(obj);
+                objectsRaycaster.push(obj.getObject());
                 return false;
             }
             if (move) {
