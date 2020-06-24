@@ -159,15 +159,30 @@ function createHouse() {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
-            if (root.getObjectByName('Strips_1').rotation.y == degToRad(-145)) return false;
+            if (camera.position.z == root.position.z + 10) return false;
             if (move) {
                 choosedoor = 2;
-                // right door
-                root.getObjectByName('Frame_0').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
-                root.getObjectByName('Strips_1').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
-                // left door
-                root.getObjectByName('Frame001_2').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
-                root.getObjectByName('Strips001_3').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
+                if (t >= 0 && t < 15) {
+                    camera.position.x = interpolation(cameraPos.x, -70.1, 0, 5, t);
+                    camera.position.z = interpolation(cameraPos.z, 51.5, 0, 5, t);
+                    camera.rotation.x = interpolation(cameraRot.x, -3, 0, 5, t);
+                    camera.rotation.z = interpolation(cameraRot.z, 3.14, 0, 5, t);
+                    camera.rotation.y = 0;
+
+                    // right door
+                    root.getObjectByName('Frame_0').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
+                    root.getObjectByName('Strips_1').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
+                    // left door
+                    root.getObjectByName('Frame001_2').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
+                    root.getObjectByName('Strips001_3').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
+                }
+                if (t >= 15) {
+                    camera.position.z = interpolation(51.5, root.position.z + 10, 15, 22, t);
+                    root.getObjectByName('Frame_0').rotation.y = interpolation(degToRad(-145), 0, 21, 22, t);
+                    root.getObjectByName('Strips_1').rotation.y = interpolation(degToRad(-145), 0, 21, 22, t);
+                    root.getObjectByName('Frame001_2').rotation.y = interpolation(degToRad(145), 0, 21, 22, t);
+                    root.getObjectByName('Strips001_3').rotation.y = interpolation(degToRad(145), 0, 21, 22, t);
+                }                
                 return true;
             }
             return false;

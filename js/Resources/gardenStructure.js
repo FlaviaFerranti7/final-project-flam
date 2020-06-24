@@ -184,7 +184,7 @@ function createGarden(gridSize) {
     gltfLoaderRockingChair.load("../../model3D/Garden/RockingChair/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -50.0;
-        root.position.y = 2.0;
+        root.position.y = 0.0;
         root.position.z = 70.0;
         root.scale.set(10, 10, 10);
         // root.rotateY(degToRad(180));

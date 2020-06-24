@@ -313,7 +313,7 @@ var animate = function () {
     actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
     remove.childNodes[1].innerHTML = "Watch out! If you go in you can't come back here";
     if (currentObject.getAnimation() !== null && !currentObject.getIsElemOfBackpack() && !currentObject.getConditionedAnimated()) {
-      if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY") {
+      if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY" || currentObject.getObjectName() == "WINDOW_DOORS") {
         cameraPos = camera.position;
         cameraRot = camera.rotation;
       }
@@ -426,7 +426,6 @@ var animate = function () {
     }
   }
   renderer.render(scene, camera);
-  console.log(objectsAnimated);
 };
 
 animate();
