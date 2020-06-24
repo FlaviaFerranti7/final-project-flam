@@ -23,7 +23,7 @@ var blocker = document.getElementById('blocker');
 getPointerLock();
 manageInitialPage();
 controls = new THREE.PointerLockControls(camera, container);
-controls.getObject().position.set(10.5, 8, 0);
+controls.getObject().position.set(10.5, 20, 0);
 controls.getObject().rotation.set(0, 1.57, 0);
 scene.add(controls.getObject());
 

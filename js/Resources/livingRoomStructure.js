@@ -107,7 +107,6 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        console.log(root.getObjectByName('Shkaf').position);
         var animation = (t, move) => {
             if (root.getObjectByName('Shkaf').position.x == 0.5) {
                 var elem = document.getElementById("book-message");
