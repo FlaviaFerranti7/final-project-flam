@@ -13,7 +13,7 @@ function createRoom2(gridSize) {
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
 
-    const materialFloor = new THREE.MeshPhongMaterial({
+    const materialFloor = new THREE.MeshPhysicalMaterial({
         map: textureFloor,
         side: THREE.DoubleSide,
     });
@@ -23,7 +23,7 @@ function createRoom2(gridSize) {
     textureWall.wrapT = THREE.RepeatWrapping;
     textureWall.repeat.set(4, 4);
 
-    const materialWall = new THREE.MeshPhongMaterial({
+    const materialWall = new THREE.MeshPhysicalMaterial({
         map: textureWall,
         side: THREE.BackSide,
     });
@@ -34,7 +34,7 @@ function createRoom2(gridSize) {
     textureWallH.wrapT = THREE.RepeatWrapping;
     textureWallH.repeat.set(4, 4);
 
-    const materialWallH = new THREE.MeshPhongMaterial({
+    const materialWallH = new THREE.MeshPhysicalMaterial({
         map: textureWallH,
     });
 

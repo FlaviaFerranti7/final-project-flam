@@ -79,7 +79,7 @@ class Thing {
             var ret = this.reverseAnimation(t, move);
             return ret;
         }
-        else {
+        else if(this.animation != null){
             var ret = false;
             if (t == null && move == null) ret = this.animation();
             else ret = this.animation(t, move);

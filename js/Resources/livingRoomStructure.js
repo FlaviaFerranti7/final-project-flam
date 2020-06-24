@@ -8,7 +8,7 @@ function createLivingRoom(gridSize) {
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
 
-    const materialFloor = new THREE.MeshPhongMaterial({
+    const materialFloor = new THREE.MeshPhysicalMaterial({
         map: textureFloor,
         side: THREE.DoubleSide,
     });

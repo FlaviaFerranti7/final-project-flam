@@ -4,7 +4,7 @@ function createHouse() {
     textureWall1.wrapT = THREE.RepeatWrapping;
     textureWall1.repeat.set(0.5, 0.5);
 
-    const materialWall1 = new THREE.MeshPhongMaterial({
+    const materialWall1 = new THREE.MeshPhysicalMaterial({
         map: textureWall1,
         side: THREE.BackSide,
     });
@@ -14,7 +14,7 @@ function createHouse() {
     textureWallB.wrapT = THREE.RepeatWrapping;
     textureWallB.repeat.set(0.1, 0.1);
 
-    const materialWallB = new THREE.MeshPhongMaterial({
+    const materialWallB = new THREE.MeshPhysicalMaterial({
         map: textureWallB,
     });
 
@@ -23,7 +23,7 @@ function createHouse() {
     textureWallR.wrapT = THREE.RepeatWrapping;
     textureWallR.repeat.set(0.1, 0.1);
 
-    const materialWallR = new THREE.MeshPhongMaterial({
+    const materialWallR = new THREE.MeshPhysicalMaterial({
         map: textureWallR,
     });
 
@@ -32,7 +32,7 @@ function createHouse() {
     textureWall2.wrapT = THREE.RepeatWrapping;
     textureWall2.repeat.set(4, 4);
 
-    const materialWall2 = new THREE.MeshPhongMaterial({
+    const materialWall2 = new THREE.MeshPhysicalMaterial({
         map: textureWall2,
         side: THREE.BackSide,
     });
@@ -42,7 +42,7 @@ function createHouse() {
     textureWallH.wrapT = THREE.RepeatWrapping;
     textureWallH.repeat.set(4, 4);
 
-    const materialWallH = new THREE.MeshPhongMaterial({
+    const materialWallH = new THREE.MeshPhysicalMaterial({
         map: textureWallH,
         side: THREE.BackSide,
     });
@@ -52,12 +52,12 @@ function createHouse() {
     textureWallL.wrapT = THREE.RepeatWrapping;
     textureWallL.repeat.set(0.5, 0.5);
 
-    const materialWallL = new THREE.MeshPhongMaterial({
+    const materialWallL = new THREE.MeshPhysicalMaterial({
         map: textureWallL,
         side: THREE.BackSide,
     });
 
-    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
+    const materialRoof = new THREE.MeshPhysicalMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var house = new THREE.Group();
 

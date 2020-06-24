@@ -15,7 +15,7 @@ function createHallway(gridSize) {
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
 
-    const materialFloor = new THREE.MeshPhongMaterial({
+    const materialFloor = new THREE.MeshPhysicalMaterial({
         map: textureFloor,
         side: THREE.DoubleSide,
     });
@@ -25,7 +25,7 @@ function createHallway(gridSize) {
     textureWallH.wrapT = THREE.RepeatWrapping;
     textureWallH.repeat.set(4, 4);
 
-    const materialWallH = new THREE.MeshPhongMaterial({
+    const materialWallH = new THREE.MeshPhysicalMaterial({
         map: textureWallH,
         side: THREE.BackSide,
     });
@@ -35,7 +35,7 @@ function createHallway(gridSize) {
     textureWallL.wrapT = THREE.RepeatWrapping;
     textureWallL.repeat.set(0.5, 0.5);
 
-    const materialWallL = new THREE.MeshPhongMaterial({
+    const materialWallL = new THREE.MeshPhysicalMaterial({
         map: textureWallL,
     });
 

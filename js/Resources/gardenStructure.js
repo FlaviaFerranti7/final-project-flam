@@ -8,7 +8,7 @@ function createGarden(gridSize) {
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
 
-    const materialFloor = new THREE.MeshPhongMaterial({
+    const materialFloor = new THREE.MeshPhysicalMaterial({
         map: textureFloor,
         side: THREE.DoubleSide,
     });
@@ -18,7 +18,7 @@ function createGarden(gridSize) {
     textureFence.wrapT = THREE.RepeatWrapping;
     textureFence.repeat.set(0.0646, 0.065);
 
-    const materialFence = new THREE.MeshPhongMaterial({
+    const materialFence = new THREE.MeshPhysicalMaterial({
         map: textureFence,
         side: THREE.DoubleSide,
     });
