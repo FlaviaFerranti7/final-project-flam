@@ -136,6 +136,10 @@ function lockChange() {
     blocker.style.display = "none";
     controls.enabled = true;
   } else {
+    if (openGate) {
+      openGate = false;
+      location.reload();
+    }
     if (gameOver) {
       location.reload();
     }
@@ -430,7 +434,8 @@ function getTimeRemaining(endtime) {
 }
 
 function initializeClock(id, endtime) {
-  var elem = document.getElementById('game-over-page');
+  var gameover = document.getElementById('game-over-page');
+  var win = document.getElementById('win-page');
   var tend = document.getElementById("clockdiv");
   var clock = document.getElementById(id);
   var minutesSpan = clock.querySelector('.minutes');
@@ -443,10 +448,16 @@ function initializeClock(id, endtime) {
 
     if (t.total <= 0) {
       tend.style.display = "none";
-      elem.style.display = "block";
+      gameover.style.display = "block";
       clearInterval(timeinterval);
       controls.enabled = false;
       gameOver = true;
+    }
+    if (openGate) {
+      tend.style.display = "none";
+      win.style.display = "block";
+      clearInterval(timeinterval);
+      controls.enabled = false;
     }
   }
   updateClock();

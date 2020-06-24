@@ -1,6 +1,6 @@
 function createGarden(gridSize) {
     var size = gridSize;
-    recursiveChild(house, collidableObjects);
+    // recursiveChild(house, collidableObjects);
 
     // MATERIALS
     const textureFloor = new THREE.TextureLoader().load('../../images/garden.jpg');
@@ -33,11 +33,11 @@ function createGarden(gridSize) {
     garden.add(wall1);
 
     var wall2 = createShape(0.0, size / 25, size * 0.8, new THREE.Vector3(-size * 0.43, 0.0, -0.447 * size), undefined, [materialFence], []);
-    wall2.name =" w3";
+    wall2.name = " w3";
     garden.add(wall2);
 
     var wall3 = createShape(0.0, size / 25, size, new THREE.Vector3(size * 0.368, 0.0, -0.447 * size), new THREE.Vector3(0, -90, 0), [materialFence], []);
-    wall3.name ="w4";
+    wall3.name = "w4";
     garden.add(wall3);
 
     var wall4 = createShape(0.0, size / 25, size / 2.26, new THREE.Vector3(-size * 0.43, 0.0, -0.447 * size), new THREE.Vector3(0, -90, 0), [materialFence], []);
@@ -63,6 +63,10 @@ function createGarden(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
+            if (root.getObjectByName('Right_0').position.x == -1.5) {
+                openGate = true;
+                return false;
+            }
             if (move) {
                 root.getObjectByName('Right_0').position.x = interpolation(2, -1.5, 0, 25, t);
                 root.getObjectByName('Left_1').position.x = interpolation(2, 5.5, 0, 25, t);
@@ -175,7 +179,7 @@ function createGarden(gridSize) {
         scene.add(root);
     });;
 
-   
+
     const gltfLoaderRockingChair = new THREE.GLTFLoader();
     gltfLoaderRockingChair.load("../../model3D/Garden/RockingChair/scene.gltf", (gltf) => {
         const root = gltf.scene;
@@ -209,7 +213,7 @@ function createGarden(gridSize) {
         // console.log(dumpObject(root).join('\n'));
 
         animate();
-        
+
     });
 
     return garden;

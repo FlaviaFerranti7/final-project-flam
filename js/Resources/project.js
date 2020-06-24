@@ -81,10 +81,11 @@ var t1 = 0;
 
 var clock = new THREE.Clock();
 var gameOver = false;
+var openGate = false;
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 1;  //1
+const intensityAmbient = 30;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);

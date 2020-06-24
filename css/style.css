@@ -28,7 +28,7 @@ body {
     z-index: 99;
 }
 
-#game-over-page{
+#game-over-page, #win-page{
     display: none;
     z-index: 99;
 }
