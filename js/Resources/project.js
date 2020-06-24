@@ -379,14 +379,14 @@ var animate = function () {
       hideDivSafe = false;
     }
   }
-  if(choosedoor == 2){
+  if (choosedoor == 2) {
     for (var i = 0; i < objectsAnimated.length; i++) {
-      if(objectsAnimated[i].getObjectName() == "WINDOW_DOORS") steps.push(objectsAnimated[i]);
+      if (objectsAnimated[i].getObjectName() == "WINDOW_DOORS") steps.push(objectsAnimated[i]);
     }
   }
-  if(choosedoor == 1){
+  if (choosedoor == 1) {
     for (var i = 0; i < objectsAnimated.length; i++) {
-      if(objectsAnimated[i].getObjectName() == "DOOR_ENTRY") steps.push(objectsAnimated[i]);
+      if (objectsAnimated[i].getObjectName() == "DOOR_ENTRY") steps.push(objectsAnimated[i]);
     }
   }
 

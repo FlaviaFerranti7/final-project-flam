@@ -222,6 +222,22 @@ function createLivingRoom(gridSize) {
         scene.add(root);
     });
 
+    const gltfLoaderPocketWatch = new THREE.GLTFLoader();
+    gltfLoaderPocketWatch.load("../../model3D/LivingRoom/Pocketwatch/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -50.0;
+        root.position.y = 3.8;
+        root.position.z = 24.0;
+        root.name = 'POCKETWATCH';
+        root.scale.set(0.07, 0.07, 0.07);
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        var obj = new Thing(root, null, null, false, true, null, null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        scene.add(root);
+    });
+
     // const gltfLoaderGateRemoteControl = new THREE.GLTFLoader();
     // gltfLoaderGateRemoteControl.load("../../model3D/LivingRoom/GateRemoteControl/scene.gltf", (gltf) => {
     //     const root = gltf.scene;

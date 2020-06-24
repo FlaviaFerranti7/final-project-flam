@@ -249,6 +249,23 @@ function createRoom1(gridSize) {
         scene.add(root);
     });
 
+    const gltfLoaderRope = new THREE.GLTFLoader();
+    gltfLoaderRope.load("../../model3D/Room1/Rope/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 12;
+        root.position.y = 3.2;
+        root.position.z = 8;
+        root.scale.set(0.5, 0.5, 0.5);
+        root.rotateX(degToRad(90));
+        root.name = "ROPE";
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        var obj = new Thing(root, null, null, false, true, null, null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        scene.add(root);
+    });
+
     const gltfLoaderTorch = new THREE.GLTFLoader();
     gltfLoaderTorch.load("../../model3D/Room1/Torch/scene.gltf", (gltf) => {
         const root = gltf.scene;
@@ -261,7 +278,7 @@ function createRoom1(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = () => {
-            if(torch.intensity == 0) torch.intensity = 2;
+            if (torch.intensity == 0) torch.intensity = 2;
             else torch.intensity = 0;
             return false;
         }
