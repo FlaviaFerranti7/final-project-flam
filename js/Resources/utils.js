@@ -273,6 +273,8 @@ function animatePlayer(delta) {
 }
 
 function animateMonster() {
+  moveArms();
+  moveLegs();
   monster.position.z = interpolation(35, 0, 0, 10, t1);
   if (t1 > 10) {
     monster.rotation.y = interpolation(degToRad(0), degToRad(180), 10, 13, t1);
@@ -287,6 +289,46 @@ function animateMonster() {
     t1 = 0;
   }
   t1 += 0.1;
+}
+
+function moveArms(){
+    if(tA>=0 && tA<1){
+      armR.position.x = interpolation(0.2, 0.08, 0, 1, tA);
+    }
+    else if(tA>=1 && tA <2){
+      armR.position.x = interpolation(0.08, 0.2, 1, 2, tA);
+      armL.position.x = interpolation(0.08, 0.002, 1, 2, tA);
+    }
+    else if(tA >= 2 && tA < 3){
+      armL.position.x = interpolation(0.002, 0.08, 2, 3, tA);
+      armR.position.x = 0.2;
+    }
+    else if(tA >= 3){
+        tA =0;
+    }
+    tA += 0.15; 
+}
+
+function moveLegs(){
+    if( tL>=0 && tL < 0.2){
+      legL.position.x = 0.15;
+      legR.position.x = 0.15;
+    }
+    else if( tL >= 0.2 && tL< 1.2){
+      legL.position.x = interpolation(0.15, 0.2, 0.2, 1.2, tL);
+    }
+    else if(tL>=1.2 && tL <2.2){
+      legL.position.x = interpolation(0.2, 0.15, 1.2, 2.2, tL);
+      legR.position.x = interpolation(0.15, 0.2, 1.2, 2.2, tL);
+    }
+    else if(tL >= 2.2  && tL < 3.2 ){
+      legL.position.x = 0.15;
+      legR.position.x = interpolation(0.2, 0.15, 2.2, 3.2, tL);
+    }
+    else if(tL >= 3.2){
+        tL=0;
+    }
+    tL += 0.15;      
 }
 
 function detectPlayerCollision() {

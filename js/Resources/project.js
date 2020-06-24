@@ -214,6 +214,8 @@ torch.target.position.set(0, 0, -1);
 torch.position.set(0, 0, -0.9);
 
 var t = 0;
+var tA = 0;
+var tL = 0;
 var move = false;
 
 var raycaster = new THREE.Raycaster();
