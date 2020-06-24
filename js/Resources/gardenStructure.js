@@ -202,6 +202,16 @@ function createGarden(gridSize) {
         root.scale.set(10, 10, 10);//40
         root.name = "MONSTER";
         root.rotateY(degToRad(180));
+        
+        legR = root.getObjectByName("Oberschenkel_R_044");  //-0.02
+        legR.position.x = 0.15;
+        legL = root.getObjectByName("Oberschenkel_L_041"); //-0.03
+        legL.position.x = 0.15;
+
+        armR = root.getObjectByName("Schalterplatte_R_033"); //0.08
+        armR.position.x = 0.2;
+        armL = root.getObjectByName("Schalterplatte_L_025"); //0.08
+
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var obj = new Thing(root, null, null, false, false, null, null);
