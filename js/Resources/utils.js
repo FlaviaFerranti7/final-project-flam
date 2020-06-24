@@ -136,6 +136,9 @@ function lockChange() {
     blocker.style.display = "none";
     controls.enabled = true;
   } else {
+    if (gameOver) {
+      location.reload();
+    }
     blocker.style.display = "";
     controls.enabled = false;
   }
@@ -205,7 +208,6 @@ function listenForPlayerMovement() {
           backpack.discardObject(event.keyCode - 53, currentObject);
         }
         break;
-
     }
   };
 
@@ -232,13 +234,10 @@ function listenForPlayerMovement() {
         walk.stop();
         break;
     }
-
-
   };
 
   document.addEventListener('keydown', onKeyDown, false);
   document.addEventListener('keyup', onKeyUp, false);
-
 }
 
 function animatePlayer(delta) {
@@ -270,7 +269,6 @@ function animatePlayer(delta) {
 }
 
 function animateMonster() {
-
   monster.position.z = interpolation(35, 0, 0, 10, t1);
   if (t1 > 10) {
     monster.rotation.y = interpolation(degToRad(0), degToRad(180), 10, 13, t1);
@@ -286,7 +284,6 @@ function animateMonster() {
   }
   t1 += 0.1;
 }
-
 
 function detectPlayerCollision() {
   // The rotation matrix to apply to our direction vector
@@ -326,7 +323,6 @@ function detectPlayerCollision() {
   }
 }
 
-
 function rayIntersect(ray, distance) {
   var intersects = ray.intersectObjects(collidableObjects);
   for (var i = 0; i < intersects.length; i++) {
@@ -347,7 +343,6 @@ function recursiveChild(group, collidableObjects) {
     }
   });
 }
-
 
 function dumpObject(obj, lines = [], isLast = true, prefix = '') {
   const localPrefix = isLast ? '└─' : '├─';
@@ -421,7 +416,6 @@ function insertCode() {
     document.getElementById("backpack-objects").style.display = "none";
     backpack.setOpen(false);
   }
-
 }
 
 function getTimeRemaining(endtime) {
@@ -436,6 +430,7 @@ function getTimeRemaining(endtime) {
 }
 
 function initializeClock(id, endtime) {
+  var elem = document.getElementById('game-over-page');
   var tend = document.getElementById("clockdiv");
   var clock = document.getElementById(id);
   var minutesSpan = clock.querySelector('.minutes');
@@ -447,12 +442,11 @@ function initializeClock(id, endtime) {
     secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
 
     if (t.total <= 0) {
-      tend.style.display = 'none';
+      tend.style.display = "none";
+      elem.style.display = "block";
       clearInterval(timeinterval);
-      blocker.style.display = 'block';
-      blocker.childNodes[1].innerHTML = "Game over";
       controls.enabled = false;
-      document.exitPointerLock();
+      gameOver = true;
     }
   }
   updateClock();

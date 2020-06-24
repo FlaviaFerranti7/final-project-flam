@@ -80,6 +80,7 @@ var monster;
 var t1 = 0;
 
 var clock = new THREE.Clock();
+var gameOver = false;
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
