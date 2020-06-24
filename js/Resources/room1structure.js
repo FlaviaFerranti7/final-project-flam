@@ -35,15 +35,6 @@ function createRoom1(gridSize) {
         map: textureWallP,
     });
 
-    const textureWallB = new THREE.TextureLoader().load('../../images/brick.jpg');
-    textureWallB.wrapS = THREE.RepeatWrapping;
-    textureWallB.wrapT = THREE.RepeatWrapping;
-    textureWallB.repeat.set(0.1, 0.1);
-
-    const materialWallB = new THREE.MeshPhongMaterial({
-        map: textureWallB,
-    });
-
     const textureWallH = new THREE.TextureLoader().load('../../images/hallway.jpg');
     textureWallH.wrapS = THREE.RepeatWrapping;
     textureWallH.wrapT = THREE.RepeatWrapping;
@@ -52,17 +43,6 @@ function createRoom1(gridSize) {
     const materialWallH = new THREE.MeshPhongMaterial({
         map: textureWallH,
     });
-
-    const textureWallR = new THREE.TextureLoader().load('../../images/roof.jpg');
-    textureWallR.wrapS = THREE.RepeatWrapping;
-    textureWallR.wrapT = THREE.RepeatWrapping;
-    textureWallR.repeat.set(0.1, 0.1);
-
-    const materialWallR = new THREE.MeshPhongMaterial({
-        map: textureWallR,
-    });
-
-    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var room = new THREE.Group();
 
@@ -268,6 +248,23 @@ function createRoom1(gridSize) {
             enableConditionedAnimation = true;
         }
         var obj = new Thing(root, animation, null, false, true, "DOOR_ROOM2", null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        scene.add(root);
+    });
+
+    const gltfLoaderRope = new THREE.GLTFLoader();
+    gltfLoaderRope.load("../../model3D/Room1/Rope/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = 12;
+        root.position.y = 3.2;
+        root.position.z = 8;
+        root.scale.set(0.5, 0.5, 0.5);
+        root.rotateX(degToRad(90));
+        root.name = "ROPE";
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        var obj = new Thing(root, null, null, false, true, null, null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);

@@ -21,8 +21,9 @@ var controls;
 var controlsEnabled = false;
 var blocker = document.getElementById('blocker');
 getPointerLock();
+manageInitialPage();
 controls = new THREE.PointerLockControls(camera, container);
-controls.getObject().position.set(10.5, 8, 0);
+controls.getObject().position.set(10.5, 20, 0);
 controls.getObject().rotation.set(0, 1.57, 0);
 scene.add(controls.getObject());
 
@@ -39,6 +40,7 @@ var loadingH = false;
 var loadingLR = false;
 var loadingG = false;
 var garden = false;
+var choosedoor = 0;
 
 var openSafe = false;
 var hideDivSafe = false;
@@ -74,12 +76,21 @@ var PLAYERSPEED = 200.0;
 var PLAYERCOLLISIONDISTANCE = 5;
 var collidableObjects = [];
 
+//for the monster
+var monster;
+var t1 = 0;
 
 var clock = new THREE.Clock();
+var deadline = 30 * 60 * 1000;
+var timeinterval;
+var deltasec = 0;
+var clockFlag = false;
+var gameOver = false;
+var openGate = false;
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 1;  //1
+const intensityAmbient = 2;  //1
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -105,20 +116,22 @@ var room2;
 var room2Loader = function () {
   room2 = createRoom2(40);
   scene.add(room2);
+
   return true;
 }
 
 /* --------------------------- HALLWAY --------------------------- */
 var hallway;
 var wallHL;
-var doorHL;
 var hallwayLoader = function () {
   hallway = createHallway(80);
   scene.add(hallway);
+
   return true;
 }
 
 /* ------------------------- LIVING-ROOM ------------------------- */
+var windowDoor;
 var livingRoom;
 var livingRoomLoader = function () {
   livingRoom = createLivingRoom(80);
@@ -169,6 +182,8 @@ torch.target.position.set(0, 0, -1);
 torch.position.set(0, 0, -0.9);
 
 var t = 0;
+var tA = 0;
+var tL = 0;
 var move = false;
 
 var raycaster = new THREE.Raycaster();
@@ -178,21 +193,19 @@ var associatedObject;
 
 var animate = function () {
 
-  /*
-  setTimeout(function () {
-    requestAnimationFrame(animate);
-  }, 1000 / 30);
-  */
-
   requestAnimationFrame(animate);
 
   var delta = clock.getDelta();
   animatePlayer(delta);
 
+  if (monster != undefined) {
+    animateMonster();
+  }
+
   raycaster.setFromCamera(marker.position, camera);
   var intersects = raycaster.intersectObjects(objectsRaycaster, true);
 
-  if (intersects.length > 0 && intersects[0].distance >= 6 && intersects[0].distance <= 11) {
+  if (intersects.length > 0 && intersects[0].distance >= 4 && intersects[0].distance <= 11) {
     if (INTERSECTED != intersects[0].object) {
 
       if (INTERSECTED && !functionIsRunning) {
@@ -204,7 +217,6 @@ var animate = function () {
       }
 
       INTERSECTED = intersects[0].object;
-
       for (var i = 0; i < objectsAnimated.length; i++) {
         objectsAnimated[i].getObject().traverse((child) => {
           if (intersects[0].object == child) {
@@ -240,7 +252,7 @@ var animate = function () {
       remove.style.display = "none";
     }
   }
-
+  // console.log(intersects);
   if (currentObject != null) {
     if ((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")) {
       actionPanel.style.display = "block";
@@ -265,7 +277,7 @@ var animate = function () {
     actionPanel.childNodes[1].innerHTML = currentObject.getActionButton();
     remove.childNodes[1].innerHTML = "Watch out! If you go in you can't come back here";
     if (currentObject.getAnimation() !== null && !currentObject.getIsElemOfBackpack() && !currentObject.getConditionedAnimated()) {
-      if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY") {
+      if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY" || currentObject.getObjectName() == "WINDOW_DOORS") {
         cameraPos = camera.position;
         cameraRot = camera.rotation;
       }
@@ -333,6 +345,16 @@ var animate = function () {
       hideDivSafe = false;
     }
   }
+  if (choosedoor == 2) {
+    for (var i = 0; i < objectsAnimated.length; i++) {
+      if (objectsAnimated[i].getObjectName() == "WINDOW_DOORS") steps.push(objectsAnimated[i]);
+    }
+  }
+  if (choosedoor == 1) {
+    for (var i = 0; i < objectsAnimated.length; i++) {
+      if (objectsAnimated[i].getObjectName() == "DOOR_ENTRY") steps.push(objectsAnimated[i]);
+    }
+  }
 
   //SEQUENTIAL ROOM LOADING
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingR2 == false) {
@@ -340,12 +362,12 @@ var animate = function () {
     loadingR2 = room2Loader();
     steps.splice(0, 1);
   }
-  if (move && functionIsRunning && steps.indexOf(currentObject) == 1 && loadingH == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingH == false) {
     alert("Level 2 passed", 7000);
     loadingH = hallwayLoader();
-    steps.splice(1, 1);
+    steps.splice(0, 1);
   }
-  if (move && functionIsRunning && steps.indexOf(currentObject) == 1 && loadingLR == false) {
+  if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
     var elem = document.getElementById("LR-message");
     elem.style.display = "block";
     elem.childNodes[1].innerHTML = "";
@@ -354,7 +376,7 @@ var animate = function () {
     }, 7000);
     if (removeRooms()) {
       loadingLR = livingRoomLoader();
-      steps.splice(1, 1);
+      steps.splice(0, 1);
       garden = true;
     }
   }

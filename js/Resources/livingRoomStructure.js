@@ -1,5 +1,6 @@
 function createLivingRoom(gridSize) {
     var size = gridSize;
+    recursiveChild(house, collidableObjects);
 
     // MATERIALS
     const textureFloor = new THREE.TextureLoader().load('../../images/parquet.jpg');
@@ -12,35 +13,10 @@ function createLivingRoom(gridSize) {
         side: THREE.DoubleSide,
     });
 
-    const textureWallB = new THREE.TextureLoader().load('../../images/brick.jpg');
-    textureWallB.wrapS = THREE.RepeatWrapping;
-    textureWallB.wrapT = THREE.RepeatWrapping;
-    textureWallB.repeat.set(0.1, 0.1);
-
-    const materialWallB = new THREE.MeshPhongMaterial({
-        map: textureWallB,
-    });
-
-    const textureWallL = new THREE.TextureLoader().load('../../images/livingRoom.jpg');
-    textureWallL.wrapS = THREE.RepeatWrapping;
-    textureWallL.wrapT = THREE.RepeatWrapping;
-    textureWallL.repeat.set(0.5, 0.5);
-
-    const materialWallL = new THREE.MeshPhongMaterial({
-        map: textureWallL,
-        side: THREE.BackSide,
-    });
-
     const textureWallR = new THREE.TextureLoader().load('../../images/roof.jpg');
     textureWallR.wrapS = THREE.RepeatWrapping;
     textureWallR.wrapT = THREE.RepeatWrapping;
     textureWallR.repeat.set(0.1, 0.1);
-
-    const materialWallR = new THREE.MeshPhongMaterial({
-        map: textureWallR,
-    });
-
-    const materialRoof = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.BackSide });
 
     var livingRoom = new THREE.Group();
 
@@ -73,6 +49,8 @@ function createLivingRoom(gridSize) {
     livingRoom.add(sourceSpotlightL.target);
 
     recursiveChild(livingRoom, collidableObjects);
+
+    var animationB;
 
     var mtlLoaderLamp = new THREE.MTLLoader();
     mtlLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
@@ -124,6 +102,7 @@ function createLivingRoom(gridSize) {
     const gltfLoaderBookcase = new THREE.GLTFLoader();
     gltfLoaderBookcase.load("../../model3D/LivingRoom/Bookcase/scene.gltf", (gltf) => {
         const root = gltf.scene;
+        bookcase = root;
         root.position.x = -99.0;
         root.position.y = 0.0;
         root.position.z = -5.0;
@@ -131,8 +110,7 @@ function createLivingRoom(gridSize) {
         root.rotateY(degToRad(90));
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        console.log(root.getObjectByName('Shkaf').position);
-        var animation = (t, move) => {
+        animationB = (t, move) => {
             if (root.getObjectByName('Shkaf').position.x == 0.5) {
                 var elem = document.getElementById("book-message");
                 elem.style.display = "block";
@@ -148,9 +126,6 @@ function createLivingRoom(gridSize) {
             }
             return false;
         };
-        var obj = new Thing(root, animation, null, false, false, null, null);
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
         livingRoom.add(root);
         // console.log(dumpObject(root).join('\n'));
     });
@@ -186,6 +161,10 @@ function createLivingRoom(gridSize) {
                 setTimeout(() => {
                     elem.style.display = "none";
                 }, 7000);
+            
+                var obj = new Thing(bookcase, animationB, null, false, false, null, null);
+                objectsAnimated.push(obj);
+                objectsRaycaster.push(obj.getObject());
                 return false;
             }
             if (move) {
@@ -214,7 +193,7 @@ function createLivingRoom(gridSize) {
         root.traverse((child) => child.castShadow = true);
 
         var animation = () => {
-            if(!violin.isPlaying) violin.play();
+            if (!violin.isPlaying) violin.play();
             else violin.pause();
 
             return false;
@@ -246,6 +225,22 @@ function createLivingRoom(gridSize) {
         scene.add(root);
     });
 
+    const gltfLoaderPocketWatch = new THREE.GLTFLoader();
+    gltfLoaderPocketWatch.load("../../model3D/LivingRoom/Pocketwatch/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -50.0;
+        root.position.y = 3.8;
+        root.position.z = 24.0;
+        root.name = 'POCKETWATCH';
+        root.scale.set(0.07, 0.07, 0.07);
+        root.traverse((child) => child.castShadow = true);
+        recursiveChild(root, collidableObjects);
+        var obj = new Thing(root, null, null, false, true, null, null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        scene.add(root);
+    });
+
     // const gltfLoaderGateRemoteControl = new THREE.GLTFLoader();
     // gltfLoaderGateRemoteControl.load("../../model3D/LivingRoom/GateRemoteControl/scene.gltf", (gltf) => {
     //     const root = gltf.scene;
@@ -261,6 +256,22 @@ function createLivingRoom(gridSize) {
     //     recursiveChild(root, collidableObjects);
     //     scene.add(root);
     // });
+
+    const gltfLoaderBullet = new THREE.GLTFLoader();
+    gltfLoaderBullet.load("../../model3D/LivingRoom/Bullet/scene.gltf", (gltf) => {
+        const root = gltf.scene;
+        root.position.x = -55.0;
+        root.position.y = 4.7;
+        root.position.z = -12.5;
+        root.name = 'BULLET';
+        root.scale.set(0.2, 0.2, 0.2);
+        root.traverse((child) => child.castShadow = true);
+        var obj = new Thing(root, null, null, false, true, null, "GUN");
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
+        recursiveChild(root, collidableObjects);
+        scene.add(root);
+    });
 
     const gltfLoaderScissors = new THREE.GLTFLoader();
     gltfLoaderScissors.load("../../model3D/LivingRoom/Scissors/scene.gltf", (gltf) => {

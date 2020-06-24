@@ -113,11 +113,21 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+function manageInitialPage() {
+  var elem = document.getElementById('initial-page');
+  elem.style.display = "block";
+  setTimeout(() => {
+    elem.style.display = "none";
+  }, 5000); // TO DO 30sec
+}
+
 function getPointerLock() {
   document.onclick = function () {
     container.requestPointerLock();
-    var deadline = new Date(Date.parse(new Date()) + 30 * 60 * 1000);
-    initializeClock('clockdiv', deadline);
+    if (!clockFlag) {
+      clockFlag = true;
+      initializeClock('clockdiv', deadline);
+    }
   }
   document.addEventListener('pointerlockchange', lockChange, false);
 }
@@ -128,8 +138,18 @@ function lockChange() {
     blocker.style.display = "none";
     controls.enabled = true;
   } else {
+    if (openGate) {
+      openGate = false;
+      location.reload();
+    }
+    if (gameOver) {
+      location.reload();
+    }
     blocker.style.display = "";
     controls.enabled = false;
+    clockFlag = false;
+    clearInterval(timeinterval);
+
   }
 }
 
@@ -201,7 +221,6 @@ function listenForPlayerMovement() {
           backpack.discardObject(event.keyCode - 53, currentObject);
         }
         break;
-
     }
   };
 
@@ -232,13 +251,10 @@ function listenForPlayerMovement() {
         else if(walkInTheGarden.isPlaying) walkInTheGarden.stop();
         break;
     }
-
-
   };
 
   document.addEventListener('keydown', onKeyDown, false);
   document.addEventListener('keyup', onKeyUp, false);
-
 }
 
 function animatePlayer(delta) {
@@ -269,6 +285,64 @@ function animatePlayer(delta) {
   }
 }
 
+function animateMonster() {
+  moveArms();
+  moveLegs();
+  monster.position.z = interpolation(35, 0, 0, 10, t1);
+  if (t1 > 10) {
+    monster.rotation.y = interpolation(degToRad(0), degToRad(180), 10, 13, t1);
+  }
+  if (t1 > 13) {
+    monster.position.z = interpolation(0, 35, 13, 23, t1);
+  }
+  if (t1 > 23) {
+    monster.rotation.y = interpolation(degToRad(180), degToRad(0), 23, 26, t1);
+  }
+  if (t1 > 26) {
+    t1 = 0;
+  }
+  t1 += 0.1;
+}
+
+function moveArms(){
+    if(tA>=0 && tA<1){
+      armR.position.x = interpolation(0.2, 0.08, 0, 1, tA);
+    }
+    else if(tA>=1 && tA <2){
+      armR.position.x = interpolation(0.08, 0.2, 1, 2, tA);
+      armL.position.x = interpolation(0.08, 0.002, 1, 2, tA);
+    }
+    else if(tA >= 2 && tA < 3){
+      armL.position.x = interpolation(0.002, 0.08, 2, 3, tA);
+      armR.position.x = 0.2;
+    }
+    else if(tA >= 3){
+        tA =0;
+    }
+    tA += 0.15; 
+}
+
+function moveLegs(){
+    if( tL>=0 && tL < 0.2){
+      legL.position.x = 0.15;
+      legR.position.x = 0.15;
+    }
+    else if( tL >= 0.2 && tL< 1.2){
+      legL.position.x = interpolation(0.15, 0.2, 0.2, 1.2, tL);
+    }
+    else if(tL>=1.2 && tL <2.2){
+      legL.position.x = interpolation(0.2, 0.15, 1.2, 2.2, tL);
+      legR.position.x = interpolation(0.15, 0.2, 1.2, 2.2, tL);
+    }
+    else if(tL >= 2.2  && tL < 3.2 ){
+      legL.position.x = 0.15;
+      legR.position.x = interpolation(0.2, 0.15, 2.2, 3.2, tL);
+    }
+    else if(tL >= 3.2){
+        tL=0;
+    }
+    tL += 0.15;      
+}
 
 function detectPlayerCollision() {
   // The rotation matrix to apply to our direction vector
@@ -401,13 +475,13 @@ function insertCode() {
     document.getElementById("backpack-objects").style.display = "none";
     backpack.setOpen(false);
   }
-
 }
 
 function getTimeRemaining(endtime) {
-  var t = Date.parse(endtime) - Date.parse(new Date());
+  var t = endtime - deltasec;
   var seconds = Math.floor((t / 1000) % 60);
   var minutes = Math.floor((t / 1000 / 60) % 60);
+  deltasec += 1000;
   return {
     'total': t,
     'minutes': minutes,
@@ -416,6 +490,8 @@ function getTimeRemaining(endtime) {
 }
 
 function initializeClock(id, endtime) {
+  var gameover = document.getElementById('game-over-page');
+  var win = document.getElementById('win-page');
   var tend = document.getElementById("clockdiv");
   var clock = document.getElementById(id);
   var minutesSpan = clock.querySelector('.minutes');
@@ -427,16 +503,23 @@ function initializeClock(id, endtime) {
     secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
 
     if (t.total <= 0) {
-      tend.style.display = 'none';
+      tend.style.display = "none";
+      gameover.style.display = "block";
       clearInterval(timeinterval);
-      blocker.style.display = 'block';
-      blocker.childNodes[1].innerHTML = "Game over";
       controls.enabled = false;
-      document.exitPointerLock();
+      gameOver = true;
+    }
+    if (openGate) {
+      tend.style.display = "none";
+      win.style.display = "block";
+      clearInterval(timeinterval);
+      controls.enabled = false;
     }
   }
+
   updateClock();
-  var timeinterval = setInterval(updateClock, 1000);
+  timeinterval = setInterval(updateClock, 1000);
+
 }
 
 function removeRooms() {
@@ -444,7 +527,7 @@ function removeRooms() {
   scene.remove(room2);
   scene.remove(hallway);
   for (var i = 0; i < objectsAnimated.length; i++) {
-    if (objectsAnimated[i].getObjectName() != "DOOR_HALLWAY") {
+    if (objectsAnimated[i].getObjectName() != "DOOR_HALLWAY" && objectsAnimated[i].getObjectName() != "DOOR_ENTRY" && objectsAnimated[i].getObjectName() != "WINDOW_DOORS") {
       scene.remove(objectsAnimated[i].getObject());
       objectsAnimated.splice(i, 1);
       objectsRaycaster.splice(i, 1);
@@ -471,4 +554,3 @@ function removeLeaving() {
   livingRoom = null;
   return true;
 }
-
