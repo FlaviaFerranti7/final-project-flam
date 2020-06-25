@@ -23,8 +23,9 @@ var blocker = document.getElementById('blocker');
 getPointerLock();
 manageInitialPage();
 controls = new THREE.PointerLockControls(camera, container);
-controls.getObject().position.set(10.5, 20, 0);
+controls.getObject().position.set(10.5, 10, 0);
 controls.getObject().rotation.set(0, 1.57, 0);
+
 scene.add(controls.getObject());
 
 var cameraPos;
@@ -147,7 +148,7 @@ var gardenLoader = function () {
   return true;
 }
 
-/* ------------------------- LISTENER -------------------------- */
+/* ------------------------- MARKER -------------------------- */
 
 var geometry = new THREE.PlaneGeometry(0.005, 0.03, 32);
 var material = new THREE.MeshBasicMaterial({ color: 0xeed000, side: THREE.DoubleSide });
@@ -162,8 +163,22 @@ marker.add(horizontalCross);
 camera.add(marker);
 marker.position.set(0, 0, -0.5);
 
+/* ------------------------- LISTENER -------------------------- */
+
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
+
+/* ------------------------- CAMERA BODY -------------------------- */
+
+var geometry = new THREE.BoxGeometry( 3, 3, 3 );
+var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+material.transparent = true;
+material.opacity = 0;
+
+
+var cameraBody = new THREE.Mesh( geometry, material );
+
+scene.add( cameraBody );
 
 
 /* ------------------------- TORCH SPOTLIGHT ------------------------- */
@@ -392,6 +407,10 @@ var animate = function () {
       gardenSounds.play();
     }
   }
+  cameraBody.position.copy(camera.position);
+  cameraBody.position.y = 3;
+  cameraBody.quaternion.copy(camera.quaternion);
+
   renderer.render(scene, camera);
 };
 

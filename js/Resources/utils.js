@@ -258,8 +258,8 @@ function animatePlayer(delta) {
   playerVelocity.x -= playerVelocity.x * 10.0 * delta;
   playerVelocity.z -= playerVelocity.z * 10.0 * delta;
 
-  if (detectPlayerCollision() == false) {
-    if (moveForward) {
+  if (!detectPlayerCollision()) {
+    if (moveForward && !detectCameraBodyCollision()) {
       playerVelocity.z -= PLAYERSPEED * delta;
     }
     if (moveBackward) {
@@ -338,6 +338,20 @@ function moveLegs() {
     tL = 0;
   }
   tL += 0.15;
+}
+
+function detectCameraBodyCollision() {
+  
+  var matrix = new THREE.Matrix4();
+  matrix.extractRotation(cameraBody.matrix);
+
+  var directionFront = new THREE.Vector3(0, 0, 1);
+  directionFront.applyMatrix4(matrix);
+  directionFront.applyQuaternion(camera.quaternion);
+
+  var rayCasterBody = new THREE.Raycaster(cameraBody.position, directionFront);
+
+  return rayIntersect(rayCasterBody, PLAYERCOLLISIONDISTANCE + 2);
 }
 
 function detectPlayerCollision() {
