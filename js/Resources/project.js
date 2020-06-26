@@ -215,6 +215,7 @@ var move = false;
 var raycaster = new THREE.Raycaster();
 var INTERSECTED;
 var enableAction = false;
+var enableCollect = false;
 var associatedObject;
 
 var animate = function () {
@@ -237,6 +238,7 @@ var animate = function () {
       if (INTERSECTED && !functionIsRunning) {
         currentObject = null;
         enableAction = false;
+        enableCollect = false;
         move = false;
         enableConditionedAnimation = false;
         t = 0;
@@ -260,6 +262,7 @@ var animate = function () {
     if (INTERSECTED && !functionIsRunning) {
       currentObject = null;
       enableAction = false;
+      enableCollect = false;
       move = false;
       collect = false;
       enableConditionedAnimation = false;
@@ -270,6 +273,7 @@ var animate = function () {
       INTERSECTED = null;
       currentObject = null;
       enableAction = false;
+      enableCollect = false;
       move = false;
       collect = false;
       enableConditionedAnimation = false;
@@ -282,7 +286,7 @@ var animate = function () {
   if (currentObject != null) {
     if ((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")) {
       actionPanel.style.display = "block";
-      enableAction = true;
+      //enableAction = true;
       if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY") {
         remove.style.display = "block";
       }
@@ -293,6 +297,8 @@ var animate = function () {
           sheetMessage.style.display = "none";
         }, 5000);
       }
+      if(currentObject.getActionButton() == "SPACE") enableAction = true;
+      else enableCollect = true;
     }
     else {
       actionPanel.style.display = "none";
@@ -339,7 +345,7 @@ var animate = function () {
       }
     }
     if (move) t += 0.1;
-    if (currentObject.getIsElemOfBackpack() && insertElem) {
+    if (currentObject.getIsElemOfBackpack() && insertElem && collect) {
       objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
       objectsRaycaster.splice(objectsRaycaster.indexOf(currentObject.getObject()), 1);
       collect = false;

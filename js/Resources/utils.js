@@ -184,7 +184,7 @@ function listenForPlayerMovement() {
 
       // Q
       case 81:
-        if (enableAction) collect = true;
+        if (enableCollect) collect = true;
         break;
 
       case 69:

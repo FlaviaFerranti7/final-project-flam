@@ -125,11 +125,9 @@ class Backpack {
             this.numElem -= 1;
             if(objectOfBackpack.getObjectName() == "TORCH" && torch.intensity != 0) {
                 torch.intensity = 0;
-                //objectOfBackpack.setIsElemOfBackpack(true);
             }
             if(objectOfBackpack.getObjectName() == "VIOLIN" && violin.isPlaying) {
                 violin.stop();
-                //objectOfBackpack.setIsElemOfBackpack(true);
             }
             objectOfBackpack.setIsElemOfBackpack(true);
         }
