@@ -62,6 +62,9 @@ var functionIsRunning = false;
 
 var enableConditionedAnimation = false;
 
+var upperCoordinatesMap = new THREE.Vector2(0,0);
+var lowerCoordinatesMap = new THREE.Vector2(0,0);
+
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
 var moveForward = false;
@@ -111,13 +114,16 @@ scene.add(house);
 var room1;
 room1 = createRoom1(40);
 scene.add(room1);
+upperCoordinatesMap = new THREE.Vector2(20, 20);
+lowerCoordinatesMap = new THREE.Vector2(-20, -20);
 
 /* ------------------------- SECOND ROOM ------------------------- */
 var room2;
 var room2Loader = function () {
   room2 = createRoom2(40);
   scene.add(room2);
-
+  upperCoordinatesMap = new THREE.Vector2(20, 60);
+  lowerCoordinatesMap = new THREE.Vector2(-20, -20);
   return true;
 }
 
@@ -127,7 +133,8 @@ var wallHL;
 var hallwayLoader = function () {
   hallway = createHallway(80);
   scene.add(hallway);
-
+  upperCoordinatesMap = new THREE.Vector2(20, 60);
+  lowerCoordinatesMap = new THREE.Vector2(-40, -20);
   return true;
 }
 
@@ -136,6 +143,8 @@ var windowDoor;
 var livingRoom;
 var livingRoomLoader = function () {
   livingRoom = createLivingRoom(80);
+  upperCoordinatesMap = new THREE.Vector2(-40, 60);
+  lowerCoordinatesMap = new THREE.Vector2(-100, -20);
   scene.add(livingRoom);
   return true;
 }
@@ -144,6 +153,8 @@ var livingRoomLoader = function () {
 var garden;
 var gardenLoader = function () {
   garden = createGarden(380);
+  upperCoordinatesMap = new THREE.Vector3(90, 0, 210);
+  lowerCoordinatesMap = new THREE.Vector3(-215, 0, -170);
   scene.add(garden);
   return true;
 }
@@ -323,6 +334,7 @@ var animate = function () {
         }
         else {
           alert("It isn't possible to collect " + currentObject.getObjectName());
+          insertElem = false;
         }
       }
     }
@@ -410,6 +422,8 @@ var animate = function () {
   cameraBody.position.copy(camera.position);
   cameraBody.position.y = 3;
   cameraBody.quaternion.copy(camera.quaternion);
+
+  //console.log(camera.position);
 
   renderer.render(scene, camera);
 };

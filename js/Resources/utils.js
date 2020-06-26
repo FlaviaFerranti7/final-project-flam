@@ -253,7 +253,25 @@ function listenForPlayerMovement() {
 
 function animatePlayer(delta) {
   // Gradual slowdown
+  var flag = false;
+
+  if(camera.position.x > 0 && camera.position.x > upperCoordinatesMap.x) {
+    camera.position.x = upperCoordinatesMap.x - PLAYERCOLLISIONDISTANCE;
+    flag = true;
+  } else if(camera.position.x < 0 && camera.position.x < lowerCoordinatesMap.x) {
+    camera.position.x = lowerCoordinatesMap.x + PLAYERCOLLISIONDISTANCE;
+    flag = true;
+  }
+
+  if(camera.position.z > 0 && camera.position.z > upperCoordinatesMap.y) {
+    camera.position.z = upperCoordinatesMap.y - PLAYERCOLLISIONDISTANCE;
+    flag = true;
+  } else if(camera.position.z < 0 && camera.position.z < lowerCoordinatesMap.y) {
+    camera.position.z = lowerCoordinatesMap.y + PLAYERCOLLISIONDISTANCE;
+    flag = true;
+  }  
   playerVelocity.x -= playerVelocity.x * 10.0 * delta;
+
   playerVelocity.z -= playerVelocity.z * 10.0 * delta;
 
   if (!detectPlayerCollision()) {
@@ -269,9 +287,12 @@ function animatePlayer(delta) {
     if (moveRight) {
       playerVelocity.x += PLAYERSPEED * delta;
     }
-    controls.getObject().translateX(playerVelocity.x * delta);
-    controls.getObject().translateZ(playerVelocity.z * delta);
-    controls.getObject().position.y = 10;
+    if(!flag) {
+      controls.getObject().translateX(playerVelocity.x * delta);
+      controls.getObject().translateZ(playerVelocity.z * delta);
+      controls.getObject().position.y = 10;
+    }
+    flag = false;
   }
   else {
     playerVelocity.x = 0;
