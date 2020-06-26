@@ -82,6 +82,9 @@ var collidableObjects = [];
 
 //for the monster
 var monster;
+var monsterPos;
+var monsterRot;
+var tViolin;
 var t1 = 0;
 
 var clock = new THREE.Clock();
@@ -225,8 +228,25 @@ var animate = function () {
   var delta = clock.getDelta();
   animatePlayer(delta);
 
+  if (violin.isPlaying){
+    monsterPos = monster.position;
+    monsterRot = monster.rotation;
+  }
+
   if (monster != undefined) {
-    animateMonster();
+    if(!violin.isPlaying){
+      tViolin = 0;
+      animateMonster();
+    }
+    else{
+      stopMonster();
+      tViolin += 0.1;
+      console.log(tViolin)
+      if(tViolin > 5) {
+        violin.pause();
+        violin.isPlaying = false;
+      }
+    }
   }
 
   raycaster.setFromCamera(marker.position, camera);

@@ -318,6 +318,10 @@ function animateMonster() {
   }
   t1 += 0.1;
 }
+function stopMonster(){
+  monster.position.z = monsterPos.z;
+  monster.rotation.y = monsterRot.y;
+}
 
 function moveArms() {
   if (tA >= 0 && tA < 1) {
