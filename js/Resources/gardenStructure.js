@@ -128,7 +128,7 @@ function createGarden(gridSize) {
     const gltfLoaderSet = new THREE.GLTFLoader();
     gltfLoaderSet.load("../../model3D/Garden/Set/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = 45.0;
+        root.position.x = -70.0;
         root.position.y = 0.1;
         root.position.z = -150.0;
         root.scale.set(0.3, 0.3, 0.3);
@@ -188,8 +188,10 @@ function createGarden(gridSize) {
         root.position.y = -0.1;
         root.position.z = 70.0;
         root.scale.set(10, 10, 10);
+        root.getObjectByName("Plane001").visible = false;
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        console.log(dumpObject(root).join('\n'));
         scene.add(root);
     });
 
@@ -255,7 +257,7 @@ function createGarden(gridSize) {
     const gltfLoaderGnome = new THREE.GLTFLoader();
     gltfLoaderGnome.load("../../model3D/Garden/Gnome/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = -70.0;
+        root.position.x = 45.0;
         root.position.y = 3.0;
         root.position.z = -165.0;
         root.scale.set(0.4, 0.4, 0.4);
@@ -279,6 +281,7 @@ function createGarden(gridSize) {
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
+
 
     return garden;
 }

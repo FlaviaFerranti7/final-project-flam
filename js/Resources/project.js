@@ -115,18 +115,18 @@ scene.add(house);
 
 /* ------------------------- FIRST ROOM ------------------------- */
 var room1;
-room1 = createRoom1(40);
-scene.add(room1);
 upperCoordinatesMap = new THREE.Vector2(20, 20);
 lowerCoordinatesMap = new THREE.Vector2(-20, -20);
+room1 = createRoom1(40);
+scene.add(room1);
 
 /* ------------------------- SECOND ROOM ------------------------- */
 var room2;
 var room2Loader = function () {
-  room2 = createRoom2(40);
-  scene.add(room2);
   upperCoordinatesMap = new THREE.Vector2(20, 60);
   lowerCoordinatesMap = new THREE.Vector2(-20, -20);
+  room2 = createRoom2(40);
+  scene.add(room2);
   return true;
 }
 
@@ -134,10 +134,10 @@ var room2Loader = function () {
 var hallway;
 var wallHL;
 var hallwayLoader = function () {
-  hallway = createHallway(80);
-  scene.add(hallway);
   upperCoordinatesMap = new THREE.Vector2(20, 60);
   lowerCoordinatesMap = new THREE.Vector2(-40, -20);
+  hallway = createHallway(80);
+  scene.add(hallway);
   return true;
 }
 
@@ -145,9 +145,9 @@ var hallwayLoader = function () {
 var windowDoor;
 var livingRoom;
 var livingRoomLoader = function () {
-  livingRoom = createLivingRoom(80);
   upperCoordinatesMap = new THREE.Vector2(-40, 60);
   lowerCoordinatesMap = new THREE.Vector2(-100, -20);
+  livingRoom = createLivingRoom(80);
   scene.add(livingRoom);
   return true;
 }
@@ -155,9 +155,9 @@ var livingRoomLoader = function () {
 /* ------------------------- GARDEN ------------------------- */
 var garden;
 var gardenLoader = function () {
+  upperCoordinatesMap = new THREE.Vector2(90, 210);
+  lowerCoordinatesMap = new THREE.Vector2(-215, -170);
   garden = createGarden(380);
-  upperCoordinatesMap = new THREE.Vector3(90, 0, 210);
-  lowerCoordinatesMap = new THREE.Vector3(-215, 0, -170);
   scene.add(garden);
   return true;
 }
@@ -242,7 +242,7 @@ var animate = function () {
       stopMonster();
       tViolin += 0.1;
       console.log(tViolin)
-      if(tViolin > 5) {
+      if(tViolin > 10) {
         violin.pause();
         violin.isPlaying = false;
       }

@@ -535,7 +535,7 @@ function initializeClock(id, endtime) {
     minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
     secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
 
-    if (t.total <= 0 || (monster != null && monster.position.distanceTo(controls.getObject().position) < 15)) {
+    if (t.total <= 0 || (monster != null && monster.position.distanceTo(controls.getObject().position) < 14)) {
       tend.style.display = "none";
       gameover.style.display = "block";
       clearInterval(timeinterval);

@@ -187,7 +187,7 @@ function createHouse() {
             }
             return false;
         };
-        var obj = new Thing(root, animation, null, true, false, "SCISSORS", null);
+        var obj = new Thing(root, animation, null, true, false, "HOURGLASS", null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         house.add(root);
@@ -230,7 +230,7 @@ function createHouse() {
             }
             return false;
         };
-        var obj = new Thing(root, animation, null, true, false, "HOURGLASS", null);
+        var obj = new Thing(root, animation, null, true, false, "SCISSORS", null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         house.add(root);

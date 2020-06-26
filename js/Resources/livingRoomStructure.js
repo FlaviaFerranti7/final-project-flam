@@ -121,10 +121,10 @@ function createLivingRoom(gridSize) {
                     elem.style.display = "none";
                 }, 7000);
 
-                var objH = new Thing(hourglass, animationH, null, false, true, "DOOR_ENTRY", null);
+                var objH = new Thing(hourglass, animationH, null, false, true, "WINDOW_DOORS", null);
                 objectsAnimated.push(objH);
                 objectsRaycaster.push(objH.getObject());
-                var objS = new Thing(scissors, animationS, null, false, true, "WINDOW_DOORS", null);
+                var objS = new Thing(scissors, animationS, null, false, true, "DOOR_ENTRY", null);
                 objectsAnimated.push(objS);
                 objectsRaycaster.push(objS.getObject());
                 return false;
@@ -202,7 +202,7 @@ function createLivingRoom(gridSize) {
         root.traverse((child) => child.castShadow = true);
 
         var animation = () => {
-            if (!violin.isPlaying) violin.play();
+            if (!violin.isPlaying && (monster.position.distanceTo(controls.getObject().position) < 30)) violin.play();
             else violin.pause();
 
             return false;
