@@ -62,8 +62,8 @@ var functionIsRunning = false;
 
 var enableConditionedAnimation = false;
 
-var upperCoordinatesMap = new THREE.Vector2(0,0);
-var lowerCoordinatesMap = new THREE.Vector2(0,0);
+var upperCoordinatesMap = new THREE.Vector2(0, 0);
+var lowerCoordinatesMap = new THREE.Vector2(0, 0);
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
@@ -184,15 +184,15 @@ window.addEventListener('resize', onWindowResize, false);
 
 /* ------------------------- CAMERA BODY -------------------------- */
 
-var geometry = new THREE.BoxGeometry( 3, 3, 3 );
-var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+var geometry = new THREE.BoxGeometry(3, 3, 3);
+var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 material.transparent = true;
 material.opacity = 0;
 
 
-var cameraBody = new THREE.Mesh( geometry, material );
+var cameraBody = new THREE.Mesh(geometry, material);
 
-scene.add( cameraBody );
+scene.add(cameraBody);
 
 
 /* ------------------------- TORCH SPOTLIGHT ------------------------- */
@@ -228,23 +228,30 @@ var animate = function () {
   var delta = clock.getDelta();
   animatePlayer(delta);
 
-  if (violin.isPlaying){
+  if (violin.isPlaying) {
     monsterPos = monster.position;
     monsterRot = monster.rotation;
   }
 
   if (monster != undefined) {
-    if(!violin.isPlaying){
+    if (!violin.isPlaying) {
       tViolin = 0;
       animateMonster();
     }
-    else{
+    else {
       stopMonster();
       tViolin += 0.1;
-      console.log(tViolin)
-      if(tViolin > 10) {
-        violin.pause();
-        violin.isPlaying = false;
+      if (choosedoor == 1) {
+        if (tViolin > 15) {
+          violin.pause();
+          violin.isPlaying = false;
+        }
+      }
+      else if (choosedoor == 2) {
+        if (tViolin > 8) {
+          violin.pause();
+          violin.isPlaying = false;
+        }
       }
     }
   }
@@ -317,7 +324,7 @@ var animate = function () {
           sheetMessage.style.display = "none";
         }, 5000);
       }
-      if(currentObject.getActionButton() == "SPACE") enableAction = true;
+      if (currentObject.getActionButton() == "SPACE") enableAction = true;
       else enableCollect = true;
     }
     else {
@@ -398,14 +405,14 @@ var animate = function () {
       hideDivSafe = false;
     }
   }
-  if (choosedoor == 2) {
-    for (var i = 0; i < objectsAnimated.length; i++) {
-      if (objectsAnimated[i].getObjectName() == "WINDOW_DOORS") steps.push(objectsAnimated[i]);
-    }
-  }
   if (choosedoor == 1) {
     for (var i = 0; i < objectsAnimated.length; i++) {
       if (objectsAnimated[i].getObjectName() == "DOOR_ENTRY") steps.push(objectsAnimated[i]);
+    }
+  }
+  if (choosedoor == 2) {
+    for (var i = 0; i < objectsAnimated.length; i++) {
+      if (objectsAnimated[i].getObjectName() == "WINDOW_DOORS") steps.push(objectsAnimated[i]);
     }
   }
 

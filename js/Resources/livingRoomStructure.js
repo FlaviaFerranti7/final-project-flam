@@ -170,7 +170,7 @@ function createLivingRoom(gridSize) {
                 setTimeout(() => {
                     elem.style.display = "none";
                 }, 7000);
-            
+
                 var obj = new Thing(bookcase, animationB, null, false, false, null, null);
                 objectsAnimated.push(obj);
                 objectsRaycaster.push(obj.getObject());
@@ -247,22 +247,6 @@ function createLivingRoom(gridSize) {
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
     });
-
-    // const gltfLoaderGateRemoteControl = new THREE.GLTFLoader();
-    // gltfLoaderGateRemoteControl.load("../../model3D/LivingRoom/GateRemoteControl/scene.gltf", (gltf) => {
-    //     const root = gltf.scene;
-    //     root.position.x = -50.0;
-    //     root.position.y = 7;
-    //     root.position.z = 35.0;
-    //     root.scale.set(0.15, 0.15, 0.15);
-    //     root.name = 'REMOTE';
-    //     root.traverse((child) => child.castShadow = true);
-    //     var obj = new Thing(root, null, null, false, true, null, null);
-    //     objectsAnimated.push(obj);
-    //     objectsRaycaster.push(obj.getObject());
-    //     recursiveChild(root, collidableObjects);
-    //     scene.add(root);
-    // });
 
     const gltfLoaderBullet = new THREE.GLTFLoader();
     gltfLoaderBullet.load("../../model3D/LivingRoom/Bullet/scene.gltf", (gltf) => {
