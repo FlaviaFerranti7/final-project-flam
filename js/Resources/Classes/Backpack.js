@@ -31,6 +31,7 @@ class Backpack {
     }
 
     insert(object) {
+        if(this.numElem == numElementOfBackpack) return; 
         if(object.getSubjectMerge() != null && this.numElem > 0) {
             var tmp = this.objects.find(elem => {
                 if(elem == undefined) return undefined;

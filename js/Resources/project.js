@@ -52,7 +52,7 @@ var remove = document.getElementById("remove");
 var sheetMessage = document.getElementById("sheetmusic-message");
 
 var backpack = null;
-const numElementOfBackpack = 5;
+const numElementOfBackpack = 4;
 var insertElem = false;
 
 var enableCollect = false;
@@ -308,7 +308,7 @@ var animate = function () {
     }
     else {
       if (collect) {
-        if (backpack != null && backpack.getNumElem() <= numElementOfBackpack) {
+        if (backpack != null && backpack.getNumElem() < numElementOfBackpack) {
           currentObject.executeAnimation();
           takeObject.play();
           backpack.insert(currentObject);

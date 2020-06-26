@@ -247,7 +247,7 @@ body {
     position: absolute;
     height: 100px;
     width: 100px;
-    top: 65%;
+    top: 70%;
     right: 50px;
 }
 
@@ -263,11 +263,12 @@ body {
     align-items: flex-start;
     flex-wrap: wrap;
     width: 290px;
-    height: 200px;
+    height: auto;
+    padding: 3px;
     position: absolute;
-    top: 65%;
+    top: 55%;
     right: 50px;
-    background-color: #ffffff30;
+    background-color: #00000050;
 }
 
 #backpack-objects h5 {
@@ -275,12 +276,13 @@ body {
     height: 20px;
     line-height: 20px;
     font-size: 18px;
+    margin-bottom: 0px;
 }
 
 .backpack-item {
     height: 50px;
     width: 50px;
-    margin: 0px 2px;
+    margin: 0px 4px;
     line-height: 50px;
     text-align: center;
     font-size: 20px;
@@ -327,10 +329,14 @@ body {
 	font-size: 16px;
 }
 
-.red-color {
-    color: rgb(151, 2, 2);
+.grey-color {
+    color: rgb(68, 68, 68);
 }
 
-.black-color {
-    color: black;
+.white-color {
+    color: rgb(255, 255, 255);
+}
+
+.white-background-rgba {
+    background-color: #ffffff50;
 }
