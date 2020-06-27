@@ -3,7 +3,7 @@ function createGarden(gridSize) {
     recursiveChild(house, collidableObjects);
 
     // MATERIALS
-    const textureFloor = new THREE.TextureLoader().load('../../images/garden.jpg');
+    const textureFloor = new THREE.TextureLoader().load('./images/garden.jpg');
     textureFloor.wrapS = THREE.RepeatWrapping;
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
@@ -13,7 +13,7 @@ function createGarden(gridSize) {
         side: THREE.DoubleSide,
     });
 
-    const textureFence = new THREE.TextureLoader().load('../../images/fence.jpg');
+    const textureFence = new THREE.TextureLoader().load('./images/fence.jpg');
     textureFence.wrapS = THREE.RepeatWrapping;
     textureFence.wrapT = THREE.RepeatWrapping;
     textureFence.repeat.set(0.0646, 0.065);

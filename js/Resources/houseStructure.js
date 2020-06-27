@@ -1,5 +1,5 @@
 function createHouse() {
-    const textureWall1 = new THREE.TextureLoader().load('../../images/flowers.png');
+    const textureWall1 = new THREE.TextureLoader().load('./images/flowers.png');
     textureWall1.wrapS = THREE.RepeatWrapping;
     textureWall1.wrapT = THREE.RepeatWrapping;
     textureWall1.repeat.set(0.5, 0.5);
@@ -9,7 +9,7 @@ function createHouse() {
         side: THREE.BackSide,
     });
 
-    const textureWallB = new THREE.TextureLoader().load('../../images/brick.jpg');
+    const textureWallB = new THREE.TextureLoader().load('./images/brick.jpg');
     textureWallB.wrapS = THREE.RepeatWrapping;
     textureWallB.wrapT = THREE.RepeatWrapping;
     textureWallB.repeat.set(0.1, 0.1);
@@ -18,7 +18,7 @@ function createHouse() {
         map: textureWallB,
     });
 
-    const textureWallR = new THREE.TextureLoader().load('../../images/roof.jpg');
+    const textureWallR = new THREE.TextureLoader().load('./images/roof.jpg');
     textureWallR.wrapS = THREE.RepeatWrapping;
     textureWallR.wrapT = THREE.RepeatWrapping;
     textureWallR.repeat.set(0.1, 0.1);
@@ -27,7 +27,7 @@ function createHouse() {
         map: textureWallR,
     });
 
-    const textureWall2 = new THREE.TextureLoader().load('../../images/wall.jpg');
+    const textureWall2 = new THREE.TextureLoader().load('./images/wall.jpg');
     textureWall2.wrapS = THREE.RepeatWrapping;
     textureWall2.wrapT = THREE.RepeatWrapping;
     textureWall2.repeat.set(4, 4);
@@ -37,7 +37,7 @@ function createHouse() {
         side: THREE.BackSide,
     });
 
-    const textureWallH = new THREE.TextureLoader().load('../../images/hallway.jpg');
+    const textureWallH = new THREE.TextureLoader().load('./images/hallway.jpg');
     textureWallH.wrapS = THREE.RepeatWrapping;
     textureWallH.wrapT = THREE.RepeatWrapping;
     textureWallH.repeat.set(4, 4);
@@ -47,7 +47,7 @@ function createHouse() {
         side: THREE.BackSide,
     });
 
-    const textureWallL = new THREE.TextureLoader().load('../../images/livingRoom.jpg');
+    const textureWallL = new THREE.TextureLoader().load('./images/livingRoom.jpg');
     textureWallL.wrapS = THREE.RepeatWrapping;
     textureWallL.wrapT = THREE.RepeatWrapping;
     textureWallL.repeat.set(0.5, 0.5);

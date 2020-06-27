@@ -10,7 +10,7 @@ function createHallway(gridSize) {
     */
 
     // MATERIALS
-    const textureFloor = new THREE.TextureLoader().load('../../images/parquet.jpg');
+    const textureFloor = new THREE.TextureLoader().load('./images/parquet.jpg');
     textureFloor.wrapS = THREE.RepeatWrapping;
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
@@ -20,7 +20,7 @@ function createHallway(gridSize) {
         side: THREE.DoubleSide,
     });
 
-    const textureWallH = new THREE.TextureLoader().load('../../images/hallway.jpg');
+    const textureWallH = new THREE.TextureLoader().load('./images/hallway.jpg');
     textureWallH.wrapS = THREE.RepeatWrapping;
     textureWallH.wrapT = THREE.RepeatWrapping;
     textureWallH.repeat.set(4, 4);
@@ -30,7 +30,7 @@ function createHallway(gridSize) {
         side: THREE.BackSide,
     });
 
-    const textureWallL = new THREE.TextureLoader().load('../../images/livingRoom.jpg');
+    const textureWallL = new THREE.TextureLoader().load('./images/livingRoom.jpg');
     textureWallL.wrapS = THREE.RepeatWrapping;
     textureWallL.wrapT = THREE.RepeatWrapping;
     textureWallL.repeat.set(0.5, 0.5);

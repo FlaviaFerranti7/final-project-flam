@@ -6,7 +6,7 @@ function createRoom1(gridSize) {
     //scene.add(gridHelper);
 
     // MATERIALS
-    const textureFloor = new THREE.TextureLoader().load('../../images/parquet.jpg');
+    const textureFloor = new THREE.TextureLoader().load('./images/parquet.jpg');
     textureFloor.wrapS = THREE.RepeatWrapping;
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
@@ -16,7 +16,7 @@ function createRoom1(gridSize) {
         side: THREE.DoubleSide,
     });
 
-    const textureWall = new THREE.TextureLoader().load('../../images/flowers.png');
+    const textureWall = new THREE.TextureLoader().load('./images/flowers.png');
     textureWall.wrapS = THREE.RepeatWrapping;
     textureWall.wrapT = THREE.RepeatWrapping;
     textureWall.repeat.set(0.5, 0.5);
@@ -26,7 +26,7 @@ function createRoom1(gridSize) {
         side: THREE.BackSide,
     });
 
-    const textureWallP = new THREE.TextureLoader().load('../../images/wall.jpg');
+    const textureWallP = new THREE.TextureLoader().load('./images/wall.jpg');
     textureWallP.wrapS = THREE.RepeatWrapping;
     textureWallP.wrapT = THREE.RepeatWrapping;
     textureWallP.repeat.set(4, 4);
@@ -35,7 +35,7 @@ function createRoom1(gridSize) {
         map: textureWallP,
     });
 
-    const textureWallH = new THREE.TextureLoader().load('../../images/hallway.jpg');
+    const textureWallH = new THREE.TextureLoader().load('./images/hallway.jpg');
     textureWallH.wrapS = THREE.RepeatWrapping;
     textureWallH.wrapT = THREE.RepeatWrapping;
     textureWallH.repeat.set(4, 4);

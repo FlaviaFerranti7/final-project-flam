@@ -3,7 +3,7 @@ function createLivingRoom(gridSize) {
     recursiveChild(house, collidableObjects);
 
     // MATERIALS
-    const textureFloor = new THREE.TextureLoader().load('../../images/parquet.jpg');
+    const textureFloor = new THREE.TextureLoader().load('./images/parquet.jpg');
     textureFloor.wrapS = THREE.RepeatWrapping;
     textureFloor.wrapT = THREE.RepeatWrapping;
     textureFloor.repeat.set(4, 4);
@@ -13,7 +13,7 @@ function createLivingRoom(gridSize) {
         side: THREE.DoubleSide,
     });
 
-    const textureWallR = new THREE.TextureLoader().load('../../images/roof.jpg');
+    const textureWallR = new THREE.TextureLoader().load('./images/roof.jpg');
     textureWallR.wrapS = THREE.RepeatWrapping;
     textureWallR.wrapT = THREE.RepeatWrapping;
     textureWallR.repeat.set(0.1, 0.1);
