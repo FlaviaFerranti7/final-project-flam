@@ -53,6 +53,7 @@ function createGarden(gridSize) {
 
     var animationR;
     var animationS;
+    var animationG;
 
     const gltfLoaderGateway = new THREE.GLTFLoader();
     gltfLoaderGateway.load("../../model3D/Garden/Gateway/scene.gltf", (gltf) => {
@@ -62,6 +63,7 @@ function createGarden(gridSize) {
         root.position.z = 20.0;
         root.scale.set(8.0, 8.0, 8.0);
         root.rotateY(degToRad(90));
+        root.name = "GATEWAY";
         root.getObjectByName('Left_1').position.x = 2;
         root.getObjectByName('Right_0').position.x = 2;
         root.traverse((child) => child.castShadow = true);
@@ -78,12 +80,11 @@ function createGarden(gridSize) {
             }
             return false;
         };
-        var obj = new Thing(root, animation, null, false, false, null, null);
+        var obj = new Thing(root, animation, null, true, false, "KEY_GARDEN", null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
-        // console.log(dumpObject(root).join('\n'));
-    });;
+    });
 
     const gltfLoaderShovel = new THREE.GLTFLoader();
     gltfLoaderShovel.load("../../model3D/Garden/Showel/scene.gltf", (gltf) => {
@@ -132,15 +133,18 @@ function createGarden(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         animationS = (t, move) => {
-            if(root.getObjectByName("can").position.y == 2.0){
+            if (root.getObjectByName("can").position.y == 2.0) {
                 var elem = document.getElementById("set-message");
                 elem.style.display = "block";
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
                     elem.style.display = "none";
-                }, 7000);                
+                }, 7000);
+                var obj = new Thing(gnome, animationG, null, false, false, null, null);
+                objectsAnimated.push(obj);
+                objectsRaycaster.push(obj.getObject());
                 return false;
-            } 
+            }
             if (move) {
                 root.getObjectByName("can").position.y = interpolation(0, 2.0, 0, 5, t);
                 root.getObjectByName("can").rotation.x = interpolation(0, degToRad(20), 3, 5, t);
@@ -173,7 +177,7 @@ function createGarden(gridSize) {
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
-            if(root.position.x == 59){
+            if (root.position.x == 59) {
                 var elem = document.getElementById("table-message");
                 elem.style.display = "block";
                 elem.childNodes[1].innerHTML = "";
@@ -184,8 +188,8 @@ function createGarden(gridSize) {
                 objectsAnimated.push(obj);
                 objectsRaycaster.push(obj.getObject());
                 return false;
-            } 
-            if(move){
+            }
+            if (move) {
                 root.position.x = interpolation(60, 59, 0, 5, t);
                 return true;
             }
@@ -221,7 +225,7 @@ function createGarden(gridSize) {
         root.name = "MONSTER";
         root.rotateY(degToRad(180));
 
-        legR = root.getObjectByName("Oberschenkel_R_044");  
+        legR = root.getObjectByName("Oberschenkel_R_044");
         legR.position.x = 0.15;
         legL = root.getObjectByName("Oberschenkel_L_041");
         legL.position.x = 0.15;
@@ -291,26 +295,47 @@ function createGarden(gridSize) {
     const gltfLoaderGnome = new THREE.GLTFLoader();
     gltfLoaderGnome.load("../../model3D/Garden/Gnome/scene.gltf", (gltf) => {
         const root = gltf.scene;
+        gnome = root;
         root.position.x = 45.0;
         root.position.y = 3.0;
         root.position.z = -165.0;
-        root.scale.set(0.4, 0.4, 0.4);
+        root.scale.set(0.5, 0.5, 0.5);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        animationG = (t, move) => {
+            if (root.position.x == 48.5) {
+                var elem = document.getElementById("gnome-message");
+                elem.style.display = "block";
+                elem.childNodes[1].innerHTML = "";
+                setTimeout(() => {
+                    elem.style.display = "none";
+                }, 7000);
+                return false;
+            }
+            if (move) {
+                root.position.x = interpolation(45.0, 48.5, 0, 5, t);
+                return true;
+            }
+            return false;
+        };
         scene.add(root);
     });
 
     const gltfLoaderKey = new THREE.GLTFLoader();
     gltfLoaderKey.load("../../model3D/Garden/Key/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = 0.0;
-        root.position.y = 7.5;
-        root.position.z = -50.0;
+        root.position.x = 45.0;
+        root.position.y = 0.0;
+        root.position.z = -165.0;
         root.name = 'KEY_GARDEN';
         root.scale.set(0.35, 0.35, 0.35);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var obj = new Thing(root, null, null, false, true, null, null);
+        var animation = () => {
+            enableConditionedAnimation = true;
+        }
+        var obj = new Thing(root, animation, null, false, true, "GATEWAY", null);
+        objectsAnimated.push(obj);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         scene.add(root);
