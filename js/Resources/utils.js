@@ -255,21 +255,21 @@ function animatePlayer(delta) {
   // Gradual slowdown
   var flag = false;
 
-  if(camera.position.x > 0 && camera.position.x > upperCoordinatesMap.x) {
+  if (camera.position.x > 0 && camera.position.x > upperCoordinatesMap.x) {
     camera.position.x = upperCoordinatesMap.x - PLAYERCOLLISIONDISTANCE;
     flag = true;
-  } else if(camera.position.x < 0 && camera.position.x < lowerCoordinatesMap.x) {
+  } else if (camera.position.x < 0 && camera.position.x < lowerCoordinatesMap.x) {
     camera.position.x = lowerCoordinatesMap.x + PLAYERCOLLISIONDISTANCE;
     flag = true;
   }
 
-  if(camera.position.z > 0 && camera.position.z > upperCoordinatesMap.y) {
+  if (camera.position.z > 0 && camera.position.z > upperCoordinatesMap.y) {
     camera.position.z = upperCoordinatesMap.y - PLAYERCOLLISIONDISTANCE;
     flag = true;
-  } else if(camera.position.z < 0 && camera.position.z < lowerCoordinatesMap.y) {
+  } else if (camera.position.z < 0 && camera.position.z < lowerCoordinatesMap.y) {
     camera.position.z = lowerCoordinatesMap.y + PLAYERCOLLISIONDISTANCE;
     flag = true;
-  }  
+  }
   playerVelocity.x -= playerVelocity.x * 10.0 * delta;
 
   playerVelocity.z -= playerVelocity.z * 10.0 * delta;
@@ -287,7 +287,7 @@ function animatePlayer(delta) {
     if (moveRight) {
       playerVelocity.x += PLAYERSPEED * delta;
     }
-    if(!flag) {
+    if (!flag) {
       controls.getObject().translateX(playerVelocity.x * delta);
       controls.getObject().translateZ(playerVelocity.z * delta);
       controls.getObject().position.y = 10;
@@ -318,7 +318,7 @@ function animateMonster() {
   }
   t1 += 0.1;
 }
-function stopMonster(){
+function stopMonster() {
   monster.position.z = monsterPos.z;
   monster.rotation.y = monsterRot.y;
 }
@@ -364,7 +364,7 @@ function moveLegs() {
 }
 
 function detectCameraBodyCollision() {
-  
+
   var matrix = new THREE.Matrix4();
   matrix.extractRotation(cameraBody.matrix);
 
@@ -468,10 +468,9 @@ function alert(msg, time = 3000) {
 }
 
 function hideDiv() {
-  var elem = document.getElementById("safe-message");
-  var txtInput = document.getElementById("txtInput");
+  var elem = document.getElementById("message");
   elem.style.display = "block";
-  elem.childNodes[1].innerHTML = '';
+  elem.childNodes[1].innerHTML = "Insert code to open the safe";
 
   var ev = function (event) {
     switch (event.keyCode) {
@@ -489,7 +488,7 @@ function hideDiv() {
 }
 
 function insertCode() {
-  var elem = document.getElementById("safe-message");
+  var elem = document.getElementById("message");
   var txtInput = document.getElementById("txtInput");
   txtInput.focus();
 
@@ -500,6 +499,9 @@ function insertCode() {
   else {
     if (txtInput.value.length == 4) {
       elem.childNodes[1].innerHTML = "Your combination failed";
+      setTimeout(() => {
+        txtInput.value = "";
+      }, 3000);
     }
   }
 
