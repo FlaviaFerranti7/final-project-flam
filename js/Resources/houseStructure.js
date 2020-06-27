@@ -108,7 +108,7 @@ function createHouse() {
     recursiveChild(house, collidableObjects);
 
     const gltfLoaderWindow1 = new THREE.GLTFLoader();
-    gltfLoaderWindow1.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
+    gltfLoaderWindow1.load("./model3D/Common/Window/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 20.0;
         root.position.y = 9;
@@ -121,7 +121,7 @@ function createHouse() {
     });
 
     const gltfLoaderWindow2 = new THREE.GLTFLoader();
-    gltfLoaderWindow2.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
+    gltfLoaderWindow2.load("./model3D/Common/Window/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 20.0;
         root.position.y = 9;
@@ -132,9 +132,9 @@ function createHouse() {
         recursiveChild(root, collidableObjects);
         house.add(root);
     });
-    
+
     const gltfLoaderWindowH = new THREE.GLTFLoader();
-    gltfLoaderWindowH.load("../../model3D/Common/Window/scene.gltf", (gltf) => {
+    gltfLoaderWindowH.load("./model3D/Common/Window/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -30.0;
         root.position.y = 9;
@@ -147,7 +147,7 @@ function createHouse() {
     });
 
     const gltfLoaderWindowDoors = new THREE.GLTFLoader();
-    gltfLoaderWindowDoors.load("../../model3D/LivingRoom/WindowDoors/scene.gltf", (gltf) => {
+    gltfLoaderWindowDoors.load("./model3D/LivingRoom/WindowDoors/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -77.95;
         root.position.y = 0.0;
@@ -182,7 +182,7 @@ function createHouse() {
                     root.getObjectByName('Strips_1').rotation.y = interpolation(degToRad(-145), 0, 21, 22, t);
                     root.getObjectByName('Frame001_2').rotation.y = interpolation(degToRad(145), 0, 21, 22, t);
                     root.getObjectByName('Strips001_3').rotation.y = interpolation(degToRad(145), 0, 21, 22, t);
-                }                
+                }
                 return true;
             }
             return false;
@@ -194,7 +194,7 @@ function createHouse() {
     });
 
     const gltfLoaderEntryDoor = new THREE.GLTFLoader();
-    gltfLoaderEntryDoor.load("../../model3D/LivingRoom/EntryDoor/scene.gltf", (gltf) => {
+    gltfLoaderEntryDoor.load("./model3D/LivingRoom/EntryDoor/scene.gltf", (gltf) => {
         const root = gltf.scene.getObjectByName('group_1');
         root.position.x = -99.5
         root.position.y = 0.0;
@@ -235,6 +235,6 @@ function createHouse() {
         objectsRaycaster.push(obj.getObject());
         house.add(root);
     });
-    
+
     return house;
 }

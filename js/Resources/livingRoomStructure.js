@@ -55,12 +55,12 @@ function createLivingRoom(gridSize) {
     var animationS;
 
     var mtlLoaderLamp = new THREE.MTLLoader();
-    mtlLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
+    mtlLoaderLamp.setPath("./model3D/LivingRoom/Lamp/");
     mtlLoaderLamp.load('ZAHA LIGHT white chandelier.mtl', function (materialsLamp) {
         materialsLamp.preload();
         var objLoaderLamp = new THREE.OBJLoader();
         objLoaderLamp.setMaterials(materialsLamp);
-        objLoaderLamp.setPath("../../model3D/LivingRoom/Lamp/");
+        objLoaderLamp.setPath("./model3D/LivingRoom/Lamp/");
         objLoaderLamp.load('ZAHA LIGHT white chandelier.obj', function (objectLamp) {
             objectLamp.position.x = -80.0;
             objectLamp.position.y = 1.9;
@@ -72,12 +72,12 @@ function createLivingRoom(gridSize) {
     });
 
     var mtlLoaderSofa = new THREE.MTLLoader();
-    mtlLoaderSofa.setPath("../../model3D/LivingRoom/Sofa/source/");
+    mtlLoaderSofa.setPath("./model3D/LivingRoom/Sofa/source/");
     mtlLoaderSofa.load('model_916761733761.mtl', function (materialsSofa) {
         materialsSofa.preload();
         var objLoaderSofa = new THREE.OBJLoader();
         objLoaderSofa.setMaterials(materialsSofa);
-        objLoaderSofa.setPath("../../model3D/LivingRoom/Sofa/source/");
+        objLoaderSofa.setPath("./model3D/LivingRoom/Sofa/source/");
         objLoaderSofa.load('model_916761733761.obj', function (objectSofa) {
             objectSofa.position.x = -58.0;
             objectSofa.position.y = 5;
@@ -90,7 +90,7 @@ function createLivingRoom(gridSize) {
     });
 
     const gltfLoaderTable = new THREE.GLTFLoader();
-    gltfLoaderTable.load("../../model3D/LivingRoom/Table/source/19_12_172.gltf", (gltf) => {
+    gltfLoaderTable.load("./model3D/LivingRoom/Table/source/19_12_172.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -60.0;
         root.position.y = 0.0;
@@ -102,7 +102,7 @@ function createLivingRoom(gridSize) {
     });
 
     const gltfLoaderBookcase = new THREE.GLTFLoader();
-    gltfLoaderBookcase.load("../../model3D/LivingRoom/Bookcase/scene.gltf", (gltf) => {
+    gltfLoaderBookcase.load("./model3D/LivingRoom/Bookcase/scene.gltf", (gltf) => {
         const root = gltf.scene;
         bookcase = root;
         root.position.x = -99.0;
@@ -140,7 +140,7 @@ function createLivingRoom(gridSize) {
     });
 
     const gltfLoaderFurniture = new THREE.GLTFLoader();
-    gltfLoaderFurniture.load("../../model3D/LivingRoom/Furniture/scene.gltf", (gltf) => {
+    gltfLoaderFurniture.load("./model3D/LivingRoom/Furniture/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -50.0;
         root.position.y = 1.5;
@@ -153,7 +153,7 @@ function createLivingRoom(gridSize) {
     });
 
     const gltfLoaderMirror = new THREE.GLTFLoader();
-    gltfLoaderMirror.load("../../model3D/LivingRoom/Mirror/scene.gltf", (gltf) => {
+    gltfLoaderMirror.load("./model3D/LivingRoom/Mirror/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -99.0;
         root.position.y = 7.0;
@@ -191,7 +191,7 @@ function createLivingRoom(gridSize) {
     /* OBJECT 3D */
 
     const gltfLoaderViolin = new THREE.GLTFLoader();
-    gltfLoaderViolin.load("../../model3D/LivingRoom/Violin/scene.gltf", (gltf) => {
+    gltfLoaderViolin.load("./model3D/LivingRoom/Violin/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -90.0;
         root.position.y = 3.1;
@@ -216,7 +216,7 @@ function createLivingRoom(gridSize) {
     });
 
     const gltfLoaderHourglass = new THREE.GLTFLoader();
-    gltfLoaderHourglass.load("../../model3D/LivingRoom/Hourglass/scene.gltf", (gltf) => {
+    gltfLoaderHourglass.load("./model3D/LivingRoom/Hourglass/scene.gltf", (gltf) => {
         const root = gltf.scene;
         hourglass = root;
         root.position.x = -56.0;
@@ -233,7 +233,7 @@ function createLivingRoom(gridSize) {
     });
 
     const gltfLoaderPocketWatch = new THREE.GLTFLoader();
-    gltfLoaderPocketWatch.load("../../model3D/LivingRoom/Pocketwatch/scene.gltf", (gltf) => {
+    gltfLoaderPocketWatch.load("./model3D/LivingRoom/Pocketwatch/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -50.0;
         root.position.y = 3.8;
@@ -249,7 +249,7 @@ function createLivingRoom(gridSize) {
     });
 
     const gltfLoaderBullet = new THREE.GLTFLoader();
-    gltfLoaderBullet.load("../../model3D/LivingRoom/Bullet/scene.gltf", (gltf) => {
+    gltfLoaderBullet.load("./model3D/LivingRoom/Bullet/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -55.0;
         root.position.y = 4.7;
@@ -265,7 +265,7 @@ function createLivingRoom(gridSize) {
     });
 
     const gltfLoaderScissors = new THREE.GLTFLoader();
-    gltfLoaderScissors.load("../../model3D/LivingRoom/Scissors/scene.gltf", (gltf) => {
+    gltfLoaderScissors.load("./model3D/LivingRoom/Scissors/scene.gltf", (gltf) => {
         const root = gltf.scene;
         scissors = root;
         root.position.x = -50.0;

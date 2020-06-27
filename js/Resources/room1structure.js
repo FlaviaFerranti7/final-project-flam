@@ -84,12 +84,12 @@ function createRoom1(gridSize) {
     /* MODEL 3D */
 
     var mtlLoaderDoor = new THREE.MTLLoader();
-    mtlLoaderDoor.setPath("../../model3D/Room1/Door/");
+    mtlLoaderDoor.setPath("./model3D/Room1/Door/");
     mtlLoaderDoor.load('10057_wooden_door_v3_iterations-2.mtl', function (materialsDoor) {
         materialsDoor.preload();
         var objLoaderDoor = new THREE.OBJLoader();
         objLoaderDoor.setMaterials(materialsDoor);
-        objLoaderDoor.setPath("../../model3D/Room1/Door/");
+        objLoaderDoor.setPath("./model3D/Room1/Door/");
         objLoaderDoor.load('10057_wooden_door_v3_iterations-2.obj', function (objectDoor) {
             objectDoor.position.x = -20;
             objectDoor.position.y = 0.0;
@@ -104,7 +104,7 @@ function createRoom1(gridSize) {
     });
 
     const gltfLoaderWardrobe = new THREE.GLTFLoader();
-    gltfLoaderWardrobe.load("../../model3D/Room1/Wardrobe/scene.gltf", (gltf) => {
+    gltfLoaderWardrobe.load("./model3D/Room1/Wardrobe/scene.gltf", (gltf) => {
         const root = gltf.scene;
         wardrobe = root;
         root.position.x = -9.0;
@@ -119,12 +119,12 @@ function createRoom1(gridSize) {
     });
 
     var mtlLoaderLamp = new THREE.MTLLoader();
-    mtlLoaderLamp.setPath("../../model3D/Common/Lamp/");
+    mtlLoaderLamp.setPath("./model3D/Common/Lamp/");
     mtlLoaderLamp.load('lightbulbfinal.mtl', function (materialsLamp) {
         materialsLamp.preload();
         var objLoaderLamp = new THREE.OBJLoader();
         objLoaderLamp.setMaterials(materialsLamp);
-        objLoaderLamp.setPath("../../model3D/Common/Lamp/");
+        objLoaderLamp.setPath("./model3D/Common/Lamp/");
         objLoaderLamp.load('lightbulbfinal.obj', function (objectLamp) {
             objectLamp.position.x = 0.0;
             objectLamp.position.y = 16.8;
@@ -136,7 +136,7 @@ function createRoom1(gridSize) {
     });
 
     const gltfLoaderBed = new THREE.GLTFLoader();
-    gltfLoaderBed.load("../../model3D/Room1/Bed/scene.gltf", (gltf) => {
+    gltfLoaderBed.load("./model3D/Room1/Bed/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 11;
         root.position.y = 0;
@@ -161,7 +161,7 @@ function createRoom1(gridSize) {
     });
 
     const gltfLoaderDesk = new THREE.GLTFLoader();
-    gltfLoaderDesk.load("../../model3D/Room1/Desk/scene.gltf", (gltf) => {
+    gltfLoaderDesk.load("./model3D/Room1/Desk/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 10;
         root.position.y = 2.0;
@@ -174,7 +174,7 @@ function createRoom1(gridSize) {
     });
 
     const gltfLoaderLightSwitch = new THREE.GLTFLoader();
-    gltfLoaderLightSwitch.load("../../model3D/Room1/LightSwitch/scene.gltf", (gltf) => {
+    gltfLoaderLightSwitch.load("./model3D/Room1/LightSwitch/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -20.0;
         root.position.y = 7.0;
@@ -191,7 +191,7 @@ function createRoom1(gridSize) {
                 return false
             };
             if (move) {
-                if(t == 0) {
+                if (t == 0) {
                     click.play();
                     moveWardrobe.play();
                 }
@@ -211,12 +211,12 @@ function createRoom1(gridSize) {
     /* OBJECT 3D */
 
     var mtlLoaderBackpack = new THREE.MTLLoader();
-    mtlLoaderBackpack.setPath("../../model3D/Room1/Backpack/");
+    mtlLoaderBackpack.setPath("./model3D/Room1/Backpack/");
     mtlLoaderBackpack.load('12305_backpack_v2_l3.mtl', function (materialBackpack) {
         materialBackpack.preload();
         var loader = new THREE.OBJLoader();
         loader.setMaterials(materialBackpack);
-        loader.setPath("../../model3D/Room1/Backpack/");
+        loader.setPath("./model3D/Room1/Backpack/");
         loader.load('12305_backpack_v2_l3.obj', function (object) {
             object.position.x = -5.0;
             object.position.y = 0.0;
@@ -234,7 +234,7 @@ function createRoom1(gridSize) {
     });
 
     const gltfLoaderKey = new THREE.GLTFLoader();
-    gltfLoaderKey.load("../../model3D/Room1/Key/scene.gltf", (gltf) => {
+    gltfLoaderKey.load("./model3D/Room1/Key/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 16;
         root.position.y = 3.9;
@@ -254,7 +254,7 @@ function createRoom1(gridSize) {
     });
 
     const gltfLoaderRope = new THREE.GLTFLoader();
-    gltfLoaderRope.load("../../model3D/Room1/Rope/scene.gltf", (gltf) => {
+    gltfLoaderRope.load("./model3D/Room1/Rope/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 12;
         root.position.y = 3.2;
@@ -271,7 +271,7 @@ function createRoom1(gridSize) {
     });
 
     const gltfLoaderTorch = new THREE.GLTFLoader();
-    gltfLoaderTorch.load("../../model3D/Room1/Torch/scene.gltf", (gltf) => {
+    gltfLoaderTorch.load("./model3D/Room1/Torch/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 16;
         root.position.y = 0.35;
@@ -283,7 +283,7 @@ function createRoom1(gridSize) {
         recursiveChild(root, collidableObjects);
         var animation = () => {
             click.play();
-            if(torch.intensity == 0) torch.intensity = 2;
+            if (torch.intensity == 0) torch.intensity = 2;
             else torch.intensity = 0;
             return false;
         }

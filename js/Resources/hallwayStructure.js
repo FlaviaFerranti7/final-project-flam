@@ -97,14 +97,14 @@ function createHallway(gridSize) {
     /* MODEL 3D */
 
     var mtlLoaderDoor = new THREE.MTLLoader();
-    mtlLoaderDoor.setPath("../../model3D/Room1/Door/");
+    mtlLoaderDoor.setPath("./model3D/Room1/Door/");
     mtlLoaderDoor.load('10057_wooden_door_v3_iterations-2.mtl', function (materialsDoor) {
 
         materialsDoor.preload();
 
         var objLoaderDoor = new THREE.OBJLoader();
         objLoaderDoor.setMaterials(materialsDoor);
-        objLoaderDoor.setPath("../../model3D/Room1/Door/");
+        objLoaderDoor.setPath("./model3D/Room1/Door/");
         objLoaderDoor.load('10057_wooden_door_v3_iterations-2.obj', function (objectDoor) {
             objectDoor.position.x = -40;
             objectDoor.position.y = 0.0;
@@ -121,9 +121,9 @@ function createHallway(gridSize) {
             var animation = (t, move) => {
                 if (camera.position.x == objectDoor.position.x - 10) return false;
                 if (move) {
-                    if(t == 0) {
+                    if (t == 0) {
                         openDoor.play();
-                    } 
+                    }
                     if (t >= 0 && t < 15) {
                         objectDoor.children[0].rotation.z = interpolation(0, degToRad(90), 0, 15, t);
                         objectDoor.children[0].position.x = interpolation(0, -5, 0, 3, t);
@@ -183,12 +183,12 @@ function createHallway(gridSize) {
     });
 
     var mtlLoaderLampL1 = new THREE.MTLLoader();
-    mtlLoaderLampL1.setPath("../../model3D/Common/Lamp/");
+    mtlLoaderLampL1.setPath("./model3D/Common/Lamp/");
     mtlLoaderLampL1.load('lightbulbfinal.mtl', function (materialsLampL1) {
         materialsLampL1.preload();
         var objLoaderLampL1 = new THREE.OBJLoader();
         objLoaderLampL1.setMaterials(materialsLampL1);
-        objLoaderLampL1.setPath("../../model3D/Common/Lamp/");
+        objLoaderLampL1.setPath("./model3D/Common/Lamp/");
         objLoaderLampL1.load('lightbulbfinal.obj', function (objectLampL1) {
             objectLampL1.position.x = -30.0;
             objectLampL1.position.y = 16.8;
@@ -200,12 +200,12 @@ function createHallway(gridSize) {
     });
 
     var mtlLoaderLampL2 = new THREE.MTLLoader();
-    mtlLoaderLampL2.setPath("../../model3D/Common/Lamp/");
+    mtlLoaderLampL2.setPath("./model3D/Common/Lamp/");
     mtlLoaderLampL2.load('lightbulbfinal.mtl', function (materialsLampL2) {
         materialsLampL2.preload();
         var objLoaderLampL2 = new THREE.OBJLoader();
         objLoaderLampL2.setMaterials(materialsLampL2);
-        objLoaderLampL2.setPath("../../model3D/Common/Lamp/");
+        objLoaderLampL2.setPath("./model3D/Common/Lamp/");
         objLoaderLampL2.load('lightbulbfinal.obj', function (objectLampL2) {
             objectLampL2.position.x = -30.0;
             objectLampL2.position.y = 16.8;
@@ -217,7 +217,7 @@ function createHallway(gridSize) {
     });
 
     const gltfLoaderConsole = new THREE.GLTFLoader();
-    gltfLoaderConsole.load("../../model3D/Hallway/Console/scene.gltf", (gltf) => {
+    gltfLoaderConsole.load("./model3D/Hallway/Console/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -23.25;
         root.position.y = 3.0;
@@ -230,7 +230,7 @@ function createHallway(gridSize) {
         var animation = (t, move) => {
             if (gun.position.x == -25.5 && root.getObjectByName('stoli001_szuflada').position.z == 0.5) return false;
             if (move) {
-                if(t == 0) drawer.play();
+                if (t == 0) drawer.play();
                 gun.position.x = interpolation(-23.5, -25.5, 0, 5, t);
                 root.getObjectByName('stoli001_szuflada').position.z = interpolation(0.0, 0.5, 0, 5, t);
                 return true;
@@ -240,7 +240,7 @@ function createHallway(gridSize) {
         var reverseAnimation = (t, move) => {
             if (root.getObjectByName('stoli001_szuflada').position.z == 0.0) return false;
             if (move) {
-                if(t == 0) drawer.play();
+                if (t == 0) drawer.play();
                 gun.position.x = interpolation(-25.5, -23.5, 0, 5, t);
                 root.getObjectByName('stoli001_szuflada').position.z = interpolation(0.5, 0.0, 0, 5, t);
                 return true;
@@ -256,7 +256,7 @@ function createHallway(gridSize) {
     /* OBJECT 3D */
 
     const gltfLoaderGun = new THREE.GLTFLoader();
-    gltfLoaderGun.load("../../model3D/Hallway/Gun/scene.gltf", (gltf) => {
+    gltfLoaderGun.load("./model3D/Hallway/Gun/scene.gltf", (gltf) => {
         const root = gltf.scene;
         gun = root;
         root.position.x = -23.5;

@@ -56,7 +56,7 @@ function createGarden(gridSize) {
     var animationG;
 
     const gltfLoaderGateway = new THREE.GLTFLoader();
-    gltfLoaderGateway.load("../../model3D/Garden/Gateway/scene.gltf", (gltf) => {
+    gltfLoaderGateway.load("./model3D/Garden/Gateway/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -222.5;
         root.position.y = 0.0;
@@ -87,7 +87,7 @@ function createGarden(gridSize) {
     });
 
     const gltfLoaderShovel = new THREE.GLTFLoader();
-    gltfLoaderShovel.load("../../model3D/Garden/Showel/scene.gltf", (gltf) => {
+    gltfLoaderShovel.load("./model3D/Garden/Showel/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -30.0;
         root.position.y = 5.5;
@@ -105,7 +105,7 @@ function createGarden(gridSize) {
     });
 
     const gltfLoaderRake = new THREE.GLTFLoader();
-    gltfLoaderRake.load("../../model3D/Garden/Rake/scene.gltf", (gltf) => {
+    gltfLoaderRake.load("./model3D/Garden/Rake/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -80.0;
         root.position.y = 9.0;
@@ -123,7 +123,7 @@ function createGarden(gridSize) {
     });
 
     const gltfLoaderSet = new THREE.GLTFLoader();
-    gltfLoaderSet.load("../../model3D/Garden/Set/scene.gltf", (gltf) => {
+    gltfLoaderSet.load("./model3D/Garden/Set/scene.gltf", (gltf) => {
         const root = gltf.scene;
         set = root;
         root.position.x = -70.0;
@@ -156,7 +156,7 @@ function createGarden(gridSize) {
     });
 
     const gltfLoaderTable = new THREE.GLTFLoader();
-    gltfLoaderTable.load("../../model3D/Garden/Table/scene.gltf", (gltf) => {
+    gltfLoaderTable.load("./model3D/Garden/Table/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 0.0;
         root.position.y = 0.5;
@@ -168,7 +168,7 @@ function createGarden(gridSize) {
     });
 
     const gltfLoaderParkTable = new THREE.GLTFLoader();
-    gltfLoaderParkTable.load("../../model3D/Garden/ParkTable/scene.gltf", (gltf) => {
+    gltfLoaderParkTable.load("./model3D/Garden/ParkTable/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 60.0;
         root.position.y = 3.0;
@@ -203,7 +203,7 @@ function createGarden(gridSize) {
 
 
     const gltfLoaderRockingChair = new THREE.GLTFLoader();
-    gltfLoaderRockingChair.load("../../model3D/Garden/RockingChair/scene.gltf", (gltf) => {
+    gltfLoaderRockingChair.load("./model3D/Garden/RockingChair/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -50.0;
         root.position.y = -0.1;
@@ -216,7 +216,7 @@ function createGarden(gridSize) {
     });
 
     const gltfLoaderMonster = new THREE.GLTFLoader();
-    gltfLoaderMonster.load("../../model3D/Garden/Monster/Wolf-Blender-2.82a.gltf", (gltf) => {
+    gltfLoaderMonster.load("./model3D/Garden/Monster/Wolf-Blender-2.82a.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -207;
         root.position.y = 0.0;
@@ -247,7 +247,7 @@ function createGarden(gridSize) {
     });
 
     const gltfLoaderBench = new THREE.GLTFLoader();
-    gltfLoaderBench.load("../../model3D/Garden/Bench/scene.gltf", (gltf) => {
+    gltfLoaderBench.load("./model3D/Garden/Bench/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = -110.0;
         root.position.y = 0.0;
@@ -260,7 +260,7 @@ function createGarden(gridSize) {
     });
 
     const gltfLoaderRose = new THREE.GLTFLoader();
-    gltfLoaderRose.load("../../model3D/Garden/Rose/scene.gltf", (gltf) => {
+    gltfLoaderRose.load("./model3D/Garden/Rose/scene.gltf", (gltf) => {
         const root = gltf.scene;
         rose = root;
         root.position.x = -110.0;
@@ -293,7 +293,7 @@ function createGarden(gridSize) {
     });
 
     const gltfLoaderGnome = new THREE.GLTFLoader();
-    gltfLoaderGnome.load("../../model3D/Garden/Gnome/scene.gltf", (gltf) => {
+    gltfLoaderGnome.load("./model3D/Garden/Gnome/scene.gltf", (gltf) => {
         const root = gltf.scene;
         gnome = root;
         root.position.x = 45.0;
@@ -322,7 +322,7 @@ function createGarden(gridSize) {
     });
 
     const gltfLoaderKey = new THREE.GLTFLoader();
-    gltfLoaderKey.load("../../model3D/Garden/Key/scene.gltf", (gltf) => {
+    gltfLoaderKey.load("./model3D/Garden/Key/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 45.0;
         root.position.y = 0.0;

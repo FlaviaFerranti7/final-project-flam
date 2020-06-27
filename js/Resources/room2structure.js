@@ -78,14 +78,14 @@ function createRoom2(gridSize) {
 
     /* MODEL 3D */
     var mtlLoaderLamp = new THREE.MTLLoader();
-    mtlLoaderLamp.setPath("../../model3D/Common/Lamp/");
+    mtlLoaderLamp.setPath("./model3D/Common/Lamp/");
     mtlLoaderLamp.load('lightbulbfinal.mtl', function (materialsLamp) {
 
         materialsLamp.preload();
 
         var objLoaderLamp = new THREE.OBJLoader();
         objLoaderLamp.setMaterials(materialsLamp);
-        objLoaderLamp.setPath("../../model3D/Common/Lamp/");
+        objLoaderLamp.setPath("./model3D/Common/Lamp/");
         objLoaderLamp.load('lightbulbfinal.obj', function (objectLamp) {
             objectLamp.position.x = 0.0;
             objectLamp.position.y = 16.8;
@@ -98,7 +98,7 @@ function createRoom2(gridSize) {
     });
 
     const gltfLoaderBed = new THREE.GLTFLoader();
-    gltfLoaderBed.load("../../model3D/Room2/Bed/scene.gltf", (gltf) => {
+    gltfLoaderBed.load("./model3D/Room2/Bed/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 0.0;
         root.position.y = 0.0;
@@ -111,7 +111,7 @@ function createRoom2(gridSize) {
     });
 
     const gltfLoaderNightTable = new THREE.GLTFLoader();
-    gltfLoaderNightTable.load("../../model3D/Room2/NightTable/scene.gltf", (gltf) => {
+    gltfLoaderNightTable.load("./model3D/Room2/NightTable/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 12.0;
         root.position.y = -1.0;
@@ -148,7 +148,7 @@ function createRoom2(gridSize) {
     });
 
     const gltfLoaderWardrobe = new THREE.GLTFLoader();
-    gltfLoaderWardrobe.load("../../model3D/Room2/Wardrobe/scene.gltf", (gltf) => {
+    gltfLoaderWardrobe.load("./model3D/Room2/Wardrobe/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 11;
         root.position.y = 0;
@@ -184,14 +184,14 @@ function createRoom2(gridSize) {
     });
 
     var mtlLoaderDoor = new THREE.MTLLoader();
-    mtlLoaderDoor.setPath("../../model3D/Room1/Door/");
+    mtlLoaderDoor.setPath("./model3D/Room1/Door/");
     mtlLoaderDoor.load('10057_wooden_door_v3_iterations-2.mtl', function (materialsDoor) {
 
         materialsDoor.preload();
 
         var objLoaderDoor = new THREE.OBJLoader();
         objLoaderDoor.setMaterials(materialsDoor);
-        objLoaderDoor.setPath("../../model3D/Room1/Door/");
+        objLoaderDoor.setPath("./model3D/Room1/Door/");
         objLoaderDoor.load('10057_wooden_door_v3_iterations-2.obj', function (objectDoor) {
             objectDoor.position.x = -20;
             objectDoor.position.y = 0.0;
@@ -256,7 +256,7 @@ function createRoom2(gridSize) {
     });
 
     const gltfLoaderSafe = new THREE.GLTFLoader();
-    gltfLoaderSafe.load("../../model3D/Room2/Safe/scene.gltf", (gltf) => {
+    gltfLoaderSafe.load("./model3D/Room2/Safe/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 14;
         root.position.y = 3.5;
@@ -295,7 +295,7 @@ function createRoom2(gridSize) {
     /* OBJECT 3D */
 
     const gltfLoaderDiamond = new THREE.GLTFLoader();
-    gltfLoaderDiamond.load("../../model3D/Room2/Diamond/scene.gltf", (gltf) => {
+    gltfLoaderDiamond.load("./model3D/Room2/Diamond/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 13.5;
         root.position.y = 7;
@@ -312,7 +312,7 @@ function createRoom2(gridSize) {
     });
 
     const gltfLoaderSheetMusic = new THREE.GLTFLoader();
-    gltfLoaderSheetMusic.load("../../model3D/Room2/SheetMusic/scene.gltf", (gltf) => {
+    gltfLoaderSheetMusic.load("./model3D/Room2/SheetMusic/scene.gltf", (gltf) => {
         const root = gltf.scene;
         root.position.x = 12.5;
         root.position.y = 5;
@@ -330,7 +330,7 @@ function createRoom2(gridSize) {
     });
 
     const gltfLoaderBattery = new THREE.GLTFLoader();
-    gltfLoaderBattery.load("../../model3D/Room2/Battery/scene.gltf", (gltf) => {
+    gltfLoaderBattery.load("./model3D/Room2/Battery/scene.gltf", (gltf) => {
         const root = gltf.scene;
         battery = root;
         root.position.x = 12.5;
