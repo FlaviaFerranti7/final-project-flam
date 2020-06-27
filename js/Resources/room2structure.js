@@ -211,31 +211,31 @@ function createRoom2(gridSize) {
                     if (t == 0) {
                         openDoor.play();
                     }
-                    objectDoor.children[0].rotation.z = interpolation(0, -degToRad(90), 0, 25, t);
-                    objectDoor.children[0].position.y = interpolation(0, -25, 0, 10, t);
-                    objectDoor.children[0].position.x = interpolation(0, -5, 0, 5, t);
-                    if (t == 5) {
+                    objectDoor.children[0].rotation.z = interpolation(0, -degToRad(90), 0, 15, t);
+                    objectDoor.children[0].position.y = interpolation(0, -25, 0, 6, t);
+                    objectDoor.children[0].position.x = interpolation(0, -5, 0, 3, t);
+                    if (t == 3) {
                         objectDoor.children[0].position.x = -5;
                     }
-                    else if (t > 5) {
-                        objectDoor.children[0].position.x = interpolation(-5, -18, 0, 10, t2);
+                    else if (t > 3) {
+                        objectDoor.children[0].position.x = interpolation(-5, -18, 0, 6, t2);
                         t2 += 0.1;
                     }
-                    if (t2 == 10) {
+                    if (t2 == 6) {
                         objectDoor.children[0].position.x = -18;
                     }
-                    else if (t2 > 10) {
-                        objectDoor.children[0].position.x = interpolation(-18, -40, 0, 10, t3);
+                    else if (t2 > 6) {
+                        objectDoor.children[0].position.x = interpolation(-18, -40, 0, 6, t3);
                         t3 += 0.1;
                     }
-                    if (t == 10) {
+                    if (t == 6) {
                         objectDoor.children[0].position.y = -25;
                     }
-                    else if (t > 10) {
-                        objectDoor.children[0].position.y = interpolation(-25, -40, 0, 15, t1);
+                    else if (t > 6) {
+                        objectDoor.children[0].position.y = interpolation(-25, -40, 0, 9, t1);
                         t1 += 0.1;
                     }
-                    if (t >= 25) {
+                    if (t >= 15) {
                         t1 = 0;
                         t2 = 0;
                         t3 = 0;
