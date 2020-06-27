@@ -190,7 +190,7 @@ body {
     text-align: center;
 }
 
-#safe-message, #LR-message {
+#safe-message, #LR-message, #G-message {
     position: absolute;
     height: 250px;
     width: 100%;
@@ -206,7 +206,7 @@ body {
     text-align: center;
 }
 
-#mirror-message, #book-message, #sheetmusic-message {
+#mirror-message, #book-message, #sheetmusic-message, #table-message, #rose-message, #set-message {
     position: absolute;
     height: 150px;
     width: 100%;

@@ -441,7 +441,12 @@ var animate = function () {
     }
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && garden && loadingG == false) {
-    alert("You're almost there! One step left to pass", 7000);
+    var elem = document.getElementById("G-message");
+    elem.style.display = "block";
+    elem.childNodes[1].innerHTML = "";
+    setTimeout(() => {
+      elem.style.display = "none";
+    }, 7000);
     if (removeLeaving()) {
       loadingG = gardenLoader();
       scene.remove(wallHL);
