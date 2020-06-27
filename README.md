@@ -6,7 +6,7 @@ To move in the game you have to use the mouse to look around and W A S D to go f
 
 You only have 30 minutes to get out of here.
 
-# Have fun:
+Have fun:
 https://sapienzainteractivegraphicscourse.github.io/final-project-flam/
 
 Group components:
