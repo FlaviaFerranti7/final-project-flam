@@ -21,7 +21,6 @@ function createPlane(width, height,
     plane = group;
   } else {
     plane = new THREE.Mesh(planeGeometry, materials[0]);
-    //plane.castShadow = true;
     plane.receiveShadow = true;
   }
 
@@ -118,15 +117,17 @@ function manageInitialPage() {
   elem.style.display = "block";
   setTimeout(() => {
     elem.style.display = "none";
-  }, 5000); // TO DO 30sec
+  }, 10000); // TO DO 30sec
 }
 
 function getPointerLock() {
   document.onclick = function () {
-    container.requestPointerLock();
-    if (!clockFlag) {
-      clockFlag = true;
-      initializeClock('clockdiv', deadline);
+    if (document.getElementById('initial-page').style.display == "none") {
+      container.requestPointerLock();
+      if (!clockFlag) {
+        clockFlag = true;
+        initializeClock('clockdiv', deadline);
+      }
     }
   }
   document.addEventListener('pointerlockchange', lockChange, false);
@@ -137,12 +138,14 @@ function lockChange() {
   if (document.pointerLockElement === container) {
     blocker.style.display = "none";
     controls.enabled = true;
+    enabledMovement = true;
   } else {
     if (openGate || gameOver) {
       location.reload();
     }
     blocker.style.display = "";
     controls.enabled = false;
+    enabledMovement = false;
     clockFlag = false;
     clearInterval(timeinterval);
 
@@ -155,25 +158,25 @@ function listenForPlayerMovement() {
     switch (event.keyCode) {
 
       case 87: // w
-        moveForward = true;
+        if(enabledMovement) moveForward = true;
         if (!walk.isPlaying && !loadingG) walk.play();
         else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
         break;
 
       case 83: // s
-        moveBackward = true;
+        if(enabledMovement) moveBackward = true;
         if (!walk.isPlaying && !loadingG) walk.play();
         else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
         break;
 
       case 65: // a 
-        moveLeft = true;
+        if(enabledMovement) moveLeft = true;
         if (!walk.isPlaying && !loadingG) walk.play();
         else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
         break;
 
       case 68: // d
-        moveRight = true;
+        if(enabledMovement) moveRight = true;
         if (!walk.isPlaying && !loadingG) walk.play();
         else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
         break;
@@ -495,10 +498,13 @@ function insertCode() {
   var txtInput = document.getElementById("txtInput");
   txtInput.focus();
 
+  enabledMovement = false;
+
   if (txtInput.value == "7480") {
     elem.style.display = "none";
     msgSafe.style.display = "none";
     openSafe = true;
+    enabledMovement = true;
   }
   else {
     if (txtInput.value.length == 4) {
@@ -507,6 +513,7 @@ function insertCode() {
       setTimeout(() => {
         txtInput.value = "";
       }, 3000);
+      enabledMovement = true;
     }
   }
 

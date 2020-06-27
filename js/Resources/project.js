@@ -1,6 +1,3 @@
-//import { Backpack } from "./Classes/Backpack.js";
-//import { THREE } from "../Common/three.js";
-
 var scene = new THREE.Scene();
 var container = document.getElementById('container');
 
@@ -64,6 +61,8 @@ var enableConditionedAnimation = false;
 
 var upperCoordinatesMap = new THREE.Vector2(0, 0);
 var lowerCoordinatesMap = new THREE.Vector2(0, 0);
+
+var enabledMovement = false;
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
 // Flags to determine which direction the player is moving
@@ -309,11 +308,9 @@ var animate = function () {
       remove.style.display = "none";
     }
   }
-  // console.log(intersects);
   if (currentObject != null) {
     if ((!move && currentObject.getActionButton() == "SPACE") || (!collect && currentObject.getActionButton() == "Q")) {
       actionPanel.style.display = "block";
-      //enableAction = true;
       if (currentObject.getObjectName() == "DOOR_HALLWAY" || currentObject.getObjectName() == "DOOR_ENTRY") {
         remove.style.display = "block";
       }
@@ -351,6 +348,9 @@ var animate = function () {
       functionIsRunning = currentObject.executeAnimation(t, move);
     }
     else {
+
+      /*------------------------------- MANAGEMENT ELEMENT OF BACKPACK-------------------------------*/
+
       if (collect) {
         if (backpack != null && backpack.getNumElem() < numElementOfBackpack) {
           currentObject.executeAnimation();
@@ -371,6 +371,10 @@ var animate = function () {
         }
       }
     }
+
+
+    /*-------------------------------------- RESET VARIABLES ------------------------------------*/
+
     if (move) t += 0.1;
     if (currentObject.getIsElemOfBackpack() && insertElem && collect) {
       objectsAnimated.splice(objectsAnimated.indexOf(currentObject), 1);
@@ -457,11 +461,12 @@ var animate = function () {
       gardenSounds.play();
     }
   }
+
+  /*---------------------------- MANAGEMENT OF CAMERABODY POSITION ----------------------------*/
+
   cameraBody.position.copy(camera.position);
   cameraBody.position.y = 3;
   cameraBody.quaternion.copy(camera.quaternion);
-
-  //console.log(camera.position);
 
   renderer.render(scene, camera);
 };
