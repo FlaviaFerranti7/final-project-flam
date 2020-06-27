@@ -124,6 +124,7 @@ var room2;
 var room2Loader = function () {
   upperCoordinatesMap = new THREE.Vector2(20, 60);
   lowerCoordinatesMap = new THREE.Vector2(-20, -20);
+  enabledMovement = false;
   room2 = createRoom2(40);
   scene.add(room2);
   return true;
@@ -136,6 +137,7 @@ var hallwayLoader = function () {
   upperCoordinatesMap = new THREE.Vector2(20, 60);
   lowerCoordinatesMap = new THREE.Vector2(-40, -20);
   hallway = createHallway(80);
+  enabledMovement = false;
   scene.add(hallway);
   return true;
 }
@@ -147,6 +149,7 @@ var livingRoomLoader = function () {
   upperCoordinatesMap = new THREE.Vector2(-40, 60);
   lowerCoordinatesMap = new THREE.Vector2(-100, -20);
   livingRoom = createLivingRoom(80);
+  enabledMovement = false;
   scene.add(livingRoom);
   return true;
 }
@@ -157,6 +160,7 @@ var gardenLoader = function () {
   upperCoordinatesMap = new THREE.Vector2(90, 210);
   lowerCoordinatesMap = new THREE.Vector2(-215, -170);
   garden = createGarden(380);
+  enabledMovement = false;
   scene.add(garden);
   return true;
 }
@@ -176,10 +180,20 @@ marker.add(horizontalCross);
 camera.add(marker);
 marker.position.set(0, 0, -0.5);
 
-/* ------------------------- LISTENER -------------------------- */
+/* ------------------------- LISTENER ---------------------------- */
 
 listenForPlayerMovement();
 window.addEventListener('resize', onWindowResize, false);
+
+/* ------------------------- LOADER ------------------------------- */
+
+THREE.DefaultLoadingManager.onLoad = function ( ) {
+  console.log( 'Three Loading Complete!');
+  setTimeout(() => {
+    enabledMovement = true;
+    console.log("ok");
+  }, 5000);
+};
 
 /* ------------------------- CAMERA BODY -------------------------- */
 
