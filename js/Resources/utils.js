@@ -158,27 +158,35 @@ function listenForPlayerMovement() {
     switch (event.keyCode) {
 
       case 87: // w
-        if(enabledMovement) moveForward = true;
-        if (!walk.isPlaying && !loadingG) walk.play();
-        else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
+        if(enabledMovement) {
+          moveForward = true;
+          if (!walk.isPlaying && !loadingG) walk.play();
+          else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
+        }
         break;
 
       case 83: // s
-        if(enabledMovement) moveBackward = true;
-        if (!walk.isPlaying && !loadingG) walk.play();
-        else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
+        if(enabledMovement) {
+          moveBackward = true;
+          if (!walk.isPlaying && !loadingG) walk.play();
+          else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
+        }
         break;
 
       case 65: // a 
-        if(enabledMovement) moveLeft = true;
-        if (!walk.isPlaying && !loadingG) walk.play();
-        else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
+        if(enabledMovement) {
+          moveLeft = true;
+          if (!walk.isPlaying && !loadingG) walk.play();
+          else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
+        }
         break;
 
       case 68: // d
-        if(enabledMovement) moveRight = true;
-        if (!walk.isPlaying && !loadingG) walk.play();
-        else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
+        if(enabledMovement) {
+          moveRight = true;
+          if (!walk.isPlaying && !loadingG) walk.play();
+          else if (loadingG && !walkInTheGarden.isPlaying) walkInTheGarden.play();
+        }
         break;
 
       case 32: // space
@@ -206,14 +214,14 @@ function listenForPlayerMovement() {
       case 50:
       case 51:
       case 52:
-        if (backpack.getOpen()) backpack.useObject(event.keyCode - 49, currentObject);
+        if (backpack != null && backpack.getOpen()) backpack.useObject(event.keyCode - 49, currentObject);
         break;
 
       case 53:
       case 54:
       case 55:
       case 56:
-        if (backpack.getOpen()) {
+        if (backpack != null && backpack.getOpen()) {
           alert("Discarding this object It will go back to its original place", 1500);
           backpack.discardObject(event.keyCode - 53, currentObject);
         }
@@ -600,4 +608,10 @@ function removeLeaving() {
   collidableObjects = [];
   livingRoom = null;
   return true;
+}
+
+function changeMessage(id) {
+  var blocker = document.getElementById('blocker')
+  blocker.childNodes[1].innerHTML = "";
+  blocker.childNodes[3].innerHTML = document.getElementById(id).innerHTML;
 }

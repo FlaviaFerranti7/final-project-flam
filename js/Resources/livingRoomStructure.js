@@ -117,6 +117,7 @@ function createLivingRoom(gridSize) {
                 var msgMirror = document.getElementById("mirror-message");
                 msgMirror.style.display = "none";
                 var elem = document.getElementById("book-message");
+                changeMessage("book-message");
                 elem.style.display = "block";
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
@@ -168,6 +169,7 @@ function createLivingRoom(gridSize) {
             if (root.rotation.y == degToRad(-90)) {
                 var elem = document.getElementById("mirror-message");
                 elem.style.display = "block";
+                changeMessage("mirror-message");
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
                     elem.style.display = "none";

@@ -162,6 +162,7 @@ function createRoom2(gridSize) {
             if (root.getObjectByName('Cube001').rotation.z == degToRad(90)) {
                 var elem = document.getElementById("safe-message");
                 elem.style.display = "block";
+                changeMessage('safe-message');
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
                     elem.style.display = "none";

@@ -188,10 +188,8 @@ window.addEventListener('resize', onWindowResize, false);
 /* ------------------------- LOADER ------------------------------- */
 
 THREE.DefaultLoadingManager.onLoad = function ( ) {
-  console.log( 'Three Loading Complete!');
   setTimeout(() => {
     enabledMovement = true;
-    console.log("ok");
   }, 5000);
 };
 
@@ -332,6 +330,7 @@ var animate = function () {
         sheetMessage.style.display = "block";
         sheetMessage.childNodes[1].innerHTML = "";
         setTimeout(() => {
+          changeMessage("sheetmusic-message");
           sheetMessage.style.display = "none";
         }, 5000);
       }
@@ -447,6 +446,7 @@ var animate = function () {
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingLR == false) {
     var elem = document.getElementById("LR-message");
+    changeMessage('LR-message');
     elem.style.display = "block";
     elem.childNodes[1].innerHTML = "";
     setTimeout(() => {
@@ -461,6 +461,7 @@ var animate = function () {
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && garden && loadingG == false) {
     var elem = document.getElementById("G-message");
     elem.style.display = "block";
+    changeMessage('G-message');
     elem.childNodes[1].innerHTML = "";
     setTimeout(() => {
       elem.style.display = "none";
