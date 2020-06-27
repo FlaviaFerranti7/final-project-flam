@@ -94,13 +94,6 @@ function createGarden(gridSize) {
         root.name = 'SHOVEL';
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        var obj = {
-            root: root,
-            animation: null,
-            actionEnded: false,
-            reverseAnimation: null,
-            actionButton: "Q",
-        };
         var obj = new Thing(root, null, null, false, true, null, null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
@@ -177,8 +170,27 @@ function createGarden(gridSize) {
         root.scale.set(5, 8, 5);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
+        var animation = (t, move) => {
+            if(root.position.x == 59){
+                var elem = document.getElementById("table-message");
+                elem.style.display = "block";
+                elem.childNodes[1].innerHTML = "";
+                setTimeout(() => {
+                    elem.style.display = "none";
+                }, 7000);
+                return false;
+            } 
+            if(move){
+                root.position.x = interpolation(60, 59, 0, 5, t);
+                return true;
+            }
+            return false;
+        }
+        var obj = new Thing(root, animation, null, false, false, null, null);
+        objectsAnimated.push(obj);
+        objectsRaycaster.push(obj.getObject());
         scene.add(root);
-    });;
+    });
 
 
     const gltfLoaderRockingChair = new THREE.GLTFLoader();
@@ -191,7 +203,6 @@ function createGarden(gridSize) {
         root.getObjectByName("Plane001").visible = false;
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
-        console.log(dumpObject(root).join('\n'));
         scene.add(root);
     });
 
