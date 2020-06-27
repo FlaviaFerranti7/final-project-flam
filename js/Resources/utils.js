@@ -469,6 +469,8 @@ function alert(msg, time = 3000) {
 
 function hideDiv() {
   var elem = document.getElementById("message");
+  var msgSafe = document.getElementById("safe-message");
+  msgSafe.style.display = "none";
   elem.style.display = "block";
   elem.childNodes[1].innerHTML = "Insert code to open the safe";
 
@@ -489,16 +491,19 @@ function hideDiv() {
 
 function insertCode() {
   var elem = document.getElementById("message");
+  var msgSafe = document.getElementById("safe-message");
   var txtInput = document.getElementById("txtInput");
   txtInput.focus();
 
   if (txtInput.value == "7480") {
     elem.style.display = "none";
+    msgSafe.style.display = "none";
     openSafe = true;
   }
   else {
     if (txtInput.value.length == 4) {
       elem.childNodes[1].innerHTML = "Your combination failed";
+      msgSafe.style.display = "none";
       setTimeout(() => {
         txtInput.value = "";
       }, 3000);

@@ -293,7 +293,6 @@ function createRoom1(gridSize) {
         scene.add(root);
     });
 
-
     return room;
 
 }

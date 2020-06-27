@@ -297,7 +297,7 @@ function createGarden(gridSize) {
         const root = gltf.scene;
         gnome = root;
         root.position.x = 45.0;
-        root.position.y = 3.0;
+        root.position.y = 4.2;
         root.position.z = -165.0;
         root.scale.set(0.5, 0.5, 0.5);
         root.traverse((child) => child.castShadow = true);

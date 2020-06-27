@@ -114,6 +114,8 @@ function createLivingRoom(gridSize) {
         recursiveChild(root, collidableObjects);
         animationB = (t, move) => {
             if (root.getObjectByName('Shkaf').position.x == 0.5) {
+                var msgMirror = document.getElementById("mirror-message");
+                msgMirror.style.display = "none";
                 var elem = document.getElementById("book-message");
                 elem.style.display = "block";
                 elem.childNodes[1].innerHTML = "";
@@ -203,8 +205,11 @@ function createLivingRoom(gridSize) {
 
         var animation = () => {
             if (!violin.isPlaying && (monster.position.distanceTo(controls.getObject().position) < 30)) violin.play();
-            else violin.pause();
+            else{
+                violin.pause();
+                alert('You are too far! Come near and retry!');
 
+            } 
             return false;
         }
 
