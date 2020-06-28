@@ -9,6 +9,8 @@ You only have 30 minutes to get out of here.
 Have fun:
 https://sapienzainteractivegraphicscourse.github.io/final-project-flam/
 
+However, in order to perform a better game experience, we recommend to download the repository and try it locally with an http server using Linux.
+
 Group components:
 
 Antonella Angrisani,
