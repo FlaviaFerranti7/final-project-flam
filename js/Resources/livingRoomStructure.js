@@ -107,15 +107,14 @@ function createLivingRoom(gridSize) {
     gltfLoaderBookcase.load("./model3D/LivingRoom/Bookcase/scene.gltf", (gltf) => {
         const root = gltf.scene;
         bookcase = root;
-        root.position.x = -99.0;
+        root.position.x = -98.0;
         root.position.y = 0.0;
         root.position.z = -5.0;
-        root.scale.set(0.4, 0.24, 0.2);
-        root.rotateY(degToRad(90));
+        root.scale.set(2.5, 2.5, 2.5);
         root.traverse((child) => child.castShadow = true);
         recursiveChild(root, collidableObjects);
         animationB = (t, move) => {
-            if (root.getObjectByName('Shkaf').position.x == 0.5) {
+            if (root.position.z == -4.5) {
                 var msgMirror = document.getElementById("mirror-message");
                 msgMirror.style.display = "none";
                 var elem = document.getElementById("book-message");
@@ -135,7 +134,7 @@ function createLivingRoom(gridSize) {
                 return false;
             }
             if (move) {
-                root.getObjectByName('Shkaf').position.x = interpolation(0, 0.5, 0, 2, t);
+                root.position.z = interpolation(-5, -4.5, 0, 2, t);
                 return true;
             }
             return false;
