@@ -94,11 +94,11 @@ function createGarden(gridSize) {
     const gltfLoaderShovel = new THREE.GLTFLoader();
     gltfLoaderShovel.load("./model3D/Garden/Showel/scene.gltf", (gltf) => {
         const root = gltf.scene;
-        root.position.x = -30.0;
+        root.position.x = -50.0;
         root.position.y = 5.5;
-        root.position.z = -23.0;
+        root.position.z = 63.0;
         root.scale.set(0.09, 0.15, 0.09);
-        root.rotateX(degToRad(30));
+        root.rotateX(degToRad(-30));
         root.rotateY(degToRad(180));
         root.name = 'SHOVEL';
         root.traverse((child) => child.castShadow = true);
@@ -109,23 +109,6 @@ function createGarden(gridSize) {
         scene.add(root);
     });
 
-    const gltfLoaderRake = new THREE.GLTFLoader();
-    gltfLoaderRake.load("./model3D/Garden/Rake/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = -80.0;
-        root.position.y = 9.0;
-        root.position.z = 202.0;
-        root.scale.set(8, 8, 8);
-        root.rotateY(degToRad(90));
-        root.rotateZ(degToRad(120));
-        root.name = 'RAKE';
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
-        var obj = new Thing(root, null, null, false, true, null, null);
-        objectsAnimated.push(obj);
-        objectsRaycaster.push(obj.getObject());
-        scene.add(root);
-    });
 
     const gltfLoaderSet = new THREE.GLTFLoader();
     gltfLoaderSet.load("./model3D/Garden/Set/scene.gltf", (gltf) => {
@@ -205,20 +188,6 @@ function createGarden(gridSize) {
         var obj = new Thing(root, animation, null, false, false, null, null);
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
-        scene.add(root);
-    });
-
-
-    const gltfLoaderRockingChair = new THREE.GLTFLoader();
-    gltfLoaderRockingChair.load("./model3D/Garden/RockingChair/scene.gltf", (gltf) => {
-        const root = gltf.scene;
-        root.position.x = -50.0;
-        root.position.y = -0.1;
-        root.position.z = 70.0;
-        root.scale.set(10, 10, 10);
-        root.getObjectByName("Plane001").visible = false;
-        root.traverse((child) => child.castShadow = true);
-        recursiveChild(root, collidableObjects);
         scene.add(root);
     });
 

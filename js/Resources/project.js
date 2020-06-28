@@ -90,7 +90,7 @@ var openGate = false;
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 2; 
+var intensityAmbient = 2; 
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -461,6 +461,7 @@ var animate = function () {
       elem.style.display = "none";
     }, 15000);
     if (removeLeaving()) {
+      intensityAmbient = 3;
       loadingG = gardenLoader();
       scene.remove(wallHL);
       wallHL = null;
