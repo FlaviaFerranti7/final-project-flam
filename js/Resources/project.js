@@ -4,15 +4,10 @@ var container = document.getElementById('container');
 var camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
 
 var renderer = new THREE.WebGLRenderer();
-
-//Create a WebGLRenderer and turn on shadows in the renderer
-var renderer = new THREE.WebGLRenderer();
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setSize(container.offsetWidth, container.offsetHeight);
-container.appendChild(renderer.domElement); //renderer.domElement is the canvas
-
-//camera.position.set(10.5, 8, 0);   //(1, 10, 55);
+container.appendChild(renderer.domElement);
 
 var controls;
 var controlsEnabled = false;
@@ -65,21 +60,20 @@ var lowerCoordinatesMap = new THREE.Vector2(0, 0);
 var enabledMovement = false;
 
 /* ----------------------- PLAYER MOVEMENT ----------------------- */
-// Flags to determine which direction the player is moving
+
+// for the player
 var moveForward = false;
 var moveBackward = false;
 var moveLeft = false;
 var moveRight = false;
 
-// Velocity vector for the player
 var playerVelocity = new THREE.Vector3();
 
-// How fast the player will move
 var PLAYERSPEED = 200.0;
 var PLAYERCOLLISIONDISTANCE = 5;
 var collidableObjects = [];
 
-//for the monster
+// for the monster
 var monster;
 var monsterPos;
 var monsterRot;
@@ -96,7 +90,7 @@ var openGate = false;
 
 /* ----------------------- AMBIENT LIGHTS ----------------------- */
 const colorAmbient = 0x101010;
-const intensityAmbient = 2;  //1
+const intensityAmbient = 2; 
 const lightAmbient = new THREE.AmbientLight(colorAmbient, intensityAmbient);
 
 scene.add(lightAmbient);
@@ -354,7 +348,7 @@ var animate = function () {
     }
     else if (currentObject.getConditionedAnimated() && !enableConditionedAnimation) {
       actionPanel.style.display = "block";
-      actionPanel.childNodes[1].innerHTML = "To interact with this object you need something"; //+ currentObject.getSubjectAction();
+      actionPanel.childNodes[1].innerHTML = "To interact with this object you need something";
     }
     else if (currentObject.getConditionedAnimated() && enableConditionedAnimation) {
       move = true;
@@ -435,12 +429,12 @@ var animate = function () {
 
   //SEQUENTIAL ROOM LOADING
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingR2 == false) {
-    alert("Level 1 passed. Look around!", 7000);
+    alert("Level 1 passed. Look around!");
     loadingR2 = room2Loader();
     steps.splice(0, 1);
   }
   if (move && functionIsRunning && steps.indexOf(currentObject) == 0 && loadingH == false) {
-    alert("Level 2 passed", 7000);
+    alert("Level 2 passed");
     loadingH = hallwayLoader();
     steps.splice(0, 1);
   }
@@ -451,7 +445,7 @@ var animate = function () {
     elem.childNodes[1].innerHTML = "";
     setTimeout(() => {
       elem.style.display = "none";
-    }, 7000);
+    }, 15000);
     if (removeRooms()) {
       loadingLR = livingRoomLoader();
       steps.splice(0, 1);
@@ -465,7 +459,7 @@ var animate = function () {
     elem.childNodes[1].innerHTML = "";
     setTimeout(() => {
       elem.style.display = "none";
-    }, 7000);
+    }, 15000);
     if (removeLeaving()) {
       loadingG = gardenLoader();
       scene.remove(wallHL);

@@ -1,11 +1,6 @@
 function createRoom2(gridSize) {
 
-    // GRID
     var size = gridSize;
-    //var divisions = 20;
-    //var gridHelper = new THREE.GridHelper(size, divisions);
-    //gridHelper.position.z = 40;
-    //scene.add(gridHelper);
 
     // MATERIALS
     const textureFloor = new THREE.TextureLoader().load('./images/parquet.jpg');
@@ -27,7 +22,6 @@ function createRoom2(gridSize) {
         map: textureWall,
         side: THREE.BackSide,
     });
-
 
     const textureWallH = new THREE.TextureLoader().load('./images/hallway.jpg');
     textureWallH.wrapS = THREE.RepeatWrapping;
@@ -77,6 +71,7 @@ function createRoom2(gridSize) {
     recursiveChild(room, collidableObjects);
 
     /* MODEL 3D */
+    
     var mtlLoaderLamp = new THREE.MTLLoader();
     mtlLoaderLamp.setPath("./model3D/Common/Lamp/");
     mtlLoaderLamp.load('lightbulbfinal.mtl', function (materialsLamp) {
@@ -144,7 +139,6 @@ function createRoom2(gridSize) {
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         room.add(root);
-        // console.log(dumpObject(root).join('\n'));
     });
 
     const gltfLoaderWardrobe = new THREE.GLTFLoader();
@@ -166,7 +160,7 @@ function createRoom2(gridSize) {
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
                     elem.style.display = "none";
-                }, 7000);
+                }, 15000);
                 return false;
             }
             if (move) {
@@ -176,9 +170,7 @@ function createRoom2(gridSize) {
             }
             return false;
         };
-
         var obj = new Thing(root, animation, null, false, false, null, null);
-
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         room.add(root);
@@ -245,14 +237,11 @@ function createRoom2(gridSize) {
                 }
                 return false;
             };
-
             var obj = new Thing(objectDoor, animation, null, true, false, "KEY", null);
-
             steps.push(obj);
             objectsAnimated.push(obj);
             objectsRaycaster.push(obj.getObject());
             room.add(objectDoor);
-
         });
     });
 
@@ -285,9 +274,7 @@ function createRoom2(gridSize) {
             }
             return false;
         };
-
         var obj = new Thing(root, animation, null, false, false, null, null);
-
         objectsAnimated.push(obj);
         objectsRaycaster.push(obj.getObject());
         room.add(root);

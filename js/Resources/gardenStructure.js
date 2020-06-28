@@ -55,6 +55,8 @@ function createGarden(gridSize) {
     var animationS;
     var animationG;
 
+    /* MODEL 3D */
+
     const gltfLoaderGateway = new THREE.GLTFLoader();
     gltfLoaderGateway.load("./model3D/Garden/Gateway/scene.gltf", (gltf) => {
         const root = gltf.scene;
@@ -70,12 +72,15 @@ function createGarden(gridSize) {
         recursiveChild(root, collidableObjects);
         var animation = (t, move) => {
             if (root.getObjectByName('Right_0').position.x == -1.5) {
-                openGate = true;
                 return false;
             }
             if (move) {
                 root.getObjectByName('Right_0').position.x = interpolation(2, -1.5, 0, 25, t);
                 root.getObjectByName('Left_1').position.x = interpolation(2, 5.5, 0, 25, t);
+                if(t > 10 && t < 10.2){
+                    openGate = true;
+                    lowerCoordinatesMap = new THREE.Vector2(-240, -170);
+                } 
                 return true;
             }
             return false;
@@ -136,10 +141,11 @@ function createGarden(gridSize) {
             if (root.getObjectByName("can").position.y == 2.0) {
                 var elem = document.getElementById("set-message");
                 elem.style.display = "block";
+                changeMessage("set-message");
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
                     elem.style.display = "none";
-                }, 7000);
+                }, 12000);
                 var obj = new Thing(gnome, animationG, null, false, false, null, null);
                 objectsAnimated.push(obj);
                 objectsRaycaster.push(obj.getObject());
@@ -180,10 +186,11 @@ function createGarden(gridSize) {
             if (root.position.x == 59) {
                 var elem = document.getElementById("table-message");
                 elem.style.display = "block";
+                changeMessage("table-message");
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
                     elem.style.display = "none";
-                }, 7000);
+                }, 10000);
                 var obj = new Thing(rose, animationR, null, false, false, null, null);
                 objectsAnimated.push(obj);
                 objectsRaycaster.push(obj.getObject());
@@ -274,10 +281,11 @@ function createGarden(gridSize) {
             if (root.rotation.z == 0) {
                 var elem = document.getElementById("rose-message");
                 elem.style.display = "block";
+                changeMessage("rose-message");
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
                     elem.style.display = "none";
-                }, 7000);
+                }, 10000);
                 var obj = new Thing(set, animationS, null, false, false, null, null);
                 objectsAnimated.push(obj);
                 objectsRaycaster.push(obj.getObject());
@@ -306,10 +314,11 @@ function createGarden(gridSize) {
             if (root.position.x == 48.5) {
                 var elem = document.getElementById("gnome-message");
                 elem.style.display = "block";
+                changeMessage("gnome-message");
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
                     elem.style.display = "none";
-                }, 7000);
+                }, 10000);
                 return false;
             }
             if (move) {

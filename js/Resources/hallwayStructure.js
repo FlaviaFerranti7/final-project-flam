@@ -1,14 +1,7 @@
 function createHallway(gridSize) {
 
-    // GRID
     var size = gridSize;
-    /*var divisions = 20;
-    var gridHelper = new THREE.GridHelper(size, divisions);
-    gridHelper.position.x = -40;
-    gridHelper.position.z = 20;
-    scene.add(gridHelper);
-    */
-
+    
     // MATERIALS
     const textureFloor = new THREE.TextureLoader().load('./images/parquet.jpg');
     textureFloor.wrapS = THREE.RepeatWrapping;

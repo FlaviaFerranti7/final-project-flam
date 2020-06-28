@@ -11,7 +11,7 @@ https://sapienzainteractivegraphicscourse.github.io/final-project-flam/
 
 Group components:
 
-Antonella Angrisani
-Michela Capece
-Leonardo Capozzi
+Antonella Angrisani,
+Michela Capece,
+Leonardo Capozzi,
 Flavia Ferranti

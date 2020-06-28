@@ -1,4 +1,5 @@
 class Thing {
+    
     constructor(object, animation, reverseAnimation, conditionedAnimated, isElemOfBackpack, subjectAction, subjectMerge, valueMerge = false) {
         this.object = object;
         this.animation = animation;

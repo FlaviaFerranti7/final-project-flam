@@ -1,4 +1,5 @@
 function createHouse() {
+
     const textureWall1 = new THREE.TextureLoader().load('./images/flowers.png');
     textureWall1.wrapS = THREE.RepeatWrapping;
     textureWall1.wrapT = THREE.RepeatWrapping;
@@ -169,10 +170,9 @@ function createHouse() {
                     camera.rotation.z = interpolation(cameraRot.z, 3.14, 0, 5, t);
                     camera.rotation.y = 0;
 
-                    // right door
                     root.getObjectByName('Frame_0').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
                     root.getObjectByName('Strips_1').rotation.y = interpolation(0, degToRad(-145), 0, 15, t);
-                    // left door
+            
                     root.getObjectByName('Frame001_2').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
                     root.getObjectByName('Strips001_3').rotation.y = interpolation(0.0, degToRad(145), 0, 15, t);
                 }

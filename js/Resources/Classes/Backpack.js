@@ -1,6 +1,5 @@
-// module "Backpack.js"
-
 class Backpack {
+    
     constructor(numElem) {
         this.objects = new Array();
         for(var i = 0; i < numElem; i ++) this.objects.push(null);

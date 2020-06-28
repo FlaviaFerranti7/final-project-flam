@@ -54,6 +54,8 @@ function createLivingRoom(gridSize) {
     var animationH;
     var animationS;
 
+    /* MODEL 3D */
+
     var mtlLoaderLamp = new THREE.MTLLoader();
     mtlLoaderLamp.setPath("./model3D/LivingRoom/Lamp/");
     mtlLoaderLamp.load('ZAHA LIGHT white chandelier.mtl', function (materialsLamp) {
@@ -122,7 +124,7 @@ function createLivingRoom(gridSize) {
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
                     elem.style.display = "none";
-                }, 7000);
+                }, 10000);
 
                 var objH = new Thing(hourglass, animationH, null, false, true, "WINDOW_DOORS", null);
                 objectsAnimated.push(objH);
@@ -139,7 +141,6 @@ function createLivingRoom(gridSize) {
             return false;
         };
         livingRoom.add(root);
-        // console.log(dumpObject(root).join('\n'));
     });
 
     const gltfLoaderFurniture = new THREE.GLTFLoader();
@@ -173,7 +174,7 @@ function createLivingRoom(gridSize) {
                 elem.childNodes[1].innerHTML = "";
                 setTimeout(() => {
                     elem.style.display = "none";
-                }, 7000);
+                }, 10000);
 
                 var obj = new Thing(bookcase, animationB, null, false, false, null, null);
                 objectsAnimated.push(obj);

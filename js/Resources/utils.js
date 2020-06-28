@@ -117,7 +117,7 @@ function manageInitialPage() {
   elem.style.display = "block";
   setTimeout(() => {
     elem.style.display = "none";
-  }, 10000); // TO DO 30sec
+  }, 60000);
 }
 
 function getPointerLock() {
@@ -134,7 +134,6 @@ function getPointerLock() {
 }
 
 function lockChange() {
-  // Turn on controls
   if (document.pointerLockElement === container) {
     blocker.style.display = "none";
     controls.enabled = true;
@@ -263,7 +262,7 @@ function listenForPlayerMovement() {
 }
 
 function animatePlayer(delta) {
-  // Gradual slowdown
+
   var flag = false;
 
   if (camera.position.x > 0 && camera.position.x > upperCoordinatesMap.x) {
@@ -389,14 +388,10 @@ function detectCameraBodyCollision() {
 }
 
 function detectPlayerCollision() {
-  // The rotation matrix to apply to our direction vector
-  // Undefined by default to indicate ray should coming from front
+  
   var rotationMatrix;
-  // Get direction of camera
   var cameraDirection = controls.getDirection(new THREE.Vector3(0, 0, 0)).clone();
 
-  // Check which direction we're moving (not looking)
-  // Flip matrix to that direction so that we can reposition the ray
   if (moveBackward) {
     rotationMatrix = new THREE.Matrix4();
     rotationMatrix.makeRotationY(degToRad(180));
@@ -410,15 +405,12 @@ function detectPlayerCollision() {
     rotationMatrix.makeRotationY(degToRad(270));
   }
 
-  // Player is not moving forward, apply rotation matrix needed
   if (rotationMatrix !== undefined) {
     cameraDirection.applyMatrix4(rotationMatrix);
   }
 
-  // Apply ray to player camera
   var rayCaster = new THREE.Raycaster(controls.getObject().position, cameraDirection);
 
-  // If our ray hit a collidable object, return true
   if (rayIntersect(rayCaster, PLAYERCOLLISIONDISTANCE)) {
     return true;
   } else {
@@ -429,7 +421,6 @@ function detectPlayerCollision() {
 function rayIntersect(ray, distance) {
   var intersects = ray.intersectObjects(collidableObjects);
   for (var i = 0; i < intersects.length; i++) {
-    // Check if there's a collision
     if (intersects[i].distance < distance) {
       return true;
     }
@@ -447,18 +438,6 @@ function recursiveChild(group, collidableObjects) {
   });
 }
 
-function dumpObject(obj, lines = [], isLast = true, prefix = '') {
-  const localPrefix = isLast ? '└─' : '├─';
-  lines.push(`${prefix}${prefix ? localPrefix : ''}${obj.name || '*no-name*'} [${obj.type}]`);
-  const newPrefix = prefix + (isLast ? '  ' : '│ ');
-  const lastNdx = obj.children.length - 1;
-  obj.children.forEach((child, ndx) => {
-    const isLast = ndx === lastNdx;
-    dumpObject(child, lines, isLast, newPrefix);
-  });
-  return lines;
-}
-
 function interpolation(pos0, pos1, t0, t1, t) {
   if (t < t0) {
     return pos0;
@@ -469,7 +448,7 @@ function interpolation(pos0, pos1, t0, t1, t) {
   return pos0 + ((t - t0) / (t1 - t0)) * (pos1 - pos0);
 }
 
-function alert(msg, time = 3000) {
+function alert(msg, time = 5000) {
   var elem = document.getElementById("alert");
   elem.style.display = "block";
   elem.childNodes[1].innerHTML = msg;
@@ -520,7 +499,7 @@ function insertCode() {
       msgSafe.style.display = "none";
       setTimeout(() => {
         txtInput.value = "";
-      }, 3000);
+      }, 2500);
       enabledMovement = true;
     }
   }
@@ -564,7 +543,7 @@ function initializeClock(id, endtime) {
       controls.enabled = false;
       gameOver = true;
     }
-    if (openGate) {
+    if (openGate && camera.position.x > lowerCoordinatesMap.x - 10) {
       tend.style.display = "none";
       win.style.display = "block";
       clearInterval(timeinterval);
